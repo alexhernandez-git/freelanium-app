@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 const UserCard = () => {
   return (
-    <div className="p-4 rounded-md shadow-lg bg-white">
-      <div className="flex border-b border-gray-200 pb-4 px-4 pt-2 rounded">
+    <div className="p-4 rounded-md shadow-lg bg-white mb-4">
+      <div className="flex border-b border-gray-200 pb-4  pt-2 rounded">
         <div className="mr-4 flex-shrink-0 self-center">
           <img
             className="inline-block h-20 w-20 rounded-full"
@@ -16,10 +16,10 @@ const UserCard = () => {
         </div>
       </div>
       <div className="flex justify-between mt-3">
-        <span className="text-xl text-gray-600 p-2">
+        <span className="text-xl text-gray-600 ">
           Earned on {moment().format("MMMM")}
         </span>
-        <span className="text-2xl font-bold p-2 text-gray-600">$6</span>
+        <span className="text-2xl font-bold text-gray-600">$6</span>
       </div>
     </div>
   );

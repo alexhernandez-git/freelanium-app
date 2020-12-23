@@ -3,11 +3,11 @@ import React from "react";
 const Orders = () => {
   return (
     <>
-      <div className="bg-white overflow-hidden sm:rounded-md shadow-lg">
+      <div className="bg-white overflow-hidden sm:rounded-md shadow-lg mb-5 lg:mb-16">
         <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
           <div className="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
             <div className="ml-4 mt-2">
-              <h3 className="text-lg leading-6 font-medium text-gray-700">
+              <h3 className="text-xl leading-6 font-medium text-gray-700">
                 Active orders <span className="text-gray-500">- 3 ($4300)</span>
               </h3>
             </div>
