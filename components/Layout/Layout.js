@@ -1,28 +1,42 @@
+import { useRouter } from "next/router";
 import React from "react";
+import Footer from "./Footer";
 import Header from "./Header";
+import SearchBar from "./SearchBar";
 
-const Layout = ({ children, pageName = "" }) => {
+const Layout = ({ children, searchBar, pageName = "" }) => {
+  const router = useRouter();
   return (
     <>
       <div className="min-h-screen bg-gray-100">
-        <Header />
-        <div className="py-10">
-          <header>
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold leading-tight text-gray-700">
+        <header>
+          <Header />
+        </header>
+        <div
+          className={`${
+            router.pathname !== "/" && "max-w-7xl"
+          } mx-auto sm:px-6 lg:px-8`}
+        >
+          <div className="py-10">
+            <div className="mx-auto flex justify-between">
+              <h1 className="text-3xl font-bold leading-tight text-gray-600">
                 {pageName}
               </h1>
+              {searchBar && (
+                <>
+                  <SearchBar text={searchBar} />
+                </>
+              )}
             </div>
-          </header>
-          <main>
-            <div className="mx-auto sm:px-6 lg:px-8">
+            <main>
               {/* <!-- Replace with your content --> */}
               <div className="px-4 py-8 sm:px-0">{children}</div>
               {/* <!-- /End replace --> */}
-            </div>
-          </main>
+            </main>
+          </div>
         </div>
       </div>
+      {/* <Footer /> */}
     </>
   );
 };
