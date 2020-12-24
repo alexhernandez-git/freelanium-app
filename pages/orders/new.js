@@ -5,7 +5,7 @@ import OrdersList from "components/pages/Orders/OrdersList";
 
 export default function Home() {
   return (
-    <Layout pageName="Manage Orders">
+    <Layout pageName="Manage Orders" searchBar="Search Orders">
       <OrdersTabs tab="NEW" />
       <OrdersList />
     </Layout>

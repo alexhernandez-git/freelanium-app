@@ -4,6 +4,7 @@ import UserProfile from "components/pages/Messages/UserProfile";
 import Head from "next/head";
 import { useState } from "react";
 import Layout from "../components/Layout/Layout";
+import { SecondaryButton } from "../components/ui/Buttons";
 
 export default function Home() {
   const [showProfile, setShowProfile] = useState(false);
@@ -51,10 +52,7 @@ export default function Home() {
             {!showProfile && (
               <aside className="hidden xl:flex xl:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
-                  <div
-                    class="flex-1 flex flex-col p-8 cursor-pointer"
-                    onClick={handleClickProfile}
-                  >
+                  <div class="flex-1 flex flex-col p-8">
                     <img
                       class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full"
                       src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
@@ -71,6 +69,11 @@ export default function Home() {
                         </span>
                       </dd>
                     </dl>
+                    <SecondaryButton
+                      className="justify-center mt-5"
+                      onClick={handleClickProfile}
+                      text="Show profile"
+                    />
                   </div>
                 </div>
               </aside>

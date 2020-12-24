@@ -8,12 +8,12 @@ import Layout from "components/Layout/Layout";
 export default function Home() {
   return (
     <Layout pageName="Dashboard">
-      <div className="lg:grid grid-cols-12 gap-3">
-        <div className="col-span-4 xl:col-span-3 mb-3 lg:m-0">
+      <div className="lg:grid grid-cols-12 gap-8">
+        <div className="col-span-4 mb-3 lg:m-0">
           <UserCard />
           <Inbox />
         </div>
-        <div className="col-start-5 col-span-8">
+        <div className="col-start-5 col-span-9">
           <Orders />
           <Activity />
         </div>

@@ -5,7 +5,7 @@ const Chat = () => {
     <div className="flex">
       <div className="w-full flex flex-col justify-between">
         <div>
-          <div className="  border-b">
+          <div className="border-b">
             <nav
               className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
               aria-label="Breadcrumb"
@@ -82,15 +82,18 @@ const Chat = () => {
             </div>
           </div>
         </div>
-        <div className="self-end flex flex-col">
-          <div className="p-3">
+        <div
+          className="self-end flex flex-col relative overflow-hidden"
+          style={{ paddingBottom: "38px" }}
+        >
+          <div className="p-3 h-full overflow-y-auto">
             <ul>
               <li>
                 <div className="relative pb-8">
-                  <div className="relative flex items-start space-x-3 w-3/4">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
                     <div className="relative">
                       <img
-                        className="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden lg:flex items-center justify-center ring-8 ring-white"
                         src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
                         alt=""
                       />
@@ -120,7 +123,7 @@ const Chat = () => {
               </li>
               <li>
                 <div className="relative pb-8 flex justify-end">
-                  <div className="relative flex items-start space-x-3 w-3/4">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
                     <div className="min-w-0 flex-1">
                       <div className="text-right">
                         <div className="text-sm ">
@@ -143,7 +146,139 @@ const Chat = () => {
                     </div>
                     <div className="relative">
                       <img
-                        className="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white"
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden  lg:flex items-center justify-center ring-8 ring-white"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="relative pb-8">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
+                    <div className="relative">
+                      <img
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden lg:flex items-center justify-center ring-8 ring-white"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
+                        alt=""
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div>
+                        <div className="text-sm">
+                          <a href="#" className="font-medium text-gray-900">
+                            Jason Meyers
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
+                      </div>
+                      <div className="mt-2 text-sm text-gray-700">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Tincidunt nunc ipsum tempor purus vitae id.
+                          Morbi in vestibulum nec varius. Et diam cursus quis
+                          sed purus nam. Scelerisque amet elit non sit ut
+                          tincidunt condimentum. Nisl ultrices eu venenatis
+                          diam.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="relative pb-8 flex justify-end">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-right">
+                        <div className="text-sm ">
+                          <a href="#" className="font-medium text-gray-900">
+                            Jason Meyers
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
+                      </div>
+                      <div className="mt-2 text-sm text-gray-700">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Tincidunt nunc ipsum tempor purus vitae id.
+                          Morbi in vestibulum nec varius. Et diam cursus quis
+                          sed purus nam. Scelerisque amet elit non sit ut
+                          tincidunt condimentum. Nisl ultrices eu venenatis
+                          diam.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <img
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden  lg:flex items-center justify-center ring-8 ring-white"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="relative pb-8">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
+                    <div className="relative">
+                      <img
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden lg:flex items-center justify-center ring-8 ring-white"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
+                        alt=""
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div>
+                        <div className="text-sm">
+                          <a href="#" className="font-medium text-gray-900">
+                            Jason Meyers
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
+                      </div>
+                      <div className="mt-2 text-sm text-gray-700">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Tincidunt nunc ipsum tempor purus vitae id.
+                          Morbi in vestibulum nec varius. Et diam cursus quis
+                          sed purus nam. Scelerisque amet elit non sit ut
+                          tincidunt condimentum. Nisl ultrices eu venenatis
+                          diam.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div className="relative pb-8 flex justify-end">
+                  <div className="relative flex items-start space-x-3 lg:w-3/4">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-right">
+                        <div className="text-sm ">
+                          <a href="#" className="font-medium text-gray-900">
+                            Jason Meyers
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
+                      </div>
+                      <div className="mt-2 text-sm text-gray-700">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Tincidunt nunc ipsum tempor purus vitae id.
+                          Morbi in vestibulum nec varius. Et diam cursus quis
+                          sed purus nam. Scelerisque amet elit non sit ut
+                          tincidunt condimentum. Nisl ultrices eu venenatis
+                          diam.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <img
+                        className="h-10 w-10 rounded-full bg-gray-400 hidden  lg:flex items-center justify-center ring-8 ring-white"
                         src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
                         alt=""
                       />
@@ -153,39 +288,33 @@ const Chat = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="absolute bottom-0 w-full">
             <div className="mt-1 flex rounded-md shadow-sm">
               <div className="relative flex items-stretch flex-grow focus-within:z-10">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg
-                    className="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                  </svg>
-                </div>
                 <input
                   type="text"
                   name="text"
                   id="text"
-                  className=" block w-full pl-10 sm:text-sm border-gray-300 focus:ring-0"
-                  placeholder="John Doe"
+                  className=" block w-full sm:text-sm border-gray-300 focus:ring-0"
+                  placeholder="New Message"
                 />
               </div>
               <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
                 <svg
                   className="h-5 w-5 text-gray-400"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h5a1 1 0 000-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM13 16a1 1 0 102 0v-5.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 10.414V16z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                  />
                 </svg>
-                <span>Sort</span>
+                <span>Enviar</span>
               </button>
             </div>
           </div>

@@ -18,10 +18,11 @@ const Layout = ({ children, searchBar, pageName = "" }) => {
           } mx-auto sm:px-6 lg:px-8`}
         >
           <div className="py-10">
-            <div className="mx-auto flex justify-between">
+            <div className="mx-auto sm:flex justify-between p-4 sm:p-0">
               <h1 className="text-3xl font-bold leading-tight text-gray-600">
                 {pageName}
               </h1>
+              <div className="m-3 block sm:hidden"></div>
               {searchBar && (
                 <>
                   <SearchBar text={searchBar} />

@@ -3,6 +3,7 @@ import DropdownMenu from "components/Header/DropdownMenu";
 import { PrimaryButton } from "components/ui/Buttons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { InfoBadge } from "components/ui/Badges";
 
 const Header = () => {
   const router = useRouter();
@@ -90,7 +91,14 @@ const Header = () => {
                 />
               </svg>
             </button> */}
-            <PrimaryButton text="Send an Offer" className="mr-3" />
+            {/* <div className="hidden lg:block mr-5">
+              <span className="text-gray-400 text-sm">Balance:</span>{" "}
+              <InfoBadge text="$1000" />
+            </div> */}
+            <PrimaryButton
+              text="Send an Offer"
+              className="hidden md:block mr-3"
+            />
             {/* <!-- Profile dropdown --> */}
             <DropdownMenu />
           </div>
