@@ -1,8 +1,15 @@
 import Layout from "components/Layout/Layout";
 import {
-  OfferCancelledActivity,
-  OfferAcceptedActivity,
-  OfferActivity,
+  OfferCancelled,
+  OfferAccepted,
+  Offer,
+  RequestChangeDateDelivery,
+  RequestChangeDateDeliveryAccepted,
+  RequestChangeDateDeliveryCancelled,
+  RequestCancelOrder,
+  RequestCancelOrderAccepted,
+  RequestCancelOrderCancelled,
+  RequestIncreaseMoney,
 } from "components/pages/order/Activity/ActivityElements";
 import OrderLayout from "components/pages/order/OrderLayout";
 import React from "react";
@@ -13,9 +20,16 @@ const activity = () => {
       <OrderLayout title="Activity">
         <div class="flow-root">
           <ul class="-mb-8">
-            <OfferActivity />
-            <OfferAcceptedActivity />
-            <OfferCancelledActivity />
+            <Offer />
+            <OfferAccepted />
+            <OfferCancelled />
+            <RequestChangeDateDelivery />
+            <RequestChangeDateDeliveryAccepted />
+            <RequestChangeDateDeliveryCancelled />
+            <RequestCancelOrder />
+            <RequestCancelOrderAccepted />
+            <RequestCancelOrderCancelled />
+            <RequestIncreaseMoney />
           </ul>
         </div>
       </OrderLayout>
