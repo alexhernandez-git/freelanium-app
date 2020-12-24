@@ -1157,7 +1157,7 @@ const OfferDeliveredCancelled = () => {
             <div className="flex justify-between">
               <div className="text-sm">
                 <span href="#" className="font-medium text-gray-900">
-                  Delivery Cancelled
+                  Delivery not accepted
                 </span>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">
                   Mark not accepted the delivery.
