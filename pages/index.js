@@ -1,7 +1,7 @@
-import Activity from "components/pages/Dashboard/Activity";
-import Inbox from "components/pages/Dashboard/Inbox";
-import Orders from "components/pages/Dashboard/Orders";
-import UserCard from "components/pages/Dashboard/UserCard";
+import Activity from "components/pages/dashboard/Activity";
+import Inbox from "components/pages/dashboard/Inbox";
+import Orders from "components/pages/dashboard/Orders";
+import UserCard from "components/pages/dashboard/UserCard";
 import Head from "next/head";
 import Layout from "components/Layout/Layout";
 

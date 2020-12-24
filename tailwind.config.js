@@ -2,7 +2,11 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "animate-spin": "spin 1s linear infinite",
+      },
+    },
   },
   variants: {
     extend: {},

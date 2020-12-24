@@ -1,6 +1,6 @@
-import Chat from "components/pages/Messages/Chat";
-import ChatroomCard from "components/pages/Messages/ChatroomCard";
-import UserProfile from "components/pages/Messages/UserProfile";
+import Chat from "components/pages/messages/Chat";
+import ChatroomCard from "components/pages/messages/ChatroomCard";
+import UserProfile from "components/pages/messages/UserProfile";
 import Head from "next/head";
 import { useState } from "react";
 import Layout from "../components/Layout/Layout";
@@ -50,7 +50,7 @@ export default function Home() {
               <Chat />
             )}
             {!showProfile && (
-              <aside className="hidden xl:flex xl:flex-col flex-shrink-0 w-50 border-l border-gray-200">
+              <aside className="hidden md:flex md:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
                   <div class="flex-1 flex flex-col p-8">
                     <img
@@ -72,8 +72,9 @@ export default function Home() {
                     <SecondaryButton
                       className="justify-center mt-5"
                       onClick={handleClickProfile}
-                      text="Show profile"
-                    />
+                    >
+                      Show profile
+                    </SecondaryButton>
                   </div>
                 </div>
               </aside>

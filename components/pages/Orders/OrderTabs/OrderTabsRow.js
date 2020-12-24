@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const OrderTabsRow = ({ order }) => {
@@ -43,9 +44,9 @@ const OrderTabsRow = ({ order }) => {
       </td>
 
       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <a href="#" class="text-indigo-600 hover:text-indigo-900">
-          Info
-        </a>
+        <Link href="/order/1">
+          <a class="text-indigo-600 hover:text-indigo-900">View</a>
+        </Link>
       </td>
     </tr>
   );

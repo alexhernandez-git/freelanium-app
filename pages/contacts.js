@@ -1,4 +1,4 @@
-import ContactCard from "components/pages/Contacts/ContactCard";
+import ContactCard from "components/pages/contacts/ContactCard";
 import Head from "next/head";
 import Layout from "../components/Layout/Layout";
 

@@ -1,4 +1,4 @@
-import OrdersCard from "components/pages/Dashboard/Orders/OrdersCard";
+import OrdersCard from "components/pages/dashboard/Orders/OrdersCard";
 import React from "react";
 
 const Orders = () => {
@@ -55,7 +55,7 @@ const Orders = () => {
     --> */}
                   <div className="hidden absolute mt-1 w-full rounded-md bg-white shadow-lg">
                     <ul
-                      tabindex="-1"
+                      tabIndex="-1"
                       role="listbox"
                       aria-labelledby="listbox-label"
                       aria-activedescendant="listbox-item-3"

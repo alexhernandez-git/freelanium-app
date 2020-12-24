@@ -19,7 +19,7 @@ const OrdersTabs = ({ tab }) => {
         <div className="mt-4">
           {/* <!-- Dropdown menu on small screens --> */}
           <div className="sm:hidden">
-            <label for="selected-tab" className="sr-only">
+            <label htmlFor="selected-tab" className="sr-only">
               Select a tab
             </label>
             <select
@@ -27,19 +27,19 @@ const OrdersTabs = ({ tab }) => {
               name="selected-tab"
               className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             >
-              <option selected={tab === "PRIORITY"}>PRIORITY</option>
+              <option defaultValue={tab === "PRIORITY"}>PRIORITY</option>
 
-              <option selected={tab === "NEW"}>NEW</option>
+              <option defaultValue={tab === "NEW"}>NEW</option>
 
-              <option selected={tab === "ACTIVE"}>ACTIVE</option>
+              <option defaultValue={tab === "ACTIVE"}>ACTIVE</option>
 
-              <option selected={tab === "LATE"}>LATE</option>
+              <option defaultValue={tab === "LATE"}>LATE</option>
 
-              <option selected={tab === "COMPLETED"}>COMPLETED</option>
+              <option defaultValue={tab === "COMPLETED"}>COMPLETED</option>
 
-              <option selected={tab === "DELIVERED"}>DELIVERED</option>
+              <option defaultValue={tab === "DELIVERED"}>DELIVERED</option>
 
-              <option selected={tab === "CANCELLED"}>CANCELLED</option>
+              <option defaultValue={tab === "CANCELLED"}>CANCELLED</option>
             </select>
           </div>
           {/* <!-- Tabs at small breakpoint and up --> */}

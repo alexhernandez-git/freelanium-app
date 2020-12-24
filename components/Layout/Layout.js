@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 
-const Layout = ({ children, searchBar, pageName = "" }) => {
+const Layout = ({ children, searchBar, noPadding, pageName = "" }) => {
   const router = useRouter();
   return (
     <>
@@ -13,11 +13,15 @@ const Layout = ({ children, searchBar, pageName = "" }) => {
           <Header />
         </header>
         <div
-          className={`${
-            router.pathname !== "/" && "max-w-7xl"
-          } mx-auto sm:px-6 lg:px-8`}
+          className={
+            !noPadding
+              ? `${
+                  router.pathname !== "/" && "max-w-7xl"
+                } mx-auto sm:px-6 lg:px-8`
+              : " "
+          }
         >
-          <div className="py-10">
+          <div className={!noPadding ? "py-10" : " "}>
             <div className="mx-auto sm:flex justify-between p-4 sm:p-0">
               <h1 className="text-3xl font-bold leading-tight text-gray-600">
                 {pageName}
@@ -31,7 +35,9 @@ const Layout = ({ children, searchBar, pageName = "" }) => {
             </div>
             <main>
               {/* <!-- Replace with your content --> */}
-              <div className="px-4 py-8 sm:px-0">{children}</div>
+              <div className={!noPadding ? "px-4 py-8 sm:px-0" : " "}>
+                {children}
+              </div>
               {/* <!-- /End replace --> */}
             </main>
           </div>
