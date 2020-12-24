@@ -10,6 +10,8 @@ import {
   RequestCancelOrderAccepted,
   RequestCancelOrderCancelled,
   RequestIncreaseMoney,
+  RequestIncreaseMoneyCancelled,
+  RequestIncreaseMoneyAccepted,
 } from "components/pages/order/Activity/ActivityElements";
 import OrderLayout from "components/pages/order/OrderLayout";
 import React from "react";
@@ -30,6 +32,8 @@ const activity = () => {
             <RequestCancelOrderAccepted />
             <RequestCancelOrderCancelled />
             <RequestIncreaseMoney />
+            <RequestIncreaseMoneyAccepted />
+            <RequestIncreaseMoneyCancelled />
           </ul>
         </div>
       </OrderLayout>

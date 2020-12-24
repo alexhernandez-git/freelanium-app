@@ -39,7 +39,7 @@ const InfoIcon = () => {
 const CancelIcon = () => {
   return (
     <svg
-      className="h-5 w-5 text-gray-500"
+      className="h-5 w-5 text-red-500"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -706,7 +706,7 @@ const RequestCancelOrderCancelled = () => {
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500"></dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                  <span className="mr-3 text-gray-500">Failed</span>
+                  <span className="mr-3 text-gray-500">Not accepted</span>
                 </dd>
               </div>
             </div>
@@ -770,7 +770,133 @@ const RequestIncreaseMoney = () => {
                 <dt className="text-sm font-medium text-gray-500"></dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
                   <span className="mr-3 text-gray-500">Cancel</span>
-                  <PrimaryButton>Accept</PrimaryButton>
+                  <PrimaryButton>Continue</PrimaryButton>
+                </dd>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+const RequestIncreaseMoneyAccepted = () => {
+  return (
+    <li>
+      <div className="relative pb-8">
+        <span
+          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+          aria-hidden="true"
+        ></span>
+        <div className="relative flex items-start space-x-3">
+          <div>
+            <div className="relative px-1">
+              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                {SuccessIcon()}
+              </div>
+            </div>
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex justify-between">
+              <div className="text-sm">
+                <span href="#" className="font-medium text-gray-900">
+                  Request increase money to the order accepted
+                </span>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                  Maria accepted the request to increase money to the order.
+                </p>
+              </div>
+              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
+            </div>
+            <div class="mt-2 bg-white shadow overflow-hidden sm:rounded-lg opacity-75">
+              <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg font-medium text-gray-900">
+                  Alex sent you a request to increase{" "}
+                  <span className="font-bold">$500</span> to the order.
+                </h3>
+              </div>
+              <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                  <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Reason</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Consequuntur, rem minus aut, adipisci magni earum
+                      voluptatum facere provident voluptate quasi et alias eius
+                      tempora necessitatibus asperiores, tempore saepe. Quia,
+                      velit?
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500"></dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
+                  <PrimaryButton disabled>Accepted</PrimaryButton>
+                </dd>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+const RequestIncreaseMoneyCancelled = () => {
+  return (
+    <li>
+      <div className="relative pb-8">
+        <span
+          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+          aria-hidden="true"
+        ></span>
+        <div className="relative flex items-start space-x-3">
+          <div>
+            <div className="relative px-1">
+              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                {CancelIcon()}
+              </div>
+            </div>
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex justify-between">
+              <div className="text-sm">
+                <span href="#" className="font-medium text-gray-900">
+                  Request increase money to the order not accepted
+                </span>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                  Maria not accepted the request to increase money to the order.
+                </p>
+              </div>
+              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
+            </div>
+            <div class="mt-2 bg-white shadow overflow-hidden sm:rounded-lg opacity-75">
+              <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg font-medium text-gray-900">
+                  Alex sent you a request to increase{" "}
+                  <span className="font-bold">$500</span> to the order.
+                </h3>
+              </div>
+              <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                  <div class="sm:col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Reason</dt>
+                    <dd class="mt-1 text-sm text-gray-900">
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Consequuntur, rem minus aut, adipisci magni earum
+                      voluptatum facere provident voluptate quasi et alias eius
+                      tempora necessitatibus asperiores, tempore saepe. Quia,
+                      velit?
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500"></dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
+                  <span className="mr-3 text-gray-500">Not accepted</span>
                 </dd>
               </div>
             </div>
@@ -792,4 +918,6 @@ export {
   RequestCancelOrderAccepted,
   RequestCancelOrderCancelled,
   RequestIncreaseMoney,
+  RequestIncreaseMoneyAccepted,
+  RequestIncreaseMoneyCancelled,
 };
