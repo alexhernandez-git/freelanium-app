@@ -135,7 +135,7 @@ const Header = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-5">
               <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                Badge
+                Free Trial
               </span>
             </div>
             <div className="flex-shrink-0 ">

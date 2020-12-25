@@ -202,7 +202,7 @@ const billing = () => {
                                   Start your trial
                                 </a>
                               </Link> */}
-                              <Link href="/settings/billing-information">
+                              <Link href="/dashboard/settings/billing-information">
                                 <a className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
                                   Add Billing Information
                                 </a>

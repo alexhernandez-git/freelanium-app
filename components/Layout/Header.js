@@ -71,7 +71,7 @@ const Header = () => {
           <span class="inline-flex rounded-md shadow ml-3">
             <Link href="/login">
               <a class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                Join
+                Try it free
               </a>
             </Link>
           </span>

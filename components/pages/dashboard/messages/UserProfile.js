@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 const UserProfile = ({ handleCloseProfile = null }) => {
   const router = useRouter();
   const goToMessages = () => {
-    router.push("/messages");
+    router.push("/dashboard/messages");
   };
   return (
     <article className="bg-white pb-10">

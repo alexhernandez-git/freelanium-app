@@ -5,14 +5,14 @@ const OrdersCard = () => {
   const router = useRouter();
   const goToProfile = (e) => {
     e.preventDefault();
-    router.push("/profile");
+    router.push("/dashboard/profile");
   };
   const goToMessages = (e) => {
     e.preventDefault();
-    router.push("/messages");
+    router.push("/dashboard/messages");
   };
   return (
-    <Link href="/order/1">
+    <Link href="/dashboard/order/1">
       <a className="block hover:bg-gray-50">
         <div className="flex items-center px-4 py-4 sm:px-6">
           <div className="min-w-0 flex-1 flex items-center">
