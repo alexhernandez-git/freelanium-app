@@ -4,7 +4,13 @@ import Footer from "./Footer";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 
-const Layout = ({ children, searchBar, noPadding, pageName = "" }) => {
+const Layout = ({
+  children,
+  searchBar,
+  noPadding,
+  noPaddingY,
+  pageName = "",
+}) => {
   const router = useRouter();
   return (
     <>
@@ -21,8 +27,12 @@ const Layout = ({ children, searchBar, noPadding, pageName = "" }) => {
               : " "
           }
         >
-          <div className={!noPadding ? "py-10" : " "}>
-            <div className="mx-auto sm:flex justify-between p-4 sm:p-0">
+          <div className={!noPadding && !noPaddingY ? "py-10" : " "}>
+            <div
+              className={
+                searchBar ? "mx-auto sm:flex justify-between p-4 sm:p-0" : ""
+              }
+            >
               <h1 className="text-3xl font-bold leading-tight text-gray-600">
                 {pageName}
               </h1>
@@ -35,7 +45,13 @@ const Layout = ({ children, searchBar, noPadding, pageName = "" }) => {
             </div>
             <main>
               {/* <!-- Replace with your content --> */}
-              <div className={!noPadding ? "px-4 py-8 sm:px-0" : " "}>
+              <div
+                className={
+                  !noPadding
+                    ? `px-4 ${!noPaddingY ? "py-8" : "lg:py-8"}  sm:px-0`
+                    : " "
+                }
+              >
                 {children}
               </div>
               {/* <!-- /End replace --> */}

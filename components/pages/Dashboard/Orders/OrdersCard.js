@@ -3,7 +3,11 @@ import React from "react";
 import { useRouter } from "next/router";
 const OrdersCard = () => {
   const router = useRouter();
-  const goToMessage = (e) => {
+  const goToProfile = (e) => {
+    e.preventDefault();
+    router.push("/profile");
+  };
+  const goToMessages = (e) => {
     e.preventDefault();
     router.push("/messages");
   };
@@ -21,12 +25,15 @@ const OrdersCard = () => {
             </div>
             <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-4">
               <div>
-                <p className="text-sm font-medium text-indigo-600 truncate">
+                <p
+                  className="text-sm font-medium text-indigo-600 truncate hover:underline"
+                  onClick={goToProfile}
+                >
                   Ricardo Cooper
                 </p>
                 <p
-                  className="mt-2 flex items-center text-sm text-gray-500"
-                  onClick={goToMessage}
+                  className="mt-2 flex items-center text-sm text-gray-500 hover:underline"
+                  onClick={goToMessages}
                 >
                   {/* <!-- Heroicon name: mail --> */}
                   <svg
