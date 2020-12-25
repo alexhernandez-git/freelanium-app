@@ -62,12 +62,18 @@ const Header = () => {
         </div>
         <div class="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
           <span class="inline-flex rounded-md shadow">
-            <a
-              href="#"
-              class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
-            >
-              Log in
-            </a>
+            <Link href="/login">
+              <a class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                Log in
+              </a>
+            </Link>
+          </span>
+          <span class="inline-flex rounded-md shadow ml-3">
+            <Link href="/login">
+              <a class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                Join
+              </a>
+            </Link>
           </span>
         </div>
       </nav>
