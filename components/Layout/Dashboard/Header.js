@@ -111,7 +111,7 @@ const Header = () => {
               <Link href="/dashboard/messages">
                 <a
                   className={
-                    router.pathname === "/messages"
+                    router.pathname === "/dashboard/messages"
                       ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                       : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   }
@@ -133,7 +133,12 @@ const Header = () => {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 mr-5">
+              <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                Badge
+              </span>
+            </div>
+            <div className="flex-shrink-0 ">
               <button
                 type="button"
                 className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

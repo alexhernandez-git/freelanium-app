@@ -21,7 +21,7 @@ const Layout = ({
           className={
             !noPadding
               ? `${
-                  router.pathname !== "/" && "max-w-7xl"
+                  router.pathname !== "/dashboard" && "max-w-7xl"
                 } mx-auto sm:px-6 lg:px-8`
               : " "
           }
