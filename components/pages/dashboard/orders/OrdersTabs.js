@@ -45,7 +45,7 @@ const OrdersTabs = ({ tab }) => {
           {/* <!-- Tabs at small breakpoint and up --> */}
           <div className="hidden sm:block">
             <nav className="-mb-px flex space-x-8">
-              <Link href="/orders">
+              <Link href="/dashboard/orders">
                 <a
                   className={
                     tab === "PRIORITY"
@@ -57,7 +57,7 @@ const OrdersTabs = ({ tab }) => {
                   PRIORITY
                 </a>
               </Link>
-              <Link href="/orders/new">
+              <Link href="/dashboard/orders/new">
                 <a
                   className={
                     tab === "NEW"
@@ -71,7 +71,7 @@ const OrdersTabs = ({ tab }) => {
               </Link>
 
               {/* <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" --> */}
-              <Link href="/orders/active">
+              <Link href="/dashboard/orders/active">
                 <a
                   className={
                     tab === "ACTIVE"
@@ -83,7 +83,7 @@ const OrdersTabs = ({ tab }) => {
                   ACTIVE
                 </a>
               </Link>
-              <Link href="/orders/late">
+              <Link href="/dashboard/orders/late">
                 <a
                   className={
                     tab === "LATE"
@@ -95,7 +95,7 @@ const OrdersTabs = ({ tab }) => {
                   LATE
                 </a>
               </Link>
-              <Link href="/orders/completed">
+              <Link href="/dashboard/orders/completed">
                 <a
                   className={
                     tab === "COMPLETED"
@@ -107,7 +107,7 @@ const OrdersTabs = ({ tab }) => {
                   COMPLETED
                 </a>
               </Link>
-              <Link href="/orders/delivered">
+              <Link href="/dashboard/orders/delivered">
                 <a
                   className={
                     tab === "DELIVERED"
@@ -119,7 +119,7 @@ const OrdersTabs = ({ tab }) => {
                   DELIVERED
                 </a>
               </Link>
-              <Link href="/orders/canceled">
+              <Link href="/dashboard/orders/canceled">
                 <a
                   className={
                     tab === "CANCELLED"

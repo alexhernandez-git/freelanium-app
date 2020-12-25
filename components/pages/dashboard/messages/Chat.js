@@ -1,8 +1,8 @@
 import React from "react";
 
-const Chat = () => {
+const Chat = ({ showMessages, handleShowMessages }) => {
   return (
-    <div className="flex">
+    <div className={`${showMessages ? "hidden xl:block" : " "} flex`}>
       <div className="w-full flex flex-col justify-between">
         <div>
           <div className="border-b">
@@ -11,8 +11,8 @@ const Chat = () => {
               aria-label="Breadcrumb"
             >
               <a
-                href="#"
-                className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+                onClick={handleShowMessages}
+                className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900 cursor-pointer"
               >
                 <svg
                   className="-ml-2 h-5 w-5 text-gray-400"

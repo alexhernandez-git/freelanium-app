@@ -12,7 +12,7 @@ const Inbox = () => {
             </h3>
           </div>
           <div className="ml-4 mt-2 flex-shrink-0">
-            <Link href="/messages">
+            <Link href="/dashboard/messages">
               <a className="text-blue-600">View all</a>
             </Link>
           </div>

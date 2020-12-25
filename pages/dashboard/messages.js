@@ -2,7 +2,7 @@ import Chat from "components/pages/dashboard/messages/Chat";
 import ChatroomCard from "components/pages/dashboard/messages/ChatroomCard";
 import UserProfile from "components/pages/dashboard/messages/UserProfile";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Dashboard/Layout";
 import { SecondaryButton } from "../../components/ui/Buttons";
 
@@ -14,6 +14,16 @@ export default function Home() {
   const handleCloseProfile = () => {
     setShowProfile(false);
   };
+  const [showMessages, setShowMessages] = useState(false);
+  const handleShowMessages = () => {
+    setShowMessages(true);
+  };
+  const handleHideMessages = () => {
+    setShowMessages(false);
+  };
+  useEffect(() => {
+    console.log(showMessages);
+  }, [showMessages]);
   return (
     <Layout>
       <div style={{ height: "75vh" }} className="flex overflow-hidden bg-white">
@@ -47,9 +57,12 @@ export default function Home() {
             {showProfile ? (
               <UserProfile handleCloseProfile={handleCloseProfile} />
             ) : (
-              <Chat />
+              <Chat
+                showMessages={showMessages}
+                handleShowMessages={handleShowMessages}
+              />
             )}
-            {!showProfile && (
+            {!showProfile && !showMessages && (
               <aside className="hidden md:flex md:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
                   <div class="flex-1 flex flex-col p-8">
@@ -79,7 +92,11 @@ export default function Home() {
                 </div>
               </aside>
             )}
-            <aside className="hidden xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
+            <aside
+              className={`${
+                showMessages ? "w-full" : "hidden"
+              }  xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200`}
+            >
               <div className="px-6 pt-6 pb-4">
                 <h2 className="text-lg font-medium text-gray-900">Messages</h2>
                 {/* <p className="mt-1 text-sm text-gray-600">
@@ -141,7 +158,10 @@ export default function Home() {
                 className="flex-1 min-h-0 relative overflow-y-auto"
                 aria-label="Directory"
               >
-                <ul className="relative z-0 divide-y divide-gray-200">
+                <ul
+                  className="relative z-0 divide-y divide-gray-200"
+                  onClick={handleHideMessages}
+                >
                   <ChatroomCard />
                   <ChatroomCard />
                   <ChatroomCard />
