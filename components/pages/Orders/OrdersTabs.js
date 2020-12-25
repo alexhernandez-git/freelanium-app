@@ -6,7 +6,7 @@ const OrdersTabs = ({ tab }) => {
   return (
     <>
       <div className="relative pb-5 border-b border-gray-200 sm:pb-0 mb-4">
-        <div className="md:flex md:items-center md:justify-between">
+        {/* <div className="md:flex md:items-center md:justify-between">
           <div className="mt-3 flex md:mt-0 md:absolute md:top-3 md:right-0">
             <button
               type="button"
@@ -15,7 +15,7 @@ const OrdersTabs = ({ tab }) => {
               Create
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="mt-4">
           {/* <!-- Dropdown menu on small screens --> */}
           <div className="sm:hidden">
