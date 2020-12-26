@@ -17,7 +17,15 @@ const Layout = ({
         <header>
           <Header />
         </header>
-        <div className={!noPadding ? ` mx-auto sm:px-6 lg:px-8` : " "}>
+        <div
+          className={
+            !noPadding
+              ? `${
+                  router.pathname !== "/dashboard" && "max-w-7xl"
+                } mx-auto sm:px-6 lg:px-8`
+              : " "
+          }
+        >
           <div className={!noPadding && !noPaddingY ? "py-10" : " "}>
             <div
               className={
