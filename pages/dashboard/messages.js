@@ -14,7 +14,7 @@ export default function Home() {
   const handleCloseProfile = () => {
     setShowProfile(false);
   };
-  const [showMessages, setShowMessages] = useState(false);
+  const [showMessages, setShowMessages] = useState(true);
   const handleShowMessages = () => {
     setShowMessages(true);
   };
@@ -62,7 +62,7 @@ export default function Home() {
                 handleShowMessages={handleShowMessages}
               />
             )}
-            {!showProfile && !showMessages && (
+            {!showProfile && (
               <aside className="hidden md:flex md:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
                   <div class="flex-1 flex flex-col p-8">
@@ -93,9 +93,8 @@ export default function Home() {
               </aside>
             )}
             <aside
-              className={`${
-                showMessages ? "w-full" : "hidden"
-              }  xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200`}
+              className={`${showMessages ? "w-full" : "w-0"}
+                lg:order-first lg:flex lg:flex-col flex-shrink-0 lg:w-96 border-r border-gray-200`}
             >
               <div className="px-6 pt-6 pb-4">
                 <h2 className="text-lg font-medium text-gray-900">Messages</h2>
