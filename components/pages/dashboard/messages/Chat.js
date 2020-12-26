@@ -1,6 +1,6 @@
 import React from "react";
 
-const Chat = ({ showMessages, handleShowMessages }) => {
+const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   return (
     <>
       <div className={`${showMessages ? "hidden md:flex" : "flex"}`}>
@@ -33,7 +33,10 @@ const Chat = ({ showMessages, handleShowMessages }) => {
               </nav>
               <div className="p-2">
                 <div>
-                  <div className="flex items-center">
+                  <div
+                    className="flex items-center cursor-pointer"
+                    onClick={handleClickProfile}
+                  >
                     <img
                       className="h-16 w-16 rounded-full lg:hidden"
                       src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"

@@ -60,6 +60,7 @@ export default function Home() {
               <Chat
                 showMessages={showMessages}
                 handleShowMessages={handleShowMessages}
+                handleClickProfile={handleClickProfile}
               />
             )}
             {!showProfile && (
