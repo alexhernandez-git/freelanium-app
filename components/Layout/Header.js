@@ -127,19 +127,19 @@ const Header = () => {
             <div>
               <div className="text-center">
                 <h3
-                  className="text-3xl leading-6 font-medium text-gray-900"
+                  className="text-2xl  leading-6 font-bold text-gray-900 "
                   id="modal-headline"
                 >
                   Try platform for 14 days
                 </h3>
-                <div className="mt-3">
+                <div className="mt-4">
                   <p className="text-sm text-gray-500">
                     Immediate access. No credit card required.
                   </p>
                 </div>
               </div>
             </div>
-            <div className="mt-5">
+            <div className="mt-7">
               <div>
                 <div className="mt-1">
                   <input
@@ -147,7 +147,7 @@ const Header = () => {
                     name="email"
                     type="email"
                     autocomplete="email"
-                    placeholder="WORK EMAIL"
+                    placeholder="Email"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -155,12 +155,16 @@ const Header = () => {
               </div>
             </div>
             <div className="mt-5 sm:mt-6">
-              <button
-                type="button"
-                className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-lg"
-              >
-                Continue
-              </button>
+              <Link href="/register">
+                <a>
+                  <button
+                    type="button"
+                    className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-lg"
+                  >
+                    Continue
+                  </button>
+                </a>
+              </Link>
             </div>
           </div>
         </div>

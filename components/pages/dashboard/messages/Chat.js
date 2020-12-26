@@ -2,7 +2,7 @@ import React from "react";
 
 const Chat = ({ showMessages, handleShowMessages }) => {
   return (
-    <div className={`${showMessages ? "hidden xl:block" : " "} flex`}>
+    <div className={`${showMessages ? "hidden xl:block" : "flex"} `}>
       <div className="w-full flex flex-col justify-between">
         <div>
           <div className="border-b">
