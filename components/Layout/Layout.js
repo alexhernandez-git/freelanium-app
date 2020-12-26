@@ -3,7 +3,7 @@ import { Header, MobileHeader } from "components/Layout/Header";
 import Footer from "./Footer";
 import { useRouter } from "next/router";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
   const router = useRouter();
   return (
     <>
@@ -81,7 +81,10 @@ const Layout = ({ children }) => {
         </div>
 
         <div class="relative pt-6 pb-16 sm:pb-24">
-          <Header />
+          <Header
+            openTryItFree={openTryItFree}
+            handleCloseTryFree={handleCloseTryFree}
+          />
           <MobileHeader />
           {children}
         </div>

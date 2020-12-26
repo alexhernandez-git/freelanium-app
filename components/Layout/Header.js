@@ -1,8 +1,8 @@
 import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const Header = () => {
+const Header = ({ openTryItFree, handleCloseTryFree }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -12,8 +12,13 @@ const Header = () => {
   const handleHideModal = () => {
     if (showModal) {
       setShowModal(false);
+      handleCloseTryFree();
     }
   };
+
+  useEffect(() => {
+    setShowModal(openTryItFree);
+  }, [openTryItFree]);
   const modalRef = useRef();
   useOutsideClick(modalRef, () => handleHideModal());
   return (

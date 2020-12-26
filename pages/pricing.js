@@ -1,9 +1,19 @@
 import Layout from "components/Layout/Layout";
-import React from "react";
+import React, { useState } from "react";
 
 const pricing = () => {
+  const [openTryItFree, setOpenTryItFree] = useState(false);
+  const handleOpenTryFree = () => {
+    setOpenTryItFree(true);
+  };
+  const handleCloseTryFree = () => {
+    setOpenTryItFree(false);
+  };
   return (
-    <Layout>
+    <Layout
+      openTryItFree={openTryItFree}
+      handleCloseTryFree={handleCloseTryFree}
+    >
       <div class="bg-white mt-12">
         <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
           <div class="pb-16 xl:flex xl:items-center xl:justify-between">
@@ -18,8 +28,8 @@ const pricing = () => {
               </p>
             </div>
             <a
-              href="#"
-              class="mt-8 w-full bg-indigo-600 border border-transparent px-5 py-3 inline-flex items-center justify-center text-base font-medium rounded-md text-white hover:bg-indigo-700 sm:mt-10 sm:w-auto xl:mt-0"
+              onClick={handleOpenTryFree}
+              class="cursor-pointer mt-8 w-full bg-indigo-600 border border-transparent px-5 py-3 inline-flex items-center justify-center text-base font-medium rounded-md text-white hover:bg-indigo-700 sm:mt-10 sm:w-auto xl:mt-0"
             >
               Get started today
             </a>
