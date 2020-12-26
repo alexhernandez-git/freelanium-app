@@ -35,7 +35,7 @@ const Chat = ({ showMessages, handleShowMessages }) => {
                 <div>
                   <div className="flex items-center">
                     <img
-                      className="h-16 w-16 rounded-full md:hidden"
+                      className="h-16 w-16 rounded-full lg:hidden"
                       src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"
                       alt=""
                     />

@@ -151,9 +151,11 @@ const Header = () => {
             </div>
             <div className="flex items-center">
               <div className="flex-shrink-0 mr-5">
-                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                  Free Trial
-                </span>
+                <Link href="/dashboard/settings/billing">
+                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
+                    Free Trial
+                  </span>
+                </Link>
               </div>
               <div className="flex-shrink-0 ">
                 <button
