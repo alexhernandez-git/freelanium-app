@@ -94,7 +94,7 @@ export default function Home() {
             )}
             <aside
               className={`${showMessages ? "w-full" : "w-0"}
-                lg:order-first lg:flex lg:flex-col flex-shrink-0 lg:w-96 border-r border-gray-200`}
+                md:order-first md:flex md:flex-col flex-shrink-0 md:w-96 border-r border-gray-200`}
             >
               <div className="px-6 pt-6 pb-4">
                 <h2 className="text-lg font-medium text-gray-900">Messages</h2>

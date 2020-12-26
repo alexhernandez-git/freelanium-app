@@ -3,12 +3,12 @@ import React from "react";
 const Chat = ({ showMessages, handleShowMessages }) => {
   return (
     <>
-      <div className={`${showMessages ? "hidden lg:flex" : "flex"}`}>
+      <div className={`${showMessages ? "hidden md:flex" : "flex"}`}>
         <div className="w-full flex flex-col justify-between">
           <div>
             <div className="border-b">
               <nav
-                className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+                className="flex items-start px-4 py-3 sm:px-6 lg:px-8 md:hidden"
                 aria-label="Breadcrumb"
               >
                 <a
