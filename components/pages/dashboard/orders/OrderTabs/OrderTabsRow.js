@@ -44,7 +44,7 @@ const OrderTabsRow = ({ order }) => {
       </td>
 
       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <Link href="/order/1">
+        <Link href="/dashboard/order/1">
           <a class="text-indigo-600 hover:text-indigo-900">View</a>
         </Link>
       </td>
