@@ -28,7 +28,6 @@ const Header = () => {
     }
   };
   useOutsideClick(mobileMenuRef, () => handleCloseMobileMenu());
-
   const handleLogout = () => {
     router.push("/");
   };

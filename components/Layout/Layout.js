@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, MobileHeader } from "components/Layout/Header";
+import Header from "components/Layout/Header";
 import Footer from "./Footer";
 import { useRouter } from "next/router";
 
@@ -85,7 +85,6 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
             openTryItFree={openTryItFree}
             handleCloseTryFree={handleCloseTryFree}
           />
-          <MobileHeader />
           {children}
         </div>
       </div>
