@@ -16,6 +16,19 @@ const Header = () => {
     }
   };
   useOutsideClick(dropdownMenuRef, () => handleCloseDropdownMenu());
+  // Mobile menu
+  const mobileMenuRef = useRef();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const handleToggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+  const handleCloseMobileMenu = () => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+  useOutsideClick(mobileMenuRef, () => handleCloseMobileMenu());
+
   const handleLogout = () => {
     router.push("/");
   };
@@ -28,6 +41,7 @@ const Header = () => {
               <div className="-ml-2 mr-2 flex items-center md:hidden">
                 {/* <!-- Mobile menu button --> */}
                 <button
+                  onClick={handleToggleMobileMenu}
                   className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   aria-expanded="false"
                 >
@@ -284,7 +298,10 @@ const Header = () => {
 
     Menu open: "block", Menu closed: "hidden"
   --> */}
-        <div className="hidden md:hidden">
+        <div
+          ref={mobileMenuRef}
+          className={`${mobileMenuOpen ? "block" : "hidden"} md:hidden`}
+        >
           <div className="pt-2 pb-3 space-y-1">
             {/* <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" --> */}
             <a
