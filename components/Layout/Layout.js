@@ -12,7 +12,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
           class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full"
           aria-hidden="true"
         >
-          <div class="relative h-full max-w-7xl mx-auto">
+          <div class="relative h-full max-w-7xl 2xl:max-w-none  mx-auto">
             <svg
               class="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
               width="404"

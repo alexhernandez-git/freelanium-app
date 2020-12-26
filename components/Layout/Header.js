@@ -23,7 +23,7 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
   useOutsideClick(modalRef, () => handleHideModal());
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl 2xl:max-w-3/4 mx-auto px-4 sm:px-6">
         <nav
           className="relative flex items-center justify-between sm:h-10 md:justify-center"
           aria-label="Global"

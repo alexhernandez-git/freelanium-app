@@ -3,7 +3,7 @@ import React from "react";
 
 const ContactCard = () => {
   return (
-    <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+    <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200 w-72 sm:mr-3 mb-3">
       <div class="flex-1 flex flex-col p-8">
         <img
           class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full"

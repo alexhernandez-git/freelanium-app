@@ -15,7 +15,7 @@ const features = () => {
       handleCloseTryFree={handleCloseTryFree}
     >
       <div class="bg-white mt-12">
-        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+        <div class="max-w-7xl 2xl:max-w-3/4  mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
           <div>
             <h2 class="text-base font-semibold text-indigo-600 uppercase tracking-wide">
               Everything you need
@@ -251,7 +251,7 @@ const features = () => {
       </div>
       {/* <!-- This example requires Tailwind CSS v2.0+ --> */}
       <div class="bg-indigo-50">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-24 lg:px-8 lg:flex lg:items-center lg:justify-between">
+        <div class="max-w-7xl 2xl:max-w-3/4 mx-auto py-12 px-4 sm:px-6 lg:py-24 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
             <span class="block">Ready to dive in?</span>
             <span class="block text-indigo-600">

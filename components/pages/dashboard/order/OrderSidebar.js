@@ -150,7 +150,7 @@ const OrderSidebar = () => {
                 <span className="text-lg font-bold">Order 1</span>
               </div>
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
-                <Link href="/order/1">
+                <Link href="dashboard/order/1">
                   <a
                     className={
                       /^((?!(activity|details|actions)).)*$/g.test(
@@ -178,7 +178,7 @@ const OrderSidebar = () => {
                     Board
                   </a>
                 </Link>
-                <Link href="/order/1/activity">
+                <Link href="/dashboard/order/1/activity">
                   <a
                     className={
                       /\/activity\/?/.test(router.pathname)
@@ -204,7 +204,7 @@ const OrderSidebar = () => {
                     Activity
                   </a>
                 </Link>
-                <Link href="/order/1/details">
+                <Link href="/dashboard/order/1/details">
                   <a
                     className={
                       /\/details\/?/.test(router.pathname)
@@ -230,7 +230,7 @@ const OrderSidebar = () => {
                     Details
                   </a>
                 </Link>
-                <Link href="/order/1/actions">
+                <Link href="/dashboard/order/1/actions">
                   <a
                     className={
                       /\/actions\/?/.test(router.pathname)
