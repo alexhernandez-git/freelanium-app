@@ -150,7 +150,7 @@ const OrderSidebar = () => {
                 <span className="text-lg font-bold">Order 1</span>
               </div>
               <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
-                <Link href="dashboard/order/1">
+                <Link href="/dashboard/order/1">
                   <a
                     className={
                       /^((?!(activity|details|actions)).)*$/g.test(
