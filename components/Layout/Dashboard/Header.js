@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useOutsideClick from "hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleView } from "redux/actions/auth";
+import { logout, toggleView } from "redux/actions/auth";
 const Header = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const { seller_view } = authReducer;
@@ -41,7 +41,9 @@ const Header = () => {
   useOutsideClick(mobileMenuRef, () => handleCloseMobileMenu());
   const handleLogout = () => {
     router.push("/");
+    dispatch(logout());
   };
+
   return (
     <>
       <nav className="bg-white shadow">

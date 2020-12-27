@@ -6,7 +6,7 @@ import Layout from "components/Layout/Dashboard/Layout";
 import { useEffect } from "react";
 import useAuthRequired from "hooks/useAuthRequired";
 
-export default function Dashboard(props) {
+export default function Dashboard() {
   const [cantRender, authReducer] = useAuthRequired();
 
   return cantRender ? (

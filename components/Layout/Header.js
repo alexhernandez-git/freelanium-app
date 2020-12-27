@@ -1,8 +1,11 @@
 import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = ({ openTryItFree, handleCloseTryFree }) => {
+  const authReducer = useSelector((state) => state.authReducer);
+  const { isLoading, isAuthenticated } = authReducer;
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -100,28 +103,44 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
               </a>
             </Link>
           </div>
-          <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-            <Link href="/buyers">
-              <a className="hidden lg:block font-medium text-gray-500 hover:text-gray-900 mr-3">
-                Are you a buyer?
-              </a>
-            </Link>
-            <span className="inline-flex rounded-md shadow">
-              <Link href="/login">
-                <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
-                  Log in
-                </a>
-              </Link>
-            </span>
-            <span className="inline-flex rounded-md shadow ml-3">
-              <span
-                onClick={handleShowModal}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
-              >
-                Try it free
-              </span>
-            </span>
-          </div>
+          {!isLoading && isAuthenticated ? (
+            <>
+              <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                <span className="inline-flex rounded-md shadow ml-3">
+                  <Link href="/dashboard">
+                    <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
+                      Go to Dashboard
+                    </span>
+                  </Link>
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                <Link href="/buyers">
+                  <a className="hidden lg:block font-medium text-gray-500 hover:text-gray-900 mr-3">
+                    Are you a buyer?
+                  </a>
+                </Link>
+                <span className="inline-flex rounded-md shadow">
+                  <Link href="/login">
+                    <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                      Log in
+                    </a>
+                  </Link>
+                </span>
+                <span className="inline-flex rounded-md shadow ml-3">
+                  <span
+                    onClick={handleShowModal}
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
+                  >
+                    Try it free
+                  </span>
+                </span>
+              </div>
+            </>
+          )}
         </nav>
       </div>
       {/* <!-- This example requires Tailwind CSS v2.0+ --> */}

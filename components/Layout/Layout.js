@@ -7,14 +7,14 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
   const router = useRouter();
   return (
     <>
-      <div class="relative bg-gray-50 overflow-hidden">
+      <div className="relative bg-gray-50 overflow-hidden">
         <div
-          class="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full"
+          className="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full"
           aria-hidden="true"
         >
-          <div class="relative h-full max-w-7xl 2xl:max-w-none  mx-auto">
+          <div className="relative h-full max-w-7xl 2xl:max-w-none  mx-auto">
             <svg
-              class="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
+              className="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
               width="404"
               height="784"
               fill="none"
@@ -34,7 +34,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
                     y="0"
                     width="4"
                     height="4"
-                    class="text-gray-200"
+                    className="text-gray-200"
                     fill="currentColor"
                   />
                 </pattern>
@@ -46,7 +46,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
               />
             </svg>
             <svg
-              class="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2"
+              className="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2"
               width="404"
               height="784"
               fill="none"
@@ -66,7 +66,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
                     y="0"
                     width="4"
                     height="4"
-                    class="text-gray-200"
+                    className="text-gray-200"
                     fill="currentColor"
                   />
                 </pattern>
@@ -80,7 +80,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
           </div>
         </div>
 
-        <div class="relative pt-6 pb-16 sm:pb-24">
+        <div className="relative pt-6 pb-16 sm:pb-24">
           <Header
             openTryItFree={openTryItFree}
             handleCloseTryFree={handleCloseTryFree}

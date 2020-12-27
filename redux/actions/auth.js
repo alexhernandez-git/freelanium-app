@@ -47,12 +47,7 @@ export const loadUser = () => (dispatch, getState) => {
 export const login = (data) => (dispatch, getState) => {
   console.log(data);
   axios
-    .post(
-      `${process.env.HOST}/api/users/${
-        getState().programReducer.program.code
-      }/login_from_platform/`,
-      data
-    )
+    .post(`${process.env.HOST}/api/users/login/`, data)
     .then((res) => {
       console.log(res.data);
       dispatch({

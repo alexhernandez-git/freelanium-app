@@ -1,13 +1,33 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
-
-const login = () => {
-  const router = useRouter();
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { login } from "redux/actions/auth";
+import useRedirectIfIsAuthenticated from "hooks/useRedirectIfIsAuthenticated";
+const loginPage = () => {
+  useRedirectIfIsAuthenticated();
   const dispatch = useDispatch();
-  const handleLogin = () => {
-    router.push("/dashboard");
-  };
+  const router = useRouter();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Email is not valid")
+        .required("Email can't be empty"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit: async (values) => {
+      // console.log(valores);
+      dispatch(login(values));
+      router.push("/dashboard");
+    },
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -19,7 +39,7 @@ const login = () => {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600 max-w">
+        {/* <p className="mt-2 text-center text-sm text-gray-600 max-w">
           Or{" "}
           <a
             href="#"
@@ -27,12 +47,12 @@ const login = () => {
           >
             start your 14-day free trial
           </a>
-        </p>
+        </p> */}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -46,11 +66,19 @@ const login = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
                 />
               </div>
             </div>
+            {formik.touched.email && formik.errors.email ? (
+              <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                <p className="font-bold">Error</p>
+                <p>{formik.errors.email}</p>
+              </div>
+            ) : null}
 
             <div>
               <label
@@ -65,11 +93,20 @@ const login = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
                 />
               </div>
             </div>
+
+            {formik.touched.password && formik.errors.password ? (
+              <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                <p className="font-bold">Error</p>
+                <p>{formik.errors.password}</p>
+              </div>
+            ) : null}
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
@@ -101,7 +138,6 @@ const login = () => {
               <button
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                onClick={handleLogin}
               >
                 Sign in
               </button>
@@ -187,4 +223,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default loginPage;
