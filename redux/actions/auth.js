@@ -29,15 +29,8 @@ import {
 export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({ type: USER_LOADING });
-
   axios
-    // .get("http://localhost:4000/users/1",
-    .get(
-      `/api/users/${
-        getState().programReducer.program.code
-      }/get_profile_platform`,
-      tokenConfig(getState)
-    )
+    .get(`${process.env.HOST}/api/users/get_user/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -55,7 +48,7 @@ export const login = (data) => (dispatch, getState) => {
   console.log(data);
   axios
     .post(
-      `/api/users/${
+      `${process.env.HOST}/api/users/${
         getState().programReducer.program.code
       }/login_from_platform/`,
       data
@@ -77,9 +70,8 @@ export const login = (data) => (dispatch, getState) => {
 
 export const register = (data) => (dispatch, getState) => {
   axios
-    .post(`/api/users/signup/`, data)
+    .post(`${process.env.HOST}/api/users/signup/`, data)
     .then((res) => {
-      console.log("res.data, resfwe", res.data);
       dispatch({
         type: REGISTER,
         payload: res.data,
@@ -109,7 +101,11 @@ export const updateProfile = (profile) => (dispatch, getState) => {
   }
 
   axios
-    .patch("/api/users/profile/", data, tokenConfig(getState))
+    .patch(
+      "${process.env.HOST}/api/users/profile/",
+      data,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch({
         type: UPDATE_PROFILE_SUCCESS,
@@ -128,7 +124,7 @@ export const updateUser = (user) => (dispatch, getState) => {
   dispatch({ type: UPDATE_USER });
   axios
     .patch(
-      `/api/users/${getState().authReducer.user.code}/`,
+      `${process.env.HOST}/api/users/${getState().authReducer.user.code}/`,
       user,
       tokenConfig(getState)
     )
@@ -152,7 +148,11 @@ export const changePassword = (data) => (dispatch, getState) => {
     type: CHANGE_PASSWORD,
   });
   axios
-    .post("/api/users/change_password/", data, tokenConfig(getState))
+    .post(
+      "${process.env.HOST}/api/users/change_password/",
+      data,
+      tokenConfig(getState)
+    )
     .then((res) => {
       console.log(res.data);
       Swal.fire({
@@ -179,7 +179,7 @@ export const connectStripe = (authCode) => (dispatch, getState) => {
   });
   axios
     .post(
-      "/api/users/stripe_connect/",
+      "${process.env.HOST}/api/users/stripe_connect/",
       { code: authCode },
       tokenConfig(getState)
     )

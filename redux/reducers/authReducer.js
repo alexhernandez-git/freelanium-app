@@ -83,6 +83,7 @@ export default function AuthReducer(state = initialState, action) {
         isLoading: false,
         haveAccess: action.payload.have_access,
       };
+
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:

@@ -43,13 +43,16 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
           <div className="flex items-center flex-1 md:absolute md:inset-y-0 md:left-0">
             <div className="flex items-center justify-between w-full md:w-auto">
               <Link href="/">
-                <a href="#">
+                <a href="#" className="flex items-center">
                   <span className="sr-only">Workflow</span>
                   <img
-                    className="h-8 w-auto sm:h-10"
+                    className="h-8 w-auto sm:h-10 mr-2"
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                     alt=""
                   />
+                  <span className="text-2xl font-bold text-gray-700">
+                    FullOrderTracker
+                  </span>
                 </a>
               </Link>
               <div className="-mr-2 flex items-center md:hidden">
