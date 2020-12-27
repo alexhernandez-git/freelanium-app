@@ -34,12 +34,11 @@ const OrderBoard = () => {
   };
   useOutsideClick(optionsRef, () => handleCloseOptions());
   const [cantRender, authReducer] = useAuthRequired();
-  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
   return !cantRender ? (
     "Loading..."
   ) : (
     <Layout noPadding>
-      {seller_view ? (
+      {authReducer.user && authReducer.user.seller_view ? (
         <OrderLayout title={"Board"} noPadding>
           <div
             className="mt-5 overflow-x-auto"

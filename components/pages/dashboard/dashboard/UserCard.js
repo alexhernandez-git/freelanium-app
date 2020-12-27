@@ -3,13 +3,14 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 const UserCard = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
 
   return (
     <div className="p-4  rounded-lg shadow bg-white mb-4">
       <div
         className={`flex ${
-          seller_view ? "border-b pb-4 pt-2" : "py-2"
+          authReducer.user && authReducer.user.seller_view
+            ? "border-b pb-4 pt-2"
+            : "py-2"
         } border-gray-200   rounded`}
       >
         <div className="mr-4 flex-shrink-0 self-center">
@@ -23,7 +24,7 @@ const UserCard = () => {
           <h4 className="text-lg font-bold text-gray-600">Alex Hernandez</h4>
         </div>
       </div>
-      {seller_view && (
+      {authReducer.user && authReducer.user.seller_view && (
         <div className="flex justify-between mt-3">
           <span className="text-xl text-gray-600 ">
             Earned on {moment().format("MMMM")}

@@ -4,7 +4,6 @@ import OrderTabsRow from "./OrderTabs/OrderTabsRow";
 
 const OrdersList = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer.user;
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -17,7 +16,9 @@ const OrdersList = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    {seller_view ? "Buyer" : "Seller"}
+                    {authReducer.user && authReducer.user.seller_view
+                      ? "Buyer"
+                      : "Seller"}
                   </th>
                   <th
                     scope="col"

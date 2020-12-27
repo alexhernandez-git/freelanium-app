@@ -3,8 +3,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const OrderTabsRow = ({ order }) => {
-  const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
   return (
     <tr>
       <td class="px-6 py-4 whitespace-nowrap">

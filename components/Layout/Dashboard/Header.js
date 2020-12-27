@@ -7,8 +7,6 @@ import { logout, toggleView } from "redux/actions/auth";
 const Header = () => {
   const authReducer = useSelector((state) => state.authReducer);
 
-  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
-
   // Dispatch
   const dispatch = useDispatch();
   const handleToggleView = () => {
@@ -169,7 +167,7 @@ const Header = () => {
                   Credits: $2
                 </span>
               </div>
-              {seller_view ? (
+              {authReducer.user && authReducer.user.seller_view ? (
                 <>
                   <div className="flex-shrink-0 mr-5">
                     <Link href="/dashboard/settings/billing">
@@ -287,7 +285,7 @@ const Header = () => {
                           Account settings
                         </a>
                       </Link>
-                      {seller_view ? (
+                      {authReducer.user && authReducer.user.seller_view ? (
                         <>
                           <Link href="/dashboard/settings/billing">
                             <a

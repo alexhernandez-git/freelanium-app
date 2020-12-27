@@ -7,16 +7,21 @@ import Layout from "../../components/Layout/Dashboard/Layout";
 
 export default function Orders() {
   const [cantRender, authReducer] = useAuthRequired();
-  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
 
   return !cantRender ? (
     "Loading..."
   ) : (
     <Layout
-      pageName={seller_view ? "Manage Orders" : "Your Orders"}
+      pageName={
+        authReducer.user && authReducer.user.seller_view
+          ? "Manage Orders"
+          : "Your Orders"
+      }
       searchBar="Search Orders"
     >
-      {seller_view && <OrdersTabs tab="PRIORITY" />}
+      {authReducer.user && authReducer.user.seller_view && (
+        <OrdersTabs tab="PRIORITY" />
+      )}
       <OrdersList />
     </Layout>
   );

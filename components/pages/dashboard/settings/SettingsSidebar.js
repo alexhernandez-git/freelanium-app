@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const SettingsSidebar = () => {
   const router = useRouter();
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
   return (
     <aside className="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
       <nav className="space-y-1">
@@ -71,7 +70,7 @@ const SettingsSidebar = () => {
             <span className="truncate">Security</span>
           </a>
         </Link>
-        {seller_view && (
+        {authReducer.user && authReducer.user.seller_view && (
           <>
             <Link href="/dashboard/settings/billing">
               <a
