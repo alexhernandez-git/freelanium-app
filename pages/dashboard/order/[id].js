@@ -12,6 +12,7 @@ import {
 } from "components/pages/dashboard/order/Activity/ActivityElements";
 import { SecondaryButton } from "components/ui/Buttons";
 import useOutsideClick from "hooks/useOutsideClick";
+import Link from "next/link";
 const BoardDnDNoSSR = dynamic(
   () => import("components/pages/dashboard/order/Board/BoardDnD"),
   {
@@ -74,7 +75,9 @@ const OrderBoard = () => {
                   </div>
                 </div>
                 <div class="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                  <SecondaryButton>Message</SecondaryButton>
+                  <Link href="/dashboard/messages">
+                    <SecondaryButton>Message</SecondaryButton>
+                  </Link>
                   <div class="relative inline-block text-left">
                     <div>
                       <button
