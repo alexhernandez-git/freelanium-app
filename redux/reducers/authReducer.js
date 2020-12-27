@@ -6,9 +6,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
-  UPDATE_PROFILE,
-  UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAIL,
   UPDATE_USER,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
@@ -25,12 +22,9 @@ import {
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
   isAuthenticated: null,
-  seller_view: true,
   isLoading: true,
   user: null,
   error: null,
-  is_updating_profile: false,
-  update_profile_error: null,
   is_updating_user: false,
   update_user_error: null,
   is_changing_password: false,
@@ -52,8 +46,6 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        haveAccess: action.payload.have_access,
-
         ...action.payload,
       };
     case LOGIN_SUCCESS:
@@ -105,31 +97,12 @@ export default function AuthReducer(state = initialState, action) {
     case TOOGLE_VIEWS:
       return {
         ...state,
-        seller_view: action.payload,
-      };
-    case UPDATE_PROFILE:
-      return {
-        ...state,
-        is_updating_profile: true,
-      };
-    case UPDATE_PROFILE_SUCCESS:
-      return {
-        ...state,
-        is_updating_profile: false,
         user: {
           ...state.user,
-          profile: {
-            ...state.user.profile,
-            picture: action.payload,
-          },
+          seller_view: action.payload,
         },
       };
-    case UPDATE_PROFILE_FAIL:
-      return {
-        ...state,
-        is_updating_profile: false,
-        update_profile_error: action.payload,
-      };
+
     case UPDATE_USER:
       return {
         ...state,

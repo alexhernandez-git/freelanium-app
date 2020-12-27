@@ -1,8 +1,13 @@
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const billingInformation = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <SettingsLayout>
       <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <form action="#" method="POST">

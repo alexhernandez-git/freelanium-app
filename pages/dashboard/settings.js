@@ -1,9 +1,14 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const settings = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <>
       {/* Asside */}
       <SettingsLayout>

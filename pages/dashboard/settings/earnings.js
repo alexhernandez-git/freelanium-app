@@ -1,9 +1,14 @@
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import Link from "next/link";
 import React from "react";
 
 const earnings = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <>
       {/* Asside */}
       <SettingsLayout>

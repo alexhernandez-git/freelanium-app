@@ -18,10 +18,15 @@ import {
   RequestDeliveryRevision,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const activity = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <Layout noPadding>
       <OrderLayout title="Activity">
         <div class="flow-root">

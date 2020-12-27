@@ -1,6 +1,7 @@
 import Chat from "components/pages/dashboard/messages/Chat";
 import ChatroomCard from "components/pages/dashboard/messages/ChatroomCard";
 import UserProfile from "components/pages/dashboard/messages/UserProfile";
+import useAuthRequired from "hooks/useAuthRequired";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Dashboard/Layout";
@@ -21,10 +22,12 @@ export default function Home() {
   const handleHideMessages = () => {
     setShowMessages(false);
   };
-  useEffect(() => {
-    console.log(showMessages);
-  }, [showMessages]);
-  return (
+
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <Layout>
       <div style={{ height: "75vh" }} className="flex overflow-hidden bg-white">
         <div className="flex flex-col min-w-0 flex-1 overflow-hidden">

@@ -1,8 +1,13 @@
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const security = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <>
       {/* Asside */}
       <SettingsLayout>

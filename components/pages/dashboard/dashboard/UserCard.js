@@ -3,7 +3,8 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 const UserCard = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
+  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
+
   return (
     <div className="p-4  rounded-lg shadow bg-white mb-4">
       <div

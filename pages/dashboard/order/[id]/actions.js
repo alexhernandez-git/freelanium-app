@@ -1,10 +1,14 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
 import { SecondaryButton } from "components/ui/Buttons";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const actions = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <Layout noPadding>
       <OrderLayout title="Actions">
         <div class="divide-y divide-gray-200">

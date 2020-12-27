@@ -1,9 +1,14 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
+import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const details = () => {
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <Layout noPadding>
       <OrderLayout title="Details">
         <div class="divide-y divide-gray-200">

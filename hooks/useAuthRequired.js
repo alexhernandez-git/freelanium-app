@@ -6,14 +6,13 @@ const useAuthRequired = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const { isLoading, isAuthenticated } = authReducer;
   const router = useRouter();
-  const [cantRender, setCantRender] = useState(true);
+  const [cantRender, setCantRender] = useState(false);
   useEffect(() => {
     if (!isLoading) {
-      console.log(isAuthenticated);
-      if (!isAuthenticated) {
+      if (!isAuthenticated && router.pathname != "/login") {
         router.push("/");
       } else {
-        setCantRender(false);
+        setCantRender(true);
       }
     }
   }, [isLoading, isAuthenticated]);

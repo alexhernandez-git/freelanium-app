@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { login } from "redux/actions/auth";
@@ -8,6 +8,8 @@ import useRedirectIfIsAuthenticated from "hooks/useRedirectIfIsAuthenticated";
 const loginPage = () => {
   useRedirectIfIsAuthenticated();
   const dispatch = useDispatch();
+  const authReducer = useSelector((state) => state.authReducer);
+  const { isLoading, isAuthenticated } = authReducer;
   const router = useRouter();
 
   const formik = useFormik({
@@ -24,10 +26,17 @@ const loginPage = () => {
     onSubmit: async (values) => {
       // console.log(valores);
       dispatch(login(values));
-      router.push("/dashboard");
     },
   });
 
+  // Redirect if login success
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        router.push("/dashboard");
+      }
+    }
+  }, [isLoading, isAuthenticated]);
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -52,6 +61,16 @@ const loginPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {authReducer.error &&
+            authReducer.error.data.non_field_errors &&
+            authReducer.error.data.non_field_errors.map((message, i) => (
+              <div
+                key={i}
+                className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+              >
+                <p>{message}</p>
+              </div>
+            ))}
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
               <label

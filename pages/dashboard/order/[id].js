@@ -13,6 +13,7 @@ import {
 import { SecondaryButton } from "components/ui/Buttons";
 import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
+import useAuthRequired from "hooks/useAuthRequired";
 const BoardDnDNoSSR = dynamic(
   () => import("components/pages/dashboard/order/Board/BoardDnD"),
   {
@@ -21,8 +22,6 @@ const BoardDnDNoSSR = dynamic(
 );
 
 const OrderBoard = () => {
-  const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
   const optionsRef = useRef();
   const [optionsOpen, setDropdownMenuOpen] = useState(false);
   const handleToggleOptions = () => {
@@ -34,7 +33,11 @@ const OrderBoard = () => {
     }
   };
   useOutsideClick(optionsRef, () => handleCloseOptions());
-  return (
+  const [cantRender, authReducer] = useAuthRequired();
+  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
+  return !cantRender ? (
+    "Loading..."
+  ) : (
     <Layout noPadding>
       {seller_view ? (
         <OrderLayout title={"Board"} noPadding>

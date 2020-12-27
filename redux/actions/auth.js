@@ -7,9 +7,6 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
-  UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_FAIL,
-  UPDATE_PROFILE,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER,
@@ -84,42 +81,12 @@ export const logout = () => (dispatch, getState) => {
   dispatch({ type: LOGOUT_SUCCESS });
 };
 
-export const updateProfile = (profile) => (dispatch, getState) => {
-  dispatch({ type: UPDATE_PROFILE });
-  let data = new FormData();
-  if (profile.picture && profile.picture.name) {
-    data.append(
-      "picture",
-      profile.picture,
-      Math.random().toString(36) + profile.picture.name
-    );
-  }
-
-  axios
-    .patch(
-      "${process.env.HOST}/api/users/profile/",
-      data,
-      tokenConfig(getState)
-    )
-    .then((res) => {
-      dispatch({
-        type: UPDATE_PROFILE_SUCCESS,
-        payload: res.data.profile.picture,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: UPDATE_PROFILE_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
-      });
-    });
-};
 export const updateUser = (user) => (dispatch, getState) => {
   console.log("user", user);
   dispatch({ type: UPDATE_USER });
   axios
     .patch(
-      `${process.env.HOST}/api/users/${getState().authReducer.user.code}/`,
+      `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
       user,
       tokenConfig(getState)
     )
@@ -144,7 +111,7 @@ export const changePassword = (data) => (dispatch, getState) => {
   });
   axios
     .post(
-      "${process.env.HOST}/api/users/change_password/",
+      `${process.env.HOST}/api/users/change_password/`,
       data,
       tokenConfig(getState)
     )
@@ -174,7 +141,7 @@ export const connectStripe = (authCode) => (dispatch, getState) => {
   });
   axios
     .post(
-      "${process.env.HOST}/api/users/stripe_connect/",
+      `${process.env.HOST}/api/users/stripe_connect/`,
       { code: authCode },
       tokenConfig(getState)
     )
@@ -194,11 +161,31 @@ export const connectStripe = (authCode) => (dispatch, getState) => {
 };
 
 export const toggleView = () => (dispatch, getState) => {
-  const view = getState().authReducer.seller_view;
+  const view = getState().authReducer.user.seller_view;
+
   dispatch({
     type: TOOGLE_VIEWS,
     payload: !view,
   });
+  axios
+    .patch(
+      `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
+      { seller_view: !view },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: UPDATE_USER_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };
 
 export const resetAuthErrors = () => (dispatch, getState) => {

@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, toggleView } from "redux/actions/auth";
 const Header = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
+
+  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
 
   // Dispatch
   const dispatch = useDispatch();
@@ -208,7 +209,7 @@ const Header = () => {
                       onClick={handleToggleView}
                       className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 cursor-pointer"
                     >
-                      Go to seller
+                      Back to seller
                     </span>
                   </div>
                 </>

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const ContactCard = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
+  const { seller_view } = authReducer.isAuthenticated && authReducer.user;
   return (
     <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200 w-72 sm:mr-3 mb-3">
       <Link href="/dashboard/profile">
