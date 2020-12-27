@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const login = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const handleLogin = () => {
     router.push("/dashboard");
   };

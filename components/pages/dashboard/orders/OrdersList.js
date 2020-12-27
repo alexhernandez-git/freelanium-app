@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import OrderTabsRow from "./OrderTabs/OrderTabsRow";
 
 const OrdersList = () => {
+  const authReducer = useSelector((state) => state.authReducer);
+  const { seller_view } = authReducer;
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -14,7 +17,7 @@ const OrdersList = () => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Buyer
+                    {seller_view ? "Buyer" : "Seller"}
                   </th>
                   <th
                     scope="col"
@@ -28,9 +31,8 @@ const OrdersList = () => {
                   >
                     Status
                   </th>
-
                   <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
+                    <span className="sr-only">View order</span>
                   </th>
                 </tr>
               </thead>

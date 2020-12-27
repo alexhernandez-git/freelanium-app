@@ -1,7 +1,6 @@
 import React from "react";
 import OrderSidebar from "components/pages/dashboard/order/OrderSidebar";
 import { PrimaryButton } from "components/ui/Buttons";
-import { InfoBadge } from "components/ui/Badges";
 
 const OrderLayout = ({ children, title, noPadding }) => {
   return (

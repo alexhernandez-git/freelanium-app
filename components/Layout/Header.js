@@ -98,9 +98,9 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
             </Link>
           </div>
           <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-            <Link href="/customers">
+            <Link href="/buyers">
               <a className="hidden lg:block font-medium text-gray-500 hover:text-gray-900 mr-3">
-                Are you a customer?
+                Are you a buyer?
               </a>
             </Link>
             <span className="inline-flex rounded-md shadow">

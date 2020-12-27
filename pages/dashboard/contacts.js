@@ -5,7 +5,7 @@ import Layout from "../../components/Layout/Dashboard/Layout";
 export default function Home() {
   return (
     <Layout pageName="Contacts" searchBar="Search Contacts">
-      <ul class="flex flex-wrap justify-center sm:justify-start">
+      <ul class="flex flex-wrap justify-center">
         <ContactCard />
         <ContactCard />
         <ContactCard />

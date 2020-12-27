@@ -2,8 +2,19 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useOutsideClick from "hooks/useOutsideClick";
-
+import { useDispatch, useSelector } from "react-redux";
+import { toggleView } from "redux/actions/auth";
 const Header = () => {
+  const authReducer = useSelector((state) => state.authReducer);
+  const { seller_view } = authReducer;
+
+  // Dispatch
+  const dispatch = useDispatch();
+  const handleToggleView = () => {
+    dispatch(toggleView());
+    router.push("/dashboard");
+  };
+
   const router = useRouter();
   const dropdownMenuRef = useRef();
   const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
@@ -151,35 +162,55 @@ const Header = () => {
             </div>
             <div className="flex items-center">
               <div className="flex-shrink-0 mr-5">
-                <Link href="/dashboard/settings/billing">
-                  <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
-                    Free Trial
-                  </span>
-                </Link>
+                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium  text-green-500">
+                  Credits: $2
+                </span>
               </div>
-              <div className="flex-shrink-0 ">
-                <button
-                  type="button"
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  {/* <!-- Heroicon name: plus --> */}
-                  <svg
-                    className="-ml-1 mr-2 h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                    />
-                  </svg>
-                  <span>Send Offer</span>
-                </button>
-              </div>
+              {seller_view ? (
+                <>
+                  <div className="flex-shrink-0 mr-5">
+                    <Link href="/dashboard/settings/billing">
+                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
+                        Free Trial
+                      </span>
+                    </Link>
+                  </div>
+                  <div className="flex-shrink-0 ">
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      {/* <!-- Heroicon name: plus --> */}
+                      <svg
+                        className="-ml-1 mr-2 h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                        />
+                      </svg>
+                      <span>Send Offer</span>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex-shrink-0 mr-5">
+                    <span
+                      onClick={handleToggleView}
+                      className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 cursor-pointer"
+                    >
+                      Go to seller
+                    </span>
+                  </div>
+                </>
+              )}
               <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                 {/* <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <span className="sr-only">View notifications</span>
@@ -253,27 +284,47 @@ const Header = () => {
                           Account settings
                         </a>
                       </Link>
-                      <Link href="/dashboard/settings/billing">
-                        <a
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                          role="menuitem"
-                        >
-                          Plan & Billing
-                        </a>
-                      </Link>
-                      <Link href="/dashboard/settings/earnings">
-                        <a
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                          role="menuitem"
-                        >
-                          Earnings
-                        </a>
-                      </Link>
+                      {seller_view ? (
+                        <>
+                          <Link href="/dashboard/settings/billing">
+                            <a
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Plan & Billing
+                            </a>
+                          </Link>
+                          <Link href="/dashboard/settings/earnings">
+                            <a
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Earnings
+                            </a>
+                          </Link>
+                          <span
+                            onClick={handleToggleView}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+                            role="menuitem"
+                          >
+                            Go to buyer
+                          </span>
+                        </>
+                      ) : (
+                        <Link href="/dashboard/settings/earnings">
+                          <a
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem"
+                          >
+                            Become a seller
+                          </a>
+                        </Link>
+                      )}
                       {/* <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem"
-                    >
+                      >
                       License
                     </a> */}
                     </div>
@@ -389,7 +440,7 @@ const Header = () => {
             <div className="mt-3 space-y-1">
               <Link href="/dashboard/settings">
                 <a className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">
-                  Settings
+                  Account settings
                 </a>
               </Link>
               <Link href="/">
