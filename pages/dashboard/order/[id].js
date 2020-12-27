@@ -1,6 +1,6 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
-import React from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
   RequestChangeDateDeliveryAccepted,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
 import { SecondaryButton } from "components/ui/Buttons";
+import useOutsideClick from "hooks/useOutsideClick";
 const BoardDnDNoSSR = dynamic(
   () => import("components/pages/dashboard/order/Board/BoardDnD"),
   {
@@ -21,7 +22,17 @@ const BoardDnDNoSSR = dynamic(
 const OrderBoard = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const { seller_view } = authReducer;
-
+  const optionsRef = useRef();
+  const [optionsOpen, setDropdownMenuOpen] = useState(false);
+  const handleToggleOptions = () => {
+    setDropdownMenuOpen(!optionsOpen);
+  };
+  const handleCloseOptions = () => {
+    if (optionsOpen) {
+      setDropdownMenuOpen(false);
+    }
+  };
+  useOutsideClick(optionsRef, () => handleCloseOptions());
   return (
     <Layout noPadding>
       {seller_view ? (
@@ -67,6 +78,7 @@ const OrderBoard = () => {
                   <div class="relative inline-block text-left">
                     <div>
                       <button
+                        onClick={handleToggleOptions}
                         class="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                         id="options-menu"
                         aria-haspopup="true"
@@ -85,7 +97,12 @@ const OrderBoard = () => {
                       </button>
                     </div>
 
-                    <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                    <div
+                      class={`${
+                        optionsOpen ? "block" : "hidden"
+                      } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10`}
+                      ref={optionsRef}
+                    >
                       <div
                         class="py-1"
                         role="menu"
