@@ -18,6 +18,10 @@ import {
   STRIPE_CONNECTED_FAIL,
   RESET_AUTH_ERRORS,
   TOOGLE_VIEWS,
+  IS_EMAIL_AVAILABLE,
+  IS_EMAIL_AVAILABLE_SUCCESS,
+  IS_EMAIL_AVAILABLE_FAIL,
+  RESET_EMAIL_AVAILABLE,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -31,6 +35,9 @@ const initialState = {
   change_password_error: null,
   stripe_connecting: false,
   stripe_connecting_error: null,
+  email_available_loading: false,
+  email_available: false,
+  email_available_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -62,6 +69,29 @@ export default function AuthReducer(state = initialState, action) {
         error: !action.payload.have_access
           ? { data: { detail: "You don't have access" } }
           : null,
+      };
+    case IS_EMAIL_AVAILABLE:
+      return {
+        ...state,
+        email_available_loading: true,
+      };
+    case IS_EMAIL_AVAILABLE_SUCCESS:
+      return {
+        ...state,
+        email_available: action.payload.email,
+        email_available_error: null,
+      };
+    case IS_EMAIL_AVAILABLE_FAIL:
+      return {
+        ...state,
+        email_available: false,
+        email_available_error: action.payload,
+      };
+    case RESET_EMAIL_AVAILABLE:
+      return {
+        ...state,
+        email_available: false,
+        email_available_error: null,
       };
     case REGISTER:
       process.browser &&

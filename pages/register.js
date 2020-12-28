@@ -1,12 +1,46 @@
 import { useRouter } from "next/router";
-import React from "react";
-
-const login = () => {
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { resetEmailAvailable } from "redux/actions/auth";
+const register = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const handleContinueRegister = () => {
-    router.push("/dashboard");
-  };
+  const authReducer = useSelector((state) => state.authReducer);
+  const { isAuthenticated, email_available } = authReducer;
+
+  const formik = useFormik({
+    initialValues: {
+      email: email_available,
+      username: "",
+      nombre: "",
+      apellido: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      nombre: Yup.string().required("First name is required"),
+      apellido: Yup.string().required("Last name is required"),
+      username: Yup.string().required("Last name is required"),
+      email: Yup.string().required("Email is required"),
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "The password must be at least 6 characters long"),
+    }),
+    onSubmit: async (values) => {
+      // console.log(valores);
+      console.log(values);
+      dispatch(register(values));
+    },
+  });
+
+  useEffect(() => {
+    if (!email_available) {
+      router.back();
+    }
+    dispatch(resetEmailAvailable());
+  }, []);
   return (
     <>
       <nav aria-label="Progress" className="bg-gray-50 p-4">
@@ -35,7 +69,6 @@ const login = () => {
               <span class="text-sm font-medium">Application form</span>
             </a>
           </li>
-
           {/* <li class="md:flex-1">
             <a
               href="#"
@@ -164,7 +197,6 @@ const login = () => {
                 <button
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleContinueRegister}
                 >
                   CONTINUE
                 </button>
@@ -251,4 +283,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default register;

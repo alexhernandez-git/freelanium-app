@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Orders = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { seller_view } = authReducer;
   return (
     <>
       <div className="bg-white overflow-hidden  rounded-lg shadow mb-5 lg:mb-16">
@@ -13,7 +12,7 @@ const Orders = () => {
             <div className="ml-4 mt-2">
               <h3 className="text-xl leading-6 font-medium text-gray-700">
                 Active orders{" "}
-                {seller_view && (
+                {authReducer.user && authReducer.user.seller_view && (
                   <span className="text-gray-500">- 3 ($4300)</span>
                 )}
               </h3>

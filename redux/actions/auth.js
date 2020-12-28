@@ -19,6 +19,10 @@ import {
   REGISTER,
   RESET_AUTH_ERRORS,
   TOOGLE_VIEWS,
+  IS_EMAIL_AVAILABLE,
+  IS_EMAIL_AVAILABLE_SUCCESS,
+  IS_EMAIL_AVAILABLE_FAIL,
+  RESET_EMAIL_AVAILABLE,
 } from "../types";
 
 // SET TOKEN
@@ -58,6 +62,28 @@ export const login = (data) => (dispatch, getState) => {
         payload: { data: err.response.data, status: err.response.status },
       });
     });
+};
+
+export const isEmailAvailable = (email) => (dispatch, getState) => {
+  dispatch({ type: IS_EMAIL_AVAILABLE });
+  axios
+    .post(`${process.env.HOST}/api/users/is_email_available/`, email)
+    .then((res) => {
+      dispatch({
+        type: IS_EMAIL_AVAILABLE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: IS_EMAIL_AVAILABLE_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const resetEmailAvailable = () => (dispatch, getState) => {
+  dispatch({ type: RESET_EMAIL_AVAILABLE });
 };
 
 export const register = (data) => (dispatch, getState) => {
