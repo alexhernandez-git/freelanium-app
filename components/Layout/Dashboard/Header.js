@@ -202,14 +202,16 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <div className="flex-shrink-0 mr-5">
-                    <span
-                      onClick={handleToggleView}
-                      className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 cursor-pointer"
-                    >
-                      Back to seller
-                    </span>
-                  </div>
+                  {authReducer.user && authReducer.user.is_seller && (
+                    <div className="flex-shrink-0">
+                      <span
+                        onClick={handleToggleView}
+                        className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 cursor-pointer"
+                      >
+                        Back to seller
+                      </span>
+                    </div>
+                  )}
                 </>
               )}
               <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">

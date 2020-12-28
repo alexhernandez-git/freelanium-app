@@ -86,9 +86,26 @@ export const resetEmailAvailable = () => (dispatch, getState) => {
   dispatch({ type: RESET_EMAIL_AVAILABLE });
 };
 
-export const register = (data) => (dispatch, getState) => {
+export const register_seller = (data) => (dispatch, getState) => {
   axios
-    .post(`${process.env.HOST}/api/users/signup/`, data)
+    .post(`${process.env.HOST}/api/users/signup_seller/`, data)
+    .then((res) => {
+      dispatch({
+        type: REGISTER,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: AUTH_ERROR,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const register_buyer = (data) => (dispatch, getState) => {
+  axios
+    .post(`${process.env.HOST}/api/users/signup_buyer/`, data)
     .then((res) => {
       dispatch({
         type: REGISTER,
