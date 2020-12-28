@@ -239,8 +239,9 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
                       </label>
                       {email_available_error &&
                         email_available_error.data.non_field_errors.map(
-                          (message) => (
+                          (message, i) => (
                             <p
+                              key={i}
                               className="mt-2 text-sm text-red-600"
                               id="email-error"
                             >

@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { resetEmailAvailable } from "redux/actions/auth";
-const register = () => {
+import { register, resetEmailAvailable } from "redux/actions/auth";
+const registerPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -15,18 +15,20 @@ const register = () => {
     initialValues: {
       email: email_available,
       username: "",
-      nombre: "",
-      apellido: "",
+      first_name: "",
+      last_name: "",
       password: "",
+      password_confirmation: "",
     },
     validationSchema: Yup.object({
-      nombre: Yup.string().required("First name is required"),
-      apellido: Yup.string().required("Last name is required"),
+      first_name: Yup.string().required("First name is required"),
+      last_name: Yup.string().required("Last name is required"),
       username: Yup.string().required("Last name is required"),
       email: Yup.string().required("Email is required"),
-      password: Yup.string()
-        .required("Password is required")
-        .min(6, "The password must be at least 6 characters long"),
+      password: Yup.string().required("Password is required"),
+      password_confirmation: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Password confirmation is required"),
     }),
     onSubmit: async (values) => {
       // console.log(valores);
@@ -41,43 +43,48 @@ const register = () => {
     }
     dispatch(resetEmailAvailable());
   }, []);
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <nav aria-label="Progress" className="bg-gray-50 p-4">
-        <ol class="space-y-4 md:flex md:space-y-0 md:space-x-8">
-          <li class="md:flex-1">
+        <ol className="space-y-4 md:flex md:space-y-0 md:space-x-8">
+          <li className="md:flex-1">
             <a
               href="#"
-              class="group pl-4 py-2 flex flex-col border-l-4 border-indigo-600 hover:border-indigo-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+              className="group pl-4 py-2 flex flex-col border-l-4 border-indigo-600 hover:border-indigo-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
             >
-              <span class="text-xs text-indigo-600 font-semibold uppercase group-hover:text-indigo-800">
+              <span className="text-xs text-indigo-600 font-semibold uppercase group-hover:text-indigo-800">
                 Step 1
               </span>
-              <span class="text-sm font-medium">Insert your email</span>
+              <span className="text-sm font-medium">Insert your email</span>
             </a>
           </li>
 
-          <li class="md:flex-1">
+          <li className="md:flex-1">
             <a
               href="#"
-              class="pl-4 py-2 flex flex-col border-l-4 border-indigo-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+              className="pl-4 py-2 flex flex-col border-l-4 border-indigo-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
               aria-current="step"
             >
-              <span class="text-xs text-indigo-600 font-semibold uppercase">
+              <span className="text-xs text-indigo-600 font-semibold uppercase">
                 Step 2
               </span>
-              <span class="text-sm font-medium">Application form</span>
+              <span className="text-sm font-medium">Application form</span>
             </a>
           </li>
-          {/* <li class="md:flex-1">
+          {/* <li className="md:flex-1">
             <a
               href="#"
-              class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+              className="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
             >
-              <span class="text-xs text-gray-500 font-semibold uppercase group-hover:text-gray-700">
+              <span className="text-xs text-gray-500 font-semibold uppercase group-hover:text-gray-700">
                 Step 3
               </span>
-              <span class="text-sm font-medium">Preview</span>
+              <span className="text-sm font-medium">Preview</span>
             </a>
           </li> */}
         </ol>
@@ -102,43 +109,70 @@ const register = () => {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            {authReducer.error &&
+              authReducer.error.data.username &&
+              authReducer.error.data.username.map((message, i) => (
+                <div
+                  key={i}
+                  className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                >
+                  <p className="font-bold">Username</p>
+                  <p>{message}</p>
+                </div>
+              ))}
+            <form className="space-y-6" onSubmit={formik.handleSubmit}>
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="first_name"
                   className="block text-sm font-medium text-gray-700"
                 >
                   First name
                 </label>
                 <div className="mt-1">
                   <input
-                    id="name"
-                    name="name"
+                    id="first_name"
+                    name="first_name"
                     type="text"
-                    autoComplete="name"
-                    required
+                    autoComplete="first_name"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.first_name}
                   />
                 </div>
               </div>
+              {formik.touched.first_name && formik.errors.first_name ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.first_name}</p>
+                </div>
+              ) : null}
               <div>
                 <label
-                  htmlFor="surname"
+                  htmlFor="last_name"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Last name
                 </label>
                 <div className="mt-1">
                   <input
-                    id="surname"
-                    name="surname"
+                    id="last_name"
+                    name="last_name"
                     type="text"
-                    autoComplete="surname"
-                    required
+                    autoComplete="last_name"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.last_name}
                   />
                 </div>
               </div>
+              {formik.touched.last_name && formik.errors.last_name ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.last_name}</p>
+                </div>
+              ) : null}
               <div>
                 <label
                   htmlFor="username"
@@ -152,11 +186,20 @@ const register = () => {
                     name="username"
                     type="text"
                     autoComplete="username"
-                    required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.username}
                   />
                 </div>
               </div>
+              {formik.touched.username && formik.errors.username ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.username}</p>
+                </div>
+              ) : null}
+
               <div>
                 <label
                   htmlFor="password"
@@ -170,29 +213,46 @@ const register = () => {
                     name="password"
                     type="password"
                     autoComplete="current-password"
-                    required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
                   />
                 </div>
               </div>
+              {formik.touched.password && formik.errors.password ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.password}</p>
+                </div>
+              ) : null}
               <div>
                 <label
-                  htmlFor="confirm_password"
+                  htmlFor="password_confirmation"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Confirm password
                 </label>
                 <div className="mt-1">
                   <input
-                    id="confirm_password"
-                    name="confirm_password"
+                    id="password_confirmation"
+                    name="password_confirmation"
                     type="password"
                     autoComplete=""
-                    required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password_confirmation}
                   />
                 </div>
               </div>
+              {formik.touched.password_confirmation &&
+              formik.errors.password_confirmation ? (
+                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.password_confirmation}</p>
+                </div>
+              ) : null}
               <div>
                 <button
                   type="submit"
@@ -283,4 +343,4 @@ const register = () => {
   );
 };
 
-export default register;
+export default registerPage;
