@@ -27,7 +27,9 @@ const BuyerRegister = () => {
       email: Yup.string()
         .email("Email is not valid")
         .required("Email is required"),
-      password: Yup.string().required("Password is required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters long ")
+        .required("Password is required"),
       password_confirmation: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Password confirmation is required"),

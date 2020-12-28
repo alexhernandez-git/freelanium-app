@@ -23,6 +23,10 @@ import {
   IS_EMAIL_AVAILABLE_SUCCESS,
   IS_EMAIL_AVAILABLE_FAIL,
   RESET_EMAIL_AVAILABLE,
+  IS_USERNAME_AVAILABLE,
+  IS_USERNAME_AVAILABLE_SUCCESS,
+  IS_USERNAME_AVAILABLE_FAIL,
+  RESET_USERNAME_AVAILABLE,
 } from "../types";
 
 // SET TOKEN
@@ -84,6 +88,27 @@ export const isEmailAvailable = (email) => (dispatch, getState) => {
 
 export const resetEmailAvailable = () => (dispatch, getState) => {
   dispatch({ type: RESET_EMAIL_AVAILABLE });
+};
+export const isUsernameAvailable = (email) => (dispatch, getState) => {
+  dispatch({ type: IS_USERNAME_AVAILABLE });
+  axios
+    .post(`${process.env.HOST}/api/users/is_username_available/`, email)
+    .then((res) => {
+      dispatch({
+        type: IS_USERNAME_AVAILABLE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: IS_USERNAME_AVAILABLE_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const resetUsernameAvailable = () => (dispatch, getState) => {
+  dispatch({ type: RESET_USERNAME_AVAILABLE });
 };
 
 export const register_seller = (data) => (dispatch, getState) => {

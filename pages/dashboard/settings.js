@@ -2,10 +2,45 @@ import Layout from "components/Layout/Dashboard/Layout";
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
 import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
-
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import {
+  isUsernameAvailable,
+  resetUsernameAvailable,
+} from "redux/actions/auth";
+import { useDispatch } from "react-redux";
 const settings = () => {
+  const dispatch = useDispatch();
   const [cantRender, authReducer] = useAuthRequired();
-
+  const { username_available_error, username_available } = authReducer;
+  const profileForm = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      username: authReducer.user && authReducer.user.username,
+      about: authReducer.user && authReducer.user.about,
+    },
+    validationSchema: Yup.object({
+      username: Yup.string().required("Username is required"),
+      about: Yup.string().max(1000),
+    }),
+    onSubmit: async (values) => {
+      // console.log(valores);
+      console.log(values);
+    },
+  });
+  React.useEffect(() => {
+    if (authReducer.user) {
+      dispatch(resetUsernameAvailable());
+      if (profileForm.values.username != authReducer.user.username) {
+        const timeoutId = setTimeout(() => {
+          dispatch(
+            isUsernameAvailable({ username: profileForm.values.username })
+          );
+        }, 500);
+        return () => clearTimeout(timeoutId);
+      }
+    }
+  }, [profileForm.values.username]);
   return !cantRender ? (
     "Loading..."
   ) : (
@@ -13,7 +48,7 @@ const settings = () => {
       {/* Asside */}
       <SettingsLayout>
         <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-          <form action="#" method="POST">
+          <form onSubmit={profileForm.handleSubmit}>
             <div className="shadow sm:rounded-md sm:overflow-hidden">
               <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
@@ -36,7 +71,7 @@ const settings = () => {
                     </label>
                     <div className="mt-1 rounded-md shadow-sm flex">
                       <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
-                        workcation.com/
+                        fullordertracker.com/
                       </span>
                       <input
                         type="text"
@@ -44,10 +79,39 @@ const settings = () => {
                         id="username"
                         autoComplete="username"
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        onChange={profileForm.handleChange}
+                        onBlur={profileForm.handleBlur}
+                        value={profileForm.values.username}
                       />
                     </div>
+                    {username_available && (
+                      <p
+                        className="mt-2 text-sm text-green-600"
+                        id="email-error"
+                      >
+                        {username_available}
+                      </p>
+                    )}
+                    {username_available_error &&
+                      username_available_error.data.non_field_errors.map(
+                        (message, i) => (
+                          <p
+                            key={i}
+                            className="mt-2 text-sm text-red-600"
+                            id="email-error"
+                          >
+                            {message}
+                          </p>
+                        )
+                      )}
+                    {profileForm.touched.username &&
+                    profileForm.errors.username ? (
+                      <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                        <p className="font-bold">Error</p>
+                        <p>{profileForm.errors.username}</p>
+                      </div>
+                    ) : null}
                   </div>
-
                   <div className="col-span-3">
                     <label
                       htmlFor="about"
@@ -62,11 +126,17 @@ const settings = () => {
                         rows="3"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="you@example.com"
+                        onChange={profileForm.handleChange}
+                        onBlur={profileForm.handleBlur}
+                        value={profileForm.values.about}
                       ></textarea>
                     </div>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Brief description for your profile. URLs are hyperlinked.
-                    </p>
+                    {profileForm.touched.about && profileForm.errors.about ? (
+                      <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                        <p className="font-bold">Error</p>
+                        <p>{profileForm.errors.about}</p>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="col-span-3">

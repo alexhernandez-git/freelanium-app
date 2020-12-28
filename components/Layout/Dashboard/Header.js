@@ -314,14 +314,18 @@ const Header = () => {
                           </span>
                         </>
                       ) : (
-                        <Link href="/dashboard/settings/earnings">
-                          <a
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem"
-                          >
-                            Become a seller
-                          </a>
-                        </Link>
+                        <>
+                          {authReducer.user && !authReducer.user.is_seller && (
+                            <Link href="/dashboard/settings/earnings">
+                              <a
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                role="menuitem"
+                              >
+                                Become a seller
+                              </a>
+                            </Link>
+                          )}
+                        </>
                       )}
                       {/* <a
                       href="#"

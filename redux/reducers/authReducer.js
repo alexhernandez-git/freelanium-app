@@ -22,6 +22,10 @@ import {
   IS_EMAIL_AVAILABLE_SUCCESS,
   IS_EMAIL_AVAILABLE_FAIL,
   RESET_EMAIL_AVAILABLE,
+  IS_USERNAME_AVAILABLE,
+  IS_USERNAME_AVAILABLE_SUCCESS,
+  IS_USERNAME_AVAILABLE_FAIL,
+  RESET_USERNAME_AVAILABLE,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -38,6 +42,9 @@ const initialState = {
   email_available_loading: false,
   email_available: false,
   email_available_error: null,
+  username_available_loading: false,
+  username_available: false,
+  username_available_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -93,6 +100,30 @@ export default function AuthReducer(state = initialState, action) {
         email_available: false,
         email_available_error: null,
       };
+    case IS_USERNAME_AVAILABLE:
+      return {
+        ...state,
+        username_available_loading: true,
+      };
+    case IS_USERNAME_AVAILABLE_SUCCESS:
+      return {
+        ...state,
+        username_available: action.payload.message,
+        username_available_error: null,
+      };
+    case IS_USERNAME_AVAILABLE_FAIL:
+      return {
+        ...state,
+        username_available: false,
+        username_available_error: action.payload,
+      };
+    case RESET_USERNAME_AVAILABLE:
+      return {
+        ...state,
+        username_available: false,
+        username_available_error: null,
+      };
+
     case REGISTER:
       process.browser &&
         localStorage.setItem("access_token", action.payload.access_token);
