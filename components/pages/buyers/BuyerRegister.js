@@ -129,7 +129,7 @@ const BuyerRegister = () => {
                             key={i}
                             className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
                           >
-                            <p className="font-bold">Username</p>
+                            <p className="font-bold">Error</p>
                             <p>{message}</p>
                           </div>
                         )
@@ -200,13 +200,14 @@ const BuyerRegister = () => {
                       />
                     </div>
                     {email_available_error &&
+                      email_available_error.data.non_field_errors &&
                       email_available_error.data.non_field_errors.map(
                         (message, i) => (
                           <div
                             key={i}
                             className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
                           >
-                            <p className="font-bold">Email</p>
+                            <p className="font-bold">Error</p>
                             <p>{message}</p>
                           </div>
                         )

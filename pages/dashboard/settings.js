@@ -21,7 +21,7 @@ const settings = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Username is required"),
-      about: Yup.string().max(1000),
+      about: Yup.string().max(1000).nullable(),
     }),
     onSubmit: async (values) => {
       // console.log(valores);
@@ -93,6 +93,7 @@ const settings = () => {
                       </p>
                     )}
                     {username_available_error &&
+                      username_available_error.data.non_field_errors &&
                       username_available_error.data.non_field_errors.map(
                         (message, i) => (
                           <p

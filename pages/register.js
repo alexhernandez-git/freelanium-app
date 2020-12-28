@@ -3,13 +3,22 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { register_seller, resetEmailAvailable } from "redux/actions/auth";
+import {
+  isUsernameAvailable,
+  register_seller,
+  resetEmailAvailable,
+  resetUsernameAvailable,
+} from "redux/actions/auth";
 const registerPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const authReducer = useSelector((state) => state.authReducer);
-  const { isAuthenticated, email_available } = authReducer;
+  const {
+    isAuthenticated,
+    email_available,
+    username_available_error,
+  } = authReducer;
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +32,7 @@ const registerPage = () => {
     validationSchema: Yup.object({
       first_name: Yup.string().required("First name is required"),
       last_name: Yup.string().required("Last name is required"),
-      username: Yup.string().required("Last name is required"),
+      username: Yup.string().required("Username name is required"),
       email: Yup.string().required("Email is required"),
       password: Yup.string()
         .min(8, "Password must be at least 8 characters long ")
@@ -50,6 +59,15 @@ const registerPage = () => {
       router.push("/dashboard");
     }
   }, [isAuthenticated]);
+  React.useEffect(() => {
+    dispatch(resetUsernameAvailable());
+    if (formik.values.username != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isUsernameAvailable({ username: formik.values.username }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.username]);
   return (
     <>
       <nav aria-label="Progress" className="bg-gray-50 p-4">
@@ -118,7 +136,7 @@ const registerPage = () => {
                   key={i}
                   className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
                 >
-                  <p className="font-bold">Username</p>
+                  <p className="font-bold">Error</p>
                   <p>{message}</p>
                 </div>
               ))}
@@ -195,6 +213,19 @@ const registerPage = () => {
                   />
                 </div>
               </div>
+              {username_available_error &&
+                username_available_error.data.non_field_errors &&
+                username_available_error.data.non_field_errors.map(
+                  (message, i) => (
+                    <div
+                      key={i}
+                      className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                    >
+                      <p className="font-bold">Username</p>
+                      <p>{message}</p>
+                    </div>
+                  )
+                )}
               {formik.touched.username && formik.errors.username ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                   <p className="font-bold">Error</p>
