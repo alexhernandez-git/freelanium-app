@@ -33,7 +33,9 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
     onSubmit: async (values) => {
       // console.log(valores);
       console.log(values);
-      dispatch(isEmailAvailable(values));
+      if (email_available) {
+        router.push("/register");
+      }
     },
   });
 
@@ -69,11 +71,15 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
   };
   useOutsideClick(mobileMenuRef, () => handleCloseMobileMenu());
 
-  useEffect(() => {
-    if (email_available) {
-      router.push("/register");
+  React.useEffect(() => {
+    dispatch(resetEmailAvailable());
+    if (formik.values.email != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isEmailAvailable({ email: formik.values.email }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
     }
-  }, [email_available]);
+  }, [formik.values.email]);
 
   return (
     <>

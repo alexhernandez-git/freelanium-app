@@ -3,13 +3,23 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { register_buyer } from "redux/actions/auth";
+import {
+  isEmailAvailable,
+  isUsernameAvailable,
+  register_buyer,
+  resetEmailAvailable,
+  resetUsernameAvailable,
+} from "redux/actions/auth";
 const BuyerRegister = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const authReducer = useSelector((state) => state.authReducer);
-  const { isAuthenticated } = authReducer;
+  const {
+    isAuthenticated,
+    username_available_error,
+    email_available_error,
+  } = authReducer;
 
   const formik = useFormik({
     initialValues: {
@@ -45,6 +55,24 @@ const BuyerRegister = () => {
       router.push("/dashboard");
     }
   }, [isAuthenticated]);
+  React.useEffect(() => {
+    dispatch(resetEmailAvailable());
+    if (formik.values.email != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isEmailAvailable({ email: formik.values.email }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.email]);
+  React.useEffect(() => {
+    dispatch(resetUsernameAvailable());
+    if (formik.values.username != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isUsernameAvailable({ username: formik.values.username }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.username]);
   return (
     <main className="bg-gray-800 flex items-center my-6 py-10">
       <div className="mx-auto max-w-7xl">
@@ -69,17 +97,6 @@ const BuyerRegister = () => {
             <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
               <div className="px-4 py-8 sm:px-10">
                 <div className="">
-                  {authReducer.error &&
-                    authReducer.error.data.username &&
-                    authReducer.error.data.username.map((message, i) => (
-                      <div
-                        key={i}
-                        className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
-                      >
-                        <p className="font-bold">Username</p>
-                        <p>{message}</p>
-                      </div>
-                    ))}
                   <form onSubmit={formik.handleSubmit} className="space-y-6">
                     <div className="sm:mx-auto sm:w-full sm:max-w-md">
                       <h3 className="text-center text-2xl font-extrabold text-gray-700">
@@ -105,6 +122,18 @@ const BuyerRegister = () => {
                         value={formik.values.username}
                       />
                     </div>
+                    {username_available_error &&
+                      username_available_error.data.non_field_errors.map(
+                        (message, i) => (
+                          <div
+                            key={i}
+                            className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                          >
+                            <p className="font-bold">Username</p>
+                            <p>{message}</p>
+                          </div>
+                        )
+                      )}
                     {formik.touched.username && formik.errors.username ? (
                       <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                         <p className="font-bold">Error</p>
@@ -170,6 +199,18 @@ const BuyerRegister = () => {
                         value={formik.values.email}
                       />
                     </div>
+                    {email_available_error &&
+                      email_available_error.data.non_field_errors.map(
+                        (message, i) => (
+                          <div
+                            key={i}
+                            className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                          >
+                            <p className="font-bold">Email</p>
+                            <p>{message}</p>
+                          </div>
+                        )
+                      )}
                     {formik.touched.email && formik.errors.email ? (
                       <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                         <p className="font-bold">Error</p>
