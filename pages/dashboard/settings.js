@@ -12,7 +12,8 @@ import {
 import { useDispatch } from "react-redux";
 import { createNotification } from "redux/actions/notifications";
 import CropperModal from "components/pages/dashboard/settings/CropperModal";
-import profile from "./profile";
+import countries from "data/countries";
+import currencies from "data/currencies";
 const settings = () => {
   const dispatch = useDispatch();
   const [cantRender, authReducer] = useAuthRequired();
@@ -75,6 +76,26 @@ const settings = () => {
       reader.readAsDataURL(files[0]);
     }
   };
+
+  const personalInfoForm = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      first_name: user && user.first_name,
+      last_name: user && user.last_name,
+      country: user && user.country,
+      currency: user && user.currency,
+    },
+    validationSchema: Yup.object({
+      first_name: Yup.string().max(150).nullable(),
+      last_name: Yup.string().max(150).nullable(),
+      country: Yup.string().max(2).nullable(),
+      currency: Yup.string().max(3).nullable(),
+    }),
+    onSubmit: async (values) => {
+      // console.log(valores);
+      dispatch(updateUser(values));
+    },
+  });
 
   return !cantRender ? (
     "Loading..."
@@ -235,7 +256,7 @@ const settings = () => {
             </div>
           </form>
 
-          <form action="#" method="POST">
+          <form onSubmit={personalInfoForm.handleSubmit}>
             <div className="shadow sm:rounded-md sm:overflow-hidden">
               <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
@@ -261,9 +282,18 @@ const settings = () => {
                       id="first_name"
                       autoComplete="given-name"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      onChange={personalInfoForm.handleChange}
+                      onBlur={personalInfoForm.handleBlur}
+                      value={personalInfoForm.values.first_name}
                     />
+                    {personalInfoForm.touched.first_name &&
+                    personalInfoForm.errors.first_name ? (
+                      <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                        <p className="font-bold">Error</p>
+                        <p>{personalInfoForm.errors.first_name}</p>
+                      </div>
+                    ) : null}
                   </div>
-
                   <div className="col-span-6 sm:col-span-3">
                     <label
                       htmlFor="last_name"
@@ -277,9 +307,18 @@ const settings = () => {
                       id="last_name"
                       autoComplete="family-name"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      onChange={personalInfoForm.handleChange}
+                      onBlur={personalInfoForm.handleBlur}
+                      value={personalInfoForm.values.last_name}
                     />
+                    {personalInfoForm.touched.last_name &&
+                    personalInfoForm.errors.last_name ? (
+                      <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                        <p className="font-bold">Error</p>
+                        <p>{personalInfoForm.errors.last_name}</p>
+                      </div>
+                    ) : null}
                   </div>
-
                   <div className="col-span-6 sm:col-span-3">
                     <label
                       htmlFor="country"
@@ -292,27 +331,51 @@ const settings = () => {
                       name="country"
                       autoComplete="country"
                       className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      onChange={personalInfoForm.handleChange}
+                      onBlur={personalInfoForm.handleBlur}
+                      value={personalInfoForm.values.country}
                     >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
+                      <option defaultValue disabled value="">
+                        Select one
+                      </option>
+
+                      {countries.map((country) => (
+                        <option value={country.abbreviation}>
+                          {country.country}
+                        </option>
+                      ))}
                     </select>
+                    {personalInfoForm.touched.country &&
+                    personalInfoForm.errors.country ? (
+                      <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                        <p className="font-bold">Error</p>
+                        <p>{personalInfoForm.errors.country}</p>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="country"
+                      htmlFor="currency"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Currency
                     </label>
                     <select
-                      id="country"
-                      name="country"
-                      autoComplete="country"
+                      id="currency"
+                      name="currency"
+                      autoComplete="currency"
                       className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      onChange={personalInfoForm.handleChange}
+                      onBlur={personalInfoForm.handleBlur}
+                      value={personalInfoForm.values.currency}
                     >
-                      <option>EUR</option>
-                      <option>USD</option>
+                      <option defaultValue disabled value="">
+                        Select one
+                      </option>
+
+                      {currencies.map((currency) => (
+                        <option value={currency.code}>{currency.code}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -350,7 +413,7 @@ const settings = () => {
                     <input
                       type="text"
                       name="email_address"
-                      value="ah******ail.com"
+                      value="ah30456@gmail.com"
                       id="email_address"
                       autoComplete="email"
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
