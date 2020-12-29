@@ -165,6 +165,7 @@ export const updateUser = (user) => (dispatch, getState) => {
         payload: res.data,
       });
       dispatch(createNotification("SUCCESS", "Successfully saved!"));
+      dispatch(resetUsernameAvailable());
     })
     .catch((err) => {
       dispatch({
@@ -174,6 +175,35 @@ export const updateUser = (user) => (dispatch, getState) => {
       dispatch(createNotification("ERROR", "Save error!"));
     });
 };
+
+export const updateUserPicture = (picture) => (dispatch, getState) => {
+  const fd = new FormData();
+  fd.append("picture", picture, picture.name);
+  dispatch({ type: UPDATE_USER });
+  axios
+    .patch(
+      `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
+      fd,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(createNotification("SUCCESS", "Picture successfully saved!"));
+      dispatch(resetUsernameAvailable());
+    })
+    .catch((err) => {
+      dispatch({
+        type: UPDATE_USER_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+      dispatch(createNotification("ERROR", "Save picture error!"));
+    });
+};
+
 export const changePassword = (data) => (dispatch, getState) => {
   console.log(data);
   dispatch({

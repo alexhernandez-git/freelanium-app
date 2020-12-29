@@ -11,15 +11,17 @@ import {
 } from "redux/actions/auth";
 import { useDispatch } from "react-redux";
 import { createNotification } from "redux/actions/notifications";
+import CropperModal from "components/pages/dashboard/settings/CropperModal";
+import profile from "./profile";
 const settings = () => {
   const dispatch = useDispatch();
   const [cantRender, authReducer] = useAuthRequired();
-  const { username_available_error, username_available } = authReducer;
+  const { username_available_error, username_available, user } = authReducer;
   const profileForm = useFormik({
     enableReinitialize: true,
     initialValues: {
-      username: authReducer.user && authReducer.user.username,
-      about: authReducer.user && authReducer.user.about,
+      username: user && user.username,
+      about: user && user.about,
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Username is required"),
@@ -31,9 +33,9 @@ const settings = () => {
     },
   });
   React.useEffect(() => {
-    if (authReducer.user) {
+    if (user) {
       dispatch(resetUsernameAvailable());
-      if (profileForm.values.username != authReducer.user.username) {
+      if (profileForm.values.username != user.username) {
         const timeoutId = setTimeout(() => {
           dispatch(
             isUsernameAvailable({ username: profileForm.values.username })
@@ -43,6 +45,37 @@ const settings = () => {
       }
     }
   }, [profileForm.values.username]);
+
+  const [showCropper, setShowCropper] = React.useState(false);
+  const [newImage, setNewImage] = React.useState({
+    image: null,
+    name: "",
+  });
+  const handleOpenCropper = (e) => {
+    setShowCropper(true);
+  };
+  const handleCloseCropper = () => {
+    setShowCropper(false);
+  };
+  const handleChangeImage = (e) => {
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    console.log(files);
+    if (files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setNewImage({ image: reader.result, name: files[0].name });
+        handleOpenCropper();
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  };
+  var have_relative_path = new RegExp(process.env.HOST);
   return !cantRender ? (
     "Loading..."
   ) : (
@@ -147,23 +180,47 @@ const settings = () => {
                       Photo
                     </label>
                     <div className="mt-1 flex items-center">
-                      <span className="inline-block bg-gray-100 rounded-full overflow-hidden h-12 w-12">
-                        <svg
-                          className="h-full w-full text-gray-300"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                      </span>
-                      <button
-                        type="button"
-                        className="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      {user && user.picture ? (
+                        <img
+                          class="inline-block h-12 w-12 rounded-full"
+                          src={
+                            have_relative_path.test(user.picture)
+                              ? user.picture
+                              : process.env.HOST + user.picture
+                          }
+                          alt=""
+                        ></img>
+                      ) : (
+                        <span className="inline-block bg-gray-100 rounded-full overflow-hidden h-12 w-12">
+                          <svg
+                            className="h-full w-full text-gray-300"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                          </svg>
+                        </span>
+                      )}
+
+                      <label
+                        className="cursor-pointer ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        htmlFor="profile-img"
                       >
                         Change
-                      </button>
+                      </label>
+                      <input
+                        id={"profile-img"}
+                        type="file"
+                        hidden
+                        onChange={handleChangeImage}
+                      />
                     </div>
                   </div>
+                  <CropperModal
+                    show={showCropper}
+                    handleClose={handleCloseCropper}
+                    newImage={newImage}
+                  />
                 </div>
               </div>
 
