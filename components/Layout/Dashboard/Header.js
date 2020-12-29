@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, toggleView } from "redux/actions/auth";
 const Header = () => {
   const authReducer = useSelector((state) => state.authReducer);
-
+  const { user } = authReducer;
   // Dispatch
   const dispatch = useDispatch();
   const handleToggleView = () => {
@@ -52,7 +52,7 @@ const Header = () => {
               <div className="-ml-2 mr-2 flex items-center md:hidden">
                 {/* <!-- Mobile menu button --> */}
                 <button
-                  onClick={handleToggleMobileMenu}
+                  onMouseDown={handleToggleMobileMenu}
                   className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                   aria-expanded="false"
                 >
@@ -167,7 +167,7 @@ const Header = () => {
                   Credits: $2
                 </span>
               </div>
-              {authReducer.user && authReducer.user.seller_view ? (
+              {user && user.seller_view ? (
                 <>
                   <div className="flex-shrink-0 mr-5">
                     <Link href="/dashboard/settings/billing">
@@ -202,7 +202,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  {authReducer.user && authReducer.user.is_seller && (
+                  {user && user.is_seller && (
                     <div className="flex-shrink-0">
                       <span
                         onClick={handleToggleView}
@@ -236,31 +236,28 @@ const Header = () => {
 
                 {/* <!-- Profile dropdown --> */}
                 <div className="ml-3 relative">
-                  <div>
-                    <button
-                      className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      id="user-menu"
-                      aria-haspopup="true"
-                      onClick={handleToggleDropdownMenu}
-                    >
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </button>
-                  </div>
-                  {/* <!--
-              Profile dropdown panel, show/hide based on dropdown state.
+                  {user && (
+                    <div>
+                      <button
+                        className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        id="user-menu"
+                        aria-haspopup="true"
+                        onMouseDown={handleToggleDropdownMenu}
+                      >
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={
+                            new RegExp(process.env.HOST).test(user.picture)
+                              ? user.picture
+                              : process.env.HOST + user.picture
+                          }
+                          alt=""
+                        />
+                      </button>
+                    </div>
+                  )}
 
-              Entering: "transition ease-out duration-200"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            --> */}
                   <div
                     ref={dropdownMenuRef}
                     className={`${
@@ -270,7 +267,7 @@ const Header = () => {
                     <div className="px-4 py-3">
                       <p className="text-sm">Signed in as</p>
                       <p className="text-sm font-medium text-gray-900 truncate">
-                        tom@example.com
+                        {user?.username}
                       </p>
                     </div>
                     <div
@@ -287,7 +284,7 @@ const Header = () => {
                           Account settings
                         </a>
                       </Link>
-                      {authReducer.user && authReducer.user.seller_view ? (
+                      {user && user.seller_view ? (
                         <>
                           <Link href="/dashboard/settings/billing">
                             <a
@@ -315,7 +312,7 @@ const Header = () => {
                         </>
                       ) : (
                         <>
-                          {authReducer.user && !authReducer.user.is_seller && (
+                          {user && !user.is_seller && (
                             <Link href="/dashboard/settings/earnings">
                               <a
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"

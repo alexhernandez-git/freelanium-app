@@ -75,7 +75,7 @@ const settings = () => {
       reader.readAsDataURL(files[0]);
     }
   };
-  var have_relative_path = new RegExp(process.env.HOST);
+
   return !cantRender ? (
     "Loading..."
   ) : (
@@ -184,7 +184,7 @@ const settings = () => {
                         <img
                           class="inline-block h-12 w-12 rounded-full"
                           src={
-                            have_relative_path.test(user.picture)
+                            new RegExp(process.env.HOST).test(user.picture)
                               ? user.picture
                               : process.env.HOST + user.picture
                           }
