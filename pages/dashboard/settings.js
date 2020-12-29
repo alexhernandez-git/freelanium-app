@@ -7,8 +7,10 @@ import * as Yup from "yup";
 import {
   isUsernameAvailable,
   resetUsernameAvailable,
+  updateUser,
 } from "redux/actions/auth";
 import { useDispatch } from "react-redux";
+import { createNotification } from "redux/actions/notifications";
 const settings = () => {
   const dispatch = useDispatch();
   const [cantRender, authReducer] = useAuthRequired();
@@ -25,7 +27,7 @@ const settings = () => {
     }),
     onSubmit: async (values) => {
       // console.log(valores);
-      console.log(values);
+      dispatch(updateUser(values));
     },
   });
   React.useEffect(() => {

@@ -1,3 +1,4 @@
+import { useNotification } from "hooks/useNotification";
 import { useRouter } from "next/router";
 import React from "react";
 import Header from "./Header";
@@ -11,8 +12,10 @@ const Layout = ({
   pageName = "",
 }) => {
   const router = useRouter();
+  const NotificationElement = useNotification();
   return (
     <>
+      {NotificationElement}
       <div className="min-h-screen bg-gray-100">
         <header>
           <Header />

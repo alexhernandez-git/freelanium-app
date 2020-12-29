@@ -28,6 +28,7 @@ import {
   IS_USERNAME_AVAILABLE_FAIL,
   RESET_USERNAME_AVAILABLE,
 } from "../types";
+import { createNotification } from "./notifications";
 
 // SET TOKEN
 // CHECK TOKEN & LOAD USER
@@ -150,7 +151,6 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const updateUser = (user) => (dispatch, getState) => {
-  console.log("user", user);
   dispatch({ type: UPDATE_USER });
   axios
     .patch(
@@ -164,12 +164,14 @@ export const updateUser = (user) => (dispatch, getState) => {
         type: UPDATE_USER_SUCCESS,
         payload: res.data,
       });
+      dispatch(createNotification("SUCCESS", "Successfully saved!"));
     })
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
+      dispatch(createNotification("ERROR", "Save error!"));
     });
 };
 export const changePassword = (data) => (dispatch, getState) => {
