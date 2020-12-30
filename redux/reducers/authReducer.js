@@ -26,6 +26,9 @@ import {
   IS_USERNAME_AVAILABLE_SUCCESS,
   IS_USERNAME_AVAILABLE_FAIL,
   RESET_USERNAME_AVAILABLE,
+  SEND_VERIFICATION_EMAIL,
+  SEND_VERIFICATION_EMAIL_SUCCESS,
+  SEND_VERIFICATION_EMAIL_FAIL,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -45,6 +48,8 @@ const initialState = {
   username_available_loading: false,
   username_available: false,
   username_available_error: null,
+  sending_verification_email: false,
+  send_verification_email_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -163,7 +168,22 @@ export default function AuthReducer(state = initialState, action) {
           seller_view: action.payload,
         },
       };
-
+    case SEND_VERIFICATION_EMAIL:
+      return {
+        ...state,
+        sending_verification_email: true,
+      };
+    case SEND_VERIFICATION_EMAIL_SUCCESS:
+      return {
+        ...state,
+        sending_verification_email: false,
+      };
+    case SEND_VERIFICATION_EMAIL_FAIL:
+      return {
+        ...state,
+        sending_verification_email: false,
+        send_verification_email_error: action.payload,
+      };
     case UPDATE_USER:
       return {
         ...state,

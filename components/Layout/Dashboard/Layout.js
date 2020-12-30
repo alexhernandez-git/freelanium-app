@@ -1,6 +1,8 @@
 import { useNotification } from "hooks/useNotification";
 import { useRouter } from "next/router";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { sendVerificationEmail } from "redux/actions/auth";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 
@@ -13,6 +15,10 @@ const Layout = ({
 }) => {
   const router = useRouter();
   const NotificationElement = useNotification();
+  const dispatch = useDispatch();
+  const handleSendVerificationEmail = () => {
+    dispatch(sendVerificationEmail());
+  };
   return (
     <>
       {NotificationElement}
@@ -41,8 +47,8 @@ const Layout = ({
               <p className="text-sm text-yellow-700">
                 Account not validated.{" "}
                 <a
-                  href="#"
-                  className="font-medium underline text-yellow-700 hover:text-yellow-600"
+                  onClick={handleSendVerificationEmail}
+                  className="cursor-pointer font-medium underline text-yellow-700 hover:text-yellow-600"
                 >
                   Send validation email.
                 </a>{" "}

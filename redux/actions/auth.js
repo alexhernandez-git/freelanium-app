@@ -27,6 +27,9 @@ import {
   IS_USERNAME_AVAILABLE_SUCCESS,
   IS_USERNAME_AVAILABLE_FAIL,
   RESET_USERNAME_AVAILABLE,
+  SEND_VERIFICATION_EMAIL,
+  SEND_VERIFICATION_EMAIL_SUCCESS,
+  SEND_VERIFICATION_EMAIL_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -148,6 +151,26 @@ export const register_buyer = (data) => (dispatch, getState) => {
 
 export const logout = () => (dispatch, getState) => {
   dispatch({ type: LOGOUT_SUCCESS });
+};
+
+export const sendVerificationEmail = () => (dispatch, getState) => {
+  dispatch({ type: SEND_VERIFICATION_EMAIL });
+  axios
+    .get(
+      `${process.env.HOST}/api/users/send_verification_email/`,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch({
+        type: SEND_VERIFICATION_EMAIL_SUCCESS,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SEND_VERIFICATION_EMAIL_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };
 
 export const updateUser = (user) => (dispatch, getState) => {
