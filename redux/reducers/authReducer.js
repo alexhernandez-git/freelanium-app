@@ -12,6 +12,9 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  CHANGE_EMAIL,
+  CHANGE_EMAIL_SUCCESS,
+  CHANGE_EMAIL_FAIL,
   SET_STRIPE_CUSTOMER_DATA,
   STRIPE_CONNECTED,
   STRIPE_CONNECTED_SUCCESS,
@@ -32,6 +35,9 @@ import {
   VERIFY_ACCOUNT,
   VERIFY_ACCOUNT_SUCCESS,
   VERIFY_ACCOUNT_FAIL,
+  VALIDATE_CHANGE_EMAIL,
+  VALIDATE_CHANGE_EMAIL_SUCCESS,
+  VALIDATE_CHANGE_EMAIL_FAIL,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -43,6 +49,8 @@ const initialState = {
   update_user_error: null,
   is_changing_password: false,
   change_password_error: null,
+  is_changing_email: false,
+  change_email_error: null,
   stripe_connecting: false,
   stripe_connecting_error: null,
   email_available_loading: false,
@@ -55,6 +63,8 @@ const initialState = {
   send_verification_email_error: null,
   verifing_account: false,
   verify_account_error: null,
+  validating_change_email: false,
+  validate_change_email_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -209,6 +219,26 @@ export default function AuthReducer(state = initialState, action) {
         verifing_account: false,
         verify_account_error: action.payload,
       };
+    case VALIDATE_CHANGE_EMAIL:
+      return {
+        ...state,
+        validating_change_email: true,
+      };
+    case VALIDATE_CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        validating_change_email: false,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+        },
+      };
+    case VALIDATE_CHANGE_EMAIL_FAIL:
+      return {
+        ...state,
+        validating_change_email: false,
+        validate_change_email_error: action.payload,
+      };
     case UPDATE_USER:
       return {
         ...state,
@@ -225,6 +255,22 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         is_updating_user: false,
         update_user_error: action.payload,
+      };
+    case CHANGE_EMAIL:
+      return {
+        ...state,
+        is_changing_email: true,
+      };
+    case CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        is_changing_email: false,
+      };
+    case CHANGE_EMAIL_FAIL:
+      return {
+        ...state,
+        is_changing_email: false,
+        change_email_error: action.payload,
       };
     case CHANGE_PASSWORD:
       return {

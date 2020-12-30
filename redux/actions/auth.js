@@ -1,4 +1,5 @@
 import axios from "axios";
+import actions from "pages/dashboard/order/[id]/actions";
 import Swal from "sweetalert2";
 
 import {
@@ -13,6 +14,9 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  CHANGE_EMAIL,
+  CHANGE_EMAIL_SUCCESS,
+  CHANGE_EMAIL_FAIL,
   STRIPE_CONNECTED,
   STRIPE_CONNECTED_SUCCESS,
   STRIPE_CONNECTED_FAIL,
@@ -33,6 +37,9 @@ import {
   VERIFY_ACCOUNT,
   VERIFY_ACCOUNT_SUCCESS,
   VERIFY_ACCOUNT_FAIL,
+  VALIDATE_CHANGE_EMAIL,
+  VALIDATE_CHANGE_EMAIL_SUCCESS,
+  VALIDATE_CHANGE_EMAIL_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -197,6 +204,30 @@ export const verifyAccount = (token, router) => (dispatch, getState) => {
     });
 };
 
+export const validateChangeEmail = (token, router) => (dispatch, getState) => {
+  dispatch({ type: VALIDATE_CHANGE_EMAIL });
+  axios
+    .post(`${process.env.HOST}/api/users/validate_change_email/`, {
+      token: token,
+    })
+    .then((res) => {
+      dispatch({
+        type: VALIDATE_CHANGE_EMAIL_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(createNotification("SUCCESS", res.data.message));
+      router.push("/");
+    })
+    .catch((err) => {
+      dispatch({
+        type: VALIDATE_CHANGE_EMAIL_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+      dispatch(createNotification("ERROR", "Error at verify your account"));
+      router.push("/");
+    });
+};
+
 export const updateUser = (user) => (dispatch, getState) => {
   dispatch({ type: UPDATE_USER });
   axios
@@ -273,6 +304,33 @@ export const changePassword = (data) => (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: CHANGE_PASSWORD_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const changeEmail = (data) => (dispatch, getState) => {
+  console.log(data);
+  dispatch({
+    type: CHANGE_EMAIL,
+  });
+  axios
+    .post(
+      `${process.env.HOST}/api/users/change_email/`,
+      data,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res.data);
+
+      dispatch({
+        type: CHANGE_EMAIL_SUCCESS,
+      });
+      dispatch(createNotification("SUCCESS", "Change email sent"));
+    })
+    .catch((err) => {
+      dispatch({
+        type: CHANGE_EMAIL_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });

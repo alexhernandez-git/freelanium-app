@@ -15,14 +15,18 @@ const security = () => {
       repeat_password: "",
     },
     validationSchema: Yup.object({
-      new_password: Yup.string().required("New password is required"),
+      new_password: Yup.string()
+        .required("New password is required")
+        .min(8, "New password must have at least 8 characters"),
       repeat_password: Yup.string()
         .required("New password confirmation is required")
+        .min(8, "New password confirmation must have at least 8 characters")
         .oneOf([Yup.ref("new_password"), null], "Passwords must match"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       // console.log(valores);
       dispatch(changePassword(values));
+      resetForm({});
     },
   });
   return !cantRender ? (
