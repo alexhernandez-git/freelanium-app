@@ -29,6 +29,9 @@ import {
   SEND_VERIFICATION_EMAIL,
   SEND_VERIFICATION_EMAIL_SUCCESS,
   SEND_VERIFICATION_EMAIL_FAIL,
+  VERIFY_ACCOUNT,
+  VERIFY_ACCOUNT_SUCCESS,
+  VERIFY_ACCOUNT_FAIL,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -50,6 +53,8 @@ const initialState = {
   username_available_error: null,
   sending_verification_email: false,
   send_verification_email_error: null,
+  verifing_account: false,
+  verify_account_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -183,6 +188,26 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         sending_verification_email: false,
         send_verification_email_error: action.payload,
+      };
+    case VERIFY_ACCOUNT:
+      return {
+        ...state,
+        verifing_account: true,
+      };
+    case VERIFY_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        verifing_account: false,
+        user: {
+          ...state.user,
+          is_verified: true,
+        },
+      };
+    case VERIFY_ACCOUNT_FAIL:
+      return {
+        ...state,
+        verifing_account: false,
+        verify_account_error: action.payload,
       };
     case UPDATE_USER:
       return {

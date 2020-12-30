@@ -30,6 +30,9 @@ import {
   SEND_VERIFICATION_EMAIL,
   SEND_VERIFICATION_EMAIL_SUCCESS,
   SEND_VERIFICATION_EMAIL_FAIL,
+  VERIFY_ACCOUNT,
+  VERIFY_ACCOUNT_SUCCESS,
+  VERIFY_ACCOUNT_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -173,6 +176,27 @@ export const sendVerificationEmail = () => (dispatch, getState) => {
     });
 };
 
+export const verifyAccount = (token, router) => (dispatch, getState) => {
+  dispatch({ type: VERIFY_ACCOUNT });
+  axios
+    .post(`${process.env.HOST}/api/users/verify/`, { token: token })
+    .then((res) => {
+      dispatch({
+        type: VERIFY_ACCOUNT_SUCCESS,
+      });
+      dispatch(createNotification("SUCCESS", res.data.message));
+      router.push("/");
+    })
+    .catch((err) => {
+      dispatch({
+        type: VERIFY_ACCOUNT_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+      dispatch(createNotification("ERROR", "Error at verify your account"));
+      router.push("/");
+    });
+};
+
 export const updateUser = (user) => (dispatch, getState) => {
   dispatch({ type: UPDATE_USER });
   axios
@@ -240,14 +264,11 @@ export const changePassword = (data) => (dispatch, getState) => {
     )
     .then((res) => {
       console.log(res.data);
-      Swal.fire({
-        title: "Contraseña actualizada!",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
+
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
       });
+      dispatch(createNotification("SUCCESS", "Password succesfully changed"));
     })
     .catch((err) => {
       dispatch({
