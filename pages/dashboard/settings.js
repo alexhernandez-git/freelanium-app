@@ -453,33 +453,37 @@ const settings = () => {
                       onBlur={emailForm.handleBlur}
                       value={emailForm.values.email}
                     />
-                    {email_available && (
-                      <p
-                        className="mt-2 text-sm text-green-600"
-                        id="email-error"
-                      >
-                        Email is available
-                      </p>
-                    )}
-                    {email_available_error &&
-                      email_available_error.data.non_field_errors &&
-                      email_available_error.data.non_field_errors.map(
-                        (message, i) => (
-                          <p
-                            key={i}
-                            className="mt-2 text-sm text-red-600"
-                            id="email-error"
-                          >
-                            {message}
-                          </p>
-                        )
-                      )}
+
                     {emailForm.touched.email && emailForm.errors.email ? (
                       <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                         <p className="font-bold">Error</p>
                         <p>{emailForm.errors.email}</p>
                       </div>
-                    ) : null}
+                    ) : (
+                      <>
+                        {email_available && (
+                          <p
+                            className="mt-2 text-sm text-green-600"
+                            id="email-error"
+                          >
+                            Email is available
+                          </p>
+                        )}
+                        {email_available_error &&
+                          email_available_error.data.non_field_errors &&
+                          email_available_error.data.non_field_errors.map(
+                            (message, i) => (
+                              <p
+                                key={i}
+                                className="mt-2 text-sm text-red-600"
+                                id="email-error"
+                              >
+                                {message}
+                              </p>
+                            )
+                          )}
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

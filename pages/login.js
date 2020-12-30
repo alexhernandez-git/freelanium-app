@@ -160,6 +160,11 @@ const loginPage = () => {
                     <p>{message}</p>
                   </div>
                 ))}
+              {authReducer.error && authReducer.error.data.detail && (
+                <div className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                  <p>Invalid credentials</p>
+                </div>
+              )}
               <form className="space-y-6" onSubmit={formik.handleSubmit}>
                 <div>
                   <label
