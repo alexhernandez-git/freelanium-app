@@ -40,6 +40,12 @@ import {
   VALIDATE_CHANGE_EMAIL,
   VALIDATE_CHANGE_EMAIL_SUCCESS,
   VALIDATE_CHANGE_EMAIL_FAIL,
+  FORGET_PASSWORD,
+  FORGET_PASSWORD_SUCCESS,
+  FORGET_PASSWORD_FAIL,
+  RESET_PASSWORD,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -225,6 +231,46 @@ export const validateChangeEmail = (token, router) => (dispatch, getState) => {
       });
       dispatch(createNotification("ERROR", "Error at verify your account"));
       router.push("/");
+    });
+};
+export const forgetPassword = (values) => (dispatch, getState) => {
+  dispatch({ type: FORGET_PASSWORD });
+  axios
+    .post(`${process.env.HOST}/api/users/forget_password/`, values)
+    .then((res) => {
+      dispatch({
+        type: FORGET_PASSWORD_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(createNotification("SUCCESS", "Reset password email sent"));
+    })
+    .catch((err) => {
+      dispatch({
+        type: FORGET_PASSWORD_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const resetPassword = (values, router) => (dispatch, getState) => {
+  dispatch({ type: RESET_PASSWORD });
+  axios
+    .post(`${process.env.HOST}/api/users/reset_password/`, values)
+    .then((res) => {
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(createNotification("SUCCESS", "Password succesfully changed"));
+      router.push("/login");
+    })
+    .catch((err) => {
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+      dispatch(createNotification("ERROR", "Error at change your password"));
+      router.push("/login");
     });
 };
 

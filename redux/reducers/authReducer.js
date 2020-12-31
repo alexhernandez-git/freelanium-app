@@ -38,6 +38,12 @@ import {
   VALIDATE_CHANGE_EMAIL,
   VALIDATE_CHANGE_EMAIL_SUCCESS,
   VALIDATE_CHANGE_EMAIL_FAIL,
+  FORGET_PASSWORD,
+  FORGET_PASSWORD_SUCCESS,
+  FORGET_PASSWORD_FAIL,
+  RESET_PASSWORD,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -65,6 +71,10 @@ const initialState = {
   verify_account_error: null,
   validating_change_email: false,
   validate_change_email_error: null,
+  sending_forget_password_email: false,
+  forget_password_error: null,
+  resetting_password: false,
+  reset_password_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -192,6 +202,7 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         sending_verification_email: false,
+        send_verification_email_error: null,
       };
     case SEND_VERIFICATION_EMAIL_FAIL:
       return {
@@ -212,6 +223,7 @@ export default function AuthReducer(state = initialState, action) {
           ...state.user,
           is_verified: true,
         },
+        verify_account_error: null,
       };
     case VERIFY_ACCOUNT_FAIL:
       return {
@@ -232,12 +244,55 @@ export default function AuthReducer(state = initialState, action) {
           ...state.user,
           email: action.payload.email,
         },
+        validate_change_email_error: null,
       };
     case VALIDATE_CHANGE_EMAIL_FAIL:
       return {
         ...state,
         validating_change_email: false,
         validate_change_email_error: action.payload,
+      };
+    case FORGET_PASSWORD:
+      return {
+        ...state,
+        sending_forget_password_email: true,
+      };
+    case FORGET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        sending_forget_password_email: false,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+        },
+        forget_password_error: null,
+      };
+    case FORGET_PASSWORD_FAIL:
+      return {
+        ...state,
+        sending_forget_password_email: false,
+        forget_password_error: action.payload,
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        resetting_password: true,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        resetting_password: false,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+        },
+        reset_password_error: null,
+      };
+    case RESET_PASSWORD_FAIL:
+      return {
+        ...state,
+        resetting_password: false,
+        reset_password_error: action.payload,
       };
     case UPDATE_USER:
       return {

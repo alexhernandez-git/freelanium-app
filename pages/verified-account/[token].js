@@ -1,4 +1,5 @@
 import Layout from "components/Layout/Layout";
+import { useNotification } from "hooks/useNotification";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -13,7 +14,9 @@ const verified_account = () => {
       dispatch(verifyAccount(token, router));
     }
   }, [token]);
-  return <></>;
+  const notification = useNotification();
+
+  return <>{notification}</>;
 };
 
 export default verified_account;

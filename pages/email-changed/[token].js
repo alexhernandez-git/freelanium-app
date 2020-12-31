@@ -1,4 +1,5 @@
 import Layout from "components/Layout/Layout";
+import { useNotification } from "hooks/useNotification";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -13,7 +14,9 @@ const email_changed = () => {
       dispatch(validateChangeEmail(token, router));
     }
   }, [token]);
-  return <></>;
+  const notification = useNotification();
+
+  return <>{notification}</>;
 };
 
 export default email_changed;
