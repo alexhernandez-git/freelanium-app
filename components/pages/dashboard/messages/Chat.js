@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
+  const lastChatRef = useRef();
+  useEffect(() => {
+    if (lastChatRef.current) {
+      lastChatRef.current.scrollIntoView();
+    }
+  }, []);
   return (
     <>
       <div className={`${showMessages ? "hidden md:flex" : "flex"}`}>
@@ -258,7 +264,10 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                   </div>
                 </li>
                 <li>
-                  <div className="relative pb-8 flex justify-end">
+                  <div
+                    className="relative pb-8 flex justify-end"
+                    ref={lastChatRef}
+                  >
                     <div className="relative flex items-start space-x-3 lg:w-3/4">
                       <div className="min-w-0 flex-1">
                         <div className="text-right">

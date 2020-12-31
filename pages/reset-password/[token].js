@@ -21,8 +21,8 @@ const loginPage = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(8, "Password must be at least 8 characters long ")
-        .required("Password is required"),
+        .min(8, "New password must be at least 8 characters long ")
+        .required("New password is required"),
       confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Password confirmation is required"),
@@ -58,7 +58,7 @@ const loginPage = () => {
                     htmlFor="password"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Password
+                    New Password
                   </label>
                   <div className="mt-1">
                     <input
@@ -85,7 +85,7 @@ const loginPage = () => {
                     htmlFor="confirm_password"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    New Password
+                    Confirm New Password
                   </label>
                   <div className="mt-1">
                     <input

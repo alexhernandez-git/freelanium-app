@@ -86,7 +86,6 @@ export default function AuthReducer(state = initialState, action) {
       };
     case USER_LOADED:
       //   console.log(action.payload);
-      console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,
@@ -337,6 +336,7 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         is_changing_password: false,
+        change_password_error: null,
       };
     case CHANGE_PASSWORD_FAIL:
       return {
