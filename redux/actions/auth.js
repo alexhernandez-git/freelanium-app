@@ -14,6 +14,7 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  RESET_CHANGE_PASSWORD_ERRORS,
   CHANGE_EMAIL,
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_FAIL,
@@ -353,6 +354,9 @@ export const changePassword = (data) => (dispatch, getState) => {
         payload: { data: err.response.data, status: err.response.status },
       });
     });
+};
+export const resetChangePasswordErrors = () => (dispatch) => {
+  dispatch({ type: RESET_CHANGE_PASSWORD_ERRORS });
 };
 
 export const changeEmail = (data) => (dispatch, getState) => {

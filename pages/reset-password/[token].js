@@ -85,7 +85,7 @@ const loginPage = () => {
                     htmlFor="confirm_password"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Password
+                    New Password
                   </label>
                   <div className="mt-1">
                     <input

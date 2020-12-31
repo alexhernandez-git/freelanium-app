@@ -12,6 +12,7 @@ import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  RESET_CHANGE_PASSWORD_ERRORS,
   CHANGE_EMAIL,
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_FAIL,
@@ -343,7 +344,11 @@ export default function AuthReducer(state = initialState, action) {
         is_changing_password: false,
         change_password_error: action.payload,
       };
-
+    case RESET_CHANGE_PASSWORD_ERRORS:
+      return {
+        ...state,
+        change_password_error: null,
+      };
     case SET_STRIPE_CUSTOMER_DATA:
       return {
         ...state,

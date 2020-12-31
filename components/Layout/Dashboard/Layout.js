@@ -12,6 +12,7 @@ const Layout = ({
   searchBar,
   noPadding,
   noPaddingY,
+  searchState,
   pageName = "",
 }) => {
   const router = useRouter();
@@ -86,7 +87,7 @@ const Layout = ({
               <div className="m-3 block sm:hidden"></div>
               {searchBar && (
                 <>
-                  <SearchBar text={searchBar} />
+                  <SearchBar text={searchBar} searchState={searchState} />
                 </>
               )}
             </div>
