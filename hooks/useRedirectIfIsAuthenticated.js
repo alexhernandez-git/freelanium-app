@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 
 const useRedirectIfIsAuthenticated = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { isLoading, isAuthenticated } = authReducer;
+  const { is_loading, is_authenticated } = authReducer;
   const router = useRouter();
   useEffect(() => {
-    if (!isLoading) {
-      console.log(isAuthenticated);
-      if (isAuthenticated) {
+    if (!is_loading) {
+      console.log(is_authenticated);
+      if (is_authenticated) {
         router.push("/dashboard");
       }
     }
-  }, [isLoading, isAuthenticated]);
+  }, [is_loading, is_authenticated]);
 };
 
 export default useRedirectIfIsAuthenticated;

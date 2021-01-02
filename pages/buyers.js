@@ -2,7 +2,7 @@ import { Header, MobileHeader } from "components/Layout/Header";
 import Layout from "components/Layout/Layout";
 import React, { useState } from "react";
 import Link from "next/link";
-import BuyerRegister from "components/pages/buyers/BuyerRegister";
+import RegisterLayout from "components/Layout/RegisterLayout";
 
 const index = () => {
   const [openTryItFree, setOpenTryItFree] = useState(false);
@@ -18,7 +18,7 @@ const index = () => {
         openTryItFree={openTryItFree}
         handleCloseTryFree={handleCloseTryFree}
       >
-        <BuyerRegister />
+        <RegisterLayout />
         <main className="mt-16 mx-auto max-w-7xl 2xl:max-w-3/4 px-4 sm:mt-24">
           <div className="bg-gray-50 overflow-hidden">
             <div className="relative max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">

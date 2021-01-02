@@ -4,7 +4,12 @@ import Footer from "./Footer";
 import { useRouter } from "next/router";
 import { useNotification } from "hooks/useNotification";
 
-const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
+const Layout = ({
+  children,
+  openTryItFree,
+  handleCloseTryFree,
+  invitedBuyer,
+}) => {
   const router = useRouter();
   const notification = useNotification();
 
@@ -88,6 +93,7 @@ const Layout = ({ children, openTryItFree, handleCloseTryFree }) => {
           <Header
             openTryItFree={openTryItFree}
             handleCloseTryFree={handleCloseTryFree}
+            invitedBuyer={invitedBuyer}
           />
           {children}
         </div>

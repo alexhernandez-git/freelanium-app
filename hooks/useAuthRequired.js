@@ -4,18 +4,18 @@ import { useSelector } from "react-redux";
 
 const useAuthRequired = () => {
   const authReducer = useSelector((state) => state.authReducer);
-  const { isLoading, isAuthenticated } = authReducer;
+  const { is_loading, is_authenticated } = authReducer;
   const router = useRouter();
   const [cantRender, setCantRender] = useState(false);
   useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated && router.pathname != "/login") {
+    if (!is_loading) {
+      if (!is_authenticated && router.pathname != "/login") {
         router.push("/");
       } else {
         setCantRender(true);
       }
     }
-  }, [isLoading, isAuthenticated]);
+  }, [is_loading, is_authenticated]);
   return [cantRender, authReducer];
 };
 

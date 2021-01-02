@@ -1,8 +1,9 @@
 import React from "react";
 
-const PrimaryButton = ({ children, className, disabled }) => {
+export const PrimaryButton = ({ children, className, disabled, onClick }) => {
   return (
     <button
+      onClick={onClick}
       type="button"
       disabled={disabled}
       className={`${className} inline-flex items-center px-3 py-2 border border-transparent 
@@ -15,7 +16,7 @@ const PrimaryButton = ({ children, className, disabled }) => {
     </button>
   );
 };
-const SecondaryButton = ({ children, className, onClick }) => {
+export const SecondaryButton = ({ children, className, onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -26,5 +27,3 @@ const SecondaryButton = ({ children, className, onClick }) => {
     </button>
   );
 };
-
-export { PrimaryButton, SecondaryButton };

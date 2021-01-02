@@ -45,11 +45,14 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  INVITE_USER,
+  INVITE_USER_SUCCESS,
+  INVITE_USER_FAIL,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
-  isAuthenticated: null,
-  isLoading: true,
+  is_authenticated: null,
+  is_loading: true,
   user: null,
   error: null,
   is_updating_user: false,
@@ -76,20 +79,23 @@ const initialState = {
   forget_password_error: null,
   resetting_password: false,
   reset_password_error: null,
+  inviting_user: false,
+  invite_user_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case USER_LOADING:
       return {
         ...state,
-        isLoading: true,
+        is_loading: true,
       };
     case USER_LOADED:
       //   console.log(action.payload);
       return {
         ...state,
-        isAuthenticated: true,
-        isLoading: false,
+        is_authenticated: true,
+        is_loading: false,
+        error: null,
         ...action.payload,
       };
     case LOGIN_SUCCESS:
@@ -100,8 +106,8 @@ export default function AuthReducer(state = initialState, action) {
         user: action.payload.user,
         rating: action.payload.rating,
         access_token: action.payload.access_token,
-        isAuthenticated: true,
-        isLoading: false,
+        is_authenticated: true,
+        is_loading: false,
         haveAccess: action.payload.have_access,
         error: !action.payload.have_access
           ? { data: { detail: "You don't have access" } }
@@ -162,8 +168,9 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         user: action.payload.user,
         access_token: action.payload.access_token,
-        isAuthenticated: true,
-        isLoading: false,
+        is_authenticated: true,
+        is_loading: false,
+        error: null,
         haveAccess: action.payload.have_access,
       };
 
@@ -176,8 +183,8 @@ export default function AuthReducer(state = initialState, action) {
         access_token: null,
         user: null,
         rating: null,
-        isAuthenticated: false,
-        isLoading: false,
+        is_authenticated: false,
+        is_loading: false,
         error: action.payload,
       };
     case RESET_AUTH_ERRORS:
@@ -379,6 +386,23 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         stripe_connecting: false,
         stripe_connecting_error: action.payload,
+      };
+    case INVITE_USER:
+      return {
+        ...state,
+        inviting_user: true,
+      };
+    case INVITE_USER_SUCCESS:
+      return {
+        ...state,
+        inviting_user: false,
+        invite_user_error: null,
+      };
+    case INVITE_USER_FAIL:
+      return {
+        ...state,
+        inviting_user: false,
+        invite_user_error: action.payload,
       };
 
     default:

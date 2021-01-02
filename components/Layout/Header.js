@@ -6,8 +6,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { isEmailAvailable, resetEmailAvailable } from "redux/actions/auth";
 import { useRouter } from "next/router";
+import EmailForm from "components/Forms/EmailForm";
 
-const Header = ({ openTryItFree, handleCloseTryFree }) => {
+const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
   const router = useRouter();
 
   const authReducer = useSelector((state) => state.authReducer);
@@ -40,8 +41,10 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
   });
 
   const handleShowModal = () => {
-    setShowModal(true);
-    formik.setErrors({});
+    if (!invitedBuyer) {
+      setShowModal(true);
+      formik.setErrors({});
+    }
   };
 
   const handleHideModal = () => {
@@ -54,7 +57,9 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
   };
 
   useEffect(() => {
-    setShowModal(openTryItFree);
+    if (!invitedBuyer) {
+      setShowModal(openTryItFree);
+    }
   }, [openTryItFree]);
   const modalRef = useRef();
   useOutsideClick(modalRef, () => handleHideModal());
@@ -62,7 +67,9 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
   const mobileMenuRef = useRef();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const handleToggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+    if (!invitedBuyer) {
+      setMobileMenuOpen(!mobileMenuOpen);
+    }
   };
   const handleCloseMobileMenu = () => {
     if (mobileMenuOpen) {
@@ -70,16 +77,6 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
     }
   };
   useOutsideClick(mobileMenuRef, () => handleCloseMobileMenu());
-
-  React.useEffect(() => {
-    dispatch(resetEmailAvailable());
-    if (formik.values.email != "") {
-      const timeoutId = setTimeout(() => {
-        dispatch(isEmailAvailable({ email: formik.values.email }));
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [formik.values.email]);
 
   return (
     <>
@@ -103,87 +100,94 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
                   </span>
                 </a>
               </Link>
-              <div className="-mr-2 flex items-center md:hidden">
-                <button
-                  onMouseDown={handleToggleMobileMenu}
-                  type="button"
-                  className="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                  id="main-menu"
-                  aria-haspopup="true"
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
+              {!invitedBuyer && (
+                <div className="-mr-2 flex items-center md:hidden">
+                  <button
+                    onMouseDown={handleToggleMobileMenu}
+                    type="button"
+                    className="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    id="main-menu"
+                    aria-haspopup="true"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                </button>
-              </div>
+                    <span className="sr-only">Open main menu</span>
+                    <svg
+                      className="h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          <div className="hidden md:flex md:space-x-10">
-            <Link href="/">
-              <a className="font-medium text-gray-500 hover:text-gray-900">
-                Home
-              </a>
-            </Link>
-            <Link href="/features">
-              <a className="font-medium text-gray-500 hover:text-gray-900">
-                Features
-              </a>
-            </Link>
-            <Link href="/pricing">
-              <a className="font-medium text-gray-500 hover:text-gray-900">
-                Pricing
-              </a>
-            </Link>
-          </div>
-          {!isLoading && isAuthenticated ? (
+          {!invitedBuyer && (
             <>
-              <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <span className="inline-flex rounded-md shadow ml-3">
-                  <Link href="/dashboard">
-                    <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
-                      Go to Dashboard
-                    </span>
-                  </Link>
-                </span>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-                <Link href="/buyers">
-                  <a className="hidden lg:block font-medium text-gray-500 hover:text-gray-900 mr-3">
-                    Are you a buyer?
+              <div className="hidden md:flex md:space-x-10">
+                <Link href="/">
+                  <a className="font-medium text-gray-500 hover:text-gray-900">
+                    Home
                   </a>
                 </Link>
-                <span className="inline-flex rounded-md shadow">
-                  <Link href="/login">
-                    <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
-                      Log in
-                    </a>
-                  </Link>
-                </span>
-                <span className="inline-flex rounded-md shadow ml-3">
-                  <span
-                    onClick={handleShowModal}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
-                  >
-                    Try it free
-                  </span>
-                </span>
+                <Link href="/features">
+                  <a className="font-medium text-gray-500 hover:text-gray-900">
+                    Features
+                  </a>
+                </Link>
+                <Link href="/pricing">
+                  <a className="font-medium text-gray-500 hover:text-gray-900">
+                    Pricing
+                  </a>
+                </Link>
               </div>
+
+              {!isLoading && isAuthenticated ? (
+                <>
+                  <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                    <span className="inline-flex rounded-md shadow ml-3">
+                      <Link href="/dashboard">
+                        <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
+                          Go to Dashboard
+                        </span>
+                      </Link>
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
+                    <Link href="/buyers">
+                      <a className="hidden lg:block font-medium text-gray-500 hover:text-gray-900 mr-3">
+                        Are you a buyer?
+                      </a>
+                    </Link>
+                    <span className="inline-flex rounded-md shadow">
+                      <Link href="/login">
+                        <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                          Log in
+                        </a>
+                      </Link>
+                    </span>
+                    <span className="inline-flex rounded-md shadow ml-3">
+                      <span
+                        onClick={handleShowModal}
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
+                      >
+                        Try it free
+                      </span>
+                    </span>
+                  </div>
+                </>
+              )}
             </>
           )}
         </nav>
@@ -194,127 +198,29 @@ const Header = ({ openTryItFree, handleCloseTryFree }) => {
           showModal ? "block" : "hidden"
         } fixed z-10 inset-0 overflow-y-auto`}
       >
-        <form onSubmit={formik.handleSubmit}>
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 transition-opacity"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            {/* <!-- This element is to trick the browser into centering the modal contents. --> */}
-            <span
-              className="hidden sm:inline-block sm:align-middle sm:h-screen"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-
-            <div
-              className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="modal-headline"
-              ref={modalRef}
-            >
-              <div>
-                <div className="text-center">
-                  <h3
-                    className="text-2xl  leading-6 font-bold text-gray-900 "
-                    id="modal-headline"
-                  >
-                    Try platform for 14 days
-                  </h3>
-                  <div className="mt-4">
-                    <p className="text-sm text-gray-500">
-                      Immediate access. No credit card required.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-7">
-                <div>
-                  <div className="mt-1">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Email
-                      </label>
-                      {email_available_error &&
-                        email_available_error.data.non_field_errors.map(
-                          (message, i) => (
-                            <p
-                              key={i}
-                              className="mt-2 text-sm text-red-600"
-                              id="email-error"
-                            >
-                              {message}
-                            </p>
-                          )
-                        )}
-                      <div className="mt-1 relative rounded-md shadow-sm">
-                        <input
-                          type="text"
-                          name="email"
-                          id="email"
-                          className={
-                            (formik.touched.email && formik.errors.email) ||
-                            email_available_error
-                              ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                              : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          }
-                          placeholder="you@example.com"
-                          aria-describedby="email-description"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.email}
-                        />
-                        {((formik.touched.email && formik.errors.email) ||
-                          email_available_error) && (
-                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg
-                              className="h-5 w-5 text-red-500"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-
-                      {formik.touched.email && formik.errors.email ? (
-                        <p
-                          className="mt-2 text-sm text-red-600"
-                          id="email-error"
-                        >
-                          {formik.errors.email}
-                        </p>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-5 sm:mt-6">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-lg"
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
+        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
           </div>
-        </form>
+
+          {/* <!-- This element is to trick the browser into centering the modal contents. --> */}
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+
+          <div
+            className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-headline"
+            ref={modalRef}
+          >
+            <EmailForm />
+          </div>
+        </div>
       </div>
       <div
         ref={mobileMenuRef}

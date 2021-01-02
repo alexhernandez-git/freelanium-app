@@ -1,6 +1,4 @@
 import axios from "axios";
-import actions from "pages/dashboard/order/[id]/actions";
-import Swal from "sweetalert2";
 
 import {
   USER_LOADED,
@@ -47,6 +45,9 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  INVITE_USER,
+  INVITE_USER_SUCCESS,
+  INVITE_USER_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -435,6 +436,32 @@ export const toggleView = () => (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const inviteUser = (values) => (dispatch, getState) => {
+  console.log(data);
+  dispatch({
+    type: INVITE_USER,
+  });
+  axios
+    .post(
+      `${process.env.HOST}/api/users/invite_user/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: INVITE_USER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: INVITE_USER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });
