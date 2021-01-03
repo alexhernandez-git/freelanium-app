@@ -11,20 +11,25 @@ import {
   resetEmailAvailable,
   resetUsernameAvailable,
 } from "redux/actions/auth";
-const RegisterForm = ({ isSeller }) => {
+const RegisterForm = ({ isSeller, token }) => {
   const dispatch = useDispatch();
 
   const authReducer = useSelector((state) => state.authReducer);
   const { username_available_error, email_available_error } = authReducer;
+  const initialValues = {
+    email: "",
+    username: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    password_confirmation: "",
+  };
+  if (token) {
+    initialValues.invitation_token = token;
+  }
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      username: "",
-      first_name: "",
-      last_name: "",
-      password: "",
-      password_confirmation: "",
-    },
+    enableReinitialize: true,
+    initialValues: initialValues,
     validationSchema: Yup.object({
       first_name: Yup.string().required("First name is required"),
       last_name: Yup.string().required("Last name is required"),
@@ -38,6 +43,7 @@ const RegisterForm = ({ isSeller }) => {
       password_confirmation: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Password confirmation is required"),
+      invitation_token: Yup.string(),
     }),
     onSubmit: async (values) => {
       // console.log(valores);

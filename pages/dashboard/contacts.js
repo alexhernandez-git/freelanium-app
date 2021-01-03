@@ -14,6 +14,7 @@ import {
   fetchContactsPagination,
   searchContacts,
 } from "redux/actions/contacts";
+
 import Pagination from "components/ui/Pagination";
 
 export default function Home() {
@@ -48,11 +49,9 @@ export default function Home() {
   useOutsideClick(inviteContactRef, () => handleHideInviteContact());
 
   useEffect(() => {
-    if (!authReducer.is_loading && authReducer.is_authenticated) {
-      const handleFetchContacts = () => dispatch(fetchContacts());
-      handleFetchContacts();
-    }
-  }, [authReducer.is_loading, authReducer.is_authenticated]);
+    const handleFetchContacts = () => dispatch(fetchContacts());
+    handleFetchContacts();
+  }, []);
 
   const contactsReducer = useSelector((state) => state.contactsReducer);
 

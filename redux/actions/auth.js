@@ -48,6 +48,7 @@ import {
   INVITE_USER,
   INVITE_USER_SUCCESS,
   INVITE_USER_FAIL,
+  RESET_INVITE_USER,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -444,8 +445,11 @@ export const toggleView = () => async (dispatch, getState) => {
     });
 };
 
-export const inviteUser = (values) => async (dispatch, getState) => {
-  console.log(data);
+export const inviteUser = (
+  values,
+  resetForm,
+  handleHideInviteContact
+) => async (dispatch, getState) => {
   await dispatch({
     type: INVITE_USER,
   });
@@ -461,6 +465,10 @@ export const inviteUser = (values) => async (dispatch, getState) => {
         type: INVITE_USER_SUCCESS,
         payload: res.data,
       });
+      resetForm({});
+      dispatch(resetInviteUser());
+      dispatch(createNotification("SUCCESS", "Invitation has sent"));
+      handleHideInviteContact();
     })
     .catch((err) => {
       dispatch({
@@ -470,6 +478,11 @@ export const inviteUser = (values) => async (dispatch, getState) => {
     });
 };
 
+export const resetInviteUser = (values) => async (dispatch, getState) => {
+  await dispatch({
+    type: RESET_INVITE_USER,
+  });
+};
 export const resetAuthErrors = () => async (dispatch, getState) => {
   await dispatch({
     type: RESET_AUTH_ERRORS,

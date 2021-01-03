@@ -14,7 +14,7 @@ const ContactCard = ({ contact }) => {
   const authReducer = useSelector((state) => state.authReducer);
   const { seller_view } = authReducer.is_authenticated && authReducer.user;
   return (
-    <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200 w-72 sm:mr-3 mb-3">
+    <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200 w-72 sm:mr-3 mb-3 overflow-hidden">
       <Link href="/dashboard/profile">
         <div className="flex-1 flex flex-col p-8 cursor-pointer">
           {/* w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full */}

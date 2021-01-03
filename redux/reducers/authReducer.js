@@ -48,6 +48,7 @@ import {
   INVITE_USER,
   INVITE_USER_SUCCESS,
   INVITE_USER_FAIL,
+  RESET_INVITE_USER,
 } from "../types";
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
@@ -401,7 +402,12 @@ export default function AuthReducer(state = initialState, action) {
         inviting_user: false,
         invite_user_error: action.payload,
       };
-
+    case RESET_INVITE_USER:
+      return {
+        ...state,
+        inviting_user: false,
+        invite_user_error: null,
+      };
     default:
       return state;
   }

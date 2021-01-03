@@ -1,10 +1,38 @@
-import React from "react";
-
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { inviteUser, resetInviteUser } from "redux/actions/auth";
 const InviteContactForm = ({
   inviteContact,
   inviteContactRef,
   handleHideInviteContact,
 }) => {
+  const authReducer = useSelector((state) => state.authReducer);
+
+  const dispatch = useDispatch();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      message: "",
+      type: "buyer",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Email is not valid")
+        .required("Email is required"),
+      message: Yup.string(),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      // console.log(valores);
+      console.log(values);
+      dispatch(inviteUser(values, resetForm, handleHideInviteContact));
+    },
+  });
+  useEffect(() => {
+    dispatch(resetInviteUser());
+  }, [formik.values.email]);
   return (
     <div
       className={`${
@@ -18,7 +46,10 @@ const InviteContactForm = ({
           aria-labelledby="slide-over-heading"
         >
           <div className="w-screen max-w-md">
-            <form className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl">
+            <form
+              className="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
+              onSubmit={formik.handleSubmit}
+            >
               <div className="flex-1 h-0 overflow-y-auto">
                 <div className="py-6 px-4 bg-indigo-700 sm:px-6">
                   <div className="flex items-center justify-between">
@@ -53,19 +84,24 @@ const InviteContactForm = ({
                       </button>
                     </div>
                   </div>
-                  {/* <div className="mt-1">
-                      <p className="text-sm text-indigo-300">
-                        Get started by filling in the information below to
-                        create your new project.
-                      </p>
-                    </div> */}
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div className="px-4 divide-y divide-gray-200 sm:px-6">
                     <div className="space-y-6 pt-6 pb-5">
+                      {authReducer.invite_user_error?.data?.non_field_errors.map(
+                        (error, i) => (
+                          <div
+                            className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                            key={i}
+                          >
+                            <p className="font-bold">Error</p>
+                            <p>{error}</p>
+                          </div>
+                        )
+                      )}
                       <div>
                         <label
-                          htmlFor="project_name"
+                          htmlFor="email"
                           className="block text-sm font-medium text-gray-900"
                         >
                           Contact Email *
@@ -73,26 +109,38 @@ const InviteContactForm = ({
                         <div className="mt-1">
                           <input
                             type="text"
-                            name="project_name"
-                            id="project_name"
+                            name="email"
+                            id="email"
                             className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
                           />
                         </div>
                       </div>
+                      {formik.touched.email && formik.errors.email ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                          <p className="font-bold">Error</p>
+                          <p>{formik.errors.email}</p>
+                        </div>
+                      ) : null}
                       <div>
                         <label
-                          htmlFor="description"
+                          htmlFor="message"
                           className="block text-sm font-medium text-gray-900"
                         >
                           Message
                         </label>
                         <div className="mt-1">
                           <textarea
-                            id="description"
-                            name="description"
+                            id="message"
+                            name="message"
                             rows="4"
                             className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
-                          ></textarea>
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.message}
+                          />
                         </div>
                       </div>
 
@@ -105,11 +153,14 @@ const InviteContactForm = ({
                             <div className="absolute flex items-center h-5">
                               <input
                                 id="privacy_public"
-                                name="role"
-                                checked={true}
+                                name="type"
+                                value={"buyer"}
                                 aria-describedby="privacy_public_description"
                                 type="radio"
                                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                checked={formik.values.type == "buyer"}
                               />
                             </div>
                             <div className="pl-7 text-sm">
@@ -133,10 +184,14 @@ const InviteContactForm = ({
                               <div className="absolute flex items-center h-5">
                                 <input
                                   id="privacy_private-to-project"
-                                  name="role"
+                                  name="type"
+                                  value={"seller"}
                                   aria-describedby="privacy_private-to-project_description"
                                   type="radio"
                                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  checked={formik.values.type == "seller"}
                                 />
                               </div>
                               <div className="pl-7 text-sm">

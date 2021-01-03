@@ -11,18 +11,18 @@ import {
   resetUsernameAvailable,
 } from "redux/actions/auth";
 import RegisterForm from "components/Forms/RegisterForm";
-const RegisterLayout = ({ isSeller }) => {
+const RegisterLayout = ({ isSeller, token }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const authReducer = useSelector((state) => state.authReducer);
-  const { isAuthenticated } = authReducer;
+  const { is_authenticated } = authReducer;
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (is_authenticated) {
       router.push("/dashboard");
     }
-  }, [isAuthenticated]);
+  }, [is_authenticated]);
 
   return (
     <main className="bg-gray-800 flex items-center my-6 py-10">
@@ -60,7 +60,7 @@ const RegisterLayout = ({ isSeller }) => {
             <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
               <div className="px-4 py-8 sm:px-10">
                 <div className="">
-                  <RegisterForm isSeller={isSeller} />
+                  <RegisterForm isSeller={isSeller} token={token} />
                 </div>
               </div>
               <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
