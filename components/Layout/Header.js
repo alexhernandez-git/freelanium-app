@@ -13,8 +13,8 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
 
   const authReducer = useSelector((state) => state.authReducer);
   const {
-    isLoading,
-    isAuthenticated,
+    is_loading,
+    is_authenticated,
     email_available,
     email_available_error,
   } = authReducer;
@@ -150,7 +150,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                 </Link>
               </div>
 
-              {!isLoading && isAuthenticated ? (
+              {!is_loading && is_authenticated ? (
                 <>
                   <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                     <span className="inline-flex rounded-md shadow ml-3">

@@ -104,14 +104,11 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         user: action.payload.user,
-        rating: action.payload.rating,
         access_token: action.payload.access_token,
         is_authenticated: true,
         is_loading: false,
         haveAccess: action.payload.have_access,
-        error: !action.payload.have_access
-          ? { data: { detail: "You don't have access" } }
-          : null,
+        error: null,
       };
     case IS_EMAIL_AVAILABLE:
       return {

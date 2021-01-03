@@ -40,55 +40,67 @@ export default function contactsReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_CONTACTS:
       return {
+        ...state,
         is_loading: true,
       };
     case FETCH_CONTACTS_SUCCESS:
       return {
+        ...state,
         is_loading: false,
         contacts: action.payload,
         error: null,
       };
     case FETCH_CONTACTS_FAIL:
       return {
+        ...state,
         is_loading: false,
         error: action.payload,
       };
     case FETCH_AVAILABLE_CONTACTS:
       return {
+        ...state,
         is_loading_available_contacts: true,
       };
     case FETCH_AVAILABLE_CONTACTS_SUCCESS:
       return {
+        ...state,
         is_loading_available_contacts: false,
         available_contacts: action.payload,
         available_contacts_error: null,
       };
     case FETCH_AVAILABLE_CONTACTS_FAIL:
       return {
+        ...state,
         is_loading_available_contacts: false,
         available_contacts_error: action.payload,
       };
     case ADD_CONTACT:
       return {
+        ...state,
         adding_contact: true,
       };
     case ADD_CONTACT_SUCCESS:
       return {
+        ...state,
         adding_contact: false,
         contacts: [...state.contacts.results, action.payload],
         adding_contact_error: null,
       };
     case ADD_CONTACT_FAIL:
       return {
+        ...state,
         adding_contact: false,
         adding_contact_error: action.payload,
       };
     case REMOVE_CONTACT:
       return {
+        ...state,
         removing_contact: true,
       };
     case REMOVE_CONTACT_SUCCESS:
       return {
+        ...state,
+
         removing_contact: false,
         contacts: state.contacts.results.filter(
           (contact) => contact.id !== action.payload
@@ -97,21 +109,29 @@ export default function contactsReducer(state = initialState, action) {
       };
     case REMOVE_CONTACT_FAIL:
       return {
+        ...state,
+
         removing_contact: false,
         removing_contact_error: action.payload,
       };
     case SEARCH_CONTACTS:
       return {
+        ...state,
+
         is_loading_search: true,
       };
     case SEARCH_CONTACTS_SUCCESS:
+      console.log("action payload", action.payload);
+
       return {
+        ...state,
         is_loading_search: false,
         contacts_search: action.payload,
         error_search: null,
       };
     case SEARCH_CONTACTS_FAIL:
       return {
+        ...state,
         is_loading_search: false,
         error_search: action.payload,
       };

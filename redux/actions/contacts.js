@@ -1,3 +1,5 @@
+import axios from "axios";
+import { tokenConfig } from "./auth";
 import {
   FETCH_CONTACTS,
   FETCH_CONTACTS_SUCCESS,
@@ -23,7 +25,25 @@ export const fetchContacts = () => (dispatch, getState) => {
   axios
     .get(`${process.env.HOST}/api/contacts/`, tokenConfig(getState))
     .then((res) => {
-      console.log(res.data);
+      dispatch({
+        type: FETCH_CONTACTS_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: FETCH_CONTACTS_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+export const fetchContactsPagination = (url) => (dispatch, getState) => {
+  dispatch({
+    type: FETCH_CONTACTS,
+  });
+  axios
+    .get(url, tokenConfig(getState))
+    .then((res) => {
       dispatch({
         type: FETCH_CONTACTS_SUCCESS,
         payload: res.data,
@@ -37,8 +57,7 @@ export const fetchContacts = () => (dispatch, getState) => {
     });
 };
 
-export const fetchContacts = (search = "") => (dispatch, getState) => {
-  console.log(data);
+export const searchContacts = (search = "") => (dispatch, getState) => {
   dispatch({
     type: SEARCH_CONTACTS,
   });
@@ -48,7 +67,6 @@ export const fetchContacts = (search = "") => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: SEARCH_CONTACTS_SUCCESS,
         payload: res.data,
@@ -63,7 +81,6 @@ export const fetchContacts = (search = "") => (dispatch, getState) => {
 };
 
 export const fetchAvailableContacts = (search = "") => (dispatch, getState) => {
-  console.log(data);
   dispatch({
     type: FETCH_AVAILABLE_CONTACTS,
   });
@@ -112,7 +129,7 @@ export const addContact = (user_id) => (dispatch, getState) => {
     });
 };
 
-export const addContact = (contact_id) => (dispatch, getState) => {
+export const removeContact = (contact_id) => (dispatch, getState) => {
   dispatch({
     type: REMOVE_CONTACT,
   });
