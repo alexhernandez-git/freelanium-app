@@ -53,10 +53,10 @@ import { createNotification } from "./notifications";
 
 // SET TOKEN
 // CHECK TOKEN & LOAD USER
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) => {
   // User Loading
-  dispatch({ type: USER_LOADING });
-  axios
+  await dispatch({ type: USER_LOADING });
+  await axios
     .get(`${process.env.HOST}/api/users/get_user/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
@@ -71,9 +71,9 @@ export const loadUser = () => (dispatch, getState) => {
       });
     });
 };
-export const login = (data) => (dispatch, getState) => {
+export const login = (data) => async (dispatch, getState) => {
   console.log(data);
-  axios
+  await axios
     .post(`${process.env.HOST}/api/users/login/`, data)
     .then((res) => {
       console.log(res.data);
@@ -90,9 +90,9 @@ export const login = (data) => (dispatch, getState) => {
     });
 };
 
-export const isEmailAvailable = (email) => (dispatch, getState) => {
-  dispatch({ type: IS_EMAIL_AVAILABLE });
-  axios
+export const isEmailAvailable = (email) => async (dispatch, getState) => {
+  await dispatch({ type: IS_EMAIL_AVAILABLE });
+  await axios
     .post(`${process.env.HOST}/api/users/is_email_available/`, email)
     .then((res) => {
       dispatch({
@@ -108,12 +108,12 @@ export const isEmailAvailable = (email) => (dispatch, getState) => {
     });
 };
 
-export const resetEmailAvailable = () => (dispatch, getState) => {
-  dispatch({ type: RESET_EMAIL_AVAILABLE });
+export const resetEmailAvailable = () => async (dispatch, getState) => {
+  await dispatch({ type: RESET_EMAIL_AVAILABLE });
 };
-export const isUsernameAvailable = (email) => (dispatch, getState) => {
-  dispatch({ type: IS_USERNAME_AVAILABLE });
-  axios
+export const isUsernameAvailable = (email) => async (dispatch, getState) => {
+  await dispatch({ type: IS_USERNAME_AVAILABLE });
+  await axios
     .post(`${process.env.HOST}/api/users/is_username_available/`, email)
     .then((res) => {
       dispatch({
@@ -129,12 +129,12 @@ export const isUsernameAvailable = (email) => (dispatch, getState) => {
     });
 };
 
-export const resetUsernameAvailable = () => (dispatch, getState) => {
-  dispatch({ type: RESET_USERNAME_AVAILABLE });
+export const resetUsernameAvailable = () => async (dispatch, getState) => {
+  await dispatch({ type: RESET_USERNAME_AVAILABLE });
 };
 
-export const register_seller = (data) => (dispatch, getState) => {
-  axios
+export const register_seller = (data) => async (dispatch, getState) => {
+  await axios
     .post(`${process.env.HOST}/api/users/signup_seller/`, data)
     .then((res) => {
       dispatch({
@@ -150,8 +150,8 @@ export const register_seller = (data) => (dispatch, getState) => {
     });
 };
 
-export const register_buyer = (data) => (dispatch, getState) => {
-  axios
+export const register_buyer = (data) => async (dispatch, getState) => {
+  await axios
     .post(`${process.env.HOST}/api/users/signup_buyer/`, data)
     .then((res) => {
       dispatch({
@@ -167,13 +167,13 @@ export const register_buyer = (data) => (dispatch, getState) => {
     });
 };
 
-export const logout = () => (dispatch, getState) => {
-  dispatch({ type: LOGOUT_SUCCESS });
+export const logout = () => async (dispatch, getState) => {
+  await dispatch({ type: LOGOUT_SUCCESS });
 };
 
-export const sendVerificationEmail = () => (dispatch, getState) => {
-  dispatch({ type: SEND_VERIFICATION_EMAIL });
-  axios
+export const sendVerificationEmail = () => async (dispatch, getState) => {
+  await dispatch({ type: SEND_VERIFICATION_EMAIL });
+  await axios
     .get(
       `${process.env.HOST}/api/users/send_verification_email/`,
       tokenConfig(getState)
@@ -191,9 +191,9 @@ export const sendVerificationEmail = () => (dispatch, getState) => {
     });
 };
 
-export const verifyAccount = (token, router) => (dispatch, getState) => {
-  dispatch({ type: VERIFY_ACCOUNT });
-  axios
+export const verifyAccount = (token, router) => async (dispatch, getState) => {
+  await dispatch({ type: VERIFY_ACCOUNT });
+  await axios
     .post(`${process.env.HOST}/api/users/verify/`, { token: token })
     .then((res) => {
       dispatch({
@@ -212,9 +212,12 @@ export const verifyAccount = (token, router) => (dispatch, getState) => {
     });
 };
 
-export const validateChangeEmail = (token, router) => (dispatch, getState) => {
-  dispatch({ type: VALIDATE_CHANGE_EMAIL });
-  axios
+export const validateChangeEmail = (token, router) => async (
+  dispatch,
+  getState
+) => {
+  await dispatch({ type: VALIDATE_CHANGE_EMAIL });
+  await axios
     .post(`${process.env.HOST}/api/users/validate_change_email/`, {
       token: token,
     })
@@ -235,9 +238,9 @@ export const validateChangeEmail = (token, router) => (dispatch, getState) => {
       router.push("/");
     });
 };
-export const forgetPassword = (values) => (dispatch, getState) => {
-  dispatch({ type: FORGET_PASSWORD });
-  axios
+export const forgetPassword = (values) => async (dispatch, getState) => {
+  await dispatch({ type: FORGET_PASSWORD });
+  await axios
     .post(`${process.env.HOST}/api/users/forget_password/`, values)
     .then((res) => {
       dispatch({
@@ -254,9 +257,9 @@ export const forgetPassword = (values) => (dispatch, getState) => {
     });
 };
 
-export const resetPassword = (values, router) => (dispatch, getState) => {
-  dispatch({ type: RESET_PASSWORD });
-  axios
+export const resetPassword = (values, router) => async (dispatch, getState) => {
+  await dispatch({ type: RESET_PASSWORD });
+  await axios
     .post(`${process.env.HOST}/api/users/reset_password/`, values)
     .then((res) => {
       dispatch({
@@ -276,9 +279,9 @@ export const resetPassword = (values, router) => (dispatch, getState) => {
     });
 };
 
-export const updateUser = (user) => (dispatch, getState) => {
-  dispatch({ type: UPDATE_USER });
-  axios
+export const updateUser = (user) => async (dispatch, getState) => {
+  await dispatch({ type: UPDATE_USER });
+  await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
       user,
@@ -302,11 +305,11 @@ export const updateUser = (user) => (dispatch, getState) => {
     });
 };
 
-export const updateUserPicture = (picture) => (dispatch, getState) => {
+export const updateUserPicture = (picture) => async (dispatch, getState) => {
   const fd = new FormData();
   fd.append("picture", picture, picture.name);
-  dispatch({ type: UPDATE_USER });
-  axios
+  await dispatch({ type: UPDATE_USER });
+  await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
       fd,
@@ -330,12 +333,12 @@ export const updateUserPicture = (picture) => (dispatch, getState) => {
     });
 };
 
-export const changePassword = (data) => (dispatch, getState) => {
+export const changePassword = (data) => async (dispatch, getState) => {
   console.log(data);
-  dispatch({
+  await dispatch({
     type: CHANGE_PASSWORD,
   });
-  axios
+  await axios
     .post(
       `${process.env.HOST}/api/users/change_password/`,
       data,
@@ -356,16 +359,16 @@ export const changePassword = (data) => (dispatch, getState) => {
       });
     });
 };
-export const resetChangePasswordErrors = () => (dispatch) => {
-  dispatch({ type: RESET_CHANGE_PASSWORD_ERRORS });
+export const resetChangePasswordErrors = () => async (dispatch) => {
+  await dispatch({ type: RESET_CHANGE_PASSWORD_ERRORS });
 };
 
-export const changeEmail = (data) => (dispatch, getState) => {
+export const changeEmail = (data) => async (dispatch, getState) => {
   console.log(data);
-  dispatch({
+  await dispatch({
     type: CHANGE_EMAIL,
   });
-  axios
+  await axios
     .post(
       `${process.env.HOST}/api/users/change_email/`,
       data,
@@ -387,12 +390,12 @@ export const changeEmail = (data) => (dispatch, getState) => {
     });
 };
 
-export const connectStripe = (authCode) => (dispatch, getState) => {
+export const connectStripe = (authCode) => async (dispatch, getState) => {
   console.log(data);
-  dispatch({
+  await dispatch({
     type: STRIPE_CONNECTED,
   });
-  axios
+  await axios
     .post(
       `${process.env.HOST}/api/users/stripe_connect/`,
       { code: authCode },
@@ -413,14 +416,14 @@ export const connectStripe = (authCode) => (dispatch, getState) => {
     });
 };
 
-export const toggleView = () => (dispatch, getState) => {
+export const toggleView = () => async (dispatch, getState) => {
   const view = getState().authReducer.user.seller_view;
 
-  dispatch({
+  await dispatch({
     type: TOOGLE_VIEWS,
     payload: !view,
   });
-  axios
+  await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
       { seller_view: !view },
@@ -441,12 +444,12 @@ export const toggleView = () => (dispatch, getState) => {
     });
 };
 
-export const inviteUser = (values) => (dispatch, getState) => {
+export const inviteUser = (values) => async (dispatch, getState) => {
   console.log(data);
-  dispatch({
+  await dispatch({
     type: INVITE_USER,
   });
-  axios
+  await axios
     .post(
       `${process.env.HOST}/api/users/invite_user/`,
       values,
@@ -467,8 +470,8 @@ export const inviteUser = (values) => (dispatch, getState) => {
     });
 };
 
-export const resetAuthErrors = () => (dispatch, getState) => {
-  dispatch({
+export const resetAuthErrors = () => async (dispatch, getState) => {
+  await dispatch({
     type: RESET_AUTH_ERRORS,
   });
 };

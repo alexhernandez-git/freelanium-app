@@ -130,12 +130,9 @@ export default function contactsReducer(state = initialState, action) {
     case SEARCH_CONTACTS:
       return {
         ...state,
-
         is_loading_search: true,
       };
     case SEARCH_CONTACTS_SUCCESS:
-      console.log("action payload", action.payload);
-
       return {
         ...state,
         is_loading_search: false,

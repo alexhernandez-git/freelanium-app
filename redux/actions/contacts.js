@@ -19,11 +19,11 @@ import {
 } from "../types";
 import { createNotification } from "./notifications";
 
-export const fetchContacts = () => (dispatch, getState) => {
-  dispatch({
+export const fetchContacts = () => async (dispatch, getState) => {
+  await dispatch({
     type: FETCH_CONTACTS,
   });
-  axios
+  await axios
     .get(`${process.env.HOST}/api/contacts/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
@@ -38,11 +38,11 @@ export const fetchContacts = () => (dispatch, getState) => {
       });
     });
 };
-export const fetchContactsPagination = (url) => (dispatch, getState) => {
-  dispatch({
+export const fetchContactsPagination = (url) => async (dispatch, getState) => {
+  await dispatch({
     type: FETCH_CONTACTS,
   });
-  axios
+  await axios
     .get(url, tokenConfig(getState))
     .then((res) => {
       dispatch({
@@ -58,16 +58,18 @@ export const fetchContactsPagination = (url) => (dispatch, getState) => {
     });
 };
 
-export const searchContacts = (search = "") => (dispatch, getState) => {
-  dispatch({
+export const searchContacts = (search = "") => async (dispatch, getState) => {
+  console.log("entra search contacts");
+  await dispatch({
     type: SEARCH_CONTACTS,
   });
-  axios
+  await axios
     .get(
       `${process.env.HOST}/api/contacts/?search=${search}`,
       tokenConfig(getState)
     )
     .then((res) => {
+      console.log("res-data contacts", res.data);
       dispatch({
         type: SEARCH_CONTACTS_SUCCESS,
         payload: res.data,
@@ -81,11 +83,14 @@ export const searchContacts = (search = "") => (dispatch, getState) => {
     });
 };
 
-export const fetchAvailableContacts = (search = "") => (dispatch, getState) => {
-  dispatch({
+export const fetchAvailableContacts = (search = "") => async (
+  dispatch,
+  getState
+) => {
+  await dispatch({
     type: FETCH_AVAILABLE_CONTACTS,
   });
-  axios
+  await axios
     .get(
       `${process.env.HOST}/api/users/list_contacts_available/?search=${search}`,
       tokenConfig(getState)
@@ -105,11 +110,11 @@ export const fetchAvailableContacts = (search = "") => (dispatch, getState) => {
     });
 };
 
-export const addContact = (user_id) => (dispatch, getState) => {
-  dispatch({
+export const addContact = (user_id) => async (dispatch, getState) => {
+  await dispatch({
     type: ADD_CONTACT,
   });
-  axios
+  await axios
     .post(
       `${process.env.HOST}/api/contacts/`,
       { contact_user_id: user_id },
@@ -133,11 +138,11 @@ export const addContact = (user_id) => (dispatch, getState) => {
     });
 };
 
-export const removeContact = (contact_id) => (dispatch, getState) => {
-  dispatch({
+export const removeContact = (contact_id) => async (dispatch, getState) => {
+  await dispatch({
     type: REMOVE_CONTACT,
   });
-  axios
+  await axios
     .delete(
       `${process.env.HOST}/api/contacts/${contact_id}/`,
       tokenConfig(getState)

@@ -26,6 +26,7 @@ export default function Home() {
       const timeoutId = setTimeout(() => {
         setIsSearching(true);
         dispatch(searchContacts(search));
+
         dispatch(fetchAvailableContacts(search));
       }, 500);
       return () => clearTimeout(timeoutId);
