@@ -83,7 +83,20 @@ export default function contactsReducer(state = initialState, action) {
       return {
         ...state,
         adding_contact: false,
-        contacts: [...state.contacts.results, action.payload],
+        contacts_search: {
+          ...state.contacts_search,
+          results: [...state.contacts_search.results, action.payload],
+        },
+        contacts: {
+          ...state.contacts,
+          results: [...state.contacts.results, action.payload],
+        },
+        available_contacts: {
+          ...state.available_contacts,
+          results: state.available_contacts.results.filter(
+            (contact) => contact.id !== action.payload.contact_user.id
+          ),
+        },
         adding_contact_error: null,
       };
     case ADD_CONTACT_FAIL:

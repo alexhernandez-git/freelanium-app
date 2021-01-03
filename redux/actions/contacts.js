@@ -17,6 +17,7 @@ import {
   REMOVE_CONTACT_SUCCESS,
   REMOVE_CONTACT_FAIL,
 } from "../types";
+import { createNotification } from "./notifications";
 
 export const fetchContacts = () => (dispatch, getState) => {
   dispatch({
@@ -116,6 +117,8 @@ export const addContact = (user_id) => (dispatch, getState) => {
     )
     .then((res) => {
       console.log(res.data);
+      dispatch(createNotification("SUCCESS", "User added to contacts"));
+
       dispatch({
         type: ADD_CONTACT_SUCCESS,
         payload: res.data,
@@ -126,6 +129,7 @@ export const addContact = (user_id) => (dispatch, getState) => {
         type: ADD_CONTACT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
+      dispatch(createNotification("ERROR", "Something has gone wrong"));
     });
 };
 

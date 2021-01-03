@@ -16,7 +16,7 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           <h3>Your contacts</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
-          {contactsReducer.contacts_search &&
+          {contactsReducer.contacts_search.results &&
             contactsReducer.contacts_search.results.length > 0 &&
             contactsReducer.contacts_search.results.map((contact) => (
               <ContactSearchCard
@@ -25,8 +25,8 @@ const SearchContacts = ({ handleShowInviteContact }) => {
                 myContact={true}
               />
             ))}
-          {contactsReducer.contacts_search.results.length == 0 && (
-            <span className="text-sm text-gray-600 px-6">
+          {contactsReducer.contacts_search.results?.length == 0 && (
+            <span className="text-sm text-gray-500 px-6">
               No available contacts
             </span>
           )}
@@ -36,7 +36,7 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           <h3>Contacts available</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
-          {contactsReducer.available_contacts &&
+          {contactsReducer.available_contacts.results &&
             contactsReducer.available_contacts.results.length > 0 &&
             contactsReducer.available_contacts.results.map((contact) => (
               <ContactSearchCard
@@ -45,8 +45,8 @@ const SearchContacts = ({ handleShowInviteContact }) => {
                 myContact={false}
               />
             ))}
-          {contactsReducer.available_contacts.results.length == 0 && (
-            <span className="text-sm text-gray-600 px-6 my-2">
+          {contactsReducer.available_contacts.results?.length == 0 && (
+            <span className="text-sm text-gray-500 px-6 my-2">
               No available contacts
             </span>
           )}

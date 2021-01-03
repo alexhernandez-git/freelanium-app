@@ -1,17 +1,18 @@
 import { PrimaryButton, SecondaryButton } from "components/ui/Buttons";
-
+import { useDispatch } from "react-redux";
+import { addContact } from "redux/actions/contacts";
 const ContactSearchCard = ({ contact, myContact }) => {
-  const { username, picture } = contact;
+  const { username, picture, id } = contact;
+  const dispatch = useDispatch();
+  const handleAddContact = () => {
+    dispatch(addContact(id));
+  };
   return (
     <li className="bg-white">
       <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
         <div className="flex-shrink-0">
           {picture ? (
-            <img
-              className="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
+            <img className="h-10 w-10 rounded-full" src={picture} alt="" />
           ) : (
             <span className="inline-block w-10 h-10 rounded-full overflow-hidden bg-gray-100">
               <svg
@@ -25,8 +26,7 @@ const ContactSearchCard = ({ contact, myContact }) => {
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <a href="#" className="focus:outline-none">
-            <span className="absolute inset-0" aria-hidden="true"></span>
+          <a className="focus:outline-none">
             <p className="text-sm font-medium text-gray-900">{username}</p>
             {/* <p className="text-sm text-gray-500 truncate">Co-Founder / CEO</p> */}
           </a>
@@ -37,7 +37,12 @@ const ContactSearchCard = ({ contact, myContact }) => {
           ) : (
             <div className="flex">
               <PrimaryButton className="mr-3">Send message</PrimaryButton>
-              <SecondaryButton>Add to contacts</SecondaryButton>
+              <SecondaryButton
+                className="cursor-pointer"
+                onClick={handleAddContact}
+              >
+                Add to contacts
+              </SecondaryButton>
             </div>
           )}
         </div>
