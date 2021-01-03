@@ -67,30 +67,36 @@ export default function Home() {
       searchBar="Search / Add Contacts"
       searchState={{ search, setSearch }}
     >
-      <ul className="flex flex-wrap justify-center">
-        {isSearching ? (
-          <>
-            <SearchContacts handleShowInviteContact={handleShowInviteContact} />
-          </>
-        ) : (
-          <>
-            {contactsReducer.contacts &&
-              contactsReducer.contacts.results.length > 0 &&
-              contactsReducer.contacts.results.map((contact) => (
-                <ContactCard key={contact.id} contact={contact.contact_user} />
-              ))}
-            {contactsReducer.contacts &&
-              (contactsReducer.contacts.previous ||
-                contactsReducer.contacts.next) && (
-                <Pagination
-                  previous={contactsReducer.contacts.previous}
-                  next={contactsReducer.contacts.next}
-                  changePage={handleChangePage}
-                />
-              )}
-          </>
-        )}
-      </ul>
+      {isSearching ? (
+        <>
+          <SearchContacts handleShowInviteContact={handleShowInviteContact} />
+        </>
+      ) : (
+        <>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-4">
+            <>
+              {contactsReducer.contacts &&
+                contactsReducer.contacts.results.length > 0 &&
+                contactsReducer.contacts.results.map((contact) => (
+                  <ContactCard
+                    key={contact.id}
+                    contact={contact.contact_user}
+                    id={contact.id}
+                  />
+                ))}
+            </>
+          </ul>
+          {contactsReducer.contacts &&
+            (contactsReducer.contacts.previous ||
+              contactsReducer.contacts.next) && (
+              <Pagination
+                previous={contactsReducer.contacts.previous}
+                next={contactsReducer.contacts.next}
+                changePage={handleChangePage}
+              />
+            )}
+        </>
+      )}
       <InviteContactForm
         inviteContact={inviteContact}
         inviteContactRef={inviteContactRef}

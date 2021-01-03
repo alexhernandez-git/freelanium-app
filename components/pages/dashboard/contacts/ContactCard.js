@@ -1,29 +1,189 @@
+import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeContact } from "redux/actions/contacts";
 
-const ContactCard = ({ contact }) => {
-  const {
-    username,
-    first_name,
-    last_name,
-    email,
-    picture,
-    is_seller,
-  } = contact;
+const ContactCard = ({ contact, id }) => {
+  const dispatch = useDispatch();
+  const { username, picture, is_seller } = contact;
   const authReducer = useSelector((state) => state.authReducer);
   const { seller_view } = authReducer.is_authenticated && authReducer.user;
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const handleOptionsToggle = () => {
+    setIsOptionsOpen(!isOptionsOpen);
+  };
+  const handleOptionsClose = () => {
+    if (isOptionsOpen) {
+      setIsOptionsOpen(false);
+    }
+  };
+  const optionsRef = useRef();
+  useOutsideClick(optionsRef, () => handleOptionsClose());
+
+  // Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const handleModalClose = () => {
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
+  };
+  const modalRef = useRef();
+  useOutsideClick(modalRef, () => handleModalClose());
+
+  const handleRemoveContact = () => {
+    dispatch(removeContact(id));
+  };
   return (
-    <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200 w-72 sm:mr-3 mb-3 overflow-hidden">
+    <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow overflow-hidden">
+      <div className="flex justify-end p-3">
+        <div class="inline-block relative text-left transition">
+          <div>
+            <button
+              onMouseDown={handleOptionsToggle}
+              class=" rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-indigo-500"
+              id="options-menu"
+              aria-haspopup="true"
+              aria-expanded="true"
+            >
+              <span class="sr-only">Open options</span>
+              <svg
+                class="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+              </svg>
+            </button>
+          </div>
+
+          <div
+            ref={optionsRef}
+            class={`${
+              isOptionsOpen ? "block" : "hidden"
+            } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}
+          >
+            <div
+              class="py-1"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="options-menu"
+            >
+              <a
+                onMouseDown={handleModalToggle}
+                class="cursor-pointer group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                <svg
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Remove contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class={`${
+          isModalOpen ? "block" : "hidden"
+        } fixed z-10 inset-0 overflow-y-auto`}
+      >
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+          </div>
+
+          <span
+            class="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+
+          <div
+            ref={modalRef}
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-headline"
+          >
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg
+                    class="h-6 w-6 text-red-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <h3
+                    class="text-lg leading-6 font-medium text-gray-900"
+                    id="modal-headline"
+                  >
+                    Remove contact
+                  </h3>
+                  <div class="mt-2">
+                    <p class="text-sm text-gray-500">
+                      This user will be removed from your contacts list.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <button
+                onClick={handleRemoveContact}
+                type="button"
+                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Remove
+              </button>
+              <button
+                onClick={handleModalClose}
+                type="button"
+                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <Link href="/dashboard/profile">
-        <div className="flex-1 flex flex-col p-8 cursor-pointer">
+        <div className="flex-1 flex flex-col p-8 cursor-pointer border-b border-gray-200">
           {/* w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full */}
           {picture ? (
             <img
               className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full"
               src={
                 new RegExp(process.env.HOST).test(picture)
-                  ? user.picture
+                  ? picture
                   : process.env.HOST + picture
               }
               alt=""

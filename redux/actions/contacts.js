@@ -20,7 +20,7 @@ import {
 import { createNotification } from "./notifications";
 
 export const fetchContacts = () => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: FETCH_CONTACTS,
   });
   await axios
@@ -39,7 +39,7 @@ export const fetchContacts = () => async (dispatch, getState) => {
     });
 };
 export const fetchContactsPagination = (url) => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: FETCH_CONTACTS,
   });
   await axios
@@ -60,7 +60,7 @@ export const fetchContactsPagination = (url) => async (dispatch, getState) => {
 
 export const searchContacts = (search = "") => async (dispatch, getState) => {
   console.log("entra search contacts");
-  await dispatch({
+  dispatch({
     type: SEARCH_CONTACTS,
   });
   await axios
@@ -87,7 +87,7 @@ export const fetchAvailableContacts = (search = "") => async (
   dispatch,
   getState
 ) => {
-  await dispatch({
+  dispatch({
     type: FETCH_AVAILABLE_CONTACTS,
   });
   await axios
@@ -111,7 +111,7 @@ export const fetchAvailableContacts = (search = "") => async (
 };
 
 export const addContact = (user_id) => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: ADD_CONTACT,
   });
   await axios
@@ -139,7 +139,7 @@ export const addContact = (user_id) => async (dispatch, getState) => {
 };
 
 export const removeContact = (contact_id) => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: REMOVE_CONTACT,
   });
   await axios
@@ -149,15 +149,18 @@ export const removeContact = (contact_id) => async (dispatch, getState) => {
     )
     .then((res) => {
       console.log(res.data);
+
       dispatch({
         type: REMOVE_CONTACT_SUCCESS,
-        payload: res.data,
+        payload: contact_id,
       });
+      dispatch(createNotification("SUCCESS", "Contact succesfully removed"));
     })
     .catch((err) => {
       dispatch({
         type: REMOVE_CONTACT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
+      dispatch(createNotification("ERROR", "Error happened at remove contact"));
     });
 };

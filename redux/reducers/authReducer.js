@@ -50,6 +50,9 @@ import {
   INVITE_USER_FAIL,
   RESET_INVITE_USER,
 } from "../types";
+
+import { HYDRATE } from "next-redux-wrapper";
+
 const initialState = {
   access_token: process.browser && localStorage.getItem("access_token"),
   is_authenticated: null,
@@ -85,6 +88,9 @@ const initialState = {
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
+    case HYDRATE:
+      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+      return { ...state, ...action.payload };
     case USER_LOADING:
       return {
         ...state,

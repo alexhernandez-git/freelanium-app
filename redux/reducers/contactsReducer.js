@@ -15,6 +15,8 @@ import {
   SEARCH_CONTACTS_SUCCESS,
   SEARCH_CONTACTS_FAIL,
 } from "../types";
+import { HYDRATE } from "next-redux-wrapper";
+
 const initialState = {
   is_loading: false,
   contacts: {
@@ -38,6 +40,9 @@ const initialState = {
 };
 export default function contactsReducer(state = initialState, action) {
   switch (action.type) {
+    case HYDRATE:
+      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+      return { ...state, ...action.payload };
     case FETCH_CONTACTS:
       return {
         ...state,
@@ -111,13 +116,17 @@ export default function contactsReducer(state = initialState, action) {
         removing_contact: true,
       };
     case REMOVE_CONTACT_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
 
         removing_contact: false,
-        contacts: state.contacts.results.filter(
-          (contact) => contact.id !== action.payload
-        ),
+        contacts: {
+          ...state.contacts,
+          results: state.contacts.results.filter(
+            (contact) => contact.id !== action.payload
+          ),
+        },
         removing_contact_error: null,
       };
     case REMOVE_CONTACT_FAIL:

@@ -162,7 +162,7 @@ const Header = () => {
               </div>
             </div>
             <div className="flex items-center">
-              <div className="flex-shrink-0 mr-5">
+              <div className="hidden lg:block flex-shrink-0 mr-5">
                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium  text-green-500">
                   Credits: $2
                 </span>

@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import { wrapper } from "redux/store";
 import { loadUser } from "redux/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 function WrappedApp({ Component, pageProps }) {
@@ -12,8 +12,6 @@ function WrappedApp({ Component, pageProps }) {
       dispatch(loadUser());
     }
   }, []);
-
-  console.log(pageProps);
 
   return <Component {...pageProps} />;
 }

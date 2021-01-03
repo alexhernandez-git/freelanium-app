@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
 const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
-  const lastChatRef = useRef();
+  const chatRef = useRef();
   useEffect(() => {
-    if (lastChatRef.current) {
-      lastChatRef.current.scrollIntoView();
+    if (chatRef.current) {
+      chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
     }
   }, []);
   return (
@@ -96,7 +96,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
             className="self-end flex flex-col relative overflow-hidden"
             style={{ paddingBottom: "38px" }}
           >
-            <div className="p-3 h-full overflow-y-auto">
+            <div className="p-3 h-full overflow-y-auto" ref={chatRef}>
               <ul>
                 <li>
                   <div className="relative pb-8">
@@ -264,10 +264,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                   </div>
                 </li>
                 <li>
-                  <div
-                    className="relative pb-8 flex justify-end"
-                    ref={lastChatRef}
-                  >
+                  <div className="relative pb-8 flex justify-end" ref={chatRef}>
                     <div className="relative flex items-start space-x-3 lg:w-3/4">
                       <div className="min-w-0 flex-1">
                         <div className="text-right">

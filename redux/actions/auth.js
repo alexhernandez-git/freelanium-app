@@ -56,7 +56,7 @@ import { createNotification } from "./notifications";
 // CHECK TOKEN & LOAD USER
 export const loadUser = () => async (dispatch, getState) => {
   // User Loading
-  await dispatch({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
   await axios
     .get(`${process.env.HOST}/api/users/get_user/`, tokenConfig(getState))
     .then((res) => {
@@ -92,7 +92,7 @@ export const login = (data) => async (dispatch, getState) => {
 };
 
 export const isEmailAvailable = (email) => async (dispatch, getState) => {
-  await dispatch({ type: IS_EMAIL_AVAILABLE });
+  dispatch({ type: IS_EMAIL_AVAILABLE });
   await axios
     .post(`${process.env.HOST}/api/users/is_email_available/`, email)
     .then((res) => {
@@ -110,10 +110,10 @@ export const isEmailAvailable = (email) => async (dispatch, getState) => {
 };
 
 export const resetEmailAvailable = () => async (dispatch, getState) => {
-  await dispatch({ type: RESET_EMAIL_AVAILABLE });
+  dispatch({ type: RESET_EMAIL_AVAILABLE });
 };
 export const isUsernameAvailable = (email) => async (dispatch, getState) => {
-  await dispatch({ type: IS_USERNAME_AVAILABLE });
+  dispatch({ type: IS_USERNAME_AVAILABLE });
   await axios
     .post(`${process.env.HOST}/api/users/is_username_available/`, email)
     .then((res) => {
@@ -131,7 +131,7 @@ export const isUsernameAvailable = (email) => async (dispatch, getState) => {
 };
 
 export const resetUsernameAvailable = () => async (dispatch, getState) => {
-  await dispatch({ type: RESET_USERNAME_AVAILABLE });
+  dispatch({ type: RESET_USERNAME_AVAILABLE });
 };
 
 export const register_seller = (data) => async (dispatch, getState) => {
@@ -169,11 +169,11 @@ export const register_buyer = (data) => async (dispatch, getState) => {
 };
 
 export const logout = () => async (dispatch, getState) => {
-  await dispatch({ type: LOGOUT_SUCCESS });
+  dispatch({ type: LOGOUT_SUCCESS });
 };
 
 export const sendVerificationEmail = () => async (dispatch, getState) => {
-  await dispatch({ type: SEND_VERIFICATION_EMAIL });
+  dispatch({ type: SEND_VERIFICATION_EMAIL });
   await axios
     .get(
       `${process.env.HOST}/api/users/send_verification_email/`,
@@ -193,7 +193,7 @@ export const sendVerificationEmail = () => async (dispatch, getState) => {
 };
 
 export const verifyAccount = (token, router) => async (dispatch, getState) => {
-  await dispatch({ type: VERIFY_ACCOUNT });
+  dispatch({ type: VERIFY_ACCOUNT });
   await axios
     .post(`${process.env.HOST}/api/users/verify/`, { token: token })
     .then((res) => {
@@ -217,7 +217,7 @@ export const validateChangeEmail = (token, router) => async (
   dispatch,
   getState
 ) => {
-  await dispatch({ type: VALIDATE_CHANGE_EMAIL });
+  dispatch({ type: VALIDATE_CHANGE_EMAIL });
   await axios
     .post(`${process.env.HOST}/api/users/validate_change_email/`, {
       token: token,
@@ -240,7 +240,7 @@ export const validateChangeEmail = (token, router) => async (
     });
 };
 export const forgetPassword = (values) => async (dispatch, getState) => {
-  await dispatch({ type: FORGET_PASSWORD });
+  dispatch({ type: FORGET_PASSWORD });
   await axios
     .post(`${process.env.HOST}/api/users/forget_password/`, values)
     .then((res) => {
@@ -259,7 +259,7 @@ export const forgetPassword = (values) => async (dispatch, getState) => {
 };
 
 export const resetPassword = (values, router) => async (dispatch, getState) => {
-  await dispatch({ type: RESET_PASSWORD });
+  dispatch({ type: RESET_PASSWORD });
   await axios
     .post(`${process.env.HOST}/api/users/reset_password/`, values)
     .then((res) => {
@@ -281,7 +281,7 @@ export const resetPassword = (values, router) => async (dispatch, getState) => {
 };
 
 export const updateUser = (user) => async (dispatch, getState) => {
-  await dispatch({ type: UPDATE_USER });
+  dispatch({ type: UPDATE_USER });
   await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
@@ -309,7 +309,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
 export const updateUserPicture = (picture) => async (dispatch, getState) => {
   const fd = new FormData();
   fd.append("picture", picture, picture.name);
-  await dispatch({ type: UPDATE_USER });
+  dispatch({ type: UPDATE_USER });
   await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
@@ -336,7 +336,7 @@ export const updateUserPicture = (picture) => async (dispatch, getState) => {
 
 export const changePassword = (data) => async (dispatch, getState) => {
   console.log(data);
-  await dispatch({
+  dispatch({
     type: CHANGE_PASSWORD,
   });
   await axios
@@ -361,12 +361,12 @@ export const changePassword = (data) => async (dispatch, getState) => {
     });
 };
 export const resetChangePasswordErrors = () => async (dispatch) => {
-  await dispatch({ type: RESET_CHANGE_PASSWORD_ERRORS });
+  dispatch({ type: RESET_CHANGE_PASSWORD_ERRORS });
 };
 
 export const changeEmail = (data) => async (dispatch, getState) => {
   console.log(data);
-  await dispatch({
+  dispatch({
     type: CHANGE_EMAIL,
   });
   await axios
@@ -393,7 +393,7 @@ export const changeEmail = (data) => async (dispatch, getState) => {
 
 export const connectStripe = (authCode) => async (dispatch, getState) => {
   console.log(data);
-  await dispatch({
+  dispatch({
     type: STRIPE_CONNECTED,
   });
   await axios
@@ -420,7 +420,7 @@ export const connectStripe = (authCode) => async (dispatch, getState) => {
 export const toggleView = () => async (dispatch, getState) => {
   const view = getState().authReducer.user.seller_view;
 
-  await dispatch({
+  dispatch({
     type: TOOGLE_VIEWS,
     payload: !view,
   });
@@ -450,7 +450,7 @@ export const inviteUser = (
   resetForm,
   handleHideInviteContact
 ) => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: INVITE_USER,
   });
   await axios
@@ -479,12 +479,12 @@ export const inviteUser = (
 };
 
 export const resetInviteUser = (values) => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: RESET_INVITE_USER,
   });
 };
 export const resetAuthErrors = () => async (dispatch, getState) => {
-  await dispatch({
+  dispatch({
     type: RESET_AUTH_ERRORS,
   });
 };
