@@ -24,11 +24,11 @@ export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (search != "") {
-      const timeoutId = setTimeout(() => {
+      const timeoutId = setTimeout(async () => {
         setIsSearching(true);
-        dispatch(searchContacts(search));
+        await dispatch(searchContacts(search));
 
-        dispatch(fetchAvailableContacts(search));
+        await dispatch(fetchAvailableContacts(search));
       }, 500);
       return () => clearTimeout(timeoutId);
     } else {
@@ -49,9 +49,11 @@ export default function Home() {
   useOutsideClick(inviteContactRef, () => handleHideInviteContact());
 
   useEffect(() => {
-    const handleFetchContacts = () => dispatch(fetchContacts());
-    handleFetchContacts();
-  }, []);
+    if (!authReducer.is_loading && authReducer.is_authenticated) {
+      const handleFetchContacts = async () => await dispatch(fetchContacts());
+      handleFetchContacts();
+    }
+  }, [authReducer.is_loading]);
 
   const contactsReducer = useSelector((state) => state.contactsReducer);
 

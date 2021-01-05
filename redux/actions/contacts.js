@@ -20,7 +20,7 @@ import {
 import { createNotification } from "./notifications";
 
 export const fetchContacts = () => async (dispatch, getState) => {
-  dispatch({
+  await dispatch({
     type: FETCH_CONTACTS,
   });
   await axios

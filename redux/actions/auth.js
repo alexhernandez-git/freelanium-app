@@ -56,7 +56,7 @@ import { createNotification } from "./notifications";
 // CHECK TOKEN & LOAD USER
 export const loadUser = () => async (dispatch, getState) => {
   // User Loading
-  dispatch({ type: USER_LOADING });
+  await dispatch({ type: USER_LOADING });
   await axios
     .get(`${process.env.HOST}/api/users/get_user/`, tokenConfig(getState))
     .then((res) => {
