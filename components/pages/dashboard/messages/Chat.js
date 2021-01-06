@@ -1,19 +1,57 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "redux/actions/messages";
 import { MyMessage, NotMyMessage } from "./Message";
 
 const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
+  const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
   const chatReducer = useSelector((state) => state.chatReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
 
   const chatRef = useRef();
-  useEffect(() => {
+  const handleScrollToBottom = () => {
     if (chatRef.current) {
-      console.log(chatRef.current.scrollHeight);
       chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
     }
+  };
+  useEffect(() => {
+    if (messagesReducer.first_loading) {
+      handleScrollToBottom();
+    }
   }, [messagesReducer.first_loading]);
+  const ws = useRef(null);
+
+  const [message, setMessage] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log;
+    ws.current.send(
+      JSON.stringify({
+        text: message,
+        sent_by: authReducer.user,
+      })
+    );
+    setMessage("");
+  };
+  useEffect(() => {
+    if (!chatReducer.is_loading && chatReducer.chat) {
+      ws.current = new WebSocket(
+        process.env.WS + "/ws/chat/" + chatReducer.chat.id + "/"
+      );
+      ws.current.onopen = () => console.log("ws opened");
+      ws.current.onclose = () => console.log("ws closed");
+      ws.current.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log(data);
+        dispatch(addMessage(data));
+        handleScrollToBottom();
+      };
+      return () => {
+        ws.current.close();
+      };
+    }
+  }, [chatReducer.chat]);
 
   return (
     <>
@@ -127,34 +165,38 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
               </ul>
             </div>
             <div className="absolute bottom-0 w-full">
-              <div className="mt-1 flex rounded-md shadow-sm">
-                <div className="relative flex items-stretch flex-grow focus-within:z-10">
-                  <input
-                    type="text"
-                    name="text"
-                    id="text"
-                    className=" block w-full sm:text-sm border-gray-300 focus:ring-0"
-                    placeholder="New Message"
-                  />
-                </div>
-                <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
-                  <svg
-                    className="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+              <form onSubmit={handleSubmit}>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <div className="relative flex items-stretch flex-grow focus-within:z-10">
+                    <input
+                      type="text"
+                      name="text"
+                      id="text"
+                      className=" block w-full sm:text-sm border-gray-300 focus:ring-0"
+                      placeholder="Message..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
                     />
-                  </svg>
-                  <span>Enviar</span>
-                </button>
-              </div>
+                  </div>
+                  <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                    <svg
+                      className="h-5 w-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                      />
+                    </svg>
+                    <span>Send</span>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {
   FETCH_MESSAGES,
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
+  ADD_MESSAGE,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -25,4 +26,11 @@ export const fetchMessages = (id) => async (dispatch, getState) => {
         payload: { data: err.response.data, status: err.response.status },
       });
     });
+};
+
+export const addMessage = (data) => async (dispatch, getState) => {
+  await dispatch({
+    type: ADD_MESSAGE,
+    payload: data,
+  });
 };

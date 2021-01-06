@@ -63,7 +63,7 @@ export default function Messages() {
             {!showProfile && (
               <aside className="hidden lg:flex lg:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
-                  <div class="flex-1 flex flex-col p-8">
+                  <div class="flex-1 flex flex-col items-center w-40">
                     {chatReducer.chat?.to_user?.picture ? (
                       <img
                         class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full"

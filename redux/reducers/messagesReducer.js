@@ -2,6 +2,7 @@ import {
   FETCH_MESSAGES,
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
+  ADD_MESSAGE,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -38,6 +39,14 @@ export default function messagesReducer(state = initialState, action) {
         is_loading: false,
         error: action.payload,
         first_loading: false,
+      };
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          results: [...state.messages.results, action.payload],
+        },
       };
     default:
       return state;
