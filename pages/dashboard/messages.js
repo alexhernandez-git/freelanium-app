@@ -32,7 +32,7 @@ export default function Messages() {
   const [cantRender, authReducer] = useAuthRequired();
 
   useEffect(() => {
-    if (authReducer.is_authenticated) {
+    if (!authReducer.is_loading && authReducer.is_authenticated) {
       const handleFetchChats = async () => {
         await dispatch(fetchChats());
       };
@@ -41,7 +41,9 @@ export default function Messages() {
   }, [authReducer.is_loading]);
 
   const chatReducer = useSelector((state) => state.chatReducer);
-
+  const handleFetchChat = (id) => {
+    dispatch(fetchChat(id, handleCloseProfile));
+  };
   return !cantRender ? (
     "Loading..."
   ) : (
@@ -49,31 +51,6 @@ export default function Messages() {
       <div style={{ height: "75vh" }} className="flex overflow-hidden bg-white">
         <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
           <div className="flex-1 relative z-0 flex overflow-hidden">
-            {/* <nav
-                className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
-                aria-label="Breadcrumb"
-              >
-                <a
-                  href="#"
-                  className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
-                >
-                  <svg
-                    className="-ml-2 h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  <span>Messages</span>
-                </a>
-              </nav>*/}
-
             {showProfile ? (
               <UserProfile handleCloseProfile={handleCloseProfile} />
             ) : (
@@ -165,7 +142,11 @@ export default function Messages() {
                 >
                   {chatsReducer.chats.length > 0 &&
                     chatsReducer.chats.map((chat) => (
-                      <ChatroomCard key={chat.id} chat={chat} />
+                      <ChatroomCard
+                        key={chat.id}
+                        chat={chat}
+                        handleFetchChat={handleFetchChat}
+                      />
                     ))}
                 </ul>
               </nav>

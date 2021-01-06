@@ -1,11 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 const UserProfile = ({ handleCloseProfile = null }) => {
   const router = useRouter();
   const goToMessages = () => {
     router.push("/dashboard/messages");
   };
+  const chatReducer = useSelector((state) => state.chatReducer);
+
   return (
     <article className="bg-white pb-10">
       <div>
@@ -19,16 +22,34 @@ const UserProfile = ({ handleCloseProfile = null }) => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
             <div className="flex">
-              <img
-                className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=1024&amp;h=1024&amp;q=80"
-                alt=""
-              />
+              {chatReducer.chat?.to_user?.picture ? (
+                <img
+                  className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                  src={
+                    new RegExp(process.env.HOST).test(
+                      chatReducer.chat.to_user?.picture
+                    )
+                      ? chatReducer.chat.to_user?.picture
+                      : process.env.HOST + chatReducer.chat.to_user?.picture
+                  }
+                  alt=""
+                />
+              ) : (
+                <span className="h-24 w-24 ring-4 ring-white sm:h-32 sm:w-32 rounded-full overflow-hidden bg-gray-100">
+                  <svg
+                    className="h-full w-full text-gray-300"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </span>
+              )}
             </div>
             <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
               <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
-                  Ricardo Cooper
+                  {chatReducer.chat.to_user?.username}
                 </h1>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -71,7 +92,7 @@ const UserProfile = ({ handleCloseProfile = null }) => {
           </div>
           <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
             <h1 className="text-2xl font-bold text-gray-900 truncate">
-              Ricardo Cooper
+              {chatReducer.chat.to_user?.username}
             </h1>
           </div>
         </div>
@@ -155,17 +176,9 @@ const UserProfile = ({ handleCloseProfile = null }) => {
             <dt className="text-sm font-medium text-gray-500">About</dt>
             <dd className="mt-1 max-w-prose text-sm text-gray-900">
               <p>
-                Tincidunt quam neque in cursus viverra orci, dapibus nec
-                tristique. Nullam ut sit dolor consectetur urna, dui cras nec
-                sed. Cursus risus congue arcu aenean posuere aliquam.
-              </p>
-              <p className="mt-5">
-                Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea
-                rhoncus ac mauris amet. Urna, sem pretium sit pretium urna,
-                senectus vitae. Scelerisque fermentum, cursus felis dui
-                suspendisse velit pharetra. Augue et duis cursus maecenas eget
-                quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent
-                dictum risus suspendisse.
+                {chatReducer.chat.to_user?.about
+                  ? chatReducer.chat.to_user?.about
+                  : "No content"}
               </p>
             </dd>
           </div>

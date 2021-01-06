@@ -2,6 +2,7 @@ import { FETCH_CHAT, FETCH_CHAT_SUCCESS, FETCH_CHAT_FAIL } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
+  current_chat: null,
   is_loading: false,
   chat: null,
   error: null,
@@ -29,6 +30,7 @@ export default function chatReducer(state = initialState, action) {
         is_loading: false,
         error: action.payload,
       };
+
     default:
       return state;
   }

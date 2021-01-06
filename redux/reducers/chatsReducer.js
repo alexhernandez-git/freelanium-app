@@ -5,6 +5,8 @@ import {
   FETCH_CHATS,
   FETCH_CHATS_SUCCESS,
   FETCH_CHATS_FAIL,
+  SET_CURRENT_CHAT,
+  REMOVE_CURRENT_CHAT,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -14,6 +16,7 @@ const initialState = {
   error: null,
   creating_chat: false,
   create_chat_error: null,
+  current_chat: null,
 };
 export default function chatsReducer(state = initialState, action) {
   switch (action.type) {
@@ -54,6 +57,16 @@ export default function chatsReducer(state = initialState, action) {
         ...state,
         creating_chat: false,
         create_chat_error: action.payload,
+      };
+    case SET_CURRENT_CHAT:
+      return {
+        ...state,
+        current_chat: action.payload,
+      };
+    case REMOVE_CURRENT_CHAT:
+      return {
+        ...state,
+        current_chat: null,
       };
     default:
       return state;

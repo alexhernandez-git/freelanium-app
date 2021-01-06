@@ -1,8 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { fetchChat } from "redux/actions/chat";
 
-const ChatroomCard = ({ chat }) => {
+const ChatroomCard = ({ chat, handleFetchChat }) => {
   return (
-    <li>
+    <li onClick={() => handleFetchChat(chat.id)}>
       <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
         <div className="flex-shrink-0">
           {chat.picture ? (
@@ -30,7 +32,7 @@ const ChatroomCard = ({ chat }) => {
         <div className="flex-1 min-w-0">
           <a href="#" className="focus:outline-none">
             <span className="absolute inset-0" aria-hidden="true"></span>
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-gray-900 truncate">
               {chat.room_name}
             </p>
             <p className="text-sm text-gray-500 truncate">

@@ -7,6 +7,7 @@ import {
   FETCH_CHATS,
   FETCH_CHATS_SUCCESS,
   FETCH_CHATS_FAIL,
+  SET_CURRENT_CHAT,
 } from "../types";
 import { createNotification } from "./notifications";
 import { fetchChat } from "./chat";
@@ -22,7 +23,13 @@ export const fetchChats = () => async (dispatch, getState) => {
         type: FETCH_CHATS_SUCCESS,
         payload: res.data,
       });
-      await dispatch(fetchChat(res.data[0].id));
+      const current_chat = getState().chatsReducer.current_chat;
+      if (current_chat) {
+        console.log("entra");
+        await dispatch(fetchChat(current_chat.id));
+      } else {
+        await dispatch(fetchChat(res.data[0].id));
+      }
     })
     .catch((err) => {
       dispatch({
@@ -32,30 +39,35 @@ export const fetchChats = () => async (dispatch, getState) => {
     });
 };
 
-export const createChat = (user_id) => async (dispatch, getState) => {
+export const getOrCreateChat = (user_id, push) => async (
+  dispatch,
+  getState
+) => {
   dispatch({
     type: CREATE_CHAT,
   });
+  console.log(user_id);
   await axios
     .post(
-      `${process.env.HOST}/api/contacts/`,
-      { contact_user_id: user_id },
+      `${process.env.HOST}/api/chats/`,
+      { to_user: user_id },
       tokenConfig(getState)
     )
-    .then((res) => {
-      console.log(res.data);
-      dispatch(createNotification("SUCCESS", "User added to contacts"));
-
-      dispatch({
-        type: CREATE_CHAT_SUCCESS,
-        payload: res.data,
-      });
+    .then(async (res) => {
+      if (res.status == 201) {
+        await dispatch({
+          type: CREATE_CHAT_SUCCESS,
+          payload: res.data,
+        });
+      }
+      await dispatch({ type: SET_CURRENT_CHAT, payload: res.data });
+      push("/dashboard/messages");
     })
     .catch((err) => {
       dispatch({
         type: CREATE_CHAT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Something has gone wrong"));
+      dispatch(createNotification("ERROR", "Something went wrong"));
     });
 };

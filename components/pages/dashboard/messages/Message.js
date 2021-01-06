@@ -19,11 +19,27 @@ export const MyMessage = ({ message }) => {
             </div>
           </div>
           <div className="relative">
-            <img
-              className="h-10 w-10 rounded-full bg-gray-400 hidden  lg:flex items-center justify-center ring-8 ring-white"
-              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-              alt=""
-            />
+            {message.sent_by.picture ? (
+              <img
+                className="h-10 w-10 rounded-full"
+                src={
+                  new RegExp(process.env.HOST).test(message.sent_by.picture)
+                    ? message.sent_by.picture
+                    : process.env.HOST + message.sent_by.picture
+                }
+                alt=""
+              />
+            ) : (
+              <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                <svg
+                  className="h-full w-full text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -37,11 +53,27 @@ export const NotMyMessage = ({ message }) => {
       <div className="relative pb-8">
         <div className="relative flex items-start space-x-3 lg:w-3/4">
           <div className="relative">
-            <img
-              className="h-10 w-10 rounded-full bg-gray-400 hidden lg:flex items-center justify-center ring-8 ring-white"
-              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=8&amp;w=256&amp;h=256&amp;q=80"
-              alt=""
-            />
+            {message.sent_by.picture ? (
+              <img
+                className="h-10 w-10 rounded-full"
+                src={
+                  new RegExp(process.env.HOST).test(message.sent_by.picture)
+                    ? message.sent_by.picture
+                    : process.env.HOST + message.sent_by.picture
+                }
+                alt=""
+              />
+            ) : (
+              <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                <svg
+                  className="h-full w-full text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+            )}
           </div>
           <div className="min-w-0 flex-1">
             <div>

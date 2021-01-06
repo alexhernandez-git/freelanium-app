@@ -3,9 +3,11 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeContact } from "redux/actions/contacts";
-
+import { getOrCreateChat } from "redux/actions/chats";
+import { useRouter } from "next/router";
 const ContactCard = ({ contact, id }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { username, picture, is_seller } = contact;
   const authReducer = useSelector((state) => state.authReducer);
   const { seller_view } = authReducer.is_authenticated && authReducer.user;
@@ -36,6 +38,9 @@ const ContactCard = ({ contact, id }) => {
 
   const handleRemoveContact = () => {
     dispatch(removeContact(id));
+  };
+  const handleGetOrCreateChat = () => {
+    dispatch(getOrCreateChat(contact.id, router.push));
   };
   return (
     <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow overflow-hidden">
@@ -223,26 +228,27 @@ const ContactCard = ({ contact, id }) => {
       <div>
         <div className="-mt-px flex divide-x divide-gray-200">
           <div className="-ml-px w-0 flex-1 flex">
-            <Link href="/dashboard/messages">
-              <a className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-                {/* <!-- Heroicon name: phone --> */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  className="w-5 h-5 text-gray-400"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                  />
-                </svg>
-                <span className="ml-3">Send message</span>
-              </a>
-            </Link>
+            <a
+              onClick={handleGetOrCreateChat}
+              className="cursor-pointer relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+            >
+              {/* <!-- Heroicon name: phone --> */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
+              </svg>
+              <span className="ml-3">Send message</span>
+            </a>
           </div>
         </div>
       </div>
