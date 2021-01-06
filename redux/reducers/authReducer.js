@@ -49,6 +49,7 @@ import {
   INVITE_USER_SUCCESS,
   INVITE_USER_FAIL,
   RESET_INVITE_USER,
+  LOAD_USER_ERROR,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -177,7 +178,17 @@ export default function AuthReducer(state = initialState, action) {
         error: null,
         haveAccess: action.payload.have_access,
       };
+    case LOAD_USER_ERROR:
+      process.browser && localStorage.removeItem("access_token");
 
+      return {
+        ...state,
+        access_token: null,
+        user: null,
+        rating: null,
+        is_authenticated: false,
+        is_loading: false,
+      };
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:

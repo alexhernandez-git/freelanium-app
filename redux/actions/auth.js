@@ -49,6 +49,7 @@ import {
   INVITE_USER_SUCCESS,
   INVITE_USER_FAIL,
   RESET_INVITE_USER,
+  LOAD_USER_ERROR,
 } from "../types";
 import { createNotification } from "./notifications";
 
@@ -67,8 +68,7 @@ export const loadUser = () => async (dispatch, getState) => {
     })
     .catch((err) => {
       dispatch({
-        type: AUTH_ERROR,
-        payload: { data: err.response.data, status: err.response.status },
+        type: LOAD_USER_ERROR,
       });
     });
 };

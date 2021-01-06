@@ -59,7 +59,7 @@ const Layout = ({
                     Send validation email.
                   </a>{" "}
                   For our users security if the account is not validated can be
-                  desactivated.
+                  cancelled.
                 </p>
               </div>
             </div>
