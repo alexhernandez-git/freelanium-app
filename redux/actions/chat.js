@@ -5,6 +5,7 @@ import {
   FETCH_CHAT_SUCCESS,
   FETCH_CHAT_FAIL,
   REMOVE_CURRENT_CHAT,
+  SET_SEEN_CHAT,
 } from "../types";
 import { createNotification } from "./notifications";
 import { fetchMessages } from "./messages";
@@ -25,6 +26,7 @@ export const fetchChat = (id, handleCloseProfile = false) => async (
       });
       await dispatch(fetchMessages(res.data.id));
       await dispatch({ type: REMOVE_CURRENT_CHAT });
+      await dispatch({ type: SET_SEEN_CHAT, payload: res.data.id });
       if (handleCloseProfile) {
         handleCloseProfile();
       }

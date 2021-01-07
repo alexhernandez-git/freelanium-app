@@ -7,6 +7,8 @@ import {
   FETCH_CHATS_FAIL,
   SET_CURRENT_CHAT,
   REMOVE_CURRENT_CHAT,
+  CHANGE_LAST_MESSAGE,
+  SET_SEEN_CHAT,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -68,6 +70,25 @@ export default function chatsReducer(state = initialState, action) {
         ...state,
         current_chat: null,
       };
+    case CHANGE_LAST_MESSAGE:
+      return {
+        ...state,
+        chats: state.chats.map((chat) =>
+          chat.id == action.payload.id
+            ? { ...chat, last_message: action.payload.message }
+            : chat
+        ),
+      };
+    case SET_SEEN_CHAT:
+      return {
+        ...state,
+        chats: state.chats.map((chat) =>
+          chat.id == action.payload
+            ? { ...chat, last_message_seen: true }
+            : chat
+        ),
+      };
+
     default:
       return state;
   }
