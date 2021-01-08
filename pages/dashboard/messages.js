@@ -123,9 +123,9 @@ export default function Messages() {
             )}
             <aside
               className={`${showMessages ? "w-full" : "w-0"}
-                md:order-first md:flex md:flex-col flex-shrink-0 md:w-96 border-r border-gray-200`}
+                md:order-first md:flex md:flex-col flex-shrink-0 md:w-80 border-r border-gray-200`}
             >
-              <div className="px-6 pt-6 pb-4">
+              <div className="p-6 border-b border-gray-200">
                 <h2 className="text-lg font-medium text-gray-900">Messages</h2>
                 {/* <p className="mt-1 text-sm text-gray-600">
                   Search directory of 3,018 employees

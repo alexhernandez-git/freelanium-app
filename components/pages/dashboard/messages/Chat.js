@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "redux/actions/messages";
+import { addMessage, fetchMoreMessages } from "redux/actions/messages";
 import { MyMessage, NotMyMessage } from "./Message";
 
 const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
@@ -15,9 +15,22 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
       chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
     }
   };
+
+  const handleScroll = () => {
+    if (chatRef.current.scrollTop == 0) {
+      dispatch(fetchMoreMessages(chatRef, chatRef.current.scrollHeight));
+    }
+  };
+
   useEffect(() => {
     if (messagesReducer.first_loading) {
       handleScrollToBottom();
+      if (chatRef.current) {
+        chatRef.current.addEventListener("scroll", handleScroll);
+        return () =>
+          chatRef.current &&
+          chatRef.current.removeEventListener("scroll", handleScroll);
+      }
     }
   }, [messagesReducer.first_loading]);
   const ws = useRef(null);
@@ -45,6 +58,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
         const data = JSON.parse(e.data);
         console.log(data);
         dispatch(addMessage(data));
+
         handleScrollToBottom();
       };
       return () => {
@@ -91,11 +105,24 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                     className="flex items-center cursor-pointer"
                     onClick={handleClickProfile}
                   >
-                    <img
-                      className="h-16 w-16 rounded-full lg:hidden"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"
-                      alt=""
-                    />
+                    {chatReducer.chat?.to_user?.picture ? (
+                      <img
+                        className="w-16 h-16 flex-shrink-0 mx-auto bg-black rounded-full lg:hidden"
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.6&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    ) : (
+                      <span className="h-16 w-16 rounded-full overflow-hidden bg-gray-100 lg:hidden">
+                        <svg
+                          className="h-full w-full text-gray-300"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      </span>
+                    )}
+
                     <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
                       {chatReducer.chat?.to_user?.username}
                     </h1>
