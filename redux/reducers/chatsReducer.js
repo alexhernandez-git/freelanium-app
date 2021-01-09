@@ -72,15 +72,23 @@ export default function chatsReducer(state = initialState, action) {
         current_chat: null,
       };
     case CHANGE_LAST_MESSAGE:
+      // Select the chat to pass to first
       const changeChatSelected = state.chats.find(
         (chat) => chat.id == action.payload.chat__id
       );
 
+      // Set the chats state array into a const to mutate
       const newChangeChatsArray = state.chats;
+
+      // Get the selected chat index
       const changeChatIndex = newChangeChatsArray.findIndex(
         (chat) => chat.id === changeChatSelected.id
       );
+
+      // Delete the chat selected from chats array
       newChangeChatsArray.splice(changeChatIndex, 1);
+
+      // Insert the chat selected in the first place
       newChangeChatsArray.unshift(changeChatSelected);
 
       return {
@@ -101,15 +109,23 @@ export default function chatsReducer(state = initialState, action) {
         ),
       };
     case NEW_MESSAGE_EVENT:
+      // Select the chat to pass to first
       const chatSelected = state.chats.find(
         (chat) => chat.id == action.payload.chat__id
       );
 
+      // Set the chats state array into a const to mutate
       const newChatsArray = state.chats;
+
+      // Get the selected chat index
       const chatIndex = newChatsArray.findIndex(
         (chat) => chat.id === chatSelected.id
       );
+
+      // Delete the chat selected from chats array
       newChatsArray.splice(chatIndex, 1);
+
+      // Insert the chat selected in the first place
       newChatsArray.unshift(chatSelected);
 
       return {

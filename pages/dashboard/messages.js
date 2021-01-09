@@ -21,7 +21,9 @@ export default function Messages() {
   const handleCloseProfile = () => {
     setShowProfile(false);
   };
-  const [showMessages, setShowMessages] = useState(true);
+  const [showMessages, setShowMessages] = useState(
+    chatsReducer.current_chat ? false : true
+  );
   const handleShowMessages = () => {
     setShowMessages(true);
   };
@@ -60,7 +62,7 @@ export default function Messages() {
                 handleClickProfile={handleClickProfile}
               />
             )}
-            {!showProfile && (
+            {chatReducer.chat && !showProfile && (
               <aside className="hidden lg:flex lg:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
                   <div class="flex-1 flex flex-col items-center w-40">

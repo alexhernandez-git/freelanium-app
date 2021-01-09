@@ -27,10 +27,11 @@ export const fetchChats = () => async (dispatch, getState) => {
       });
       const current_chat = getState().chatsReducer.current_chat;
       if (current_chat) {
-        console.log("entra");
-        await dispatch(fetchChat(current_chat.id));
+        await dispatch(fetchChat(current_chat));
       } else {
-        await dispatch(fetchChat(res.data[0].id));
+        if (res.data.length > 0) {
+          await dispatch(fetchChat(res.data[0].id));
+        }
       }
     })
     .catch((err) => {
@@ -62,7 +63,7 @@ export const getOrCreateChat = (user_id, push) => async (
           payload: res.data,
         });
       }
-      await dispatch({ type: SET_CURRENT_CHAT, payload: res.data });
+      await dispatch({ type: SET_CURRENT_CHAT, payload: res.data.id });
       push("/dashboard/messages");
     })
     .catch((err) => {
@@ -75,20 +76,37 @@ export const getOrCreateChat = (user_id, push) => async (
 };
 
 export const newMessageEvent = (chat__id, message__text) => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
-  dispatch({
-    type: NEW_MESSAGE_EVENT,
-    payload: { chat__id: chat__id, message__text: message__text },
-  });
+  const result = getState().chatsReducer.chats.some(
+    (chat) => chat.id === chat__id
+  );
+  if (result) {
+    dispatch({
+      type: NEW_MESSAGE_EVENT,
+      payload: { chat__id: chat__id, message__text: message__text },
+    });
+  } else {
+    await dispatch(fetchChats());
+  }
 };
 
 export const changeLastMessage = (chat__id, message__text) => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
   console.log(chat__id, message__text);
-  dispatch({
-    type: CHANGE_LAST_MESSAGE,
-    payload: { chat__id: chat__id, message__text: message__text },
-  });
+  const result = getState().chatsReducer.chats.some(
+    (chat) => chat.id === chat__id
+  );
+  console.log("is result", result);
+  if (result) {
+    dispatch({
+      type: CHANGE_LAST_MESSAGE,
+      payload: { chat__id: chat__id, message__text: message__text },
+    });
+  } else {
+    await dispatch(fetchChats());
+  }
 };
