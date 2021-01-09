@@ -8,6 +8,8 @@ import {
   FETCH_CHATS_SUCCESS,
   FETCH_CHATS_FAIL,
   SET_CURRENT_CHAT,
+  NEW_MESSAGE_EVENT,
+  CHANGE_LAST_MESSAGE,
 } from "../types";
 import { createNotification } from "./notifications";
 import { fetchChat } from "./chat";
@@ -70,4 +72,23 @@ export const getOrCreateChat = (user_id, push) => async (
       });
       dispatch(createNotification("ERROR", "Something went wrong"));
     });
+};
+
+export const newMessageEvent = (chat__id, message__text) => async (
+  dispatch
+) => {
+  dispatch({
+    type: NEW_MESSAGE_EVENT,
+    payload: { chat__id: chat__id, message__text: message__text },
+  });
+};
+
+export const changeLastMessage = (chat__id, message__text) => async (
+  dispatch
+) => {
+  console.log(chat__id, message__text);
+  dispatch({
+    type: CHANGE_LAST_MESSAGE,
+    payload: { chat__id: chat__id, message__text: message__text },
+  });
 };

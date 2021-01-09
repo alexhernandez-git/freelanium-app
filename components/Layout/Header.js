@@ -302,13 +302,14 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
               </Link>
             </div>
             <div role="none">
-              <a
-                href="#"
-                className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                role="menuitem"
-              >
-                Log in on
-              </a>
+              <Link href="/login">
+                <a
+                  className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  Log in on
+                </a>
+              </Link>
             </div>
           </div>
         </div>

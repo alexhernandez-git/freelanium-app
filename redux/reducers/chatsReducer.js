@@ -7,8 +7,9 @@ import {
   FETCH_CHATS_FAIL,
   SET_CURRENT_CHAT,
   REMOVE_CURRENT_CHAT,
-  CHANGE_LAST_MESSAGE,
   SET_SEEN_CHAT,
+  CHANGE_LAST_MESSAGE,
+  NEW_MESSAGE_EVENT,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -71,11 +72,22 @@ export default function chatsReducer(state = initialState, action) {
         current_chat: null,
       };
     case CHANGE_LAST_MESSAGE:
+      const changeChatSelected = state.chats.find(
+        (chat) => chat.id == action.payload.chat__id
+      );
+
+      const newChangeChatsArray = state.chats;
+      const changeChatIndex = newChangeChatsArray.findIndex(
+        (chat) => chat.id === changeChatSelected.id
+      );
+      newChangeChatsArray.splice(changeChatIndex, 1);
+      newChangeChatsArray.unshift(changeChatSelected);
+
       return {
         ...state,
-        chats: state.chats.map((chat) =>
-          chat.id == action.payload.id
-            ? { ...chat, last_message: action.payload.message }
+        chats: newChangeChatsArray.map((chat) =>
+          chat.id == action.payload.chat__id
+            ? { ...chat, last_message: action.payload.message__text }
             : chat
         ),
       };
@@ -85,6 +97,30 @@ export default function chatsReducer(state = initialState, action) {
         chats: state.chats.map((chat) =>
           chat.id == action.payload
             ? { ...chat, last_message_seen: true }
+            : chat
+        ),
+      };
+    case NEW_MESSAGE_EVENT:
+      const chatSelected = state.chats.find(
+        (chat) => chat.id == action.payload.chat__id
+      );
+
+      const newChatsArray = state.chats;
+      const chatIndex = newChatsArray.findIndex(
+        (chat) => chat.id === chatSelected.id
+      );
+      newChatsArray.splice(chatIndex, 1);
+      newChatsArray.unshift(chatSelected);
+
+      return {
+        ...state,
+        chats: newChatsArray.map((chat) =>
+          chat.id == action.payload.chat__id
+            ? {
+                ...chat,
+                last_message_seen: false,
+                last_message: action.payload.message__text,
+              }
             : chat
         ),
       };

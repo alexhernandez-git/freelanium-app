@@ -5,7 +5,6 @@ import {
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
   ADD_MESSAGE,
-  CHANGE_LAST_MESSAGE,
   FETCH_MORE_MESSAGES,
   FETCH_MORE_MESSAGES_SUCCESS,
   FETCH_MORE_MESSAGES_FAIL,
@@ -38,10 +37,6 @@ export const addMessage = (data) => async (dispatch, getState) => {
   await dispatch({
     type: ADD_MESSAGE,
     payload: data,
-  });
-  await dispatch({
-    type: CHANGE_LAST_MESSAGE,
-    payload: { message: data.text, id: getState().chatReducer.chat.id },
   });
 };
 

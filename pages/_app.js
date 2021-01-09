@@ -4,6 +4,8 @@ import { wrapper } from "redux/store";
 import { loadUser } from "redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
+import { createNotification } from "redux/actions/notifications";
+import { newMessageEvent } from "redux/actions/chats";
 
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -23,9 +25,15 @@ function WrappedApp({ Component, pageProps }) {
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        const chat = JSON.parse(data.chat);
-        const message = JSON.parse(data.message);
-        console.log(chat);
+        console.log(data);
+
+        dispatch(
+          createNotification(
+            "SUCCESS",
+            "New message from " + data.sent_by__username
+          )
+        );
+        dispatch(newMessageEvent(data.chat__pk, data.message__text));
       };
       return () => {
         ws.current.close();

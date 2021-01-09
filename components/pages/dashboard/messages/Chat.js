@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { changeLastMessage } from "redux/actions/chats";
 import { addMessage, fetchMoreMessages } from "redux/actions/messages";
 import { MyMessage, NotMyMessage } from "./Message";
 
@@ -54,11 +55,13 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
       );
       ws.current.onopen = () => console.log("ws opened");
       ws.current.onclose = () => console.log("ws closed");
-      ws.current.onmessage = function (e) {
+      ws.current.onmessage = async (e) => {
         const data = JSON.parse(e.data);
         console.log(data);
-        dispatch(addMessage(data));
-
+        await dispatch(addMessage(data));
+        if (authReducer.user.id === data.sent_by.id) {
+          await dispatch(changeLastMessage(data.chat__id, data.text));
+        }
         handleScrollToBottom();
       };
       return () => {
