@@ -10,6 +10,9 @@ import {
   SET_CURRENT_CHAT,
   NEW_MESSAGE_EVENT,
   CHANGE_LAST_MESSAGE,
+  ADD_CHAT_TO_FEED,
+  ADD_CHAT_TO_FEED_SUCCESS,
+  ADD_CHAT_TO_FEED_FAIL,
 } from "../types";
 import { createNotification } from "./notifications";
 import { fetchChat } from "./chat";
@@ -18,14 +21,17 @@ export const fetchChats = () => async (dispatch, getState) => {
   await dispatch({
     type: FETCH_CHATS,
   });
+  console.log(`${process.env.HOST}/api/chats/`);
   await axios
     .get(`${process.env.HOST}/api/chats/`, tokenConfig(getState))
     .then(async (res) => {
+      console.log("chats", res.data);
       await dispatch({
         type: FETCH_CHATS_SUCCESS,
         payload: res.data,
       });
       const current_chat = getState().chatsReducer.current_chat;
+      console.log("current_chat", current_chat);
       if (current_chat) {
         await dispatch(fetchChat(current_chat));
       } else {
@@ -75,6 +81,29 @@ export const getOrCreateChat = (user_id, push) => async (
     });
 };
 
+export const addChatToFeed = (id) => async (dispatch, getState) => {
+  await dispatch({
+    type: ADD_CHAT_TO_FEED,
+  });
+  await axios
+    .get(
+      `${process.env.HOST}/api/chats/${id}/retrieve_chat_feed`,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      await dispatch({
+        type: ADD_CHAT_TO_FEED_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_CHAT_TO_FEED_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
 export const newMessageEvent = (chat__id, message__text) => async (
   dispatch,
   getState
@@ -83,12 +112,12 @@ export const newMessageEvent = (chat__id, message__text) => async (
     (chat) => chat.id === chat__id
   );
   if (result) {
-    dispatch({
+    await dispatch({
       type: NEW_MESSAGE_EVENT,
       payload: { chat__id: chat__id, message__text: message__text },
     });
   } else {
-    await dispatch(fetchChats());
+    await dispatch(addChatToFeed(chat__id));
   }
 };
 
@@ -102,11 +131,11 @@ export const changeLastMessage = (chat__id, message__text) => async (
   );
   console.log("is result", result);
   if (result) {
-    dispatch({
+    await dispatch({
       type: CHANGE_LAST_MESSAGE,
       payload: { chat__id: chat__id, message__text: message__text },
     });
   } else {
-    await dispatch(fetchChats());
+    await dispatch(addChatToFeed(chat__id));
   }
 };

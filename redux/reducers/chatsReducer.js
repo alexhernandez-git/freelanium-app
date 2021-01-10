@@ -10,6 +10,9 @@ import {
   SET_SEEN_CHAT,
   CHANGE_LAST_MESSAGE,
   NEW_MESSAGE_EVENT,
+  ADD_CHAT_TO_FEED,
+  ADD_CHAT_TO_FEED_SUCCESS,
+  ADD_CHAT_TO_FEED_FAIL,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -19,6 +22,8 @@ const initialState = {
   error: null,
   creating_chat: false,
   create_chat_error: null,
+  adding_chat_to_feed: false,
+  add_chat_to_feed_error: null,
   current_chat: null,
 };
 export default function chatsReducer(state = initialState, action) {
@@ -140,7 +145,26 @@ export default function chatsReducer(state = initialState, action) {
             : chat
         ),
       };
-
+    case ADD_CHAT_TO_FEED:
+      return {
+        ...state,
+        adding_chat_to_feed: true,
+      };
+    case ADD_CHAT_TO_FEED_SUCCESS:
+      const chatAddedArray = state.chats;
+      chatAddedArray.unshift(action.payload);
+      return {
+        ...state,
+        chats: chatAddedArray,
+        adding_chat_to_feed: false,
+        add_chat_to_feed_error: null,
+      };
+    case ADD_CHAT_TO_FEED_FAIL:
+      return {
+        ...state,
+        adding_chat_to_feed: false,
+        add_chat_to_feed_error: null,
+      };
     default:
       return state;
   }
