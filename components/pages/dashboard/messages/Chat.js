@@ -75,7 +75,11 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   return (
     <>
       <div
-        className={`${showMessages ? "hidden md:flex flex-1" : "flex flex-1"}`}
+        className={`${
+          showMessages
+            ? "hidden md:flex flex-1 truncate"
+            : "flex flex-1 truncate"
+        }`}
       >
         <div className="w-full flex flex-col justify-between">
           <div>
@@ -108,7 +112,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                 <div className="p-2">
                   <div>
                     <div
-                      className="flex items-center cursor-pointer"
+                      className="flex items-center cursor-pointer truncate"
                       onClick={handleClickProfile}
                     >
                       {chatReducer.chat?.to_user?.picture ? (
@@ -128,10 +132,11 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                           </svg>
                         </span>
                       )}
-
-                      <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                        {chatReducer.chat?.to_user?.username}
-                      </h1>
+                      <div>
+                        <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
+                          {chatReducer.chat?.to_user?.username}
+                        </h1>
+                      </div>
                     </div>
                     <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
                       {chatReducer.chat?.to_user?.is_verified ? (
@@ -203,11 +208,11 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                 <form onSubmit={handleSubmit}>
                   <div className="mt-1 flex rounded-md shadow-sm">
                     <div className="relative flex items-stretch flex-grow focus-within:z-10">
-                      <input
+                      <textarea
                         type="text"
                         name="text"
                         id="text"
-                        className=" block w-full sm:text-sm border-gray-300 focus:ring-0"
+                        className=" block w-full sm:text-sm border-gray-300 focus:ring-0 resize-none"
                         placeholder="Message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}

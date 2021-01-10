@@ -34,10 +34,6 @@ export const fetchChats = () => async (dispatch, getState) => {
       console.log("current_chat", current_chat);
       if (current_chat) {
         await dispatch(fetchChat(current_chat));
-      } else {
-        if (res.data.length > 0) {
-          await dispatch(fetchChat(res.data[0].id));
-        }
       }
     })
     .catch((err) => {

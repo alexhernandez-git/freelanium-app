@@ -1,11 +1,17 @@
 import { PrimaryButton, SecondaryButton } from "components/ui/Buttons";
+import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
+import { getOrCreateChat } from "redux/actions/chats";
 import { addContact } from "redux/actions/contacts";
 const ContactSearchCard = ({ contact, myContact }) => {
   const { username, picture, id } = contact;
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleAddContact = () => {
     dispatch(addContact(id));
+  };
+  const handleGetOrCreateChat = () => {
+    dispatch(getOrCreateChat(contact.id, router.push));
   };
   return (
     <li className="bg-white">
@@ -33,10 +39,14 @@ const ContactSearchCard = ({ contact, myContact }) => {
         </div>
         <div>
           {myContact ? (
-            <PrimaryButton>Send message</PrimaryButton>
+            <PrimaryButton onClick={handleGetOrCreateChat}>
+              Send message
+            </PrimaryButton>
           ) : (
             <div className="flex">
-              <PrimaryButton className="mr-3">Send message</PrimaryButton>
+              <PrimaryButton className="mr-3" onClick={handleGetOrCreateChat}>
+                Send message
+              </PrimaryButton>
               <SecondaryButton
                 className="cursor-pointer"
                 onClick={handleAddContact}

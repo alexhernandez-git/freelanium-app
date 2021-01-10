@@ -8,14 +8,14 @@ export const MyMessage = ({ message }) => {
           <div className="min-w-0 flex-1">
             <div className="text-right">
               <div className="text-sm ">
-                <a href="#" className="font-medium text-gray-900">
+                <span className="font-medium text-gray-900">
                   {message.sent_by.username}
-                </a>
+                </span>
               </div>
               <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
             </div>
             <div className="mt-2 text-sm text-gray-700 flex justify-end">
-              <p className="break-all">{message.text}</p>
+              <p className="break-all whitespace-pre-line">{message.text}</p>
             </div>
           </div>
           <div className="relative">
@@ -78,14 +78,14 @@ export const NotMyMessage = ({ message }) => {
           <div className="min-w-0 flex-1">
             <div>
               <div className="text-sm">
-                <a href="#" className="font-medium text-gray-900">
+                <span className="font-medium text-gray-900">
                   {message.sent_by.username}
-                </a>
+                </span>
               </div>
               <p className="mt-0.5 text-sm text-gray-500">2h ago</p>
             </div>
             <div className="mt-2 text-sm text-gray-700">
-              <p className="break-all">{message.text}</p>
+              <p className="break-all whitespace-pre-line">{message.text}</p>
             </div>
           </div>
         </div>
