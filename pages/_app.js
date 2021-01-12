@@ -4,7 +4,7 @@ import { wrapper } from "redux/store";
 import { loadUser } from "redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { createNotification } from "redux/actions/notifications";
+import { createAlert } from "redux/actions/alerts";
 import { newMessageEvent } from "redux/actions/chats";
 
 function WrappedApp({ Component, pageProps }) {
@@ -28,10 +28,7 @@ function WrappedApp({ Component, pageProps }) {
         console.log(data);
 
         dispatch(
-          createNotification(
-            "SUCCESS",
-            "New message from " + data.sent_by__username
-          )
+          createAlert("SUCCESS", "New message from " + data.sent_by__username)
         );
         dispatch(newMessageEvent(data.chat__pk, data.message__text));
       };

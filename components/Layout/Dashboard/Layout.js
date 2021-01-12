@@ -1,9 +1,9 @@
-import { useNotification } from "hooks/useNotification";
+import { useAlert } from "hooks/useAlert";
 import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendVerificationEmail } from "redux/actions/auth";
-import { createNotification } from "redux/actions/notifications";
+import { createAlert } from "redux/actions/alerts";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
 
@@ -16,17 +16,17 @@ const Layout = ({
   pageName = "",
 }) => {
   const router = useRouter();
-  const notification = useNotification();
+  const alert = useAlert();
   const dispatch = useDispatch();
   const handleSendVerificationEmail = () => {
     dispatch(sendVerificationEmail());
-    dispatch(createNotification("SUCCESS", "Validation email sent"));
+    dispatch(createAlert("SUCCESS", "Validation email sent"));
   };
   const authReducer = useSelector((state) => state.authReducer);
   const { user } = authReducer;
   return (
     <>
-      {notification}
+      {alert}
       <div className="min-h-screen bg-gray-100">
         <header>
           <Header />

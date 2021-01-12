@@ -2,7 +2,7 @@ import React from "react";
 import Header from "components/Layout/Header";
 import Footer from "./Footer";
 import { useRouter } from "next/router";
-import { useNotification } from "hooks/useNotification";
+import { useAlert } from "hooks/useAlert";
 
 const Layout = ({
   children,
@@ -11,11 +11,11 @@ const Layout = ({
   invitedBuyer,
 }) => {
   const router = useRouter();
-  const notification = useNotification();
+  const alert = useAlert();
 
   return (
     <>
-      {notification}
+      {alert}
       <div className="relative bg-gray-50 overflow-hidden">
         <div
           className="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full"

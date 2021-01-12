@@ -1,4 +1,3 @@
-import Layout from "components/Layout/Dashboard/Layout";
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
 import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
@@ -13,7 +12,6 @@ import {
   updateUser,
 } from "redux/actions/auth";
 import { useDispatch } from "react-redux";
-import { createNotification } from "redux/actions/notifications";
 import CropperModal from "components/pages/dashboard/settings/CropperModal";
 import countries from "data/countries";
 import currencies from "data/currencies";

@@ -17,7 +17,7 @@ import {
   REMOVE_CONTACT_SUCCESS,
   REMOVE_CONTACT_FAIL,
 } from "../types";
-import { createNotification } from "./notifications";
+import { createAlert } from "./alerts";
 
 export const fetchContacts = () => async (dispatch, getState) => {
   await dispatch({
@@ -122,7 +122,7 @@ export const addContact = (user_id) => async (dispatch, getState) => {
     )
     .then((res) => {
       console.log(res.data);
-      dispatch(createNotification("SUCCESS", "User added to contacts"));
+      dispatch(createAlert("SUCCESS", "User added to contacts"));
 
       dispatch({
         type: ADD_CONTACT_SUCCESS,
@@ -134,7 +134,7 @@ export const addContact = (user_id) => async (dispatch, getState) => {
         type: ADD_CONTACT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Something has gone wrong"));
+      dispatch(createAlert("ERROR", "Something has gone wrong"));
     });
 };
 
@@ -154,13 +154,13 @@ export const removeContact = (contact_id) => async (dispatch, getState) => {
         type: REMOVE_CONTACT_SUCCESS,
         payload: contact_id,
       });
-      dispatch(createNotification("SUCCESS", "Contact succesfully removed"));
+      dispatch(createAlert("SUCCESS", "Contact succesfully removed"));
     })
     .catch((err) => {
       dispatch({
         type: REMOVE_CONTACT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Error happened at remove contact"));
+      dispatch(createAlert("ERROR", "Error happened at remove contact"));
     });
 };

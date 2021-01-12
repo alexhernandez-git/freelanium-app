@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SuccessNotification = ({ message, handleHideNotification }) => {
+export const SuccessAlert = ({ message, handleHideAlert }) => {
   return (
     <div className="">
       <div className="z-50 fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
@@ -32,7 +32,7 @@ export const SuccessNotification = ({ message, handleHideNotification }) => {
               </div>
               <div className="ml-4 flex-shrink-0 flex">
                 <button
-                  onClick={handleHideNotification}
+                  onClick={handleHideAlert}
                   className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <span className="sr-only">Close</span>
@@ -59,7 +59,7 @@ export const SuccessNotification = ({ message, handleHideNotification }) => {
   );
 };
 
-export const ErrorNotification = ({ message, handleHideNotification }) => {
+export const ErrorAlert = ({ message, handleHideAlert }) => {
   return (
     <div className="">
       <div className="z-50 fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
@@ -90,7 +90,7 @@ export const ErrorNotification = ({ message, handleHideNotification }) => {
               </div>
               <div className="ml-4 flex-shrink-0 flex">
                 <button
-                  onClick={handleHideNotification}
+                  onClick={handleHideAlert}
                   className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <span className="sr-only">Close</span>

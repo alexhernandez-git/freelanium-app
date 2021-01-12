@@ -1,17 +1,53 @@
-import { CREATE_NOTIFICATION, REMOVE_NOTIFICATION } from "../types";
+import axios from "axios";
+import { tokenConfig } from "./auth";
+import {
+  FETCH_NOTIFICATIONS,
+  FETCH_NOTIFICATIONS_SUCCESS,
+  FETCH_NOTIFICATIONS_FAIL,
+  FETCH_MORE_NOTIFICATIONS,
+  FETCH_MORE_NOTIFICATIONS_SUCCESS,
+  FETCH_MORE_NOTIFICATIONS_FAIL,
+} from "../types";
 
-export const createNotification = (type, message) => (dispatch, getState) => {
-  dispatch({
-    type: CREATE_NOTIFICATION,
-    payload: {
-      type: type,
-      message: message,
-    },
+export const fetchNotifications = () => async (dispatch, getState) => {
+  await dispatch({
+    type: FETCH_NOTIFICATIONS,
   });
+  await axios
+    .get(`${process.env.HOST}/api/notifications/`, tokenConfig(getState))
+    .then(async (res) => {
+      await dispatch({
+        type: FETCH_NOTIFICATIONS_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: FETCH_NOTIFICATIONS_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };
 
-export const removeNotification = () => (dispatch, getState) => {
-  dispatch({
-    type: REMOVE_NOTIFICATION,
-  });
+export const fetchMoreNotifications = () => async (dispatch, getState) => {
+  const url = getState().notificationsReducer.notifications.next;
+  if (url) {
+    dispatch({
+      type: FETCH_MORE_NOTIFICATIONS,
+    });
+    await axios
+      .get(url, tokenConfig(getState))
+      .then(async (res) => {
+        await dispatch({
+          type: FETCH_MORE_NOTIFICATIONS_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: FETCH_MORE_NOTIFICATIONS_FAIL,
+          payload: { data: err.response.data, status: err.response.status },
+        });
+      });
+  }
 };

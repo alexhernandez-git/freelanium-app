@@ -41,14 +41,15 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   const [message, setMessage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log;
-    ws.current.send(
-      JSON.stringify({
-        text: message,
-        sent_by: authReducer.user,
-      })
-    );
-    setMessage("");
+    if (message !== "") {
+      ws.current.send(
+        JSON.stringify({
+          text: message,
+          sent_by: authReducer.user,
+        })
+      );
+      setMessage("");
+    }
   };
   useEffect(() => {
     if (!chatReducer.is_loading && chatReducer.chat) {
@@ -189,7 +190,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
           </div>
           <div
             className="self-end flex flex-col relative overflow-hidden w-full"
-            style={{ paddingBottom: "38px" }}
+            style={{ paddingBottom: "56px" }}
           >
             <div className="p-3 h-full overflow-y-auto" ref={chatRef}>
               <ul>
@@ -207,18 +208,18 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
               <div className="absolute bottom-0 w-full">
                 <form onSubmit={handleSubmit}>
                   <div className="mt-1 flex rounded-md shadow-sm">
-                    <div className="relative flex items-stretch flex-grow focus-within:z-10">
+                    <div className="relative flex items-stretch flex-grow">
                       <textarea
                         type="text"
                         name="text"
                         id="text"
-                        className=" block w-full sm:text-sm border-gray-300 focus:ring-0 resize-none"
+                        className="block w-full sm:text-sm border-gray-200 ring-0 focus:outline-none focus:shadow-none resize-none border-b-0 border-l-0 border-r-0 focus:border-gray-200"
                         placeholder="Message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                       />
                     </div>
-                    <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                    <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-200  text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none border-r-0 border-b-0">
                       <svg
                         className="h-5 w-5 text-gray-400"
                         xmlns="http://www.w3.org/2000/svg"

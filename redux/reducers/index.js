@@ -1,16 +1,18 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
-import notificationsReducer from "./notificationsReducer";
+import alertsReducer from "./alertsReducer";
 import contactsReducer from "./contactsReducer";
 import chatsReducer from "./chatsReducer";
 import chatReducer from "./chatReducer";
 import messagesReducer from "./messagesReducer";
+import notificationsReducer from "./notificationsReducer";
 
 export default combineReducers({
   authReducer: authReducer,
-  notificationsReducer: notificationsReducer,
+  alertsReducer: alertsReducer,
   contactsReducer: contactsReducer,
   chatsReducer: chatsReducer,
   chatReducer: chatReducer,
   messagesReducer: messagesReducer,
+  notificationsReducer: notificationsReducer,
 });

@@ -9,7 +9,6 @@ import {
   FETCH_MORE_MESSAGES_SUCCESS,
   FETCH_MORE_MESSAGES_FAIL,
 } from "../types";
-import { createNotification } from "./notifications";
 
 export const fetchMessages = (id) => async (dispatch, getState) => {
   await dispatch({

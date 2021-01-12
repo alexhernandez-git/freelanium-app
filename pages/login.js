@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { forgetPassword, login } from "redux/actions/auth";
 import useRedirectIfIsAuthenticated from "hooks/useRedirectIfIsAuthenticated";
-import { useNotification } from "hooks/useNotification";
+import { useAlert } from "hooks/useAlert";
 const loginPage = () => {
   useRedirectIfIsAuthenticated();
   const dispatch = useDispatch();
@@ -62,10 +62,10 @@ const loginPage = () => {
     },
   });
 
-  const notification = useNotification();
+  const alert = useAlert();
   return (
     <>
-      {notification}
+      {alert}
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img

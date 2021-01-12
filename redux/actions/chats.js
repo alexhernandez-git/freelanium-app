@@ -14,7 +14,7 @@ import {
   ADD_CHAT_TO_FEED_SUCCESS,
   ADD_CHAT_TO_FEED_FAIL,
 } from "../types";
-import { createNotification } from "./notifications";
+import { createAlert } from "./alerts";
 import { fetchChat } from "./chat";
 
 export const fetchChats = () => async (dispatch, getState) => {
@@ -73,7 +73,7 @@ export const getOrCreateChat = (user_id, push) => async (
         type: CREATE_CHAT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Something went wrong"));
+      dispatch(createAlert("ERROR", "Something went wrong"));
     });
 };
 
@@ -83,7 +83,7 @@ export const addChatToFeed = (id) => async (dispatch, getState) => {
   });
   await axios
     .get(
-      `${process.env.HOST}/api/chats/${id}/retrieve_chat_feed`,
+      `${process.env.HOST}/api/chats/${id}/retrieve_chat_feed/`,
       tokenConfig(getState)
     )
     .then(async (res) => {

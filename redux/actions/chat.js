@@ -7,7 +7,6 @@ import {
   REMOVE_CURRENT_CHAT,
   SET_SEEN_CHAT,
 } from "../types";
-import { createNotification } from "./notifications";
 import { fetchMessages } from "./messages";
 
 export const fetchChat = (id, handleCloseProfile = false) => async (

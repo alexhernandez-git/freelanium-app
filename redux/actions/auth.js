@@ -51,7 +51,7 @@ import {
   RESET_INVITE_USER,
   LOAD_USER_ERROR,
 } from "../types";
-import { createNotification } from "./notifications";
+import { createAlert } from "./alerts";
 
 // SET TOKEN
 // CHECK TOKEN & LOAD USER
@@ -200,7 +200,7 @@ export const verifyAccount = (token, router) => async (dispatch, getState) => {
       dispatch({
         type: VERIFY_ACCOUNT_SUCCESS,
       });
-      dispatch(createNotification("SUCCESS", res.data.message));
+      dispatch(createAlert("SUCCESS", res.data.message));
       router.push("/");
     })
     .catch((err) => {
@@ -208,7 +208,7 @@ export const verifyAccount = (token, router) => async (dispatch, getState) => {
         type: VERIFY_ACCOUNT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Error at verify your account"));
+      dispatch(createAlert("ERROR", "Error at verify your account"));
       router.push("/");
     });
 };
@@ -227,7 +227,7 @@ export const validateChangeEmail = (token, router) => async (
         type: VALIDATE_CHANGE_EMAIL_SUCCESS,
         payload: res.data,
       });
-      dispatch(createNotification("SUCCESS", res.data.message));
+      dispatch(createAlert("SUCCESS", res.data.message));
       router.push("/");
     })
     .catch((err) => {
@@ -235,7 +235,7 @@ export const validateChangeEmail = (token, router) => async (
         type: VALIDATE_CHANGE_EMAIL_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Error at verify your account"));
+      dispatch(createAlert("ERROR", "Error at verify your account"));
       router.push("/");
     });
 };
@@ -248,7 +248,7 @@ export const forgetPassword = (values) => async (dispatch, getState) => {
         type: FORGET_PASSWORD_SUCCESS,
         payload: res.data,
       });
-      dispatch(createNotification("SUCCESS", "Reset password email sent"));
+      dispatch(createAlert("SUCCESS", "Reset password email sent"));
     })
     .catch((err) => {
       dispatch({
@@ -267,7 +267,7 @@ export const resetPassword = (values, router) => async (dispatch, getState) => {
         type: RESET_PASSWORD_SUCCESS,
         payload: res.data,
       });
-      dispatch(createNotification("SUCCESS", "Password succesfully changed"));
+      dispatch(createAlert("SUCCESS", "Password succesfully changed"));
       router.push("/login");
     })
     .catch((err) => {
@@ -275,7 +275,7 @@ export const resetPassword = (values, router) => async (dispatch, getState) => {
         type: RESET_PASSWORD_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Error at change your password"));
+      dispatch(createAlert("ERROR", "Error at change your password"));
       router.push("/login");
     });
 };
@@ -294,7 +294,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
         type: UPDATE_USER_SUCCESS,
         payload: res.data,
       });
-      dispatch(createNotification("SUCCESS", "Successfully saved!"));
+      dispatch(createAlert("SUCCESS", "Successfully saved!"));
       dispatch(resetUsernameAvailable());
     })
     .catch((err) => {
@@ -302,7 +302,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
         type: UPDATE_USER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Save error!"));
+      dispatch(createAlert("ERROR", "Save error!"));
     });
 };
 
@@ -322,7 +322,7 @@ export const updateUserPicture = (picture) => async (dispatch, getState) => {
         type: UPDATE_USER_SUCCESS,
         payload: res.data,
       });
-      dispatch(createNotification("SUCCESS", "Picture successfully saved!"));
+      dispatch(createAlert("SUCCESS", "Picture successfully saved!"));
       dispatch(resetUsernameAvailable());
     })
     .catch((err) => {
@@ -330,7 +330,7 @@ export const updateUserPicture = (picture) => async (dispatch, getState) => {
         type: UPDATE_USER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
-      dispatch(createNotification("ERROR", "Save picture error!"));
+      dispatch(createAlert("ERROR", "Save picture error!"));
     });
 };
 
@@ -351,7 +351,7 @@ export const changePassword = (data) => async (dispatch, getState) => {
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
       });
-      dispatch(createNotification("SUCCESS", "Password succesfully changed"));
+      dispatch(createAlert("SUCCESS", "Password succesfully changed"));
     })
     .catch((err) => {
       dispatch({
@@ -381,7 +381,7 @@ export const changeEmail = (data) => async (dispatch, getState) => {
       dispatch({
         type: CHANGE_EMAIL_SUCCESS,
       });
-      dispatch(createNotification("SUCCESS", "Change email sent"));
+      dispatch(createAlert("SUCCESS", "Change email sent"));
     })
     .catch((err) => {
       dispatch({
@@ -467,7 +467,7 @@ export const inviteUser = (
       });
       resetForm({});
       dispatch(resetInviteUser());
-      dispatch(createNotification("SUCCESS", "Invitation has sent"));
+      dispatch(createAlert("SUCCESS", "Invitation has sent"));
       handleHideInviteContact();
     })
     .catch((err) => {
