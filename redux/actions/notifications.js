@@ -7,6 +7,10 @@ import {
   FETCH_MORE_NOTIFICATIONS,
   FETCH_MORE_NOTIFICATIONS_SUCCESS,
   FETCH_MORE_NOTIFICATIONS_FAIL,
+  ADD_NOTIFICATION_TO_FEED,
+  ADD_NOTIFICATION_TO_FEED_SUCCESS,
+  ADD_NOTIFICATION_TO_FEED_FAIL,
+  UPDATE_NOTIFICATION_TO_FEED_SUCCESS,
 } from "../types";
 
 export const fetchNotifications = () => async (dispatch, getState) => {
@@ -51,4 +55,37 @@ export const fetchMoreNotifications = () => async (dispatch, getState) => {
         });
       });
   }
+};
+
+export const addOrUpdateNotificationToFeed = (id) => async (
+  dispatch,
+  getState
+) => {
+  await dispatch({
+    type: ADD_NOTIFICATION_TO_FEED,
+  });
+  await axios
+    .get(`${process.env.HOST}/api/notifications/${id}/`, tokenConfig(getState))
+    .then(async (res) => {
+      const result = getState().notificationsReducer.notifications.results.find(
+        (notification) => notification.id === res.data.id
+      );
+      if (result) {
+        await dispatch({
+          type: UPDATE_NOTIFICATION_TO_FEED_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        await dispatch({
+          type: ADD_NOTIFICATION_TO_FEED_SUCCESS,
+          payload: res.data,
+        });
+      }
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_NOTIFICATION_TO_FEED_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };

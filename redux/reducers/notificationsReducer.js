@@ -6,6 +6,10 @@ import {
   FETCH_MORE_NOTIFICATIONS,
   FETCH_MORE_NOTIFICATIONS_SUCCESS,
   FETCH_MORE_NOTIFICATIONS_FAIL,
+  ADD_NOTIFICATION_TO_FEED,
+  ADD_NOTIFICATION_TO_FEED_SUCCESS,
+  UPDATE_NOTIFICATION_TO_FEED_SUCCESS,
+  ADD_NOTIFICATION_TO_FEED_FAIL,
 } from "redux/types";
 
 const initialState = {
@@ -17,6 +21,8 @@ const initialState = {
     results: [],
   },
   error: null,
+  adding_notification_to_feed: false,
+  add_notification_to_feed_error: null,
 };
 export default function notificationsReducer(state = initialState, action) {
   switch (action.type) {
@@ -61,6 +67,42 @@ export default function notificationsReducer(state = initialState, action) {
         ...state,
         is_loading: false,
         error: action.payload,
+      };
+    case ADD_NOTIFICATION_TO_FEED:
+      return {
+        ...state,
+        adding_notification_to_feed: true,
+      };
+    case ADD_NOTIFICATION_TO_FEED_SUCCESS:
+      return {
+        ...state,
+        adding_notification_to_feed: false,
+        add_notification_to_feed_error: null,
+        notifications: {
+          ...state.notifications,
+
+          results: [...state.notifications.results, action.payload],
+        },
+      };
+    case UPDATE_NOTIFICATION_TO_FEED_SUCCESS:
+      return {
+        ...state,
+        adding_notification_to_feed: false,
+        add_notification_to_feed_error: null,
+        notifications: {
+          ...state.notifications,
+          results: state.notifications.results.map((notification) =>
+            notification.id === action.payload.id
+              ? action.payload
+              : notification
+          ),
+        },
+      };
+    case ADD_NOTIFICATION_TO_FEED_FAIL:
+      return {
+        ...state,
+        adding_notification_to_feed: false,
+        add_notification_to_feed_error: action.payload,
       };
     default:
       return state;

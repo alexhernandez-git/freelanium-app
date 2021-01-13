@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { createAlert } from "redux/actions/alerts";
 import { newMessageEvent } from "redux/actions/chats";
+import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
 
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -23,14 +24,16 @@ function WrappedApp({ Component, pageProps }) {
       );
       ws.current.onopen = () => console.log("ws opened");
       ws.current.onclose = () => console.log("ws closed");
-      ws.current.onmessage = function (e) {
+      ws.current.onmessage = async function (e) {
         const data = JSON.parse(e.data);
         console.log(data);
-
-        dispatch(
-          createAlert("SUCCESS", "New message from " + data.sent_by__username)
-        );
-        dispatch(newMessageEvent(data.chat__pk, data.message__text));
+        if (data.event === "MESSAGE_RECEIVED") {
+          await dispatch(addOrUpdateNotificationToFeed(data.notification__pk));
+          await dispatch(
+            createAlert("SUCCESS", "New message from " + data.sent_by__username)
+          );
+          await dispatch(newMessageEvent(data.chat__pk, data.message__text));
+        }
       };
       return () => {
         ws.current.close();
