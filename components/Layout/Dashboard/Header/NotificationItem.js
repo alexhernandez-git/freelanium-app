@@ -1,17 +1,31 @@
 import React from "react";
 import moment from "moment";
 
-const NotificationItem = ({ notification, created }) => {
+const NotificationItem = ({ notification }) => {
   let event_message = "";
   let message = "";
+  let many_messages = false;
+  if (notification.type === "ME" && notification.messages.length > 1) {
+    many_messages = true;
+  }
   switch (notification.type) {
     case "ME":
       if (notification.actor) {
-        event_message = `New message from ${notification.actor.username}`;
+        event_message = `${
+          many_messages
+            ? notification.messages.length + " messages"
+            : "New message"
+        } from ${notification.actor.username}`;
       } else {
-        event_message = `New message`;
+        event_message = `${
+          many_messages
+            ? notification.messages.length + " messages"
+            : "New message"
+        }`;
       }
-      message = notification.message.text;
+      if (!many_messages) {
+        message = notification.messages[0].text;
+      }
       break;
     default:
       event_message = "New notification";
@@ -51,7 +65,7 @@ const NotificationItem = ({ notification, created }) => {
 
           <p className="text-xs text-gray-500 truncate">{message}</p>
           <p className="float-right text-xs text-gray-400 truncate">
-            {moment(created).subtract(1, "seconds").fromNow()}
+            {moment(notification.modified).subtract(1, "seconds").fromNow()}
           </p>
         </div>
       </div>

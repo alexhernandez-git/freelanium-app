@@ -18,10 +18,8 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   };
 
   const handleScroll = () => {
-    if (chatRef.current.scrollTop == 0) {
-      setTimeout(async () => {
-        dispatch(fetchMoreMessages(chatRef, chatRef.current.scrollHeight));
-      }, 750);
+    if (chatRef.current.scrollTop == 0 && !messagesReducer.is_loading) {
+      dispatch(fetchMoreMessages(chatRef, chatRef.current.scrollHeight));
     }
   };
 

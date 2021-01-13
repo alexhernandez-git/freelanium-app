@@ -11,6 +11,8 @@ import {
 const initialState = {
   is_loading: false,
   notifications: {
+    next: null,
+    previous: null,
     count: 0,
     results: [],
   },
@@ -49,9 +51,8 @@ export default function notificationsReducer(state = initialState, action) {
         ...state,
         is_loading: false,
         notifications: {
-          ...state.notifications,
-          count: action.payload.count,
-          results: [...state.results.notifications, ...action.payload.results],
+          ...action.payload,
+          results: [...state.notifications.results, ...action.payload.results],
         },
         error: null,
       };

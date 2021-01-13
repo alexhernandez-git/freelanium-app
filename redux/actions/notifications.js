@@ -38,6 +38,7 @@ export const fetchMoreNotifications = () => async (dispatch, getState) => {
     await axios
       .get(url, tokenConfig(getState))
       .then(async (res) => {
+        console.log(res.data);
         await dispatch({
           type: FETCH_MORE_NOTIFICATIONS_SUCCESS,
           payload: res.data,

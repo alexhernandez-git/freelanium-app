@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import useOutsideClick from "hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNotifications } from "redux/actions/notifications";
+import {
+  fetchMoreNotifications,
+  fetchNotifications,
+} from "redux/actions/notifications";
 import NotificationItem from "./NotificationItem";
 const NotificationsDropdown = () => {
   const authReducer = useSelector((state) => state.authReducer);
@@ -22,14 +25,37 @@ const NotificationsDropdown = () => {
   };
   useOutsideClick(notificationsRef, () => handleCloseNotifications());
   useEffect(() => {
-    if (
-      authReducer.is_authenticated &&
-      notificationsOpen &&
-      !notificationsReducer.notifications.results.length > 0
-    ) {
+    if (authReducer.is_authenticated && notificationsOpen) {
       dispatch(fetchNotifications());
     }
   }, [notificationsOpen]);
+
+  const notificationsListRef = useRef();
+  const handleScroll = () => {
+    if (notificationsListRef.current) {
+      if (
+        notificationsListRef.current.scrollHeight -
+          notificationsListRef.current.scrollTop ===
+          notificationsListRef.current.clientHeight &&
+        !notificationsReducer.is_loading
+      ) {
+        dispatch(fetchMoreNotifications());
+      }
+    }
+  };
+  useEffect(() => {
+    if (!notificationsReducer.is_loading) {
+      if (notificationsListRef.current) {
+        notificationsListRef.current.addEventListener("scroll", handleScroll);
+        return () =>
+          notificationsListRef.current &&
+          notificationsListRef.current.removeEventListener(
+            "scroll",
+            handleScroll
+          );
+      }
+    }
+  }, [notificationsReducer.is_loading]);
   return (
     <div className="relative inline-block text-left">
       <div>
@@ -90,13 +116,15 @@ const NotificationsDropdown = () => {
           </div>
         </div>
         <div className="">
-          <div className="flow-root p-4 max-h-72 overflow-auto">
-            <ul className="-my-5 divide-y divide-gray-200">
+          <div
+            className="flow-root px-4 max-h-72 overflow-auto"
+            ref={notificationsListRef}
+          >
+            <ul className="divide-y divide-gray-200">
               {notificationsReducer.notifications.results.map(
                 (notification) => (
                   <NotificationItem
                     notification={notification.notification}
-                    created={notification.created}
                     key={notification.id}
                   />
                 )
