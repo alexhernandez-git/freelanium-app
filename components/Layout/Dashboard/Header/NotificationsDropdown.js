@@ -12,6 +12,14 @@ const NotificationsDropdown = () => {
     (state) => state.notificationsReducer
   );
   const dispatch = useDispatch();
+
+  const [pendingNotifications, setPendingNotifications] = useState(false);
+  useEffect(() => {
+    if (authReducer.is_authenticated && authReducer.user) {
+      setPendingNotifications(authReducer.user.pending_notifications);
+    }
+  }, [authReducer.is_loading, authReducer?.user?.pending_notifications]);
+
   const notificationsRef = useRef();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const handleToggleNotifications = () => {
@@ -56,12 +64,17 @@ const NotificationsDropdown = () => {
       }
     }
   }, [notificationsReducer.is_loading]);
+
   return (
     <div className="relative inline-block text-left">
       <div>
         <button
           onMouseDown={handleToggleNotifications}
-          className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className={`bg-white p-1 rounded-full ${
+            pendingNotifications
+              ? "text-indigo-600 hover:text-indigo-700"
+              : "text-gray-400 hover:text-gray-500"
+          }  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         >
           <span className="sr-only">View notifications</span>
           <svg

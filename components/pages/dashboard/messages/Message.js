@@ -40,7 +40,7 @@ export const MyMessage = ({ message }) => {
                 <p className="break-all whitespace-pre-line">{message.text}</p>
               </div>
               <p className="mt-0.5 text-xs text-gray-400">
-                {moment(message.created).format("DD-MM-YYYY HH:mm")}
+                {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
               </p>
             </div>
           </div>
@@ -137,7 +137,7 @@ export const NotMyMessage = ({ message }) => {
               <p className="break-all whitespace-pre-line">{message.text}</p>
             </div>
             <p className="mt-0.5 text-xs text-gray-400">
-              {moment(message.created).format("DD-MM-YYYY HH:mm")}
+              {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
             </p>
           </div>
         </div>

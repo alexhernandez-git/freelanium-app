@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useOutsideClick from "hooks/useOutsideClick";
@@ -46,6 +46,13 @@ const Header = () => {
     router.push("/");
     dispatch(logout());
   };
+  const [pendingMessages, setPendingMessages] = useState(false);
+
+  useEffect(() => {
+    if (authReducer.is_authenticated && authReducer.user) {
+      setPendingMessages(authReducer.user.pending_messages);
+    }
+  }, [authReducer.is_loading, authReducer?.user?.pending_notifications]);
 
   return (
     <>
@@ -145,11 +152,14 @@ const Header = () => {
                   <a
                     className={
                       router.pathname === "/dashboard/messages"
-                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium relative"
+                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium relative"
                     }
                   >
                     Messages
+                    {pendingMessages && (
+                      <span class="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-indigo-600"></span>
+                    )}
                   </a>
                 </Link>
                 <Link href="/dashboard/contacts">
