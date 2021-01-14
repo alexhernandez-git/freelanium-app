@@ -31,7 +31,6 @@ const NotificationItem = ({ notification }) => {
       event_message = "New notification";
       break;
   }
-  moment.locale("es");
   return (
     <li className="py-4 hover:opacity-70 cursor-pointer">
       <div className="flex items-center space-x-4">

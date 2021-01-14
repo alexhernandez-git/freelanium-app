@@ -50,6 +50,13 @@ import {
   INVITE_USER_FAIL,
   RESET_INVITE_USER,
   LOAD_USER_ERROR,
+  SET_PENDING_NOTIFICATIONS,
+  SET_PENDING_MESSAGES,
+  UNSET_PENDING_NOTIFICATIONS,
+  UNSET_PENDING_MESSAGES,
+  SET_ALL_NOTIFICATIONS_READ,
+  SET_ALL_NOTIFICATIONS_READ_SUCCESS,
+  SET_ALL_NOTIFICATIONS_READ_ERROR,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -194,6 +201,7 @@ export const sendVerificationEmail = () => async (dispatch, getState) => {
 
 export const verifyAccount = (token, router) => async (dispatch, getState) => {
   dispatch({ type: VERIFY_ACCOUNT });
+  console.log(token);
   await axios
     .post(`${process.env.HOST}/api/users/verify/`, { token: token })
     .then((res) => {
@@ -486,6 +494,28 @@ export const resetInviteUser = (values) => async (dispatch, getState) => {
 export const resetAuthErrors = () => async (dispatch, getState) => {
   dispatch({
     type: RESET_AUTH_ERRORS,
+  });
+};
+export const setPendingNotifications = () => async (dispatch, getState) => {
+  dispatch({
+    type: SET_PENDING_NOTIFICATIONS,
+  });
+};
+
+export const setPendingMessages = () => async (dispatch, getState) => {
+  dispatch({
+    type: SET_PENDING_MESSAGES,
+  });
+};
+export const unsetPendingNotifications = () => async (dispatch, getState) => {
+  dispatch({
+    type: UNSET_PENDING_NOTIFICATIONS,
+  });
+};
+
+export const unsetPendingMessages = () => async (dispatch, getState) => {
+  dispatch({
+    type: UNSET_PENDING_MESSAGES,
   });
 };
 

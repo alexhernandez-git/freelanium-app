@@ -46,13 +46,6 @@ const Header = () => {
     router.push("/");
     dispatch(logout());
   };
-  const [pendingMessages, setPendingMessages] = useState(false);
-
-  useEffect(() => {
-    if (authReducer.is_authenticated && authReducer.user) {
-      setPendingMessages(authReducer.user.pending_messages);
-    }
-  }, [authReducer.is_loading, authReducer?.user?.pending_notifications]);
 
   return (
     <>
@@ -157,7 +150,7 @@ const Header = () => {
                     }
                   >
                     Messages
-                    {pendingMessages && (
+                    {authReducer?.user?.pending_messages && (
                       <span class="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-indigo-600"></span>
                     )}
                   </a>

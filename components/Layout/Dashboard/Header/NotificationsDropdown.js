@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchMoreNotifications,
   fetchNotifications,
+  setAllNotificationsRead,
 } from "redux/actions/notifications";
 import NotificationItem from "./NotificationItem";
+import { unsetPendingNotifications } from "redux/actions/auth";
 const NotificationsDropdown = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const notificationsReducer = useSelector(
@@ -13,16 +15,10 @@ const NotificationsDropdown = () => {
   );
   const dispatch = useDispatch();
 
-  const [pendingNotifications, setPendingNotifications] = useState(false);
-  useEffect(() => {
-    if (authReducer.is_authenticated && authReducer.user) {
-      setPendingNotifications(authReducer.user.pending_notifications);
-    }
-  }, [authReducer.is_loading, authReducer?.user?.pending_notifications]);
-
   const notificationsRef = useRef();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const handleToggleNotifications = () => {
+    dispatch(unsetPendingNotifications());
     setNotificationsOpen(!notificationsOpen);
   };
   const handleCloseNotifications = () => {
@@ -64,14 +60,16 @@ const NotificationsDropdown = () => {
       }
     }
   }, [notificationsReducer.is_loading]);
-
+  const handleSetAllNotificationsRead = () => {
+    dispatch(setAllNotificationsRead());
+  };
   return (
     <div className="relative inline-block text-left">
       <div>
         <button
           onMouseDown={handleToggleNotifications}
           className={`bg-white p-1 rounded-full ${
-            pendingNotifications
+            authReducer?.user.pending_notifications
               ? "text-indigo-600 hover:text-indigo-700"
               : "text-gray-400 hover:text-gray-500"
           }  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
@@ -145,12 +143,12 @@ const NotificationsDropdown = () => {
             </ul>
           </div>
           <div className="p-4">
-            <a
-              href="#"
-              className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            <span
+              onClick={handleSetAllNotificationsRead}
+              className="cursor-pointer w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
               Mark all as read
-            </a>
+            </span>
           </div>
         </div>
       </div>

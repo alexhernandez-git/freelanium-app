@@ -50,6 +50,10 @@ import {
   INVITE_USER_FAIL,
   RESET_INVITE_USER,
   LOAD_USER_ERROR,
+  SET_PENDING_NOTIFICATIONS,
+  SET_PENDING_MESSAGES,
+  UNSET_PENDING_NOTIFICATIONS,
+  UNSET_PENDING_MESSAGES,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -425,6 +429,39 @@ export default function AuthReducer(state = initialState, action) {
         inviting_user: false,
         invite_user_error: null,
       };
+    case SET_PENDING_NOTIFICATIONS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          pending_notifications: true,
+        },
+      };
+    case SET_PENDING_MESSAGES:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          pending_messages: true,
+        },
+      };
+    case UNSET_PENDING_NOTIFICATIONS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          pending_notifications: false,
+        },
+      };
+    case UNSET_PENDING_MESSAGES:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          pending_messages: false,
+        },
+      };
+
     default:
       return state;
   }

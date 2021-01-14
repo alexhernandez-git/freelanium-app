@@ -5,6 +5,7 @@ import useAuthRequired from "hooks/useAuthRequired";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { unsetPendingMessages } from "redux/actions/auth";
 import { fetchChat } from "redux/actions/chat";
 import { fetchChats } from "redux/actions/chats";
 import { fetchMessages } from "redux/actions/messages";
@@ -46,6 +47,15 @@ export default function Messages() {
   const handleFetchChat = (id) => {
     dispatch(fetchChat(id, handleCloseProfile));
   };
+
+  useEffect(() => {
+    dispatch(unsetPendingMessages());
+  }, []);
+  useEffect(() => {
+    if (authReducer.user) {
+      dispatch(unsetPendingMessages());
+    }
+  }, [authReducer.is_loading]);
   return !cantRender ? (
     "Loading..."
   ) : (

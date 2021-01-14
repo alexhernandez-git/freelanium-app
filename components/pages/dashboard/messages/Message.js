@@ -15,6 +15,7 @@ export const MyMessage = ({ message }) => {
   if (next_message) {
     next_message_mine = next_message.sent_by.id === authReducer.user.id;
   }
+
   return (
     <li>
       <div

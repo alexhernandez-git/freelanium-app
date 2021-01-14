@@ -1,13 +1,16 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import { wrapper } from "redux/store";
-import { loadUser } from "redux/actions/auth";
+import {
+  loadUser,
+  setPendingMessages,
+  setPendingNotifications,
+} from "redux/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { createAlert } from "redux/actions/alerts";
 import { newMessageEvent } from "redux/actions/chats";
 import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
-
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,6 +31,8 @@ function WrappedApp({ Component, pageProps }) {
         const data = JSON.parse(e.data);
         console.log(data);
         if (data.event === "MESSAGE_RECEIVED") {
+          await dispatch(setPendingMessages());
+          await dispatch(setPendingNotifications());
           await dispatch(addOrUpdateNotificationToFeed(data.notification__pk));
           await dispatch(
             createAlert("SUCCESS", "New message from " + data.sent_by__username)

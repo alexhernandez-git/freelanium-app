@@ -10,6 +10,9 @@ import {
   ADD_NOTIFICATION_TO_FEED_SUCCESS,
   UPDATE_NOTIFICATION_TO_FEED_SUCCESS,
   ADD_NOTIFICATION_TO_FEED_FAIL,
+  SET_ALL_NOTIFICATIONS_READ,
+  SET_ALL_NOTIFICATIONS_READ_SUCCESS,
+  SET_ALL_NOTIFICATIONS_READ_FAIL,
 } from "redux/types";
 
 const initialState = {
@@ -23,6 +26,8 @@ const initialState = {
   error: null,
   adding_notification_to_feed: false,
   add_notification_to_feed_error: null,
+  setting_all_notifications_read: false,
+  set_all_notifications_read_error: null,
 };
 export default function notificationsReducer(state = initialState, action) {
   switch (action.type) {
@@ -103,6 +108,29 @@ export default function notificationsReducer(state = initialState, action) {
         ...state,
         adding_notification_to_feed: false,
         add_notification_to_feed_error: action.payload,
+      };
+    case SET_ALL_NOTIFICATIONS_READ:
+      return {
+        ...state,
+        setting_all_notifications_read: true,
+      };
+    case SET_ALL_NOTIFICATIONS_READ_SUCCESS:
+      return {
+        ...state,
+        notifications: {
+          next: null,
+          previous: null,
+          count: 0,
+          results: [],
+        },
+        setting_all_notifications_read: false,
+        set_all_notifications_read_error: null,
+      };
+    case SET_ALL_NOTIFICATIONS_READ_FAIL:
+      return {
+        ...state,
+        setting_all_notifications_read: false,
+        set_all_notifications_read_error: action.payload,
       };
     default:
       return state;

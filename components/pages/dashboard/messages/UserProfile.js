@@ -27,10 +27,10 @@ const UserProfile = ({ handleCloseProfile = null }) => {
                   className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                   src={
                     new RegExp(process.env.HOST).test(
-                      chatReducer.chat.to_user?.picture
+                      chatReducer.chat?.to_user?.picture
                     )
-                      ? chatReducer.chat.to_user?.picture
-                      : process.env.HOST + chatReducer.chat.to_user?.picture
+                      ? chatReducer.chat?.to_user?.picture
+                      : process.env.HOST + chatReducer.chat?.to_user?.picture
                   }
                   alt=""
                 />
@@ -49,7 +49,7 @@ const UserProfile = ({ handleCloseProfile = null }) => {
             <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
               <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
-                  {chatReducer.chat.to_user?.username}
+                  {chatReducer.chat?.to_user?.username}
                 </h1>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -92,7 +92,7 @@ const UserProfile = ({ handleCloseProfile = null }) => {
           </div>
           <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
             <h1 className="text-2xl font-bold text-gray-900 truncate">
-              {chatReducer.chat.to_user?.username}
+              {chatReducer.chat?.to_user?.username}
             </h1>
           </div>
         </div>
@@ -176,8 +176,8 @@ const UserProfile = ({ handleCloseProfile = null }) => {
             <dt className="text-sm font-medium text-gray-500">About</dt>
             <dd className="mt-1 max-w-prose text-sm text-gray-900">
               <p>
-                {chatReducer.chat.to_user?.about
-                  ? chatReducer.chat.to_user?.about
+                {chatReducer.chat?.to_user?.about
+                  ? chatReducer.chat?.to_user?.about
                   : "No content"}
               </p>
             </dd>
