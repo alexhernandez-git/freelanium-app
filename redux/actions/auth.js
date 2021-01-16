@@ -16,9 +16,9 @@ import {
   CHANGE_EMAIL,
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_FAIL,
-  STRIPE_CONNECTED,
-  STRIPE_CONNECTED_SUCCESS,
-  STRIPE_CONNECTED_FAIL,
+  STRIPE_CONNECT,
+  STRIPE_CONNECT_SUCCESS,
+  STRIPE_CONNECT_FAIL,
   REGISTER,
   RESET_AUTH_ERRORS,
   TOOGLE_VIEWS,
@@ -54,9 +54,6 @@ import {
   SET_PENDING_MESSAGES,
   UNSET_PENDING_NOTIFICATIONS,
   UNSET_PENDING_MESSAGES,
-  SET_ALL_NOTIFICATIONS_READ,
-  SET_ALL_NOTIFICATIONS_READ_SUCCESS,
-  SET_ALL_NOTIFICATIONS_READ_ERROR,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -399,27 +396,26 @@ export const changeEmail = (data) => async (dispatch, getState) => {
     });
 };
 
-export const connectStripe = (authCode) => async (dispatch, getState) => {
-  console.log(data);
+export const stripeConnect = (auth_code) => async (dispatch, getState) => {
   dispatch({
-    type: STRIPE_CONNECTED,
+    type: STRIPE_CONNECT,
   });
   await axios
     .post(
       `${process.env.HOST}/api/users/stripe_connect/`,
-      { code: authCode },
+      { auth_code: auth_code },
       tokenConfig(getState)
     )
     .then((res) => {
       console.log(res.data);
       dispatch({
-        type: STRIPE_CONNECTED_SUCCESS,
+        type: STRIPE_CONNECT_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: STRIPE_CONNECTED_FAIL,
+        type: STRIPE_CONNECT_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });

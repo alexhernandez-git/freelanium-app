@@ -69,7 +69,7 @@ const NotificationsDropdown = () => {
         <button
           onMouseDown={handleToggleNotifications}
           className={`bg-white p-1 rounded-full ${
-            authReducer?.user.pending_notifications
+            authReducer?.user?.pending_notifications
               ? "text-indigo-600 hover:text-indigo-700"
               : "text-gray-400 hover:text-gray-500"
           }  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}

@@ -1,10 +1,22 @@
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
+import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { stripeConnect } from "redux/actions/auth";
 
 const earnings = () => {
+  const router = useRouter();
+  const code = router.query.code ? router.query.code : null;
   const [cantRender, authReducer] = useAuthRequired();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!authReducer.is_loading && authReducer.user && code) {
+      dispatch(stripeConnect(code));
+    }
+  }, [authReducer.is_loading]);
 
   return !cantRender ? (
     "Loading..."
@@ -46,11 +58,35 @@ const earnings = () => {
                                   Start your trial
                                 </a>
                               </Link> */}
-                        <Link href="#">
-                          <a class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
-                            Connect with stripe
-                          </a>
-                        </Link>
+
+                        {authReducer.stripe_connecting ? (
+                          <>
+                            <span class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                              <Spinner />
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            {authReducer?.user?.stripe_account_id &&
+                            authReducer?.user?.stripe_dashboard_url ? (
+                              <Link
+                                href={authReducer.user.stripe_dashboard_url}
+                              >
+                                <a class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                                  Stripe dashboard
+                                </a>
+                              </Link>
+                            ) : (
+                              <Link
+                                href={`https://connect.stripe.com/express/oauth/authorize?response_type=code&amp;client_id=${process.env.STRIPE_CLIENT_ID}&amp;scope=read_write`}
+                              >
+                                <a class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                                  Connect with stripe
+                                </a>
+                              </Link>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

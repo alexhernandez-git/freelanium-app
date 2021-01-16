@@ -17,9 +17,6 @@ import {
   CHANGE_EMAIL_SUCCESS,
   CHANGE_EMAIL_FAIL,
   SET_STRIPE_CUSTOMER_DATA,
-  STRIPE_CONNECTED,
-  STRIPE_CONNECTED_SUCCESS,
-  STRIPE_CONNECTED_FAIL,
   RESET_AUTH_ERRORS,
   TOOGLE_VIEWS,
   IS_EMAIL_AVAILABLE,
@@ -54,6 +51,9 @@ import {
   SET_PENDING_MESSAGES,
   UNSET_PENDING_NOTIFICATIONS,
   UNSET_PENDING_MESSAGES,
+  STRIPE_CONNECT,
+  STRIPE_CONNECT_SUCCESS,
+  STRIPE_CONNECT_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -90,6 +90,8 @@ const initialState = {
   reset_password_error: null,
   inviting_user: false,
   invite_user_error: null,
+  stripe_connecting: false,
+  stripe_connect_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -385,12 +387,12 @@ export default function AuthReducer(state = initialState, action) {
         },
       };
 
-    case STRIPE_CONNECTED:
+    case STRIPE_CONNECT:
       return {
         ...state,
         stripe_connecting: true,
       };
-    case STRIPE_CONNECTED_SUCCESS:
+    case STRIPE_CONNECT_SUCCESS:
       return {
         ...state,
         stripe_connecting: false,
@@ -400,11 +402,11 @@ export default function AuthReducer(state = initialState, action) {
           stripe_dashboard_url: action.payload.stripe_dashboard_url,
         },
       };
-    case STRIPE_CONNECTED_FAIL:
+    case STRIPE_CONNECT_FAIL:
       return {
         ...state,
         stripe_connecting: false,
-        stripe_connecting_error: action.payload,
+        stripe_connect_error: action.payload,
       };
     case INVITE_USER:
       return {
