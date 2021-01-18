@@ -412,8 +412,10 @@ export const stripeConnect = (auth_code) => async (dispatch, getState) => {
         type: STRIPE_CONNECT_SUCCESS,
         payload: res.data,
       });
+      dispatch(createAlert("SUCCESS", "Connected with Stripe"));
     })
     .catch((err) => {
+      dispatch(createAlert("ERROR", "Error at connect with Stripe"));
       dispatch({
         type: STRIPE_CONNECT_FAIL,
         payload: { data: err.response.data, status: err.response.status },

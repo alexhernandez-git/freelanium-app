@@ -15,7 +15,7 @@ const registerPage = () => {
 
   const authReducer = useSelector((state) => state.authReducer);
   const {
-    isAuthenticated,
+    is_authenticated,
     email_available,
     username_available_error,
   } = authReducer;
@@ -55,10 +55,10 @@ const registerPage = () => {
     dispatch(resetEmailAvailable());
   }, []);
   useEffect(() => {
-    if (isAuthenticated) {
+    if (is_authenticated) {
       router.push("/dashboard");
     }
-  }, [isAuthenticated]);
+  }, [is_authenticated]);
   React.useEffect(() => {
     dispatch(resetUsernameAvailable());
     if (formik.values.username != "") {

@@ -72,7 +72,10 @@ const earnings = () => {
                               <Link
                                 href={authReducer.user.stripe_dashboard_url}
                               >
-                                <a class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                                <a
+                                  target="_blank"
+                                  class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700"
+                                >
                                   Stripe dashboard
                                 </a>
                               </Link>

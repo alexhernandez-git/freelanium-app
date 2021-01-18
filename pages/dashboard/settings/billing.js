@@ -2,7 +2,7 @@ import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
 import useAuthRequired from "hooks/useAuthRequired";
 import Link from "next/link";
 import React from "react";
-
+import moment from "moment";
 const billing = () => {
   const [cantRender, authReducer] = useAuthRequired();
 
@@ -69,7 +69,9 @@ const billing = () => {
                                 <p className="mt-3 text-md text-gray-500">
                                   Trial ends at{" "}
                                   <span className="font-bold">
-                                    14th of December 2021
+                                    {moment(
+                                      authReducer.user.free_trial_expiration
+                                    ).format("DD of MMMM YYYY")}
                                   </span>{" "}
                                 </p>
                               </div>

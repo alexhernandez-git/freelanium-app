@@ -11,6 +11,8 @@ import { useEffect, useRef } from "react";
 import { createAlert } from "redux/actions/alerts";
 import { newMessageEvent } from "redux/actions/chats";
 import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
+import { Elements } from "@stripe/react-stripe-js";
+import getStripe from "utils/get-stripejs";
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,7 +48,11 @@ function WrappedApp({ Component, pageProps }) {
     }
   }, [authReducer.is_loading]);
 
-  return <Component {...pageProps} />;
+  return (
+    <Elements stripe={getStripe()}>
+      <Component {...pageProps} />
+    </Elements>
+  );
 }
 
 export default wrapper.withRedux(WrappedApp);
