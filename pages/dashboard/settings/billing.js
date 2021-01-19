@@ -16,7 +16,7 @@ const billing = () => {
     <>
       {/* Asside */}
       <SettingsLayout>
-        {authReducer.user.default_payment_method ? (
+        {authReducer.user?.default_payment_method ? (
           <>
             <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
               <section aria-labelledby="payment_details_heading">
