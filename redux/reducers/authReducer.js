@@ -3,6 +3,8 @@ import {
   USER_LOADING,
   AUTH_ERROR,
   REGISTER,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
@@ -54,16 +56,23 @@ import {
   STRIPE_CONNECT,
   STRIPE_CONNECT_SUCCESS,
   STRIPE_CONNECT_FAIL,
+  ADD_BILLING_INFORMATION,
+  ADD_BILLING_INFORMATION_SUCCESS,
+  ADD_BILLING_INFORMATION_FAIL,
+  CHANGE_CURRENCY,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
+  currency: process.browser && localStorage.getItem("currency"),
   access_token: process.browser && localStorage.getItem("access_token"),
   is_authenticated: null,
   is_loading: true,
   user: null,
   error: null,
+  registing: false,
+  register_error: null,
   is_updating_user: false,
   update_user_error: null,
   is_changing_password: false,
@@ -92,12 +101,22 @@ const initialState = {
   invite_user_error: null,
   stripe_connecting: false,
   stripe_connect_error: null,
+  adding_billing_information: false,
+  add_billing_information_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
     case HYDRATE:
       // Attention! This will overwrite client state! Real apps should use proper reconciliation.
       return { ...state, ...action.payload };
+    case CHANGE_CURRENCY:
+      localStorage.setItem("currency", action.payload);
+
+      return {
+        ...state,
+        currency: action.payload,
+      };
+
     case USER_LOADING:
       return {
         ...state,
@@ -105,19 +124,26 @@ export default function AuthReducer(state = initialState, action) {
       };
     case USER_LOADED:
       //   console.log(action.payload);
+      action.payload.user.currency &&
+        localStorage.setItem("currency", action.payload.user.currency);
+
       return {
         ...state,
         is_authenticated: true,
         is_loading: false,
         error: null,
         ...action.payload,
+        currency: action.payload.user.currency,
       };
     case LOGIN_SUCCESS:
       process.browser &&
         localStorage.setItem("access_token", action.payload.access_token);
+      action.payload.user.currency &&
+        localStorage.setItem("currency", action.payload.user.currency);
       return {
         ...state,
         user: action.payload.user,
+        currency: action.payload.user.currency,
         access_token: action.payload.access_token,
         is_authenticated: true,
         is_loading: false,
@@ -132,12 +158,16 @@ export default function AuthReducer(state = initialState, action) {
     case IS_EMAIL_AVAILABLE_SUCCESS:
       return {
         ...state,
+        email_available_loading: false,
+
         email_available: action.payload.email,
         email_available_error: null,
       };
     case IS_EMAIL_AVAILABLE_FAIL:
       return {
         ...state,
+        email_available_loading: false,
+
         email_available: false,
         email_available_error: action.payload,
       };
@@ -170,19 +200,39 @@ export default function AuthReducer(state = initialState, action) {
         username_available: false,
         username_available_error: null,
       };
-
     case REGISTER:
-      process.browser &&
-        localStorage.setItem("access_token", action.payload.access_token);
-
       return {
         ...state,
+        registing: true,
+      };
+    case REGISTER_SUCCESS:
+      console.log("action.payload", action.payload);
+      process.browser &&
+        localStorage.setItem("access_token", action.payload.access_token);
+      action.payload.user.currency &&
+        localStorage.setItem("currency", action.payload.user.currency);
+      return {
+        ...state,
+        registing: false,
+        register_error: null,
         user: action.payload.user,
+        currency: action.payload.user.currency,
         access_token: action.payload.access_token,
         is_authenticated: true,
         is_loading: false,
         error: null,
         haveAccess: action.payload.have_access,
+      };
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        registing: false,
+        register_error: action.payload,
+        access_token: null,
+        user: null,
+        rating: null,
+        is_authenticated: false,
+        is_loading: false,
       };
     case LOAD_USER_ERROR:
       process.browser && localStorage.removeItem("access_token");
@@ -328,10 +378,13 @@ export default function AuthReducer(state = initialState, action) {
         is_updating_user: true,
       };
     case UPDATE_USER_SUCCESS:
+      action.payload.currency &&
+        localStorage.setItem("currency", action.payload.currency);
       return {
         ...state,
         is_updating_user: false,
         user: action.payload,
+        currency: action.payload.currency,
       };
     case UPDATE_USER_FAIL:
       return {
@@ -463,7 +516,23 @@ export default function AuthReducer(state = initialState, action) {
           pending_messages: false,
         },
       };
-
+    case ADD_BILLING_INFORMATION:
+      return {
+        ...state,
+        adding_billing_information: true,
+      };
+    case ADD_BILLING_INFORMATION_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        adding_billing_information: false,
+      };
+    case ADD_BILLING_INFORMATION_FAIL:
+      return {
+        ...state,
+        adding_billing_information: false,
+        add_billing_information_error: action.payload,
+      };
     default:
       return state;
   }

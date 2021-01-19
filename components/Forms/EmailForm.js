@@ -6,11 +6,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { isEmailAvailable, resetEmailAvailable } from "redux/actions/auth";
 import { useRouter } from "next/router";
+import Spinner from "components/ui/Spinner";
 const EmailForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const authReducer = useSelector((state) => state.authReducer);
-  const { email_available, email_available_error } = authReducer;
+  const {
+    email_available,
+    email_available_error,
+    email_available_loading,
+  } = authReducer;
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -39,7 +44,12 @@ const EmailForm = () => {
   }, [formik.values.email]);
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="relative">
+      {email_available_loading && (
+        <div className="absolute right-0 flex justify-center items-center">
+          <Spinner />
+        </div>
+      )}
       <div>
         <div className="text-center">
           <h3
@@ -55,6 +65,7 @@ const EmailForm = () => {
           </div>
         </div>
       </div>
+
       <div className="mt-7">
         <div>
           <div className="mt-1">
@@ -123,6 +134,7 @@ const EmailForm = () => {
                   {formik.errors.email}
                 </p>
               ) : null}
+              {console.log(email_available_loading)}
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import { wrapper } from "redux/store";
 import {
+  loadCurrency,
   loadUser,
   setPendingMessages,
   setPendingNotifications,
@@ -13,12 +14,16 @@ import { newMessageEvent } from "redux/actions/chats";
 import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
 import { Elements } from "@stripe/react-stripe-js";
 import getStripe from "utils/get-stripejs";
+import { fetchPlans } from "redux/actions/plans";
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (process.browser) {
-      dispatch(loadUser());
-    }
+    const fetchInitialData = async () => {
+      await dispatch(loadUser());
+      await dispatch(loadCurrency());
+      await dispatch(fetchPlans());
+    };
+    fetchInitialData();
   }, []);
   const authReducer = useSelector((state) => state.authReducer);
   const ws = useRef(null);

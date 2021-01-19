@@ -6,6 +6,7 @@ import chatsReducer from "./chatsReducer";
 import chatReducer from "./chatReducer";
 import messagesReducer from "./messagesReducer";
 import notificationsReducer from "./notificationsReducer";
+import plansReducer from "./plansReducer";
 
 export default combineReducers({
   authReducer: authReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   chatReducer: chatReducer,
   messagesReducer: messagesReducer,
   notificationsReducer: notificationsReducer,
+  plansReducer: plansReducer,
 });

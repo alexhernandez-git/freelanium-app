@@ -9,6 +9,7 @@ import {
   resetEmailAvailable,
   resetUsernameAvailable,
 } from "redux/actions/auth";
+import Spinner from "components/ui/Spinner";
 const registerPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -68,7 +69,11 @@ const registerPage = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [formik.values.username]);
-  return (
+  return authReducer.registing ? (
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
+  ) : (
     <>
       <nav aria-label="Progress" className="bg-gray-50 p-4">
         <ol className="space-y-4 md:flex md:space-y-0 md:space-x-8">

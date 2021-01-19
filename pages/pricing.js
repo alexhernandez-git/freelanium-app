@@ -1,5 +1,6 @@
 import Layout from "components/Layout/Layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const pricing = () => {
   const [openTryItFree, setOpenTryItFree] = useState(false);
@@ -9,6 +10,24 @@ const pricing = () => {
   const handleCloseTryFree = () => {
     setOpenTryItFree(false);
   };
+  const [priceLabel, setPriceLabel] = useState("");
+
+  const authReducer = useSelector((state) => state.authReducer);
+  const plansReducer = useSelector((state) => state.plansReducer);
+  useEffect(() => {
+    if (
+      !plansReducer.is_loading &&
+      plansReducer.plans &&
+      authReducer.currency
+    ) {
+      const currency = authReducer.currency;
+      const currentPlan = plansReducer.plans.find(
+        (plan) => plan.currency == currency && plan.type == "BA"
+      );
+      setPriceLabel(currentPlan.price_label);
+    }
+  }, [authReducer.currency, plansReducer.is_loading]);
+
   return (
     <Layout
       openTryItFree={openTryItFree}
@@ -20,7 +39,7 @@ const pricing = () => {
             <div>
               <h1 className="text-4xl font-extrabold sm:text-5xl sm:tracking-tight">
                 <span className="text-gray-900">Everything you need for </span>
-                <span className="text-indigo-600">$14 a month</span>
+                <span className="text-indigo-600">{priceLabel} a month</span>
               </h1>
               <p className="mt-5 text-xl text-gray-500">
                 Includes every feature we offer plus unlimited projects and

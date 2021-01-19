@@ -20,6 +20,8 @@ import {
   STRIPE_CONNECT_SUCCESS,
   STRIPE_CONNECT_FAIL,
   REGISTER,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
   RESET_AUTH_ERRORS,
   TOOGLE_VIEWS,
   IS_EMAIL_AVAILABLE,
@@ -54,6 +56,10 @@ import {
   SET_PENDING_MESSAGES,
   UNSET_PENDING_NOTIFICATIONS,
   UNSET_PENDING_MESSAGES,
+  ADD_BILLING_INFORMATION,
+  ADD_BILLING_INFORMATION_SUCCESS,
+  ADD_BILLING_INFORMATION_FAIL,
+  CHANGE_CURRENCY,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -139,34 +145,44 @@ export const resetUsernameAvailable = () => async (dispatch, getState) => {
 };
 
 export const register_seller = (data) => async (dispatch, getState) => {
+  dispatch({
+    type: REGISTER,
+  });
+  const currency = getState().authReducer.currency;
+  if (currency) {
+    data.currency = currency;
+  }
   await axios
     .post(`${process.env.HOST}/api/users/signup_seller/`, data)
     .then((res) => {
       dispatch({
-        type: REGISTER,
+        type: REGISTER_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: AUTH_ERROR,
+        type: REGISTER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });
 };
 
 export const register_buyer = (data) => async (dispatch, getState) => {
+  dispatch({
+    type: REGISTER,
+  });
   await axios
     .post(`${process.env.HOST}/api/users/signup_buyer/`, data)
     .then((res) => {
       dispatch({
-        type: REGISTER,
+        type: REGISTER_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: AUTH_ERROR,
+        type: REGISTER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });
@@ -515,6 +531,71 @@ export const unsetPendingMessages = () => async (dispatch, getState) => {
   dispatch({
     type: UNSET_PENDING_MESSAGES,
   });
+};
+
+export const addBillingInformation = (values, payment_method) => async (
+  dispatch,
+  getState
+) => {
+  console.log({
+    ...values,
+    payment_method_id: payment_method.id,
+  });
+  dispatch({
+    type: ADD_BILLING_INFORMATION,
+  });
+  await axios
+    .post(
+      `${process.env.HOST}/api/users/seller_add_payment_method/`,
+      {
+        ...values,
+        payment_method_id: payment_method.id,
+      },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: ADD_BILLING_INFORMATION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_BILLING_INFORMATION_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const loadCurrency = () => async (dispatch, getState) => {
+  // User Loading
+  const currency = localStorage.getItem("currency");
+  if (currency) return;
+  await axios
+    .get(`${process.env.HOST}/api/users/get_currency/`)
+    .then(async (res) => {
+      await dispatch({
+        type: CHANGE_CURRENCY,
+        payload: res.data.currency,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: CHANGE_CURRENCY,
+        payload: "USD",
+      });
+    });
+};
+
+export const changeCurrency = (currency) => async (dispatch, getState) => {
+  await dispatch({
+    type: CHANGE_CURRENCY,
+    payload: currency,
+  });
+  if (getState().authReducer.is_authenticated) {
+    await dispatch(updateUser({ currency: currency }));
+  }
 };
 
 // Setup config with token - helper function
