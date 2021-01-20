@@ -59,6 +59,9 @@ import {
   ADD_BILLING_INFORMATION,
   ADD_BILLING_INFORMATION_SUCCESS,
   ADD_BILLING_INFORMATION_FAIL,
+  CHANGE_PAYMENT_METHOD,
+  CHANGE_PAYMENT_METHOD_SUCCESS,
+  CHANGE_PAYMENT_METHOD_FAIL,
   CHANGE_CURRENCY,
 } from "../types";
 
@@ -103,6 +106,8 @@ const initialState = {
   stripe_connect_error: null,
   adding_billing_information: false,
   add_billing_information_error: null,
+  changing_payment_method: false,
+  change_payment_method_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -532,6 +537,23 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         adding_billing_information: false,
         add_billing_information_error: action.payload,
+      };
+    case CHANGE_PAYMENT_METHOD:
+      return {
+        ...state,
+        changing_payment_method: true,
+      };
+    case CHANGE_PAYMENT_METHOD_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        changing_payment_method: false,
+      };
+    case CHANGE_PAYMENT_METHOD_FAIL:
+      return {
+        ...state,
+        changing_payment_method: false,
+        change_payment_method_error: action.payload,
       };
     default:
       return state;

@@ -59,6 +59,9 @@ import {
   ADD_BILLING_INFORMATION,
   ADD_BILLING_INFORMATION_SUCCESS,
   ADD_BILLING_INFORMATION_FAIL,
+  CHANGE_PAYMENT_METHOD,
+  CHANGE_PAYMENT_METHOD_SUCCESS,
+  CHANGE_PAYMENT_METHOD_FAIL,
   CHANGE_CURRENCY,
 } from "../types";
 import { createAlert } from "./alerts";
@@ -596,6 +599,40 @@ export const changeCurrency = (currency) => async (dispatch, getState) => {
   if (getState().authReducer.is_authenticated) {
     await dispatch(updateUser({ currency: currency }));
   }
+};
+
+export const changePaymentMethod = (
+  values,
+  payment_method,
+  handleCloseChangePaymentMethod
+) => async (dispatch, getState) => {
+  dispatch({
+    type: CHANGE_PAYMENT_METHOD,
+  });
+  await axios
+    .post(
+      `${process.env.HOST}/api/users/seller_change_payment_method/`,
+      {
+        ...values,
+        payment_method_id: payment_method.id,
+      },
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: CHANGE_PAYMENT_METHOD_SUCCESS,
+        payload: res.data,
+      });
+      handleCloseChangePaymentMethod();
+    })
+    .catch((err) => {
+      dispatch(createAlert("ERROR", "Something went wrong"));
+      dispatch({
+        type: CHANGE_PAYMENT_METHOD_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };
 
 // Setup config with token - helper function

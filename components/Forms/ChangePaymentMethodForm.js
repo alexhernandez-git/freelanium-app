@@ -4,14 +4,14 @@ import useAuthRequired from "hooks/useAuthRequired";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Image from "next/image";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import countries from "data/countries";
-import { useDispatch } from "react-redux";
-import { addBillingInformation } from "redux/actions/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { addBillingInformation, changePaymentMethod } from "redux/actions/auth";
+import Spinner from "components/ui/Spinner";
 
 const ChangePaymentMethodForm = ({ handleCloseChangePaymentMethod }) => {
   const dispatch = useDispatch();
+  const authReducer = useSelector((state) => state.authReducer);
   const stripe = useStripe();
   const elements = useElements();
   const [stripeError, setStripeError] = useState(null);
@@ -39,7 +39,13 @@ const ChangePaymentMethodForm = ({ handleCloseChangePaymentMethod }) => {
     } else {
       console.log("[PaymentMethod]", paymentMethod);
       setStripeError(null);
-      dispatch(addBillingInformation(values, paymentMethod));
+      dispatch(
+        changePaymentMethod(
+          values,
+          paymentMethod,
+          handleCloseChangePaymentMethod
+        )
+      );
     }
   };
   const formik = useFormik({
@@ -62,20 +68,25 @@ const ChangePaymentMethodForm = ({ handleCloseChangePaymentMethod }) => {
   };
   return (
     <section aria-labelledby="payment_details_heading">
-      <form action="#" method="POST">
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
-          <div class="bg-white py-6 px-4 sm:p-6">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="shadow sm:rounded-md sm:overflow-hidden">
+          <div className="bg-white py-6 px-4 sm:p-6 relative">
+            {authReducer.changing_payment_method && (
+              <div className="absolute right-6">
+                <Spinner />
+              </div>
+            )}
             <div>
               <h2
                 id="payment_details_heading"
-                class="text-lg leading-6 font-medium text-gray-900"
+                className="text-lg leading-6 font-medium text-gray-900"
               >
                 Change payment method
               </h2>
             </div>
 
-            <div class="mt-6 grid grid-cols-4 gap-6">
-              <div class="col-span-4 sm:col-span-2">
+            <div className="mt-6 grid grid-cols-4 gap-6">
+              <div className="col-span-4 sm:col-span-2">
                 <label
                   htmlFor="card_name"
                   className="block text-sm font-medium text-gray-700"
@@ -122,8 +133,8 @@ const ChangePaymentMethodForm = ({ handleCloseChangePaymentMethod }) => {
                 )}
               </div>
             </div>
-            <div class="mt-6 grid grid-cols-4 gap-6">
-              <div class="col-span-4 sm:col-span-3">
+            <div className="mt-6 grid grid-cols-4 gap-6">
+              <div className="col-span-4 sm:col-span-3">
                 <label
                   htmlFor="card_number"
                   className="block text-sm font-medium text-gray-700"
@@ -153,7 +164,7 @@ const ChangePaymentMethodForm = ({ handleCloseChangePaymentMethod }) => {
             <button
               type="button"
               onClick={handleCloseChangePaymentMethod}
-              class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Cancel
             </button>

@@ -58,10 +58,10 @@ const AddBillingInformationForm = () => {
     validationSchema: Yup.object({
       first_name: Yup.string()
         .max(150, "First name must be at most 150 characters")
-        .required(),
+        .required("First name can't be empty"),
       last_name: Yup.string()
         .max(150, "Last name must be at most 150 characters")
-        .required(),
+        .required("Last name can't be empty"),
       email: Yup.string()
         .email("Email is not valid")
         .required("Email can't be empty"),
@@ -80,10 +80,10 @@ const AddBillingInformationForm = () => {
         .nullable(),
       postal_code: Yup.string()
         .max(150, "Postal code must be at most 150 characters")
-        .required(),
+        .required("Postal code can't be empty"),
       card_name: Yup.string()
         .max(150, "Name must be at most 150 characters")
-        .required(),
+        .required("Card name can't be empty"),
     }),
     onSubmit: async (values) => {
       stripeSubmit(values);
