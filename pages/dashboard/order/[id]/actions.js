@@ -1,13 +1,16 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
 import { SecondaryButton } from "components/ui/Buttons";
+import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
 const actions = () => {
   const [cantRender, authReducer] = useAuthRequired();
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <Layout noPadding>
       <OrderLayout title="Actions">

@@ -1,6 +1,7 @@
 import Chat from "components/pages/dashboard/messages/Chat";
 import ChatroomCard from "components/pages/dashboard/messages/ChatroomCard";
 import UserProfile from "components/pages/dashboard/messages/UserProfile";
+import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -57,7 +58,9 @@ export default function Messages() {
     }
   }, [authReducer.is_loading]);
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <Layout noPaddingY>
       <div style={{ height: "75vh" }} className="flex overflow-hidden bg-white">

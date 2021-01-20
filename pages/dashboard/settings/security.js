@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { changePassword, resetChangePasswordErrors } from "redux/actions/auth";
 import { useDispatch } from "react-redux";
+import Spinner from "components/ui/Spinner";
 const security = () => {
   const [cantRender, authReducer] = useAuthRequired();
   const { user } = authReducer;
@@ -37,7 +38,9 @@ const security = () => {
     dispatch(resetChangePasswordErrors());
   }, [changePasswordForm.values.password]);
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <>
       {/* Asside */}

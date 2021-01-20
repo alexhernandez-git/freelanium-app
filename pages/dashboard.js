@@ -5,12 +5,15 @@ import UserCard from "components/pages/dashboard/dashboard/UserCard";
 import Layout from "components/Layout/Dashboard/Layout";
 import { useEffect } from "react";
 import useAuthRequired from "hooks/useAuthRequired";
+import Spinner from "components/ui/Spinner";
 
 export default function Dashboard() {
   const [cantRender, authReducer] = useAuthRequired();
 
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <Layout pageName="Dashboard">
       <div className="lg:grid grid-cols-12 gap-8">

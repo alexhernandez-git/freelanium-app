@@ -19,7 +19,9 @@ const earnings = () => {
   }, [authReducer.is_loading]);
 
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <>
       {/* Asside */}

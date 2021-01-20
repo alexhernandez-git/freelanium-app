@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import CropperModal from "components/pages/dashboard/settings/CropperModal";
 import countries from "data/countries";
 import currencies from "data/currencies";
+import Spinner from "components/ui/Spinner";
 const settings = () => {
   const dispatch = useDispatch();
   const [cantRender, authReducer] = useAuthRequired();
@@ -129,7 +130,9 @@ const settings = () => {
   }, [emailForm.values.email]);
 
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <>
       {/* Asside */}

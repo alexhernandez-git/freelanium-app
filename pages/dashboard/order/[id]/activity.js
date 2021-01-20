@@ -18,6 +18,7 @@ import {
   RequestDeliveryRevision,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
+import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
 import React from "react";
 
@@ -25,7 +26,9 @@ const activity = () => {
   const [cantRender, authReducer] = useAuthRequired();
 
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <Layout noPadding>
       <OrderLayout title="Activity">

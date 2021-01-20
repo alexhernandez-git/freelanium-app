@@ -16,6 +16,7 @@ import {
 } from "redux/actions/contacts";
 
 import Pagination from "components/ui/Pagination";
+import Spinner from "components/ui/Spinner";
 
 export default function Home() {
   const [cantRender, authReducer] = useAuthRequired();
@@ -62,7 +63,9 @@ export default function Home() {
     window.scrollTo(0, 0);
   };
   return !cantRender ? (
-    "Loading..."
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
   ) : (
     <Layout
       pageName={isSearching ? "Search Contacts" : "Contacts"}
