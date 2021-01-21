@@ -15,9 +15,22 @@ export const MyMessage = ({ message }) => {
   if (next_message) {
     next_message_mine = next_message.sent_by.id === authReducer.user.id;
   }
+  let print_date = true;
+  if (previous_message && previous_message.created) {
+    print_date =
+      moment(previous_message.created).format("dddd, MMM, YYYY HH:mm") !==
+      moment(message.created).format("dddd, MMM, YYYY HH:mm");
+  }
 
   return (
     <li>
+      {print_date && (
+        <div className="flex justify-center">
+          <p className="mt-0.5 text-xs text-gray-400">
+            {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
+          </p>
+        </div>
+      )}
       <div
         className={`relative ${
           next_message_mine ? "pb-2" : "pb-8"
@@ -40,9 +53,6 @@ export const MyMessage = ({ message }) => {
               <div className="mt-2 text-sm text-gray-700 flex justify-end">
                 <p className="break-all whitespace-pre-line">{message.text}</p>
               </div>
-              <p className="mt-0.5 text-xs text-gray-400">
-                {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
-              </p>
             </div>
           </div>
           {!previous_message_mine && (
@@ -91,8 +101,21 @@ export const NotMyMessage = ({ message }) => {
   if (next_message) {
     next_message_mine = next_message.sent_by.id !== authReducer.user.id;
   }
+  let print_date = true;
+  if (previous_message && previous_message.created) {
+    print_date =
+      moment(previous_message.created).format("dddd, MMM, YYYY HH:mm") !==
+      moment(message.created).format("dddd, MMM, YYYY HH:mm");
+  }
   return (
     <li>
+      {print_date && (
+        <div className="flex justify-center">
+          <p className="mt-0.5 text-xs text-gray-400">
+            {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
+          </p>
+        </div>
+      )}
       <div className={`relative ${next_message_mine ? "pb-2" : "pb-8"}`}>
         <div
           className={`${
@@ -137,9 +160,6 @@ export const NotMyMessage = ({ message }) => {
             <div className="mt-2 text-sm text-gray-700">
               <p className="break-all whitespace-pre-line">{message.text}</p>
             </div>
-            <p className="mt-0.5 text-xs text-gray-400">
-              {moment(message.created).format("dddd, MMM, YYYY HH:mm")}
-            </p>
           </div>
         </div>
       </div>
