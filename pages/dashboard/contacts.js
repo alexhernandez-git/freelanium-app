@@ -62,13 +62,17 @@ export default function Home() {
     dispatch(fetchContactsPagination(url));
     window.scrollTo(0, 0);
   };
+  const handleHideSearching = () => {
+    setIsSearching(false);
+  };
   return !cantRender ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
     </div>
   ) : (
     <Layout
-      pageName={isSearching ? "Search Contacts" : "Contacts"}
+      pageName={!isSearching && "Contacts"}
+      goBack={isSearching && handleHideSearching}
       searchBar="Search / Add Contacts"
       searchState={{ search, setSearch }}
     >

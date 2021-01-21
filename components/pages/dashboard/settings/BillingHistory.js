@@ -77,7 +77,7 @@ const BillingHistory = () => {
                             {invoice.lines.data[0].description}
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {invoice.amount_paid}
+                            {invoice.amount_paid / 100}
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {invoice.currency}

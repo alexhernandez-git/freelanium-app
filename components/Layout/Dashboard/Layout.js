@@ -13,6 +13,7 @@ const Layout = ({
   noPadding,
   noPaddingY,
   searchState,
+  goBack,
   pageName = "",
 }) => {
   const router = useRouter();
@@ -78,12 +79,38 @@ const Layout = ({
           <div className={!noPadding && !noPaddingY ? "py-10" : " "}>
             <div
               className={
-                searchBar ? "mx-auto sm:flex justify-between p-4 sm:p-0" : ""
+                searchBar
+                  ? "mx-auto items-center sm:flex justify-between p-4 sm:p-0"
+                  : ""
               }
             >
-              <h1 className="text-3xl font-bold leading-tight text-gray-600">
-                {pageName}
-              </h1>
+              {goBack ? (
+                <span
+                  className="cursor-pointer text-gray-600 flex items-center"
+                  onClick={goBack}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className=""
+                    fill="none"
+                    className="h-5 w-5 text-gray-600 mr-2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                  Go back
+                </span>
+              ) : (
+                <h1 className="text-3xl font-bold leading-tight text-gray-600">
+                  {pageName}
+                </h1>
+              )}
               <div className="m-3 block sm:hidden"></div>
               {searchBar && (
                 <>

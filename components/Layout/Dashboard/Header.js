@@ -178,7 +178,7 @@ const Header = () => {
                 <>
                   {user.is_free_trial && (
                     <div className="flex-shrink-0 mr-5 block md:hidden lg:block">
-                      <Link href="/dashboard/settings/billing">
+                      <Link href="/dashboard/settings/plan-and-billing">
                         <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
                           Free Trial
                         </span>
@@ -217,7 +217,7 @@ const Header = () => {
                         onClick={handleToggleView}
                         className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800 cursor-pointer"
                       >
-                        Back to seller
+                        Go to seller
                       </span>
                     </div>
                   )}
@@ -289,7 +289,7 @@ const Header = () => {
                       </Link>
                       {user && user.seller_view ? (
                         <>
-                          <Link href="/dashboard/settings/billing">
+                          <Link href="/dashboard/settings/plan-and-billing">
                             <a
                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
@@ -316,7 +316,7 @@ const Header = () => {
                       ) : (
                         <>
                           {user && !user.is_seller && (
-                            <Link href="/dashboard/settings/earnings">
+                            <Link href="/dashboard/settings/plan-and-billing">
                               <a
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                 role="menuitem"

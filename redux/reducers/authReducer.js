@@ -69,6 +69,9 @@ import {
   REACTIVATE_SUBSCRIPTION,
   REACTIVATE_SUBSCRIPTION_SUCCESS,
   REACTIVATE_SUBSCRIPTION_FAIL,
+  BECOME_A_SELLER,
+  BECOME_A_SELLER_SUCCESS,
+  BECOME_A_SELLER_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -120,6 +123,8 @@ const initialState = {
   cancel_subscription_error: null,
   reactivating_subscription: false,
   reactivate_subscription_error: null,
+  becoming_a_seller: false,
+  become_a_seller_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -602,6 +607,24 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         reactivating_subscription: false,
         reactivate_subscription_error: action.payload,
+      };
+    case BECOME_A_SELLER:
+      return {
+        ...state,
+        becoming_a_seller: true,
+      };
+    case BECOME_A_SELLER_SUCCESS:
+      return {
+        ...state,
+        becoming_a_seller: false,
+        become_a_seller_error: null,
+        user: action.payload,
+      };
+    case BECOME_A_SELLER_FAIL:
+      return {
+        ...state,
+        becoming_a_seller: false,
+        become_a_seller_error: action.payload,
       };
     default:
       return state;

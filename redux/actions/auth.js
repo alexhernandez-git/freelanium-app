@@ -69,6 +69,9 @@ import {
   REACTIVATE_SUBSCRIPTION,
   REACTIVATE_SUBSCRIPTION_SUCCESS,
   REACTIVATE_SUBSCRIPTION_FAIL,
+  BECOME_A_SELLER,
+  BECOME_A_SELLER_SUCCESS,
+  BECOME_A_SELLER_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -547,10 +550,6 @@ export const addBillingInformation = (values, payment_method) => async (
   dispatch,
   getState
 ) => {
-  console.log({
-    ...values,
-    payment_method_id: payment_method.id,
-  });
   dispatch({
     type: ADD_BILLING_INFORMATION,
   });
@@ -618,7 +617,7 @@ export const changePaymentMethod = (
     type: CHANGE_PAYMENT_METHOD,
   });
   await axios
-    .post(
+    .patch(
       `${process.env.HOST}/api/users/seller_change_payment_method/`,
       {
         ...values,
@@ -700,6 +699,35 @@ export const reactivateSubscription = () => async (dispatch, getState) => {
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: REACTIVATE_SUBSCRIPTION_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const becomeASeller = () => async (dispatch, getState) => {
+  dispatch({
+    type: BECOME_A_SELLER,
+  });
+  await axios
+    .patch(
+      `${process.env.HOST}/api/users/become_a_seller/`,
+      {},
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch(
+        createAlert("SUCCESS", "Your plan has been succesfully reactivated")
+      );
+
+      dispatch({
+        type: BECOME_A_SELLER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
+      dispatch({
+        type: BECOME_A_SELLER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });
