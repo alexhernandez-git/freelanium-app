@@ -45,7 +45,7 @@ const registerPage = () => {
     onSubmit: async (values) => {
       // console.log(valores);
       console.log(values);
-      dispatch(register_seller(values));
+      dispatch(register_seller(values, router));
     },
   });
 

@@ -125,7 +125,10 @@ const EmailForm = () => {
                 )}
               </div>
               {!formik.errors.email && email_available ? (
-                <p className="mt-2 text-sm text-green-600" id="email-error">
+                <p
+                  className="mt-2 text-sm text-green-800 bg-green-100 text-center py-1 rounded-lg"
+                  id="email-error"
+                >
                   Email available
                 </p>
               ) : null}

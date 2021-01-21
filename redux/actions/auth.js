@@ -63,6 +63,12 @@ import {
   CHANGE_PAYMENT_METHOD_SUCCESS,
   CHANGE_PAYMENT_METHOD_FAIL,
   CHANGE_CURRENCY,
+  CANCEL_SUBSCRIPTION,
+  CANCEL_SUBSCRIPTION_SUCCESS,
+  CANCEL_SUBSCRIPTION_FAIL,
+  REACTIVATE_SUBSCRIPTION,
+  REACTIVATE_SUBSCRIPTION_SUCCESS,
+  REACTIVATE_SUBSCRIPTION_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -147,7 +153,7 @@ export const resetUsernameAvailable = () => async (dispatch, getState) => {
   dispatch({ type: RESET_USERNAME_AVAILABLE });
 };
 
-export const register_seller = (data) => async (dispatch, getState) => {
+export const register_seller = (data, router) => async (dispatch, getState) => {
   dispatch({
     type: REGISTER,
   });
@@ -162,6 +168,7 @@ export const register_seller = (data) => async (dispatch, getState) => {
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
+      router.push("/dashboard");
     })
     .catch((err) => {
       dispatch({
@@ -548,7 +555,7 @@ export const addBillingInformation = (values, payment_method) => async (
     type: ADD_BILLING_INFORMATION,
   });
   await axios
-    .post(
+    .patch(
       `${process.env.HOST}/api/users/seller_add_payment_method/`,
       {
         ...values,
@@ -564,6 +571,7 @@ export const addBillingInformation = (values, payment_method) => async (
       });
     })
     .catch((err) => {
+      dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: ADD_BILLING_INFORMATION_FAIL,
         payload: { data: err.response.data, status: err.response.status },
@@ -630,6 +638,68 @@ export const changePaymentMethod = (
       dispatch(createAlert("ERROR", "Something went wrong"));
       dispatch({
         type: CHANGE_PAYMENT_METHOD_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const cancelSubscription = (handleHideModal) => async (
+  dispatch,
+  getState
+) => {
+  dispatch({
+    type: CANCEL_SUBSCRIPTION,
+  });
+  await axios
+    .patch(
+      `${process.env.HOST}/api/users/seller_cancel_subscription/`,
+      {},
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch(
+        createAlert("SUCCESS", "Your plan will cancel at end of billing cycle")
+      );
+
+      dispatch({
+        type: CANCEL_SUBSCRIPTION_SUCCESS,
+        payload: res.data,
+      });
+      handleHideModal();
+    })
+    .catch((err) => {
+      dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
+      dispatch({
+        type: CANCEL_SUBSCRIPTION_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const reactivateSubscription = () => async (dispatch, getState) => {
+  dispatch({
+    type: REACTIVATE_SUBSCRIPTION,
+  });
+  await axios
+    .patch(
+      `${process.env.HOST}/api/users/seller_reactivate_subscription/`,
+      {},
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch(
+        createAlert("SUCCESS", "Your plan has been succesfully reactivated")
+      );
+
+      dispatch({
+        type: REACTIVATE_SUBSCRIPTION_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
+      dispatch({
+        type: REACTIVATE_SUBSCRIPTION_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });

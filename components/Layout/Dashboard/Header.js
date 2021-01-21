@@ -176,13 +176,15 @@ const Header = () => {
               </div>
               {user && user.seller_view ? (
                 <>
-                  <div className="flex-shrink-0 mr-5 block md:hidden lg:block">
-                    <Link href="/dashboard/settings/billing">
-                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
-                        Free Trial
-                      </span>
-                    </Link>
-                  </div>
+                  {user.is_free_trial && (
+                    <div className="flex-shrink-0 mr-5 block md:hidden lg:block">
+                      <Link href="/dashboard/settings/billing">
+                        <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 cursor-pointer">
+                          Free Trial
+                        </span>
+                      </Link>
+                    </div>
+                  )}
                   <div className="flex-shrink-0  mr-5">
                     <button
                       type="button"

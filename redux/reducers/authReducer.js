@@ -63,6 +63,12 @@ import {
   CHANGE_PAYMENT_METHOD_SUCCESS,
   CHANGE_PAYMENT_METHOD_FAIL,
   CHANGE_CURRENCY,
+  CANCEL_SUBSCRIPTION,
+  CANCEL_SUBSCRIPTION_SUCCESS,
+  CANCEL_SUBSCRIPTION_FAIL,
+  REACTIVATE_SUBSCRIPTION,
+  REACTIVATE_SUBSCRIPTION_SUCCESS,
+  REACTIVATE_SUBSCRIPTION_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -108,6 +114,12 @@ const initialState = {
   add_billing_information_error: null,
   changing_payment_method: false,
   change_payment_method_error: null,
+  fetching_invoices: false,
+  fetch_invoice_error: null,
+  cancelling_subscription: false,
+  cancel_subscription_error: null,
+  reactivating_subscription: false,
+  reactivate_subscription_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -554,6 +566,42 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         changing_payment_method: false,
         change_payment_method_error: action.payload,
+      };
+    case CANCEL_SUBSCRIPTION:
+      return {
+        ...state,
+        cancelling_subscription: true,
+      };
+    case CANCEL_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        cancelling_subscription: false,
+        cancel_subscription_error: null,
+        user: action.payload,
+      };
+    case CANCEL_SUBSCRIPTION_FAIL:
+      return {
+        ...state,
+        cancelling_subscription: false,
+        cancel_subscription_error: action.payload,
+      };
+    case REACTIVATE_SUBSCRIPTION:
+      return {
+        ...state,
+        reactivating_subscription: true,
+      };
+    case REACTIVATE_SUBSCRIPTION_SUCCESS:
+      return {
+        ...state,
+        reactivating_subscription: false,
+        reactivate_subscription_error: null,
+        user: action.payload,
+      };
+    case REACTIVATE_SUBSCRIPTION_FAIL:
+      return {
+        ...state,
+        reactivating_subscription: false,
+        reactivate_subscription_error: action.payload,
       };
     default:
       return state;

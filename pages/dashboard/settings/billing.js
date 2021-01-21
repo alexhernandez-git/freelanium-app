@@ -6,6 +6,8 @@ import moment from "moment";
 import AddBillingInformationForm from "components/Forms/AddBillingInformationForm";
 import Spinner from "components/ui/Spinner";
 import ChangePaymentMethodForm from "components/Forms/ChangePaymentMethodForm";
+import BillingHistory from "components/pages/dashboard/settings/BillingHistory";
+import BillingPlan from "components/pages/dashboard/settings/BillingPlan";
 const billing = () => {
   const [cantRender, authReducer] = useAuthRequired();
   const [addBillingInformation, setAddBillingInformation] = useState(false);
@@ -64,10 +66,10 @@ const billing = () => {
                           <div class="col-span-4 sm:col-span-2">
                             <span className="font-bold">
                               **** **** ****{" "}
-                              {
+                              {authReducer?.user?.payment_methods &&
+                                authReducer?.user?.payment_methods.length > 0 &&
                                 authReducer?.user?.payment_methods[0]?.card
-                                  .last4
-                              }
+                                  .last4}
                             </span>
                           </div>
                         </div>
@@ -85,148 +87,9 @@ const billing = () => {
                   </form>
                 </section>
               )}
+              <BillingPlan />
 
-              <section aria-labelledby="plan_heading">
-                <form action="#" method="POST">
-                  <div class="shadow sm:rounded-md sm:overflow-hidden">
-                    <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                      <div>
-                        <h2
-                          id="plan_heading"
-                          class="text-lg leading-6 font-medium text-gray-900"
-                        >
-                          Plan
-                        </h2>
-                      </div>
-
-                      <fieldset>
-                        <legend class="sr-only">Pricing plans</legend>
-                        <ul class="relative bg-white rounded-md -space-y-px">
-                          <li>
-                            <div class="relative border rounded-md border-gray-200 p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3">
-                              <label class="flex items-center text-sm cursor-pointer">
-                                <input
-                                  name="pricing_plan"
-                                  type="radio"
-                                  class="h-4 w-4 text-orange-500 cursor-pointer focus:ring-gray-900 border-gray-300"
-                                  aria-describedby="plan-option-pricing-1 plan-option-limit-1"
-                                  checked
-                                />
-                                <span class="ml-3 font-medium text-gray-900">
-                                  Single Plan
-                                </span>
-                              </label>
-                              <p
-                                id="plan-option-pricing-1"
-                                class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
-                              >
-                                <span class="font-medium">$9.99 / mo</span>
-                              </p>
-                              <p
-                                id="plan-option-limit-1"
-                                class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right"
-                              >
-                                Ilimited orders
-                              </p>
-                            </div>
-                          </li>
-                        </ul>
-                      </fieldset>
-                    </div>
-                    <div className="flex justify-between bg-gray-50">
-                      <div class="px-4 py-3  text-right sm:px-6">
-                        <button
-                          type="submit"
-                          class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                          Cancel subscription
-                        </button>
-                      </div>
-                      <div className="px-4 py-3 text-right sm:px-6">
-                        <button
-                          type="submit"
-                          className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </section>
-
-              <section aria-labelledby="billing_history_heading">
-                <div class="bg-white pt-6 shadow sm:rounded-md sm:overflow-hidden">
-                  <div class="px-4 sm:px-6">
-                    <h2
-                      id="billing_history_heading"
-                      class="text-lg leading-6 font-medium text-gray-900"
-                    >
-                      Billing history
-                    </h2>
-                  </div>
-                  <div class="mt-6 flex flex-col">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="overflow-hidden border-t border-gray-200">
-                          <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                              <tr>
-                                <th
-                                  scope="col"
-                                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Date
-                                </th>
-                                <th
-                                  scope="col"
-                                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Description
-                                </th>
-                                <th
-                                  scope="col"
-                                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Amount
-                                </th>
-
-                                <th
-                                  scope="col"
-                                  class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  <span class="sr-only">View receipt</span>
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                              <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  1/1/2020
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  Business Plan - Annual Billing
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  CA$109.00
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                  <a
-                                    href="#"
-                                    class="text-orange-600 hover:text-orange-900"
-                                  >
-                                    View receipt
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              <BillingHistory />
             </div>
           </>
         ) : (
