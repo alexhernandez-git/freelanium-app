@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const PaymentMethodInfo = ({ handleOpenChangePaymentMethod }) => {
+const PaymentMethodInfo = ({
+  handleOpenChangePaymentMethod,
+  planPaymentMethod,
+}) => {
   const authReducer = useSelector((state) => state.authReducer);
 
   return (
@@ -30,9 +33,7 @@ const PaymentMethodInfo = ({ handleOpenChangePaymentMethod }) => {
               <div class="col-span-4 sm:col-span-2">
                 <span className="font-bold">
                   **** **** ****{" "}
-                  {authReducer?.user?.payment_methods &&
-                    authReducer?.user?.payment_methods.length > 0 &&
-                    authReducer?.user?.payment_methods[0]?.card.last4}
+                  {planPaymentMethod && planPaymentMethod?.card.last4}
                 </span>
               </div>
             </div>

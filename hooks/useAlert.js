@@ -11,7 +11,7 @@ export function useAlert() {
     if (message) {
       setTimeout(() => {
         dispatch(removeAlert());
-      }, 2000);
+      }, 3000);
     }
   }, [message]);
   const handleHideAlert = () => {

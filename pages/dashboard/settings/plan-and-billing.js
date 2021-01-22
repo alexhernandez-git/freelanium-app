@@ -1,7 +1,7 @@
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
 import useAuthRequired from "hooks/useAuthRequired";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import AddBillingInformationForm from "components/Forms/AddBillingInformationForm";
 import Spinner from "components/ui/Spinner";
@@ -24,6 +24,22 @@ const billing = () => {
   const handleCloseChangePaymentMethod = () => {
     setChangingPaymentMethod(false);
   };
+  const [planPaymentMethod, setPlanPaymentMethod] = useState(null);
+  useEffect(() => {
+    if (
+      !authReducer.is_loading &&
+      authReducer.user?.payment_methods &&
+      authReducer.user?.payment_methods.length > 0 &&
+      !authReducer.changing_payment_method
+    ) {
+      const planDefaultPaymentMethod =
+        authReducer.user.plan_default_payment_method;
+      const paymentMethod = authReducer.user?.payment_methods.find(
+        (pm) => pm.id == planDefaultPaymentMethod
+      );
+      setPlanPaymentMethod(paymentMethod);
+    }
+  }, [authReducer.is_loading, authReducer.changing_payment_method]);
   return !cantRender || authReducer.adding_billing_information ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
@@ -40,10 +56,12 @@ const billing = () => {
                   handleCloseChangePaymentMethod={
                     handleCloseChangePaymentMethod
                   }
+                  planPaymentMethod={planPaymentMethod}
                 />
               ) : (
                 <PaymentMethodInfo
                   handleOpenChangePaymentMethod={handleOpenChangePaymentMethod}
+                  planPaymentMethod={planPaymentMethod}
                 />
               )}
               <BillingPlan />
