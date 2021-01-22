@@ -111,7 +111,7 @@ export const login = (data) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: AUTH_ERROR,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -129,7 +129,7 @@ export const isEmailAvailable = (email) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: IS_EMAIL_AVAILABLE_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -150,7 +150,7 @@ export const isUsernameAvailable = (email) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: IS_USERNAME_AVAILABLE_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -179,7 +179,7 @@ export const register_seller = (data, router) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: REGISTER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -199,7 +199,7 @@ export const register_buyer = (data) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: REGISTER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -223,7 +223,7 @@ export const sendVerificationEmail = () => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: SEND_VERIFICATION_EMAIL_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -243,7 +243,7 @@ export const verifyAccount = (token, router) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: VERIFY_ACCOUNT_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
       dispatch(createAlert("ERROR", "Error at verify your account"));
       router.push("/");
@@ -270,7 +270,7 @@ export const validateChangeEmail = (token, router) => async (
     .catch((err) => {
       dispatch({
         type: VALIDATE_CHANGE_EMAIL_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
       dispatch(createAlert("ERROR", "Error at verify your account"));
       router.push("/");
@@ -290,7 +290,7 @@ export const forgetPassword = (values) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: FORGET_PASSWORD_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -310,7 +310,7 @@ export const resetPassword = (values, router) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: RESET_PASSWORD_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
       dispatch(createAlert("ERROR", "Error at change your password"));
       router.push("/login");
@@ -337,7 +337,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
       dispatch(createAlert("ERROR", "Save error!"));
     });
@@ -365,7 +365,7 @@ export const updateUserPicture = (picture) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
       dispatch(createAlert("ERROR", "Save picture error!"));
     });
@@ -393,7 +393,7 @@ export const changePassword = (data) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: CHANGE_PASSWORD_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -423,7 +423,7 @@ export const changeEmail = (data) => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: CHANGE_EMAIL_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -450,7 +450,7 @@ export const stripeConnect = (auth_code) => async (dispatch, getState) => {
       dispatch(createAlert("ERROR", "Error at connect with Stripe"));
       dispatch({
         type: STRIPE_CONNECT_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -478,7 +478,7 @@ export const toggleView = () => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: UPDATE_USER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -511,7 +511,7 @@ export const inviteUser = (
     .catch((err) => {
       dispatch({
         type: INVITE_USER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -576,7 +576,7 @@ export const addBillingInformation = (values, payment_method) => async (
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: ADD_BILLING_INFORMATION_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -638,7 +638,7 @@ export const changePaymentMethod = (
       dispatch(createAlert("ERROR", "Something went wrong"));
       dispatch({
         type: CHANGE_PAYMENT_METHOD_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -671,7 +671,7 @@ export const cancelSubscription = (handleHideModal) => async (
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: CANCEL_SUBSCRIPTION_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -700,7 +700,7 @@ export const reactivateSubscription = () => async (dispatch, getState) => {
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: REACTIVATE_SUBSCRIPTION_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
@@ -729,7 +729,7 @@ export const becomeASeller = () => async (dispatch, getState) => {
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: BECOME_A_SELLER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };

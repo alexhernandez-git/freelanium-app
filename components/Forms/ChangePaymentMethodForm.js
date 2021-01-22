@@ -1,6 +1,3 @@
-import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
-import currencies from "data/currencies";
-import useAuthRequired from "hooks/useAuthRequired";
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -184,12 +181,16 @@ const ChangePaymentMethodForm = ({
                       <div
                         className={`relative border border-gray-200 rounded-bl-md rounded-br-md ${
                           !addPaymentMethod && "px-4 py-2"
+                        } ${
+                          paymentMethods &&
+                          paymentMethods.length == 0 &&
+                          "rounded-tl-md rounded-tr-md"
                         } cursor-pointer`}
                         onClick={handleOpenAddPaymentMethod}
                       >
                         {addPaymentMethod ? (
                           <>
-                            <div className="bg-white py-6 px-4 sm:p-6 relative">
+                            <div className="bg-white py-6 px-4 sm:p-6 relative rounded-tl-md rounded-tr-md">
                               {authReducer.adding_payment_method && (
                                 <div className="absolute right-6">
                                   <Spinner />
@@ -200,7 +201,7 @@ const ChangePaymentMethodForm = ({
                                   id="payment_details_heading"
                                   className="text-lg leading-6 font-medium text-gray-900"
                                 >
-                                  Change payment method
+                                  Add payment method
                                 </h2>
                               </div>
 
@@ -358,7 +359,7 @@ const ChangePaymentMethodForm = ({
               type="submit"
               className="bg-indigo-600  border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Save
+              Change
             </button>
           </div>
         </div>

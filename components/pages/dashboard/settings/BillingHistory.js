@@ -96,11 +96,12 @@ const BillingHistory = () => {
                   </tbody>
                 </table>
 
-                {sellerInvoicesReducer.is_loading && (
-                  <div classNameName="flex justify-center py-3">
-                    <Spinner />
-                  </div>
-                )}
+                {!sellerInvoicesReducer.invoices &&
+                  sellerInvoicesReducer.is_loading && (
+                    <div classNameName="flex justify-center py-3">
+                      <Spinner />
+                    </div>
+                  )}
               </div>
             </div>
           </div>

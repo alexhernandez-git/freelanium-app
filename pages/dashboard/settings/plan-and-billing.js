@@ -30,7 +30,8 @@ const billing = () => {
       !authReducer.is_loading &&
       authReducer.user?.payment_methods &&
       authReducer.user?.payment_methods.length > 0 &&
-      !authReducer.changing_payment_method
+      !authReducer.changing_payment_method &&
+      !authReducer.adding_billing_information
     ) {
       const planDefaultPaymentMethod =
         authReducer.user.plan_default_payment_method;
@@ -39,7 +40,11 @@ const billing = () => {
       );
       setPlanPaymentMethod(paymentMethod);
     }
-  }, [authReducer.is_loading, authReducer.changing_payment_method]);
+  }, [
+    authReducer.is_loading,
+    authReducer.changing_payment_method,
+    authReducer.adding_billing_information,
+  ]);
   return !cantRender || authReducer.adding_billing_information ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
