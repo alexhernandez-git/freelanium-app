@@ -72,6 +72,9 @@ import {
   BECOME_A_SELLER,
   BECOME_A_SELLER_SUCCESS,
   BECOME_A_SELLER_FAIL,
+  ADD_PAYMENT_METHOD,
+  ADD_PAYMENT_METHOD_SUCCESS,
+  ADD_PAYMENT_METHOD_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -125,6 +128,8 @@ const initialState = {
   reactivate_subscription_error: null,
   becoming_a_seller: false,
   become_a_seller_error: null,
+  adding_payment_method: false,
+  add_payment_method_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -625,6 +630,24 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         becoming_a_seller: false,
         become_a_seller_error: action.payload,
+      };
+    case ADD_PAYMENT_METHOD:
+      return {
+        ...state,
+        adding_payment_method: true,
+      };
+    case ADD_PAYMENT_METHOD_SUCCESS:
+      return {
+        ...state,
+        adding_payment_method: false,
+        add_payment_method_error: null,
+        user: action.payload,
+      };
+    case ADD_PAYMENT_METHOD_FAIL:
+      return {
+        ...state,
+        adding_payment_method: false,
+        add_payment_method_error: action.payload,
       };
     default:
       return state;

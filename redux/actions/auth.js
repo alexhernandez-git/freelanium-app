@@ -72,6 +72,9 @@ import {
   BECOME_A_SELLER,
   BECOME_A_SELLER_SUCCESS,
   BECOME_A_SELLER_FAIL,
+  ADD_PAYMENT_METHOD,
+  ADD_PAYMENT_METHOD_SUCCESS,
+  ADD_PAYMENT_METHOD_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -610,8 +613,8 @@ export const changeCurrency = (currency) => async (dispatch, getState) => {
 
 export const changePaymentMethod = (
   values,
-  payment_method,
-  handleCloseChangePaymentMethod
+  handleCloseChangePaymentMethod,
+  resetForm
 ) => async (dispatch, getState) => {
   dispatch({
     type: CHANGE_PAYMENT_METHOD,
@@ -619,10 +622,7 @@ export const changePaymentMethod = (
   await axios
     .patch(
       `${process.env.HOST}/api/users/seller_change_payment_method/`,
-      {
-        ...values,
-        payment_method_id: payment_method.id,
-      },
+      values,
       tokenConfig(getState)
     )
     .then((res) => {
@@ -631,6 +631,7 @@ export const changePaymentMethod = (
         type: CHANGE_PAYMENT_METHOD_SUCCESS,
         payload: res.data,
       });
+      resetForm({});
       handleCloseChangePaymentMethod();
     })
     .catch((err) => {
@@ -729,6 +730,40 @@ export const becomeASeller = () => async (dispatch, getState) => {
       dispatch({
         type: BECOME_A_SELLER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const attachPaymentMethod = (
+  values,
+  handleCloseAddPaymentMethod,
+  resetForm
+) => async (dispatch, getState) => {
+  dispatch({
+    type: ADD_PAYMENT_METHOD,
+  });
+  await axios
+    .patch(
+      `${process.env.HOST}/api/users/attach_payment_method/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch(
+        createAlert("SUCCESS", "Your plan has been succesfully reactivated")
+      );
+
+      dispatch({
+        type: ADD_PAYMENT_METHOD_SUCCESS,
+        payload: res.data,
+      });
+      resetForm({});
+      handleCloseAddPaymentMethod();
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_PAYMENT_METHOD_FAIL,
+        payload: { data: err.response?.data, status: err.response.status },
       });
     });
 };
