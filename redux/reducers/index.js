@@ -8,6 +8,7 @@ import messagesReducer from "./messagesReducer";
 import notificationsReducer from "./notificationsReducer";
 import plansReducer from "./plansReducer";
 import sellerInvoicesReducer from "./sellerInvoicesReducer";
+import offersReducer from "./offersReducer";
 
 export default combineReducers({
   authReducer: authReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   notificationsReducer: notificationsReducer,
   plansReducer: plansReducer,
   sellerInvoicesReducer: sellerInvoicesReducer,
+  offersReducer: offersReducer,
 });

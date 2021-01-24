@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import SearchBuyers from "./SearchBuyers";
 
-const SendOfferModal = () => {
+const SendOfferModal = ({ sendOfferModalRef, openSendOfferModal }) => {
   return (
-    <div class="fixed z-10 inset-0 overflow-y-auto">
+    <div
+      class={`${
+        !openSendOfferModal && "hidden"
+      } fixed z-10 inset-0 overflow-y-auto`}
+    >
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -14,6 +19,7 @@ const SendOfferModal = () => {
           &#8203;
         </span>
         <div
+          ref={sendOfferModalRef}
           class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-6"
           role="dialog"
           aria-modal="true"
@@ -50,13 +56,7 @@ const SendOfferModal = () => {
                       User
                     </label>
                     <div class="mt-1 sm:mt-0 sm:col-span-2">
-                      <input
-                        type="text"
-                        name="first_name"
-                        id="first_name"
-                        autocomplete="given-name"
-                        class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-                      />
+                      <SearchBuyers />
                     </div>
                   </div>
                   <div class="relative">
@@ -215,7 +215,7 @@ const SendOfferModal = () => {
                     </div>
                     <p class="mt-2 text-sm text-gray-500">
                       This payment will be paid to you directly when the buyer
-                      accepts the offer
+                      accepts the offer.
                     </p>
                   </div>
                 </div>
@@ -227,7 +227,7 @@ const SendOfferModal = () => {
               type="button"
               class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
             >
-              Deactivate
+              Send offer
             </button>
             <button
               type="button"

@@ -47,6 +47,17 @@ const Header = () => {
     router.push("/");
     dispatch(logout());
   };
+  const sendOfferModalRef = useRef();
+  const [openSendOfferModal, setOpenSendOfferModal] = useState(false);
+  const handleToggleSendOfferModal = () => {
+    setOpenSendOfferModal(!openSendOfferModal);
+  };
+  const handleCloseSendOfferModal = () => {
+    if (openSendOfferModal) {
+      setOpenSendOfferModal(false);
+    }
+  };
+  useOutsideClick(sendOfferModalRef, () => handleCloseSendOfferModal());
 
   return (
     <>
@@ -188,6 +199,7 @@ const Header = () => {
                   )}
                   <div className="flex-shrink-0  mr-5">
                     <button
+                      onClick={handleToggleSendOfferModal}
                       type="button"
                       className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
@@ -460,7 +472,10 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      <SendOfferModal />
+      <SendOfferModal
+        openSendOfferModal={openSendOfferModal}
+        sendOfferModalRef={sendOfferModalRef}
+      />
     </>
   );
 };
