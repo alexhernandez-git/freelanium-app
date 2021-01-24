@@ -18,7 +18,15 @@ const ContactSearchCard = ({ contact, myContact }) => {
       <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
         <div className="flex-shrink-0">
           {picture ? (
-            <img className="h-10 w-10 rounded-full" src={picture} alt="" />
+            <img
+              className="h-10 w-10 rounded-full"
+              src={
+                new RegExp(process.env.HOST).test(picture)
+                  ? picture
+                  : process.env.HOST + picture
+              }
+              alt=""
+            />
           ) : (
             <span className="inline-block w-10 h-10 rounded-full overflow-hidden bg-gray-100">
               <svg

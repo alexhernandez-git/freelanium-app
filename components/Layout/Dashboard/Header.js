@@ -5,6 +5,7 @@ import useOutsideClick from "hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, toggleView } from "redux/actions/auth";
 import NotificationsDropdown from "./Header/NotificationsDropdown";
+import SendOfferModal from "./Header/SendOfferModal";
 const Header = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const { user } = authReducer;
@@ -459,6 +460,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <SendOfferModal />
     </>
   );
 };
