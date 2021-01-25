@@ -1,7 +1,14 @@
+import Spinner from "components/ui/Spinner";
 import useOutsideClick from "hooks/useOutsideClick";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchBuyers } from "redux/actions/offers";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-const SearchBuyers = () => {
+const SearchBuyers = ({ handleSetBuyer, handleSetBuyerEmail }) => {
+  const dispatch = useDispatch();
+
   const [openBuyersList, setOpenBuyersList] = useState(false);
   const handleShowBuyersList = (e) => {
     e.preventDefault();
@@ -31,179 +38,276 @@ const SearchBuyers = () => {
   };
 
   useOutsideClick(openEmailInputRef, () => handleCloseEmailInput());
+
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    if (search != "") {
+      const timeoutId = setTimeout(async () => {
+        console.log("is searching");
+        dispatch(searchBuyers(search));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [search]);
+
+  const offersReducer = useSelector((state) => state.offersReducer);
+
+  const [buyerSelected, setBuyerSelected] = useState(false);
+  const handleSelectBuyer = (buyer) => {
+    setBuyerSelected(buyer);
+    setOpenBuyersList(false);
+    handleSetBuyer(buyer.id);
+  };
+  const handleUnselectBuyer = () => {
+    setBuyerSelected(false);
+    handleSetBuyer("");
+    setSearch("");
+  };
+
+  const [isEmailSetted, setIsEmailSetted] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Email is not valid"),
+    }),
+    onSubmit: async (values) => {
+      setOpenBuyersList(false);
+      handleSetBuyerEmail(values.email);
+      setIsEmailSetted(true);
+    },
+  });
+
+  const handleUnsetBuyerEmail = () => {
+    handleSetBuyerEmail("");
+    formik.setFieldValue("email", "");
+    setIsEmailSetted(false);
+
+    setSearch("");
+  };
   return (
-    <div>
-      <input
-        type="text"
-        name="first_name"
-        onFocus={handleShowBuyersList}
-        id="first_name"
-        autoComplete={false}
-        className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-      />
-      <div
-        className={`${!openBuyersList && "hidden"} relative`}
-        ref={openBuyersListRef}
-      >
-        <div className="absolute  bg-white w-full z-40 shadow rounded">
-          <ul className="relative z-0 divide-y divide-gray-200">
-            <li className="bg-white">
-              <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <a href="#" className="focus:outline-none">
-                    <span
-                      className="absolute inset-0"
-                      aria-hidden="true"
-                    ></span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Leslie Abbott
-                    </p>
-                    <p className="text-sm text-gray-500 truncate">Leslie</p>
-                  </a>
-                </div>
-              </div>
-            </li>
+    <>
+      <form id="search-buyers-form" autoComplete="off"></form>
+      <form
+        id="set-email-form"
+        autoComplete="off"
+        onSubmit={formik.handleSubmit}
+      ></form>
+      <div ref={openBuyersListRef}>
+        {isEmailSetted && (
+          <div className="flex justify-between">
+            <span className="text-gray-600 text-sm">{formik.values.email}</span>
 
-            <li className="bg-white">
-              <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <a href="#" className="focus:outline-none">
-                    <span
-                      className="absolute inset-0"
-                      aria-hidden="true"
-                    ></span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Hector Adams
-                    </p>
-                    <p className="text-sm text-gray-500 truncate">
-                      VP, Marketing
-                    </p>
-                  </a>
-                </div>
-              </div>
-            </li>
-
-            <li className="bg-white">
-              <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <a href="#" className="focus:outline-none">
-                    <span
-                      className="absolute inset-0"
-                      aria-hidden="true"
-                    ></span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Blake Alexander
-                    </p>
-                    <p className="text-sm text-gray-500 truncate">
-                      Account Coordinator
-                    </p>
-                  </a>
-                </div>
-              </div>
-            </li>
-
-            <li className="bg-white">
-              <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <a href="#" className="focus:outline-none">
-                    <span
-                      className="absolute inset-0"
-                      aria-hidden="true"
-                    ></span>
-                    <p className="text-sm font-medium text-gray-900">
-                      Fabricio Andrews
-                    </p>
-                    <p className="text-sm text-gray-500 truncate">
-                      Senior Art Director
-                    </p>
-                  </a>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <ul className="space-y-3">
-            <div
-              className={`${
-                !openEmailInput && "hidden"
-              } p-3 border border-gray-200 rounded m-2`}
-              ref={openEmailInputRef}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-600 cursor-pointer"
+              onClick={handleUnsetBuyerEmail}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <form className="space-y-6" action="#" method="POST">
-                <div>
-                  <label
-                    for="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      autoFocus
-                      id="email"
-                      name="email"
-                      type="email"
-                      autocomplete="email"
-                      required
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
+        )}
+        {buyerSelected && (
+          <div className="flex justify-between">
+            <span className="text-gray-600 text-sm">
+              {buyerSelected.username}
+            </span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-gray-600 cursor-pointer"
+              onClick={handleUnselectBuyer}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
+        )}
+        {!buyerSelected && !isEmailSetted && (
+          <div className="relative">
+            <input
+              type="text"
+              name="search_buyers"
+              onFocus={handleShowBuyersList}
+              id="search_buyers"
+              value={search}
+              placeholder="Search user"
+              form={"search-buyers-form"}
+              onChange={(e) => setSearch(e.target.value)}
+              autoComplete="off"
+              className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+            />
+            {offersReducer.searching_buyers && (
+              <div className="absolute top-2 right-2">
+                <Spinner />
+              </div>
+            )}
+          </div>
+        )}
+        <div className={`${!openBuyersList && "hidden"} relative`}>
+          <div className="absolute  bg-white w-full z-40 shadow rounded mt-1 ">
+            <ul className="relative z-0 divide-y divide-gray-200 max-h-80 overflow-auto mt-2">
+              {(!offersReducer.buyers ||
+                offersReducer.buyers?.results.length === 0) && (
+                <li className="bg-white">
+                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                    <span className="text-gray-600 text-sm w-full text-center">
+                      No buyers found
+                    </span>
+                  </div>
+                </li>
+              )}
+              {offersReducer.buyers?.results.map((buyer) => (
+                <li
+                  className="bg-white"
+                  key={buyer.id}
+                  onClick={handleSelectBuyer.bind(self, buyer)}
+                >
+                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                    <div className="flex-shrink-0">
+                      {buyer.picture ? (
+                        <img
+                          className="inline-block h-10 w-10 rounded-full"
+                          src={
+                            new RegExp(process.env.HOST).test(buyer.picture)
+                              ? buyer.picture
+                              : process.env.HOST + buyer.picture
+                          }
+                          alt=""
+                        />
+                      ) : (
+                        <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                          <svg
+                            className="h-full w-full text-gray-300"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <a href="#" className="focus:outline-none">
+                        <span
+                          className="absolute inset-0"
+                          aria-hidden="true"
+                        ></span>
+                        <p className="text-sm font-medium text-gray-900">
+                          {buyer.first_name} {buyer.last_name}
+                        </p>
+                        <p className="text-sm text-gray-500 truncate">
+                          {buyer.username}
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <ul className="space-y-3">
+              <div
+                className={`${
+                  !openEmailInput && "hidden"
+                } p-3 border border-gray-200 rounded m-2`}
+                ref={openEmailInputRef}
+              >
+                <div className="space-y-6">
+                  <div>
+                    <label
+                      for="email"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Email address
+                    </label>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        form={"set-email-form"}
+                        className={
+                          formik.touched.email && formik.errors.email
+                            ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                            : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        }
+                        placeholder="you@example.com"
+                        aria-describedby="email-description"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.email && formik.errors.email && (
+                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                          <svg
+                            className="h-5 w-5 text-red-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    {formik.touched.email && formik.errors.email && (
+                      <p class="mt-2 text-sm text-red-600" id="email-error">
+                        {formik.errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <button
+                      type="submit"
+                      form={"set-email-form"}
+                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Add
+                    </button>
                   </div>
                 </div>
-
-                <div>
-                  <button
-                    type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Add
-                  </button>
-                </div>
-              </form>
-            </div>
-            <li
-              className={`${
-                openEmailInput && "hidden"
-              } bg-white shadow overflow-hidden  p-2 sm:rounded-md `}
-            >
-              <button
-                onClick={handleShowEmailInput}
-                type="button"
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+              </div>
+              <li
+                className={`${
+                  openEmailInput && "hidden"
+                } bg-white shadow overflow-hidden  p-2 sm:rounded-md `}
               >
-                Send offer by email
-              </button>
-            </li>
-          </ul>
+                <button
+                  onClick={handleShowEmailInput}
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                >
+                  Send offer by email
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

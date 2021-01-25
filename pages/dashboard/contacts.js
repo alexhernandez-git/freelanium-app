@@ -3,7 +3,6 @@ import InviteContactForm from "components/pages/dashboard/contacts/InviteContact
 import SearchContacts from "components/pages/dashboard/contacts/SearchContacts";
 import { PrimaryButton, SecondaryButton } from "components/ui/Buttons";
 import useAuthRequired from "hooks/useAuthRequired";
-import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../components/Layout/Dashboard/Layout";
 import useOutsideClick from "hooks/useOutsideClick";
