@@ -6,8 +6,14 @@ import { searchBuyers } from "redux/actions/offers";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const SearchBuyers = ({ handleSetBuyer, handleSetBuyerEmail }) => {
+const SearchBuyers = ({
+  handleSetBuyer,
+  handleSetBuyerEmail,
+  errors,
+  touched,
+}) => {
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
 
   const [openBuyersList, setOpenBuyersList] = useState(false);
   const handleShowBuyersList = (e) => {
@@ -39,7 +45,6 @@ const SearchBuyers = ({ handleSetBuyer, handleSetBuyerEmail }) => {
 
   useOutsideClick(openEmailInputRef, () => handleCloseEmailInput());
 
-  const [search, setSearch] = useState("");
   useEffect(() => {
     if (search != "") {
       const timeoutId = setTimeout(async () => {
@@ -141,19 +146,48 @@ const SearchBuyers = ({ handleSetBuyer, handleSetBuyerEmail }) => {
           </div>
         )}
         {!buyerSelected && !isEmailSetted && (
-          <div className="relative">
-            <input
-              type="text"
-              name="search_buyers"
-              onFocus={handleShowBuyersList}
-              id="search_buyers"
-              value={search}
-              placeholder="Search user"
-              form={"search-buyers-form"}
-              onChange={(e) => setSearch(e.target.value)}
-              autoComplete="off"
-              className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-            />
+          <div className="">
+            <div className="relative">
+              <input
+                type="text"
+                name="search_buyers"
+                onFocus={handleShowBuyersList}
+                id="search_buyers"
+                value={search}
+                placeholder="Search user"
+                form={"search-buyers-form"}
+                onChange={(e) => setSearch(e.target.value)}
+                autoComplete="off"
+                className={
+                  touched && errors
+                    ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                    : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                }
+              />
+              {touched && errors && (
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg
+                    className="h-5 w-5 text-red-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            {touched && errors && (
+              <p class="mt-2 text-sm text-red-600" id="days_for_delivery-error">
+                {errors}
+              </p>
+            )}
             {offersReducer.searching_buyers && (
               <div className="absolute top-2 right-2">
                 <Spinner />
@@ -164,8 +198,7 @@ const SearchBuyers = ({ handleSetBuyer, handleSetBuyerEmail }) => {
         <div className={`${!openBuyersList && "hidden"} relative`}>
           <div className="absolute  bg-white w-full z-40 shadow rounded mt-1 ">
             <ul className="relative z-0 divide-y divide-gray-200 max-h-80 overflow-auto mt-2">
-              {(!offersReducer.buyers ||
-                offersReducer.buyers?.results.length === 0) && (
+              {offersReducer.buyers?.results.length === 0 && (
                 <li className="bg-white">
                   <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                     <span className="text-gray-600 text-sm w-full text-center">

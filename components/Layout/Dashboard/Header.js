@@ -475,6 +475,7 @@ const Header = () => {
       <SendOfferModal
         openSendOfferModal={openSendOfferModal}
         sendOfferModalRef={sendOfferModalRef}
+        handleCloseSendOfferModal={handleCloseSendOfferModal}
       />
     </>
   );

@@ -16,26 +16,26 @@ const Footer = () => {
     }
   }, [authReducer.currency]);
   return (
-    <footer class="bg-white" aria-labelledby="footerHeading">
-      <h2 id="footerHeading" class="sr-only">
+    <footer className="bg-white" aria-labelledby="footerHeading">
+      <h2 id="footerHeading" className="sr-only">
         Footer
       </h2>
-      <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div class="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
-          <div class="mt-12 xl:mt-0">
-            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+        <div className="pb-8 xl:grid xl:grid-cols-5 xl:gap-8">
+          <div className="mt-12 xl:mt-0">
+            <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
               Currency
             </h3>
-            <form class="mt-4 sm:max-w-xs">
-              <fieldset class="mt-4 w-full">
-                <label for="currency" class="sr-only">
+            <form className="mt-4 sm:max-w-xs">
+              <fieldset className="mt-4 w-full">
+                <label for="currency" className="sr-only">
                   Currency
                 </label>
-                <div class="relative">
+                <div className="relative">
                   <select
                     id="currency"
                     name="currency"
-                    class="appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     onChange={handleChangeCurrency}
                   >
                     {currencies.map((currency) =>
@@ -48,9 +48,9 @@ const Footer = () => {
                       )
                     )}
                   </select>
-                  <div class="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
+                  <div className="pointer-events-none absolute inset-y-0 right-0 px-2 flex items-center">
                     <svg
-                      class="h-4 w-4 text-gray-400"
+                      className="h-4 w-4 text-gray-400"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -69,12 +69,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
-          <div class="flex space-x-6 md:order-2">
-            <a href="#" class="text-gray-400 hover:text-gray-500">
-              <span class="sr-only">Facebook</span>
+        <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
+          <div className="flex space-x-6 md:order-2">
+            <a href="#" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Facebook</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -87,10 +87,10 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="#" class="text-gray-400 hover:text-gray-500">
-              <span class="sr-only">Instagram</span>
+            <a href="#" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Instagram</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -103,10 +103,10 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="#" class="text-gray-400 hover:text-gray-500">
-              <span class="sr-only">Twitter</span>
+            <a href="#" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Twitter</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -115,10 +115,10 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="#" class="text-gray-400 hover:text-gray-500">
-              <span class="sr-only">GitHub</span>
+            <a href="#" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">GitHub</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -131,10 +131,10 @@ const Footer = () => {
               </svg>
             </a>
 
-            <a href="#" class="text-gray-400 hover:text-gray-500">
-              <span class="sr-only">Dribbble</span>
+            <a href="#" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Dribbble</span>
               <svg
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -147,7 +147,7 @@ const Footer = () => {
               </svg>
             </a>
           </div>
-          <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+          <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
             &copy; 2020 Workflow, Inc. All rights reserved.
           </p>
         </div>
