@@ -1,5 +1,4 @@
 import BuyerInformation from "components/pages/order-checkout/BuyerInformation";
-import ConfirmAndPay from "components/pages/order-checkout/ConfirmAndPay";
 import Header from "components/pages/order-checkout/Header";
 import OrderSummary from "components/pages/order-checkout/OrderSummary";
 import PaymentMethodComponent from "components/pages/order-checkout/PaymentMethod";
@@ -12,6 +11,9 @@ const OrderCheckout = () => {
   const { params } = router.query;
   const [step, setStep] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const handleAuthenticate = () => {
+    setIsAuthenticated(true);
+  };
   const hanldeGoToStepTwo = () => {
     setStep(1);
   };
@@ -30,7 +32,7 @@ const OrderCheckout = () => {
                 {isAuthenticated ? (
                   <PaymentMethodComponent />
                 ) : (
-                  <BuyerInformation />
+                  <BuyerInformation handleAuthenticate={handleAuthenticate} />
                 )}
               </>
             )}
@@ -39,10 +41,13 @@ const OrderCheckout = () => {
             aria-labelledby="timeline-title"
             class="lg:col-start-3 lg:col-span-1"
           >
-            {step == 0 && (
-              <OrderSummary hanldeGoToStepTwo={hanldeGoToStepTwo} />
+            {(step == 0 || step == 1) && (
+              <OrderSummary
+                step={step}
+                hanldeGoToStepTwo={hanldeGoToStepTwo}
+                isAuthenticated={isAuthenticated}
+              />
             )}
-            {step == 1 && <ConfirmAndPay isAuthenticated={isAuthenticated} />}
           </section>
         </div>
         {/* Price card */}

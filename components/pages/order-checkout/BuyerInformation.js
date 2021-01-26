@@ -1,6 +1,6 @@
 import React from "react";
 
-const BuyerInformation = () => {
+const BuyerInformation = ({ handleAuthenticate }) => {
   return (
     <section aria-labelledby="payment_details_heading">
       <form action="#" method="POST">
@@ -11,11 +11,11 @@ const BuyerInformation = () => {
                 id="payment_details_heading"
                 class="text-lg leading-6 font-medium text-gray-900"
               >
-                Buyer information
+                Complete the form to track the order
               </h2>
               <p class="mt-1 text-sm text-gray-500">
-                We give you access to your dashboard to follow your order, chat
-                with seller, and request a cancellation if is needed.
+                We give you access to your dashboard to track your order, chat
+                with the seller, and request a cancellation if is needed.
               </p>
             </div>
 
@@ -118,7 +118,8 @@ const BuyerInformation = () => {
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button
-              type="submit"
+              type="button"
+              onClick={handleAuthenticate}
               class="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Continue

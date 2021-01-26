@@ -6,7 +6,7 @@ const ProductInfo = () => {
       <h1 class="text-2xl font-bold text-gray-900">
         ARIA attribute misspelled
       </h1>
-      <div className="md:flex justify-between">
+      <div className="mt-4 md:flex justify-between">
         <div>
           <p class="mt text-sm text-gray-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
@@ -15,7 +15,7 @@ const ProductInfo = () => {
             autem?
           </p>
         </div>
-        <p className="hidden md:block pl-20 pr-5 font-bold">$34.25</p>
+        <p className="hidden md:block pl-20 pr-5 font-bold">$134.25</p>
       </div>
     </div>
   );
