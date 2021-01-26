@@ -2,7 +2,7 @@ import currencies from "data/currencies";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "redux/actions/auth";
-const Header = () => {
+const Header = ({ step }) => {
   const dispatch = useDispatch();
   const handleChangeCurrency = (e) => {
     dispatch(changeCurrency(e.target.value));
@@ -39,22 +39,38 @@ const Header = () => {
                 <li className="relative flex-1 flex border-none">
                   <span className="group flex items-center w-full">
                     <span className="px-6 py-1 flex items-center text-sm font-medium">
-                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
-                        <svg
-                          className="w-6 h-6 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          aria-hidden="true"
+                      {step == 0 && (
+                        <span
+                          className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full"
+                          aria-current="step"
                         >
-                          <path
-                            fill-rule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <span className="ml-4 text-sm font-medium text-gray-900">
+                          <span className="text-indigo-600">01</span>
+                        </span>
+                      )}
+                      {(step == 1 || step == 2) && (
+                        <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
+                          <svg
+                            className="w-6 h-6 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                      <span
+                        className={
+                          step == 0
+                            ? "ml-4 text-sm font-medium text-indigo-600"
+                            : "ml-4 text-sm font-medium text-gray-900"
+                        }
+                      >
                         Order Details
                       </span>
                     </span>
@@ -82,13 +98,47 @@ const Header = () => {
 
                 <li className="relative flex-1 flex border-none">
                   <span className="px-6 py-1 flex items-center text-sm font-medium">
+                    {step == 0 && (
+                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-full group-hover:border-gray-400">
+                        <span className="text-gray-500 group-hover:text-gray-900">
+                          02
+                        </span>
+                      </span>
+                    )}
+                    {step == 1 && (
+                      <span
+                        className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full"
+                        aria-current="step"
+                      >
+                        <span className="text-indigo-600">02</span>
+                      </span>
+                    )}
+                    {step == 2 && (
+                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
+                        <svg
+                          className="w-6 h-6 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    )}
                     <span
-                      className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full"
-                      aria-current="step"
+                      className={
+                        (step == 0 &&
+                          "ml-4 text-gray-500 group-hover:text-gray-900") ||
+                        (step == 1 &&
+                          "ml-4 text-sm font-medium text-indigo-600") ||
+                        (step == 2 && "ml-4 text-sm font-medium text-gray-900")
+                      }
                     >
-                      <span className="text-indigo-600">02</span>
-                    </span>
-                    <span className="ml-4 text-sm font-medium text-indigo-600">
                       Confirm & Pay
                     </span>
                   </span>
