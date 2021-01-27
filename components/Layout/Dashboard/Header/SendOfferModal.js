@@ -3,7 +3,8 @@ import SearchBuyers from "./SearchBuyers";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import getSymbolFromCurrency from "currency-symbol-map";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createOffer } from "redux/actions/offers";
 
 const SendOfferModal = ({
   sendOfferModalRef,
@@ -11,6 +12,7 @@ const SendOfferModal = ({
   handleCloseSendOfferModal,
 }) => {
   const authReducer = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       send_offer_by_email: false,
@@ -21,7 +23,7 @@ const SendOfferModal = ({
       total_amount: "",
       days_for_delivery: 0,
       first_payment: 0,
-      order_type: "NO",
+      type: "NO",
       interval_subscription: "MO",
     },
     validationSchema: Yup.object({
@@ -41,7 +43,7 @@ const SendOfferModal = ({
         .positive("Total offer amount must be greater than zero")
         .required("Total offer amount time is required"),
       days_for_delivery: Yup.number()
-        .when("order_type", {
+        .when("type", {
           is: "NO",
           then: Yup.number()
             .typeError("Days for delivery must be a number")
@@ -49,7 +51,7 @@ const SendOfferModal = ({
 
             .required("Days for delivery is required"),
         })
-        .when("order_type", {
+        .when("type", {
           is: "TP",
           then: Yup.number()
             .typeError("Days for delivery must be a number")
@@ -58,7 +60,7 @@ const SendOfferModal = ({
             .required("Days for delivery is required"),
         }),
       first_payment: Yup.number()
-        .when("order_type", {
+        .when("type", {
           is: "TP",
           then: Yup.number()
             .typeError("First payment must be a number")
@@ -71,8 +73,8 @@ const SendOfferModal = ({
         ),
       interval_subscription: Yup.string(),
     }),
-    onSubmit: async (values) => {
-      console.log(values);
+    onSubmit: async (values, { resetForm }) => {
+      dispatch(createOffer(values, handleCloseSendOfferModal, resetForm));
     },
   });
   const handleSetBuyer = (buyer_id) => {
@@ -284,13 +286,13 @@ const SendOfferModal = ({
 
                   <div className="mt-1 relative  sm:mt-0 sm:col-span-2">
                     <select
-                      id="order_type"
-                      name="order_type"
-                      autoComplete="order_type"
+                      id="type"
+                      name="type"
+                      autoComplete="type"
                       className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.order_type}
+                      value={formik.values.type}
                     >
                       <option value="NO">Normal order</option>
                       <option value="TP">Two payments order</option>
@@ -363,8 +365,8 @@ const SendOfferModal = ({
                     )}
                   </div>
                 </div>
-                {(formik.values.order_type === "NO" ||
-                  formik.values.order_type === "TP") && (
+                {(formik.values.type === "NO" ||
+                  formik.values.type === "TP") && (
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
                     <label
                       for="last_name"
@@ -424,7 +426,7 @@ const SendOfferModal = ({
                   </div>
                 )}
               </div>
-              {formik.values.order_type == "TP" && (
+              {formik.values.type == "TP" && (
                 <>
                   <div className="relative border-none">
                     <div
@@ -509,7 +511,7 @@ const SendOfferModal = ({
                   </div>
                 </>
               )}
-              {formik.values.order_type == "RO" && (
+              {formik.values.type == "RO" && (
                 <>
                   <div className="relative border-none">
                     <div

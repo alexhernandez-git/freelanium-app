@@ -55,6 +55,7 @@ const SearchBuyers = ({
     }
   }, [search]);
 
+  const authReducer = useSelector((state) => state.authReducer);
   const offersReducer = useSelector((state) => state.offersReducer);
 
   const [buyerSelected, setBuyerSelected] = useState(false);
@@ -207,53 +208,56 @@ const SearchBuyers = ({
                   </div>
                 </li>
               )}
-              {offersReducer.buyers?.results.map((buyer) => (
-                <li
-                  className="bg-white"
-                  key={buyer.id}
-                  onClick={handleSelectBuyer.bind(self, buyer)}
-                >
-                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
-                    <div className="flex-shrink-0">
-                      {buyer.picture ? (
-                        <img
-                          className="inline-block h-10 w-10 rounded-full"
-                          src={
-                            new RegExp(process.env.HOST).test(buyer.picture)
-                              ? buyer.picture
-                              : process.env.HOST + buyer.picture
-                          }
-                          alt=""
-                        />
-                      ) : (
-                        <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
-                          <svg
-                            className="h-full w-full text-gray-300"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                          </svg>
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <a href="#" className="focus:outline-none">
-                        <span
-                          className="absolute inset-0"
-                          aria-hidden="true"
-                        ></span>
-                        <p className="text-sm font-medium text-gray-900">
-                          {buyer.first_name} {buyer.last_name}
-                        </p>
-                        <p className="text-sm text-gray-500 truncate">
-                          {buyer.username}
-                        </p>
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              ))}
+              {offersReducer.buyers?.results.map(
+                (buyer) =>
+                  buyer.id !== authReducer.user?.id && (
+                    <li
+                      className="bg-white"
+                      key={buyer.id}
+                      onClick={handleSelectBuyer.bind(self, buyer)}
+                    >
+                      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                        <div className="flex-shrink-0">
+                          {buyer.picture ? (
+                            <img
+                              className="inline-block h-10 w-10 rounded-full"
+                              src={
+                                new RegExp(process.env.HOST).test(buyer.picture)
+                                  ? buyer.picture
+                                  : process.env.HOST + buyer.picture
+                              }
+                              alt=""
+                            />
+                          ) : (
+                            <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                              <svg
+                                className="h-full w-full text-gray-300"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                              </svg>
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <a href="#" className="focus:outline-none">
+                            <span
+                              className="absolute inset-0"
+                              aria-hidden="true"
+                            ></span>
+                            <p className="text-sm font-medium text-gray-900">
+                              {buyer.first_name} {buyer.last_name}
+                            </p>
+                            <p className="text-sm text-gray-500 truncate">
+                              {buyer.username}
+                            </p>
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  )
+              )}
             </ul>
             <ul className="space-y-3">
               <div

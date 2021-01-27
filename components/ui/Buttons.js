@@ -8,9 +8,7 @@ export const PrimaryButton = ({ children, className, disabled, onClick }) => {
       disabled={disabled}
       className={`${className} inline-flex items-center px-3 py-2 border border-transparent 
               text-sm leading-4 font-medium rounded-md shadow-sm text-white 
-              bg-indigo-600 hover:bg-indigo-700 focus:outline-none ${
-                disabled && "opacity-25"
-              }`}
+              bg-indigo-600 hover:bg-indigo-700 focus:outline-none`}
     >
       {children}
     </button>

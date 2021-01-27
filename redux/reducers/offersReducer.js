@@ -2,12 +2,15 @@ import {
   SEARCH_BUYERS,
   SEARCH_BUYERS_SUCCESS,
   SEARCH_BUYERS_FAIL,
+  CREATE_OFFER,
+  CREATE_OFFER_SUCCESS,
+  CREATE_OFFER_FAIL,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
-  is_loading: false,
-  error: null,
+  creating_offer: false,
+  create_offer_error: null,
   searching_buyers: false,
   buyers: null,
   search_buyers_error: null,
@@ -33,9 +36,25 @@ export default function offersReducer(state = initialState, action) {
       return {
         ...state,
         searching_buyers: false,
-        search_buyers_error: action.payload,
+        create_offer_error: action.payload,
       };
-
+    case CREATE_OFFER:
+      return {
+        ...state,
+        creating_offer: true,
+      };
+    case CREATE_OFFER_SUCCESS:
+      return {
+        ...state,
+        creating_offer: false,
+        create_offer_error: null,
+      };
+    case CREATE_OFFER_FAIL:
+      return {
+        ...state,
+        creating_offer: false,
+        create_offer_error: action.payload,
+      };
     default:
       return state;
   }

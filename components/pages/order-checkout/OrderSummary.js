@@ -28,14 +28,14 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
             <dd class="flex text-sm text-gray-900 mt-0">
               <span class="flex-grow font-bold">
                 $37.68{" "}
-                {offer.order_type === "RO" && (
+                {offer.type === "RO" && (
                   <span className="font-normal">
                     {offer.interval_subscription === "AN" ? "/year" : "/month"}
                   </span>
                 )}
               </span>
             </dd>
-            {(offer.order_type === "NO" || offer.order_type === "TP") && (
+            {(offer.type === "NO" || offer.type === "TP") && (
               <>
                 <dt class="text-sm font-medium text-gray-500 col-span-2">
                   Delivery time
@@ -43,7 +43,7 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
                 <dd class="flex text-sm text-gray-900 mt-0">
                   <span class="flex-grow">2 Days</span>
                 </dd>
-                {offer.order_type === "TP" && (
+                {offer.type === "TP" && (
                   <>
                     <dt class="text-sm font-medium text-gray-500 col-span-2">
                       Payment at delivery

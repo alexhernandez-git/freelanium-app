@@ -1,5 +1,5 @@
 import { PrimaryButton } from "components/ui/Buttons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Alert icon
 
@@ -153,35 +153,102 @@ const Offer = () => {
   );
 };
 
-const OfferAccepted = () => {
+export const OfferAction = ({ chat = false }) => {
+  const [status, setStatus] = useState("ACCEPTED");
+  const [data, setData] = useState({
+    activityTitle: "",
+    activityMessage: "",
+    activityIcon: null,
+    activityButton: null,
+    opacity: false,
+  });
+  useEffect(() => {
+    const setActivityData = async () => {
+      console.log(status);
+      switch (status) {
+        case "ACCEPTED":
+          await setData({
+            activityIcon: SuccessIcon(),
+            activityTitle: "Offer Accepted",
+            activityMessage: "Maria has accepted the offer.",
+            activityButton: <PrimaryButton disabled>Accepted</PrimaryButton>,
+            opacity: true,
+          });
+          break;
+        default:
+          await setData({
+            activityIcon: InfoIcon(),
+            activityTitle: "Offer",
+            activityMessage: "Alex sent you an offer",
+            activityButton: <PrimaryButton>Continue</PrimaryButton>,
+            opacity: false,
+          });
+          break;
+      }
+    };
+    if (status) {
+      setActivityData();
+    }
+  }, [status]);
   return (
     <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
+      <div className={`relative pb-8 text-left ${chat && "overflow-auto"}`}>
+        {!chat && (
+          <span
+            className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+            aria-hidden="true"
+          ></span>
+        )}
         <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {SuccessIcon()}
+          {!chat && (
+            <div>
+              <div className="relative px-1">
+                <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                  {data.activityIcon}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="min-w-0 flex-1">
             <div className="flex justify-between">
               <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Offer Accepted
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Maria has accepted the offer.
-                </p>
+                {chat ? (
+                  <div className="sm:flex items-center">
+                    <div>
+                      <div className="relative px-1">
+                        <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                          {data.activityIcon}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:ml-2">
+                      <span href="#" className="font-medium text-gray-900">
+                        {data.activityTitle}
+                      </span>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                        {data.activityMessage}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span href="#" className="font-medium text-gray-900">
+                      {data.activityTitle}
+                    </span>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      {data.activityMessage}
+                    </p>
+                  </>
+                )}
               </div>
               <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
             </div>
-            <div className="mt-2 text-sm text-gray-700 opacity-75">
+            <div
+              className={`mt-2 text-sm text-gray-700 ${
+                data.opacity && "opacity-75"
+              }`}
+            >
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex justify-between">
                   <div className="px-4 py-5 sm:px-6">
@@ -219,7 +286,7 @@ const OfferAccepted = () => {
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                       <dt className="text-sm font-medium text-gray-500"></dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end">
-                        <PrimaryButton disabled>Accepted</PrimaryButton>
+                        {data.activityButton}
                       </dd>
                     </div>
                   </dl>
@@ -233,90 +300,10 @@ const OfferAccepted = () => {
   );
 };
 
-const OfferCancelled = () => {
+export const RequestChangeDateDelivery = () => {
   return (
     <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
-        <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {CancelIcon()}
-              </div>
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex justify-between">
-              <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Offer Cancelled
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Maria has accepted the offer.
-                </p>
-              </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
-            </div>
-            <div className="mt-2 text-sm text-gray-700 opacity-75">
-              <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-                <div className="flex justify-between">
-                  <div className="px-4 py-5 sm:px-6">
-                    <h3 className="text-2xl font-medium text-gray-900">
-                      Añadir funcionalidad de stripe a tu web
-                    </h3>
-                  </div>
-                  <div className="px-4 py-5 sm:px-6">
-                    <span className="text-3xl">$300</span>
-                  </div>
-                </div>
-                <div className="border-t border-gray-200">
-                  <dl>
-                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Full name
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Margot Foster
-                      </dd>
-                    </div>
-
-                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Description
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Fugiat ipsum ipsum deserunt culpa aute sint do nostrud
-                        anim incididunt cillum culpa consequat. Excepteur qui
-                        ipsum aliquip consequat sint. Sit id mollit nulla mollit
-                        nostrud in ea officia proident. Irure nostrud pariatur
-                        mollit ad adipisicing reprehenderit deserunt qui eu.
-                      </dd>
-                    </div>
-                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500"></dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end">
-                        <span className="mr-3 text-gray-500">Cancelled</span>
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
-
-const RequestChangeDateDelivery = () => {
-  return (
-    <li>
-      <div className="relative pb-8">
+      <div className="relative pb-8 ">
         <span
           className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
           aria-hidden="true"
@@ -379,7 +366,7 @@ const RequestChangeDateDelivery = () => {
   );
 };
 
-const RequestChangeDateDeliveryAccepted = () => {
+export const RequestChangeDateDeliveryAccepted = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -444,72 +431,7 @@ const RequestChangeDateDeliveryAccepted = () => {
   );
 };
 
-const RequestChangeDateDeliveryCancelled = () => {
-  return (
-    <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
-        <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {CancelIcon()}
-              </div>
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex justify-between">
-              <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Change the delivery date cancelled
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Alex sent you a request to change the delivery date.
-                </p>
-              </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
-            </div>
-            <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg  opacity-75">
-              <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Alex has requested a extend delivery date on{" "}
-                  <span className="font-bold">25th December 2021</span>
-                </h3>
-              </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Reason
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consequuntur, rem minus aut, adipisci magni earum
-                      voluptatum facere provident voluptate quasi et alias eius
-                      tempora necessitatibus asperiores, tempore saepe. Quia,
-                      velit?
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500"></dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                  <span className="mr-3 text-gray-500">Cancelled</span>
-                </dd>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
-
-const RequestCancelOrder = () => {
+export const RequestCancelOrder = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -574,7 +496,7 @@ const RequestCancelOrder = () => {
   );
 };
 
-const RequestCancelOrderAccepted = () => {
+export const RequestCancelOrderAccepted = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -638,7 +560,7 @@ const RequestCancelOrderAccepted = () => {
   );
 };
 
-const RequestCancelOrderCancelled = () => {
+export const RequestCancelOrderDeclined = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -702,7 +624,7 @@ const RequestCancelOrderCancelled = () => {
   );
 };
 
-const RequestIncreaseMoney = () => {
+export const RequestIncreaseMoney = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -768,7 +690,7 @@ const RequestIncreaseMoney = () => {
   );
 };
 
-const RequestIncreaseMoneyAccepted = () => {
+export const RequestIncreaseMoneyAccepted = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -833,71 +755,7 @@ const RequestIncreaseMoneyAccepted = () => {
   );
 };
 
-const RequestIncreaseMoneyCancelled = () => {
-  return (
-    <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
-        <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {CancelIcon()}
-              </div>
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex justify-between">
-              <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Request increase money to the order not accepted
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Maria not accepted the request to increase money to the order.
-                </p>
-              </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
-            </div>
-            <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg opacity-75">
-              <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Alex sent you a request to increase{" "}
-                  <span className="font-bold">$500</span> to the order.
-                </h3>
-              </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Reason
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consequuntur, rem minus aut, adipisci magni earum
-                      voluptatum facere provident voluptate quasi et alias eius
-                      tempora necessitatibus asperiores, tempore saepe. Quia,
-                      velit?
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500"></dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                  <span className="mr-3 text-gray-500">Not accepted</span>
-                </dd>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
-const OfferDelivered = () => {
+export const OfferDelivered = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -1032,7 +890,7 @@ const OfferDelivered = () => {
   );
 };
 
-const OfferDeliveredAccepted = () => {
+export const OfferDeliveredAccepted = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -1163,136 +1021,7 @@ const OfferDeliveredAccepted = () => {
   );
 };
 
-const OfferDeliveredCancelled = () => {
-  return (
-    <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
-        <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {CancelIcon()}
-              </div>
-            </div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex justify-between">
-              <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Delivery not accepted
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Mark not accepted the delivery.
-                </p>
-              </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
-            </div>
-            <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg opacity-75">
-              <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg font-medium text-gray-900">
-                  Añadir funcionalidad de stripe a tu web
-                </h3>
-              </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Full name
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900">
-                      Margot Foster
-                    </dd>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Delivery message
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Omnis soluta sunt adipisci consectetur suscipit vitae
-                      asperiores vero, beatae nesciunt magnam quibusdam illum
-                      quaerat fugiat odio aliquam accusamus harum recusandae
-                      illo.
-                    </dd>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <div className="flex">
-                      <svg
-                        className="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300 mr-3"
-                        preserveAspectRatio="none"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 200 200"
-                        aria-hidden="true"
-                      >
-                        <path
-                          vectorEffect="non-scaling-stroke"
-                          strokeWidth="1"
-                          d="M0 0l200 200M0 200L200 0"
-                        />
-                      </svg>
-                      <svg
-                        className="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300 mr-3"
-                        preserveAspectRatio="none"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 200 200"
-                        aria-hidden="true"
-                      >
-                        <path
-                          vectorEffect="non-scaling-stroke"
-                          strokeWidth="1"
-                          d="M0 0l200 200M0 200L200 0"
-                        />
-                      </svg>
-                      <svg
-                        className="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300 mr-3"
-                        preserveAspectRatio="none"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 200 200"
-                        aria-hidden="true"
-                      >
-                        <path
-                          vectorEffect="non-scaling-stroke"
-                          strokeWidth="1"
-                          d="M0 0l200 200M0 200L200 0"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Include Source Files
-                    </dt>
-                    <dd className="mt-2 text-sm text-gray-900">
-                      <div className="border-2 border-grey-500 p-4 w-52 text-center rounded opacity-25">
-                        Source Files
-                      </div>
-                    </dd>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500"></dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                      <span className="mr-3 text-gray-500">
-                        Revision required
-                      </span>
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>
-  );
-};
-const RequestDeliveryRevision = () => {
+export const RequestDeliveryRevision = () => {
   return (
     <li>
       <div className="relative pb-8">
@@ -1358,23 +1087,4 @@ const RequestDeliveryRevision = () => {
       </div>
     </li>
   );
-};
-
-export {
-  Offer,
-  OfferAccepted,
-  OfferCancelled,
-  RequestChangeDateDelivery,
-  RequestChangeDateDeliveryAccepted,
-  RequestChangeDateDeliveryCancelled,
-  RequestCancelOrder,
-  RequestCancelOrderAccepted,
-  RequestCancelOrderCancelled,
-  RequestIncreaseMoney,
-  RequestIncreaseMoneyAccepted,
-  RequestIncreaseMoneyCancelled,
-  OfferDelivered,
-  OfferDeliveredAccepted,
-  OfferDeliveredCancelled,
-  RequestDeliveryRevision,
 };

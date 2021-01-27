@@ -3,7 +3,12 @@ import {
   SEARCH_BUYERS,
   SEARCH_BUYERS_SUCCESS,
   SEARCH_BUYERS_FAIL,
+  CREATE_OFFER,
+  CREATE_OFFER_SUCCESS,
+  CREATE_OFFER_FAIL,
 } from "../types";
+import { createAlert } from "./alerts";
+import { tokenConfig } from "./auth";
 
 export const searchBuyers = (search = "") => async (dispatch, getState) => {
   await dispatch({
@@ -20,6 +25,33 @@ export const searchBuyers = (search = "") => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: SEARCH_BUYERS_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
+
+export const createOffer = (
+  offer,
+  handleCloseSendOfferModal,
+  resetForm
+) => async (dispatch, getState) => {
+  await dispatch({
+    type: CREATE_OFFER,
+  });
+  await axios
+    .post(`${process.env.HOST}/api/offers/`, offer, tokenConfig(getState))
+    .then(async (res) => {
+      await dispatch({
+        type: CREATE_OFFER_SUCCESS,
+        payload: res.data,
+      });
+      handleCloseSendOfferModal();
+      resetForm({});
+      dispatch(createAlert("SUCCESS", "Offer successfully created"));
+    })
+    .catch((err) => {
+      dispatch({
+        type: CREATE_OFFER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });

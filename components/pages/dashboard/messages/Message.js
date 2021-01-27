@@ -1,7 +1,21 @@
 import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { OfferAction } from "../order/Activity/ActivityElements";
+
 export const MyMessage = ({ message }) => {
+  const getActivityComponent = () => {
+    if (message.activity) {
+      const { type } = message.activity;
+      switch (type) {
+        case "OF":
+          return <OfferAction chat={true} />;
+        default:
+          return false;
+      }
+    }
+  };
+
   const authReducer = useSelector((state) => state.authReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
   const messageIndex = messagesReducer.messages.results.indexOf(message);
@@ -82,6 +96,7 @@ export const MyMessage = ({ message }) => {
           )}
         </div>
       </div>
+      {getActivityComponent()}
     </li>
   );
 };
