@@ -20,8 +20,9 @@ const SendOfferModal = ({
       description: "",
       total_offer_amount: "",
       days_for_delivery: 0,
-      two_payments_order: false,
       first_payment: 0,
+      order_type: "NO",
+      interval_subscription: "MO",
     },
     validationSchema: Yup.object({
       send_offer_by_email: Yup.boolean(),
@@ -38,16 +39,27 @@ const SendOfferModal = ({
       total_offer_amount: Yup.number()
         .typeError("Total offer amount must be a number")
         .positive("Total offer amount must be greater than zero")
-        .required("Total ofer amount time is required"),
+        .required("Total offer amount time is required"),
       days_for_delivery: Yup.number()
-        .typeError("Days for delivery must be a number")
-        .positive("Days for delivery must be greater than zero")
+        .when("order_type", {
+          is: "NO",
+          then: Yup.number()
+            .typeError("Days for delivery must be a number")
+            .positive("Days for delivery must be greater than zero")
 
-        .required("Days for delivery is required"),
-      two_payments_order: Yup.boolean(),
+            .required("Days for delivery is required"),
+        })
+        .when("order_type", {
+          is: "TP",
+          then: Yup.number()
+            .typeError("Days for delivery must be a number")
+            .positive("Days for delivery must be greater than zero")
+
+            .required("Days for delivery is required"),
+        }),
       first_payment: Yup.number()
-        .when("two_payments_order", {
-          is: true,
+        .when("order_type", {
+          is: "TP",
           then: Yup.number()
             .typeError("First payment must be a number")
             .positive("First payment must be greater than zero")
@@ -57,6 +69,7 @@ const SendOfferModal = ({
           Yup.ref("total_offer_amount"),
           "First payment can not exceed total offer amount"
         ),
+      interval_subscription: Yup.string(),
     }),
     onSubmit: async (values) => {
       console.log(values);
@@ -70,6 +83,7 @@ const SendOfferModal = ({
     formik.setFieldValue("send_offer_by_email", true);
     formik.setFieldValue("buyer_email", buyer_email);
   };
+  console.log(formik.errors);
 
   return (
     <div
@@ -167,7 +181,7 @@ const SendOfferModal = ({
                                 ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                                 : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                             }
-                            placeholder="you@example.com"
+                            placeholder="Title"
                             aria-describedby="title-description"
                             value={formik.values.title}
                             onChange={formik.handleChange}
@@ -218,7 +232,7 @@ const SendOfferModal = ({
                               ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                               : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           }
-                          placeholder="you@example.com"
+                          placeholder="Description"
                           aria-describedby="description-description"
                           value={formik.values.description}
                           onChange={formik.handleChange}
@@ -265,151 +279,153 @@ const SendOfferModal = ({
                     for="first_name"
                     className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                   >
+                    Order type
+                  </label>
+
+                  <div className="mt-1 relative  sm:mt-0 sm:col-span-2">
+                    <select
+                      id="order_type"
+                      name="order_type"
+                      autoComplete="order_type"
+                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.order_type}
+                    >
+                      <option value="NO">Normal order</option>
+                      <option value="TP">Two payments order</option>
+                      <option value="RO">Recurrent subscription order</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
+                  <label
+                    for="first_name"
+                    className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
                     Total Offer Amount{" "}
                     <span className="font-normal text-xs">
                       ({authReducer.currency})
                     </span>
                   </label>
 
-                  <div className="mt-1 relative  sm:mt-0 sm:col-span-2">
-                    <input
-                      type="text"
-                      name="total_offer_amount"
-                      id="total_offer_amount"
-                      className={
-                        formik.touched.total_offer_amount &&
-                        formik.errors.total_offer_amount
-                          ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                      }
-                      placeholder={`300${getSymbolFromCurrency(
-                        authReducer.currency
-                      )}`}
-                      form="send-offer-form"
-                      aria-describedby="total_offer_amount"
-                      value={formik.values.total_offer_amount}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
+                  <div className="mt-1   sm:mt-0 sm:col-span-2">
+                    <div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="total_offer_amount"
+                          id="total_offer_amount"
+                          className={
+                            formik.touched.total_offer_amount &&
+                            formik.errors.total_offer_amount
+                              ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                              : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          }
+                          placeholder={`300${getSymbolFromCurrency(
+                            authReducer.currency
+                          )}`}
+                          form="send-offer-form"
+                          aria-describedby="total_offer_amount"
+                          value={formik.values.total_offer_amount}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                        />
+                        {formik.touched.total_offer_amount &&
+                          formik.errors.total_offer_amount && (
+                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                              <svg
+                                className="h-5 w-5 text-red-500"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          )}
+                      </div>
+                    </div>
+
                     {formik.touched.total_offer_amount &&
                       formik.errors.total_offer_amount && (
-                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                          <svg
-                            className="h-5 w-5 text-red-500"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      )}
-                  </div>
-                  {formik.touched.total_offer_amount &&
-                    formik.errors.total_offer_amount && (
-                      <p
-                        class="mt-2 text-sm text-red-600"
-                        id="total_offer_amount-error"
-                      >
-                        {formik.errors.total_offer_amount}
-                      </p>
-                    )}
-                </div>
-
-                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200 sm:pt-5">
-                  <label
-                    for="last_name"
-                    className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                  >
-                    Days for delivery
-                  </label>
-
-                  <div className="mt-1  sm:mt-0 sm:col-span-2">
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="days_for_delivery"
-                        id="days_for_delivery"
-                        form="send-offer-form"
-                        className={
-                          formik.touched.days_for_delivery &&
-                          formik.errors.days_for_delivery
-                            ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                            : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                        }
-                        placeholder="you@example.com"
-                        aria-describedby="days_for_delivery-description"
-                        value={formik.values.days_for_delivery}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                      />
-                      {formik.touched.days_for_delivery &&
-                        formik.errors.days_for_delivery && (
-                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg
-                              className="h-5 w-5 text-red-500"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                    </div>
-                    {formik.touched.days_for_delivery &&
-                      formik.errors.days_for_delivery && (
                         <p
                           class="mt-2 text-sm text-red-600"
-                          id="days_for_delivery-error"
+                          id="total_offer_amount-error"
                         >
-                          {formik.errors.days_for_delivery}
+                          {formik.errors.total_offer_amount}
                         </p>
                       )}
                   </div>
                 </div>
-                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
-                  <div className="mt-1 sm:mt-0 sm:col-span-2 sm:col-start-2">
-                    <div className="relative flex items-start">
-                      <div className="flex items-center h-5">
+                {(formik.values.order_type === "NO" ||
+                  formik.values.order_type === "TP") && (
+                  <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
+                    <label
+                      for="last_name"
+                      className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                    >
+                      Days for delivery
+                    </label>
+
+                    <div className="mt-1  sm:mt-0 sm:col-span-2">
+                      <div className="relative">
                         <input
-                          id="two_payments_order"
-                          name="two_payments_order"
-                          type="checkbox"
-                          onChange={formik.handleChange}
+                          type="text"
+                          name="days_for_delivery"
+                          id="days_for_delivery"
                           form="send-offer-form"
-                          handleBlur={formik.handleBlur}
-                          value={formik.values.two_payments_order}
-                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          className={
+                            formik.touched.days_for_delivery &&
+                            formik.errors.days_for_delivery
+                              ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                              : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          }
+                          placeholder="7 days"
+                          aria-describedby="days_for_delivery-description"
+                          value={formik.values.days_for_delivery}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
+                        {formik.touched.days_for_delivery &&
+                          formik.errors.days_for_delivery && (
+                            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                              <svg
+                                className="h-5 w-5 text-red-500"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          )}
                       </div>
-                      <div className="ml-3 text-sm">
-                        <label
-                          for="two_payments_order"
-                          className="font-medium text-gray-700"
-                        >
-                          Two payments order
-                        </label>
-                        <p className="text-gray-500">
-                          Offers the possibility of making a payment now and
-                          another on delivery.
-                        </p>
-                      </div>
+                      {formik.touched.days_for_delivery &&
+                        formik.errors.days_for_delivery && (
+                          <p
+                            class="mt-2 text-sm text-red-600"
+                            id="days_for_delivery-error"
+                          >
+                            {formik.errors.days_for_delivery}
+                          </p>
+                        )}
                     </div>
                   </div>
-                </div>
+                )}
               </div>
-              {formik.values.two_payments_order && (
+              {formik.values.order_type == "TP" && (
                 <>
                   <div className="relative border-none">
                     <div
@@ -448,7 +464,9 @@ const SendOfferModal = ({
                                 ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                                 : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                             }
-                            placeholder="you@example.com"
+                            placeholder={`100${getSymbolFromCurrency(
+                              authReducer.currency
+                            )}`}
                             aria-describedby="first_payment-description"
                             value={formik.values.first_payment}
                             onChange={formik.handleChange}
@@ -487,6 +505,54 @@ const SendOfferModal = ({
                               {formik.errors.first_payment}
                             </p>
                           )}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {formik.values.order_type == "RO" && (
+                <>
+                  <div className="relative border-none">
+                    <div
+                      className="absolute inset-0 flex items-center"
+                      aria-hidden="true"
+                    >
+                      <div className="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div className="relative flex justify-start">
+                      <span className="pr-2 bg-white text-sm text-gray-500">
+                        Recurrent subscription
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-6 sm:space-y-5 border-none pb-4 pt-4">
+                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
+                      <label
+                        for="first_payment"
+                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      >
+                        Payment interval
+                      </label>
+
+                      <div className="mt-1 sm:mt-0 sm:col-span-2">
+                        <div className="relative">
+                          <select
+                            id="interval_subscription"
+                            name="interval_subscription"
+                            autoComplete="interval_subscription"
+                            className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.interval_subscription}
+                          >
+                            <option value="MO">Monthly</option>
+                            <option value="AN">Annual</option>
+                          </select>
+                        </div>
+                        <p className="mt-2 text-sm text-gray-500">
+                          With recurrent subscription order you can recieve a
+                          montly or annual recurrent payment.
+                        </p>
                       </div>
                     </div>
                   </div>
