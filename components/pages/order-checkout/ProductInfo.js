@@ -1,21 +1,32 @@
 import React from "react";
 
-const ProductInfo = () => {
+const ProductInfo = ({ offer }) => {
   return (
     <div>
-      <h1 class="text-2xl font-bold text-gray-900">
-        ARIA attribute misspelled
-      </h1>
+      {offer.order_type === "TP" && (
+        <div className="mb-3">
+          <span className="text-gray-500">Two Payments</span>
+        </div>
+      )}
+
+      {offer.order_type === "RO" && (
+        <div className="mb-3">
+          <span className="text-gray-500">Recurrent Subscription</span>
+        </div>
+      )}
+      <h1 className="text-2xl font-bold text-gray-900">{offer.title}</h1>
       <div className="mt-4 md:flex justify-between">
         <div>
-          <p class="mt text-sm text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-            placeat aspernatur, tenetur ad non, ullam amet quo quos porro magnam
-            dolor commodi ratione facere odit impedit tempora? Sequi, expedita
-            autem?
-          </p>
+          <p className="mt text-sm text-gray-500">{offer.description}</p>
         </div>
-        <p className="hidden md:block pl-20 pr-5 font-bold">$134.25</p>
+        <p className="hidden md:flex pl-20 pr-5 font-bold">
+          ${offer.total_amount}{" "}
+          {offer.order_type === "RO" && (
+            <span className="ml-1 font-normal">
+              {offer.interval_subscription === "AN" ? "/year" : "/month"}
+            </span>
+          )}
+        </p>
       </div>
     </div>
   );

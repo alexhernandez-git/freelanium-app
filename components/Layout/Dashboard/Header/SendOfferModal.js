@@ -18,7 +18,7 @@ const SendOfferModal = ({
       buyer_email: "",
       title: "",
       description: "",
-      total_offer_amount: "",
+      total_amount: "",
       days_for_delivery: 0,
       first_payment: 0,
       order_type: "NO",
@@ -36,7 +36,7 @@ const SendOfferModal = ({
       }),
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
-      total_offer_amount: Yup.number()
+      total_amount: Yup.number()
         .typeError("Total offer amount must be a number")
         .positive("Total offer amount must be greater than zero")
         .required("Total offer amount time is required"),
@@ -66,7 +66,7 @@ const SendOfferModal = ({
             .required("First payment is required"),
         })
         .lessThan(
-          Yup.ref("total_offer_amount"),
+          Yup.ref("total_amount"),
           "First payment can not exceed total offer amount"
         ),
       interval_subscription: Yup.string(),
@@ -315,11 +315,11 @@ const SendOfferModal = ({
                       <div className="relative">
                         <input
                           type="text"
-                          name="total_offer_amount"
-                          id="total_offer_amount"
+                          name="total_amount"
+                          id="total_amount"
                           className={
-                            formik.touched.total_offer_amount &&
-                            formik.errors.total_offer_amount
+                            formik.touched.total_amount &&
+                            formik.errors.total_amount
                               ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                               : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           }
@@ -327,13 +327,13 @@ const SendOfferModal = ({
                             authReducer.currency
                           )}`}
                           form="send-offer-form"
-                          aria-describedby="total_offer_amount"
-                          value={formik.values.total_offer_amount}
+                          aria-describedby="total_amount"
+                          value={formik.values.total_amount}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
-                        {formik.touched.total_offer_amount &&
-                          formik.errors.total_offer_amount && (
+                        {formik.touched.total_amount &&
+                          formik.errors.total_amount && (
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                               <svg
                                 className="h-5 w-5 text-red-500"
@@ -353,15 +353,14 @@ const SendOfferModal = ({
                       </div>
                     </div>
 
-                    {formik.touched.total_offer_amount &&
-                      formik.errors.total_offer_amount && (
-                        <p
-                          class="mt-2 text-sm text-red-600"
-                          id="total_offer_amount-error"
-                        >
-                          {formik.errors.total_offer_amount}
-                        </p>
-                      )}
+                    {formik.touched.total_amount && formik.errors.total_amount && (
+                      <p
+                        class="mt-2 text-sm text-red-600"
+                        id="total_amount-error"
+                      >
+                        {formik.errors.total_amount}
+                      </p>
+                    )}
                   </div>
                 </div>
                 {(formik.values.order_type === "NO" ||

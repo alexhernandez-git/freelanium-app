@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated }) => {
+const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
   return (
     <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
       <h2 id="timeline-title" class="text-lg font-bold text-gray-900">
@@ -26,20 +26,35 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated }) => {
           <div class="py-5 grid grid-cols-3 gap-4 border-b border-gray-200">
             <dt class="text-sm font-bold text-gray-900 col-span-2">Total</dt>
             <dd class="flex text-sm text-gray-900 mt-0">
-              <span class="flex-grow font-bold">$37.68</span>
+              <span class="flex-grow font-bold">
+                $37.68{" "}
+                {offer.order_type === "RO" && (
+                  <span className="font-normal">
+                    {offer.interval_subscription === "AN" ? "/year" : "/month"}
+                  </span>
+                )}
+              </span>
             </dd>
-            <dt class="text-sm font-medium text-gray-500 col-span-2">
-              Delivery time
-            </dt>
-            <dd class="flex text-sm text-gray-900 mt-0">
-              <span class="flex-grow">2 Days</span>
-            </dd>
-            <dt class="text-sm font-medium text-gray-500 col-span-2">
-              Payment at delivery time
-            </dt>
-            <dd class="flex text-sm text-gray-900 mt-0">
-              <span class="flex-grow">$40.68</span>
-            </dd>
+            {(offer.order_type === "NO" || offer.order_type === "TP") && (
+              <>
+                <dt class="text-sm font-medium text-gray-500 col-span-2">
+                  Delivery time
+                </dt>
+                <dd class="flex text-sm text-gray-900 mt-0">
+                  <span class="flex-grow">2 Days</span>
+                </dd>
+                {offer.order_type === "TP" && (
+                  <>
+                    <dt class="text-sm font-medium text-gray-500 col-span-2">
+                      Payment at delivery
+                    </dt>
+                    <dd class="flex text-sm text-gray-900 mt-0">
+                      <span class="flex-grow">$40.68</span>
+                    </dd>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </dl>
       </div>
@@ -62,7 +77,8 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated }) => {
             !isAuthenticated && "opacity-25"
           } inline-flex w-full items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         >
-          Confirm and pay
+          {/* Confirm and pay */}
+          Confirm and subscribe
         </button>
       )}
       <div className="mt-4 flex justify-center">
