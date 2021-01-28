@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import {
-  OfferAction,
+  OfferActivity,
   RequestChangeDateDelivery,
   RequestChangeDateDeliveryAccepted,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
@@ -203,7 +203,7 @@ const OrderBoard = () => {
 
               <div class="space-y-6 lg:col-start-1 lg:col-span-2">
                 <ul class="-mb-8">
-                  <OfferAction />
+                  {/* <OfferActivity /> */}
                   <RequestChangeDateDelivery />
                   <RequestChangeDateDeliveryAccepted />
                 </ul>

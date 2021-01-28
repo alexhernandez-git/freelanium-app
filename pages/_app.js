@@ -37,14 +37,36 @@ function WrappedApp({ Component, pageProps }) {
       ws.current.onmessage = async function (e) {
         const data = JSON.parse(e.data);
         console.log(data);
-        if (data.event === "MESSAGE_RECEIVED") {
-          await dispatch(setPendingMessages());
-          await dispatch(setPendingNotifications());
-          await dispatch(addOrUpdateNotificationToFeed(data.notification__pk));
-          await dispatch(
-            createAlert("SUCCESS", "New message from " + data.sent_by__username)
-          );
-          await dispatch(newMessageEvent(data.chat__pk, data.message__text));
+        switch (data.event) {
+          case "MESSAGE_RECEIVED":
+            await dispatch(setPendingMessages());
+            await dispatch(setPendingNotifications());
+            await dispatch(
+              addOrUpdateNotificationToFeed(data.notification__pk)
+            );
+            await dispatch(
+              createAlert(
+                "SUCCESS",
+                "New message from " + data.sent_by__username
+              )
+            );
+            await dispatch(newMessageEvent(data.chat__pk, data.message__text));
+            break;
+          // Offer pendent
+          case "OFPE":
+            await dispatch(setPendingMessages());
+            await dispatch(setPendingNotifications());
+            await dispatch(
+              addOrUpdateNotificationToFeed(data.notification__pk)
+            );
+            await dispatch(
+              createAlert("SUCCESS", "New offer from " + data.sent_by__username)
+            );
+            await dispatch(newMessageEvent(data.chat__pk, data.message__text));
+            break;
+
+          default:
+            break;
         }
       };
       return () => {

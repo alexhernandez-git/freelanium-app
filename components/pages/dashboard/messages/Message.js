@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import { OfferAction } from "../order/Activity/ActivityElements";
+import { OfferActivity } from "../order/Activity/ActivityElements";
 
 export const MyMessage = ({ message }) => {
   const getActivityComponent = () => {
@@ -9,7 +9,7 @@ export const MyMessage = ({ message }) => {
       const { type } = message.activity;
       switch (type) {
         case "OF":
-          return <OfferAction chat={true} />;
+          return <OfferActivity chat={true} ac={message.activity} />;
         default:
           return false;
       }
@@ -102,6 +102,17 @@ export const MyMessage = ({ message }) => {
 };
 
 export const NotMyMessage = ({ message }) => {
+  const getActivityComponent = () => {
+    if (message.activity) {
+      const { type } = message.activity;
+      switch (type) {
+        case "OF":
+          return <OfferActivity chat={true} ac={message.activity} />;
+        default:
+          return false;
+      }
+    }
+  };
   const authReducer = useSelector((state) => state.authReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
   const messageIndex = messagesReducer.messages.results.indexOf(message);
@@ -178,6 +189,7 @@ export const NotMyMessage = ({ message }) => {
           </div>
         </div>
       </div>
+      {getActivityComponent()}
     </li>
   );
 };

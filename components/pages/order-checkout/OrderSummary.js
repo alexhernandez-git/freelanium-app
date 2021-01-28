@@ -77,13 +77,18 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
             !isAuthenticated && "opacity-25"
           } inline-flex w-full items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         >
-          {/* Confirm and pay */}
-          Confirm and subscribe
+          {(offer.order_type === "NO" || offer.order_type === "TP") &&
+            "Confirm and pay "}
+          {offer.order_type === "RO" && "Confirm and subscribe"}
         </button>
       )}
-      <div className="mt-4 flex justify-center">
-        <span className="text-sm text-gray-500">You won't be charged yet</span>
-      </div>
+      {step == 0 && (
+        <div className="mt-4 flex justify-center">
+          <span className="text-sm text-gray-500">
+            You won't be charged yet
+          </span>
+        </div>
+      )}
     </div>
   );
 };

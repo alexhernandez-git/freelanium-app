@@ -58,7 +58,6 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async (e) => {
         const data = JSON.parse(e.data);
-        console.log(data);
         await dispatch(addMessage(data));
         if (authReducer.user.id === data.sent_by.id) {
           await dispatch(changeLastMessage(data.chat__id, data.text));

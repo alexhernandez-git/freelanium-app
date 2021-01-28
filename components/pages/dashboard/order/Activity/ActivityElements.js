@@ -1,4 +1,6 @@
 import { PrimaryButton } from "components/ui/Buttons";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 // Alert icon
@@ -153,7 +155,8 @@ const Offer = () => {
   );
 };
 
-export const OfferAction = ({ chat = false }) => {
+export const OfferActivity = ({ ac, chat = false }) => {
+  const { activity, type } = ac;
   const [status, setStatus] = useState("ACCEPTED");
   const [data, setData] = useState({
     activityTitle: "",
@@ -162,11 +165,11 @@ export const OfferAction = ({ chat = false }) => {
     activityButton: null,
     opacity: false,
   });
+
   useEffect(() => {
     const setActivityData = async () => {
-      console.log(status);
-      switch (status) {
-        case "ACCEPTED":
+      switch (type) {
+        case "AC":
           await setData({
             activityIcon: SuccessIcon(),
             activityTitle: "Offer Accepted",
@@ -180,7 +183,11 @@ export const OfferAction = ({ chat = false }) => {
             activityIcon: InfoIcon(),
             activityTitle: "Offer",
             activityMessage: "Alex sent you an offer",
-            activityButton: <PrimaryButton>Continue</PrimaryButton>,
+            activityButton: (
+              <a target="_blank" href={`/order-checkout/fewaawfe/fawef`}>
+                <PrimaryButton>Continue</PrimaryButton>
+              </a>
+            ),
             opacity: false,
           });
           break;
@@ -189,7 +196,7 @@ export const OfferAction = ({ chat = false }) => {
     if (status) {
       setActivityData();
     }
-  }, [status]);
+  }, [type]);
   return (
     <li>
       <div className={`relative pb-8 text-left ${chat && "overflow-auto"}`}>
@@ -257,7 +264,9 @@ export const OfferAction = ({ chat = false }) => {
                     </h3>
                   </div>
                   <div className="px-4 py-5 sm:px-6">
-                    <span className="text-3xl">$300</span>
+                    <span className="text-3xl">
+                      ${activity?.offer?.total_amount}
+                    </span>
                   </div>
                 </div>
                 <div className="border-t border-gray-200">
@@ -266,7 +275,7 @@ export const OfferAction = ({ chat = false }) => {
                       <dt className="text-sm font-medium text-gray-500">
                         Full name
                       </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
                         Margot Foster
                       </dd>
                     </div>
@@ -275,12 +284,8 @@ export const OfferAction = ({ chat = false }) => {
                       <dt className="text-sm font-medium text-gray-500">
                         Description
                       </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Fugiat ipsum ipsum deserunt culpa aute sint do nostrud
-                        anim incididunt cillum culpa consequat. Excepteur qui
-                        ipsum aliquip consequat sint. Sit id mollit nulla mollit
-                        nostrud in ea officia proident. Irure nostrud pariatur
-                        mollit ad adipisicing reprehenderit deserunt qui eu.
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                        {activity?.offer?.description}
                       </dd>
                     </div>
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

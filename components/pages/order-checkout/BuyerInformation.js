@@ -117,13 +117,30 @@ const BuyerInformation = ({ handleAuthenticate }) => {
             </div>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button
-              type="button"
-              onClick={handleAuthenticate}
-              className="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Continue
-            </button>
+            <div className="flex justify-between items-center">
+              <p class="text-xs leading-5 text-gray-500">
+                By signing up, you agree to our{" "}
+                <a href="#" class="font-medium text-gray-900 hover:underline">
+                  Terms
+                </a>
+                ,{" "}
+                <a href="#" class="font-medium text-gray-900 hover:underline">
+                  Data Policy
+                </a>{" "}
+                and{" "}
+                <a href="#" class="font-medium text-gray-900 hover:underline">
+                  Cookies Policy
+                </a>
+                .
+              </p>
+              <button
+                type="button"
+                onClick={handleAuthenticate}
+                className="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       </form>

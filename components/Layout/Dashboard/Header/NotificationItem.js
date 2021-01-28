@@ -1,7 +1,13 @@
 import React from "react";
 import moment from "moment";
+import { getNotificationActivityMessage } from "utils/get-stripejs copy";
+import { useDispatch } from "react-redux";
+import { getOrCreateChat } from "redux/actions/chats";
+import { useRouter } from "next/router";
 
 const NotificationItem = ({ notification }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   let event_message = "";
   let message = "";
   let many_messages = false;
@@ -23,16 +29,28 @@ const NotificationItem = ({ notification }) => {
             : "New message"
         }`;
       }
-      if (!many_messages) {
+      if (notification.messages.length > 0 && !many_messages) {
         message = notification.messages[0].text;
       }
+      break;
+    case "AC":
+      event_message = getNotificationActivityMessage(
+        notification.activity,
+        notification.actor
+      );
       break;
     default:
       event_message = "New notification";
       break;
   }
+  const goToNotification = () => {
+    dispatch(getOrCreateChat(notification.actor.id, router.push));
+  };
   return (
-    <li className="py-4 hover:opacity-70 cursor-pointer">
+    <li
+      className="py-4 hover:opacity-70 cursor-pointer"
+      onClick={goToNotification}
+    >
       <div className="flex items-center space-x-4">
         <div className="flex-shrink-0">
           {notification.actor && notification.actor.picture ? (
