@@ -1,8 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchChat } from "redux/actions/chat";
+import chatReducer from "redux/reducers/chatReducer";
+import { getLastMessage } from "utils/getMessages";
 
 const ChatroomCard = ({ chat, handleFetchChat }) => {
+  const chatReducer = useSelector((state) => state.chatReducer);
   return (
     <li onClick={() => handleFetchChat(chat.id)}>
       <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
@@ -36,11 +39,11 @@ const ChatroomCard = ({ chat, handleFetchChat }) => {
               {chat.room_name}
             </p>
             <p className="text-sm text-gray-500 truncate">
-              {chat.last_message}
+              {getLastMessage(chat.last_message)}
             </p>
           </a>
         </div>
-        {!chat.last_message_seen && (
+        {!chat.last_message_seen && !chatReducer.chat?.id == chat.id && (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
             New messages
           </span>

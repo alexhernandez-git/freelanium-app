@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { getNotificationActivityMessage } from "utils/get-stripejs copy";
+import { getNotificationActivityMessage } from "utils/getMessages";
 import { useDispatch } from "react-redux";
 import { getOrCreateChat } from "redux/actions/chats";
 import { useRouter } from "next/router";

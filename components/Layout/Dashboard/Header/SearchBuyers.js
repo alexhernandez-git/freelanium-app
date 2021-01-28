@@ -7,92 +7,26 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const SearchBuyers = ({
-  handleSetBuyer,
-  handleSetBuyerEmail,
   errors,
   touched,
+  search,
+  setSearch,
+  buyerSelected,
+  handleSelectBuyer,
+  handleUnselectBuyer,
+  isEmailSetted,
+  handleUnsetBuyerEmail,
+  formik,
+  openBuyersListRef,
+  handleShowBuyersList,
+  openBuyersList,
+  openEmailInput,
+  openEmailInputRef,
+  handleShowEmailInput,
 }) => {
-  const dispatch = useDispatch();
-  const [search, setSearch] = useState("");
-
-  const [openBuyersList, setOpenBuyersList] = useState(false);
-  const handleShowBuyersList = (e) => {
-    e.preventDefault();
-    setOpenBuyersList(true);
-  };
-
-  const openBuyersListRef = useRef();
-
-  const handleCloseBuyersList = () => {
-    if (openBuyersList) {
-      setOpenBuyersList(false);
-    }
-  };
-
-  useOutsideClick(openBuyersListRef, () => handleCloseBuyersList());
-
-  const [openEmailInput, setOpenEmailInput] = useState(false);
-  const handleShowEmailInput = () => {
-    setOpenEmailInput(true);
-  };
-  const openEmailInputRef = useRef();
-
-  const handleCloseEmailInput = () => {
-    if (openEmailInput) {
-      setOpenEmailInput(false);
-    }
-  };
-
-  useOutsideClick(openEmailInputRef, () => handleCloseEmailInput());
-
-  useEffect(() => {
-    if (search != "") {
-      const timeoutId = setTimeout(async () => {
-        console.log("is searching");
-        dispatch(searchBuyers(search));
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [search]);
-
-  const authReducer = useSelector((state) => state.authReducer);
   const offersReducer = useSelector((state) => state.offersReducer);
+  const authReducer = useSelector((state) => state.authReducer);
 
-  const [buyerSelected, setBuyerSelected] = useState(false);
-  const handleSelectBuyer = (buyer) => {
-    setBuyerSelected(buyer);
-    setOpenBuyersList(false);
-    handleSetBuyer(buyer.id);
-  };
-  const handleUnselectBuyer = () => {
-    setBuyerSelected(false);
-    handleSetBuyer("");
-    setSearch("");
-  };
-
-  const [isEmailSetted, setIsEmailSetted] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Email is not valid"),
-    }),
-    onSubmit: async (values) => {
-      setOpenBuyersList(false);
-      handleSetBuyerEmail(values.email);
-      setIsEmailSetted(true);
-    },
-  });
-
-  const handleUnsetBuyerEmail = () => {
-    handleSetBuyerEmail("");
-    formik.setFieldValue("email", "");
-    setIsEmailSetted(false);
-
-    setSearch("");
-  };
   return (
     <>
       <form id="search-buyers-form" autoComplete="off"></form>

@@ -4,6 +4,9 @@ import {
   FETCH_MESSAGES,
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
+  FETCH_MESSAGE,
+  FETCH_MESSAGE_SUCCESS,
+  FETCH_MESSAGE_FAIL,
   ADD_MESSAGE,
   FETCH_MORE_MESSAGES,
   FETCH_MORE_MESSAGES_SUCCESS,
@@ -37,6 +40,32 @@ export const addMessage = (data) => async (dispatch, getState) => {
     type: ADD_MESSAGE,
     payload: data,
   });
+};
+
+export const fetchMessage = (chat__pk, message__pk) => async (
+  dispatch,
+  getState
+) => {
+  await dispatch({
+    type: FETCH_MESSAGE,
+  });
+  await axios
+    .get(
+      `${process.env.HOST}/api/chats/${chat__pk}/messages/${message__pk}`,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      await dispatch({
+        type: FETCH_MESSAGE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: FETCH_MESSAGE_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
 };
 
 export const fetchMoreMessages = (chatRef, lastHeight) => async (

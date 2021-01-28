@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchBuyers from "./SearchBuyers";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { useDispatch, useSelector } from "react-redux";
-import { createOffer } from "redux/actions/offers";
+import { createOffer, searchBuyers } from "redux/actions/offers";
+import useOutsideClick from "hooks/useOutsideClick";
 
 const SendOfferModal = ({
   sendOfferModalRef,
@@ -74,7 +75,15 @@ const SendOfferModal = ({
       interval_subscription: Yup.string(),
     }),
     onSubmit: async (values, { resetForm }) => {
-      dispatch(createOffer(values, handleCloseSendOfferModal, resetForm));
+      dispatch(
+        createOffer(
+          values,
+          handleCloseSendOfferModal,
+          resetForm,
+          handleUnselectBuyer,
+          handleUnsetBuyerEmail
+        )
+      );
     },
   });
   const handleSetBuyer = (buyer_id) => {
@@ -85,8 +94,84 @@ const SendOfferModal = ({
     formik.setFieldValue("send_offer_by_email", true);
     formik.setFieldValue("buyer_email", buyer_email);
   };
-  console.log(formik.errors);
+  // Search bar
+  const [search, setSearch] = useState("");
 
+  const [openBuyersList, setOpenBuyersList] = useState(false);
+  const handleShowBuyersList = (e) => {
+    e.preventDefault();
+    setOpenBuyersList(true);
+  };
+
+  const openBuyersListRef = useRef();
+
+  const handleCloseBuyersList = () => {
+    if (openBuyersList) {
+      setOpenBuyersList(false);
+    }
+  };
+
+  useOutsideClick(openBuyersListRef, () => handleCloseBuyersList());
+
+  const [openEmailInput, setOpenEmailInput] = useState(false);
+  const handleShowEmailInput = () => {
+    setOpenEmailInput(true);
+  };
+  const openEmailInputRef = useRef();
+
+  const handleCloseEmailInput = () => {
+    if (openEmailInput) {
+      setOpenEmailInput(false);
+    }
+  };
+
+  useOutsideClick(openEmailInputRef, () => handleCloseEmailInput());
+
+  useEffect(() => {
+    if (search != "") {
+      const timeoutId = setTimeout(async () => {
+        console.log("is searching");
+        dispatch(searchBuyers(search));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [search]);
+
+  const [buyerSelected, setBuyerSelected] = useState(false);
+  const handleSelectBuyer = (buyer) => {
+    setBuyerSelected(buyer);
+    setOpenBuyersList(false);
+    handleSetBuyer(buyer.id);
+  };
+  const handleUnselectBuyer = () => {
+    setBuyerSelected(false);
+    handleSetBuyer("");
+    setSearch("");
+  };
+
+  const [isEmailSetted, setIsEmailSetted] = useState(false);
+
+  const searchFormik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Email is not valid"),
+    }),
+    onSubmit: async (values) => {
+      setOpenBuyersList(false);
+      handleSetBuyerEmail(values.email);
+      setIsEmailSetted(true);
+    },
+  });
+
+  const handleUnsetBuyerEmail = () => {
+    handleSetBuyerEmail("");
+    searchFormik.setFieldValue("email", "");
+    setIsEmailSetted(false);
+
+    setSearch("");
+  };
   return (
     <div
       className={`${
@@ -143,10 +228,22 @@ const SendOfferModal = ({
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                       <SearchBuyers
-                        errors={formik.errors?.buyer}
-                        touched={formik.touched?.buyer}
-                        handleSetBuyer={handleSetBuyer}
-                        handleSetBuyerEmail={handleSetBuyerEmail}
+                        errors={searchFormik.errors?.buyer}
+                        touched={searchFormik.touched?.buyer}
+                        search={search}
+                        setSearch={setSearch}
+                        openBuyersListRef={openBuyersListRef}
+                        buyerSelected={buyerSelected}
+                        handleSelectBuyer={handleSelectBuyer}
+                        handleUnselectBuyer={handleUnselectBuyer}
+                        isEmailSetted={isEmailSetted}
+                        handleUnsetBuyerEmail={handleUnsetBuyerEmail}
+                        formik={searchFormik}
+                        handleShowBuyersList={handleShowBuyersList}
+                        openBuyersList={openBuyersList}
+                        openEmailInput={openEmailInput}
+                        openEmailInputRef={openEmailInputRef}
+                        handleShowEmailInput={handleShowEmailInput}
                       />
                     </div>
                   </div>

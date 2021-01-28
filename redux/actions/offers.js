@@ -33,7 +33,9 @@ export const searchBuyers = (search = "") => async (dispatch, getState) => {
 export const createOffer = (
   offer,
   handleCloseSendOfferModal,
-  resetForm
+  resetForm,
+  handleUnselectBuyer,
+  handleUnsetBuyerEmail
 ) => async (dispatch, getState) => {
   await dispatch({
     type: CREATE_OFFER,
@@ -47,6 +49,8 @@ export const createOffer = (
       });
       handleCloseSendOfferModal();
       resetForm({});
+      handleUnselectBuyer();
+      handleUnsetBuyerEmail();
       dispatch(createAlert("SUCCESS", "Offer successfully created"));
     })
     .catch((err) => {

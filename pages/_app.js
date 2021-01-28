@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { createAlert } from "redux/actions/alerts";
-import { newMessageEvent } from "redux/actions/chats";
+import { newActivityEvent, newMessageEvent } from "redux/actions/chats";
 import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
 import { Elements } from "@stripe/react-stripe-js";
 import getStripe from "utils/get-stripejs";
@@ -54,15 +54,22 @@ function WrappedApp({ Component, pageProps }) {
             break;
           // Offer pendent
           case "OFPE":
-            await dispatch(setPendingMessages());
-            await dispatch(setPendingNotifications());
+            if (data.sent_by__pk !== authReducer.user?.id) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(
+                createAlert(
+                  "SUCCESS",
+                  "New offer from " + data.sent_by__username
+                )
+              );
+            }
             await dispatch(
-              addOrUpdateNotificationToFeed(data.notification__pk)
+              newActivityEvent(data.chat__pk, data.message__pk, data.event)
             );
-            await dispatch(
-              createAlert("SUCCESS", "New offer from " + data.sent_by__username)
-            );
-            await dispatch(newMessageEvent(data.chat__pk, data.message__text));
             break;
 
           default:

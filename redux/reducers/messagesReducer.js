@@ -2,6 +2,9 @@ import {
   FETCH_MESSAGES,
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
+  FETCH_MESSAGE,
+  FETCH_MESSAGE_SUCCESS,
+  FETCH_MESSAGE_FAIL,
   ADD_MESSAGE,
   FETCH_MORE_MESSAGES,
   FETCH_MORE_MESSAGES_SUCCESS,
@@ -16,6 +19,8 @@ const initialState = {
   },
   first_loading: false,
   error: null,
+  fetching_message: false,
+  fetch_message_error: null,
 };
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
@@ -51,13 +56,33 @@ export default function messagesReducer(state = initialState, action) {
           results: [...state.messages.results, action.payload],
         },
       };
+    case FETCH_MESSAGE:
+      return {
+        ...state,
+        fetching_message: true,
+      };
+    case FETCH_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          results: [...state.messages.results, action.payload],
+        },
+        fetching_message: false,
+        fetch_message_error: null,
+      };
+    case FETCH_MESSAGE_FAIL:
+      return {
+        ...state,
+        fetching_message: false,
+        fetch_message_error: action.payload,
+      };
     case FETCH_MORE_MESSAGES:
       return {
         ...state,
         is_loading: true,
       };
     case FETCH_MORE_MESSAGES_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         is_loading: false,

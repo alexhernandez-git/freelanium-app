@@ -16,6 +16,8 @@ import {
 } from "../types";
 import { createAlert } from "./alerts";
 import { fetchChat } from "./chat";
+import { fetchMessage } from "./messages";
+import { getActivityMessage } from "utils/getMessages";
 
 export const fetchChats = () => async (dispatch, getState) => {
   await dispatch({
@@ -112,6 +114,31 @@ export const newMessageEvent = (chat__id, message__text) => async (
       type: NEW_MESSAGE_EVENT,
       payload: { chat__id: chat__id, message__text: message__text },
     });
+  } else {
+    await dispatch(addChatToFeed(chat__id));
+  }
+};
+
+export const newActivityEvent = (
+  chat__id,
+  message__id,
+  activity__event
+) => async (dispatch, getState) => {
+  const result = getState().chatsReducer.chats.some(
+    (chat) => chat.id === chat__id
+  );
+  if (result) {
+    await dispatch({
+      type: NEW_MESSAGE_EVENT,
+      payload: {
+        chat__id: chat__id,
+        message__text: getActivityMessage(activity__event),
+      },
+    });
+    const current_chat = getState().chatReducer.chat?.id == chat__id;
+    if (current_chat) {
+      await dispatch(fetchMessage(chat__id, message__id));
+    }
   } else {
     await dispatch(addChatToFeed(chat__id));
   }

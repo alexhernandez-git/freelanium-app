@@ -2,6 +2,7 @@ import { PrimaryButton } from "components/ui/Buttons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // Alert icon
 
@@ -165,6 +166,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
     activityButton: null,
     opacity: false,
   });
+  const authReducer = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     const setActivityData = async () => {
@@ -288,12 +290,14 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         {activity?.offer?.description}
                       </dd>
                     </div>
-                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500"></dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end">
-                        {data.activityButton}
-                      </dd>
-                    </div>
+                    {activity?.offer?.buyer === authReducer.user?.id && (
+                      <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500"></dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end">
+                          {data.activityButton}
+                        </dd>
+                      </div>
+                    )}
                   </dl>
                 </div>
               </div>
