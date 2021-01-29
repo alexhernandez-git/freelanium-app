@@ -186,7 +186,10 @@ export const OfferActivity = ({ ac, chat = false }) => {
             activityTitle: "Offer",
             activityMessage: "Alex sent you an offer",
             activityButton: (
-              <a target="_blank" href={`/order-checkout/fewaawfe/fawef`}>
+              <a
+                target="_blank"
+                href={`/order-checkout/${activity?.offer?.id}/fawef`}
+              >
                 <PrimaryButton>Continue</PrimaryButton>
               </a>
             ),
@@ -259,10 +262,11 @@ export const OfferActivity = ({ ac, chat = false }) => {
               }`}
             >
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-                <div className="flex justify-between">
-                  <div className="px-4 py-5 sm:px-6">
-                    <h3 className="text-2xl font-medium text-gray-900">
-                      Añadir funcionalidad de stripe a tu web
+                <div className="flex justify-between items-center">
+                  <div className="px-4 py-5 sm:px-6 truncate">
+                    <h3 className="text-xl font-medium text-gray-900 truncate">
+                      Añadir funcionalidad de stripe a tu
+                      webfweafewwawfaewfaefwe
                     </h3>
                   </div>
                   <div className="px-4 py-5 sm:px-6">
@@ -281,13 +285,56 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         Margot Foster
                       </dd>
                     </div>
-
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">
+                        Title
+                      </dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                        {activity?.offer?.title}
+                      </dd>
+                    </div>
+                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                       <dt className="text-sm font-medium text-gray-500">
                         Description
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
                         {activity?.offer?.description}
+                      </dd>
+                    </div>
+                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">
+                        Offer Type
+                      </dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                        {activity?.offer?.type}
+                      </dd>
+                    </div>
+                    {activity?.offer?.type === "TP" && (
+                      <>
+                        <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                          <dt className="text-sm font-medium text-gray-500">
+                            First payment
+                          </dt>
+                          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                            ${activity?.offer?.first_payment}
+                          </dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                          <dt className="text-sm font-medium text-gray-500">
+                            Payment at delivery
+                          </dt>
+                          <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                            ${activity?.offer?.payment_at_delivery}
+                          </dd>
+                        </div>
+                      </>
+                    )}
+                    <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt className="text-sm font-medium text-gray-500">
+                        Days for delivery
+                      </dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
+                        {activity?.offer?.days_for_delivery} days
                       </dd>
                     </div>
                     {activity?.offer?.buyer === authReducer.user?.id && (

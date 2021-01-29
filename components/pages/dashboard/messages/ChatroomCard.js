@@ -43,7 +43,7 @@ const ChatroomCard = ({ chat, handleFetchChat }) => {
             </p>
           </a>
         </div>
-        {!chat.last_message_seen && !chatReducer.chat?.id == chat.id && (
+        {!chat.last_message_seen && chatReducer.chat?.id !== chat.id && (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
             New messages
           </span>

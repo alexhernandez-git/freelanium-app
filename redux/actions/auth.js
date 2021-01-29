@@ -91,8 +91,8 @@ export const loadUser = () => async (dispatch, getState) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
-      dispatch({
+    .catch(async (err) => {
+      await dispatch({
         type: LOAD_USER_ERROR,
       });
     });
@@ -593,8 +593,8 @@ export const loadCurrency = () => async (dispatch, getState) => {
         payload: res.data.currency,
       });
     })
-    .catch((err) => {
-      dispatch({
+    .catch(async (err) => {
+      await dispatch({
         type: CHANGE_CURRENCY,
         payload: "USD",
       });

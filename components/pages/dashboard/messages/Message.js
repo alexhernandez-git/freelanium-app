@@ -22,12 +22,13 @@ export const MyMessage = ({ message }) => {
   const previous_message = messagesReducer.messages.results[messageIndex - 1];
   let previous_message_mine = false;
   if (previous_message) {
-    previous_message_mine = previous_message.sent_by.id === authReducer.user.id;
+    previous_message_mine =
+      previous_message.sent_by.id === authReducer.user?.id;
   }
   const next_message = messagesReducer.messages.results[messageIndex + 1];
   let next_message_mine = false;
   if (next_message) {
-    next_message_mine = next_message.sent_by.id === authReducer.user.id;
+    next_message_mine = next_message.sent_by.id === authReducer.user?.id;
   }
   let print_date = true;
   if (previous_message && previous_message.created) {
@@ -120,12 +121,12 @@ export const NotMyMessage = ({ message }) => {
   let previous_message_not_mine = false;
   if (previous_message) {
     previous_message_not_mine =
-      previous_message.sent_by.id !== authReducer.user.id;
+      previous_message.sent_by.id !== authReducer.user?.id;
   }
   const next_message = messagesReducer.messages.results[messageIndex + 1];
   let next_message_mine = false;
   if (next_message) {
-    next_message_mine = next_message.sent_by.id !== authReducer.user.id;
+    next_message_mine = next_message.sent_by.id !== authReducer.user?.id;
   }
   let print_date = true;
   if (previous_message && previous_message.created) {

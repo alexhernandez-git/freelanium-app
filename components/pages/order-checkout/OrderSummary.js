@@ -27,7 +27,7 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
             <dt class="text-sm font-bold text-gray-900 col-span-2">Total</dt>
             <dd class="flex text-sm text-gray-900 mt-0">
               <span class="flex-grow font-bold">
-                $37.68{" "}
+                ${offer.total_amount}{" "}
                 {offer.type === "RO" && (
                   <span className="font-normal">
                     {offer.interval_subscription === "AN" ? "/year" : "/month"}
@@ -41,7 +41,7 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
                   Delivery time
                 </dt>
                 <dd class="flex text-sm text-gray-900 mt-0">
-                  <span class="flex-grow">2 Days</span>
+                  <span class="flex-grow">{offer.delivery_time} days</span>
                 </dd>
                 {offer.type === "TP" && (
                   <>
@@ -49,7 +49,7 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
                       Payment at delivery
                     </dt>
                     <dd class="flex text-sm text-gray-900 mt-0">
-                      <span class="flex-grow">$40.68</span>
+                      <span class="flex-grow">{offer.payment_at_delivery}</span>
                     </dd>
                   </>
                 )}
@@ -77,9 +77,8 @@ const OrderSummary = ({ hanldeGoToStepTwo, step, isAuthenticated, offer }) => {
             !isAuthenticated && "opacity-25"
           } inline-flex w-full items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
         >
-          {(offer.order_type === "NO" || offer.order_type === "TP") &&
-            "Confirm and pay "}
-          {offer.order_type === "RO" && "Confirm and subscribe"}
+          {(offer.type === "NO" || offer.type === "TP") && "Confirm and pay "}
+          {offer.type === "RO" && "Confirm and subscribe"}
         </button>
       )}
       {step == 0 && (

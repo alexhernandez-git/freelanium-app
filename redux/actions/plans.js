@@ -13,8 +13,8 @@ export const fetchPlans = () => async (dispatch, getState) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
-      dispatch({
+    .catch(async (err) => {
+      await dispatch({
         type: FETCH_PLANS_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });

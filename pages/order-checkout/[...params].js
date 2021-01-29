@@ -3,11 +3,15 @@ import Header from "components/pages/order-checkout/Header";
 import OrderSummary from "components/pages/order-checkout/OrderSummary";
 import PaymentMethodComponent from "components/pages/order-checkout/PaymentMethod";
 import ProductInfo from "components/pages/order-checkout/ProductInfo";
+import Spinner from "components/ui/Spinner";
+import useAuthRequired from "hooks/useAuthRequired";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOffer } from "redux/actions/offers";
 const OrderCheckout = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { params } = router.query;
   const [step, setStep] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,20 +21,25 @@ const OrderCheckout = () => {
   const hanldeGoToStepTwo = () => {
     setStep(1);
   };
-  const [offer, setOffer] = useState({
-    buyer: "",
-    send_offer_by_email: true,
-    buyer_email: "antonio@gmail.com",
-    days_for_delivery: "4",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero quo nostrum dicta expedita et, at iste voluptas quisquam error, voluptate omnis nisi ullam harum dolorum, fuga voluptatum reiciendis aperiam doloribus!",
-    first_payment: 0,
-    interval_subscription: "AN",
-    order_type: "TP",
-    title: "Academia de Yoga",
-    total_amount: "434.44",
-  });
-  return (
+  const initialDataReducer = useSelector((state) => state.initialDataReducer);
+  const authReducer = useSelector((state) => state.authReducer);
+  const offersReducer = useSelector((state) => state.offersReducer);
+  const { offer } = offersReducer;
+
+  useEffect(() => {
+    if (!offersReducer.is_loading) {
+      if (offersReducer.offer) {
+      } else {
+        router.push("/");
+      }
+    }
+  }, [offersReducer.is_loading]);
+
+  return !initialDataReducer.initial_data_fetched ? (
+    <div className="flex justify-center items-center h-screen">
+      <Spinner />
+    </div>
+  ) : (
     <div>
       {/* Header */}
       <Header step={step} />

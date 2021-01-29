@@ -1,4 +1,5 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
+import initialDataReducer from "./initialDataReducer";
 import authReducer from "./authReducer";
 import alertsReducer from "./alertsReducer";
 import contactsReducer from "./contactsReducer";
@@ -11,6 +12,7 @@ import sellerInvoicesReducer from "./sellerInvoicesReducer";
 import offersReducer from "./offersReducer";
 
 export default combineReducers({
+  initialDataReducer: initialDataReducer,
   authReducer: authReducer,
   alertsReducer: alertsReducer,
   contactsReducer: contactsReducer,

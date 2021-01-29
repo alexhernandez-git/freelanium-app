@@ -6,9 +6,32 @@ import {
   CREATE_OFFER,
   CREATE_OFFER_SUCCESS,
   CREATE_OFFER_FAIL,
+  FETCH_OFFER,
+  FETCH_OFFER_SUCCESS,
+  FETCH_OFFER_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 import { tokenConfig } from "./auth";
+
+export const fetchOffer = (offer_id) => async (dispatch, getState) => {
+  await dispatch({
+    type: FETCH_OFFER,
+  });
+  await axios
+    .get(`${process.env.HOST}/api/offers/${offer_id}/`)
+    .then(async (res) => {
+      await dispatch({
+        type: FETCH_OFFER_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: FETCH_OFFER_FAIL,
+        payload: { data: err.response.data, status: err.response.status },
+      });
+    });
+};
 
 export const searchBuyers = (search = "") => async (dispatch, getState) => {
   await dispatch({

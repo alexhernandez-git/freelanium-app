@@ -1,3 +1,6 @@
+// Dispatch control reducers
+export const INITIAL_DATA_FETCHED = "INITIAL_DATA_FETCHED";
+
 // Alerts
 export const CREATE_ALERT = "CREATE_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
@@ -175,3 +178,6 @@ export const SEARCH_BUYERS_FAIL = "SEARCH_BUYERS_FAIL";
 export const CREATE_OFFER = "CREATE_OFFER";
 export const CREATE_OFFER_SUCCESS = "CREATE_OFFER_SUCCESS";
 export const CREATE_OFFER_FAIL = "CREATE_OFFER_FAIL";
+export const FETCH_OFFER = "FETCH_OFFER";
+export const FETCH_OFFER_SUCCESS = "FETCH_OFFER_SUCCESS";
+export const FETCH_OFFER_FAIL = "FETCH_OFFER_FAIL";

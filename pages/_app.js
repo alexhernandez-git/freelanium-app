@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
 import { wrapper } from "redux/store";
+import withReduxSaga from "next-redux-saga";
+
 import {
   loadCurrency,
   loadUser,
@@ -15,17 +17,18 @@ import { addOrUpdateNotificationToFeed } from "redux/actions/notifications";
 import { Elements } from "@stripe/react-stripe-js";
 import getStripe from "utils/get-stripejs";
 import { fetchPlans } from "redux/actions/plans";
+import useDispatchInitialData from "hooks/useDispatchInitialData";
+import { useRouter } from "next/router";
+
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
+  const router = useRouter();
   useEffect(() => {
-    const fetchInitialData = async () => {
-      await dispatch(loadUser());
-      await dispatch(loadCurrency());
-      await dispatch(fetchPlans());
-    };
-    fetchInitialData();
+    useDispatchInitialData(dispatch, router);
   }, []);
+
   const authReducer = useSelector((state) => state.authReducer);
+  const chatReducer = useSelector((state) => state.chatReducer);
   const ws = useRef(null);
   useEffect(() => {
     if (!authReducer.is_loading && authReducer.is_authenticated) {
@@ -39,18 +42,22 @@ function WrappedApp({ Component, pageProps }) {
         console.log(data);
         switch (data.event) {
           case "MESSAGE_RECEIVED":
-            await dispatch(setPendingMessages());
-            await dispatch(setPendingNotifications());
-            await dispatch(
-              addOrUpdateNotificationToFeed(data.notification__pk)
-            );
-            await dispatch(
-              createAlert(
-                "SUCCESS",
-                "New message from " + data.sent_by__username
-              )
-            );
-            await dispatch(newMessageEvent(data.chat__pk, data.message__text));
+            if (chatReducer.chat?.id !== data.chat__pk) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(
+                createAlert(
+                  "SUCCESS",
+                  "New message from " + data.sent_by__username
+                )
+              );
+              await dispatch(
+                newMessageEvent(data.chat__pk, data.message__text)
+              );
+            }
             break;
           // Offer pendent
           case "OFPE":
@@ -89,4 +96,4 @@ function WrappedApp({ Component, pageProps }) {
   );
 }
 
-export default wrapper.withRedux(WrappedApp);
+export default wrapper.withRedux(withReduxSaga(WrappedApp));
