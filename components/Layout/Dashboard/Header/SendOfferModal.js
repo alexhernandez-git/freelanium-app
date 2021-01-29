@@ -22,7 +22,7 @@ const SendOfferModal = ({
       title: "",
       description: "",
       total_amount: "",
-      days_for_delivery: 0,
+      delivery_time: 0,
       first_payment: 0,
       type: "NO",
       interval_subscription: "MO",
@@ -43,22 +43,22 @@ const SendOfferModal = ({
         .typeError("Total offer amount must be a number")
         .positive("Total offer amount must be greater than zero")
         .required("Total offer amount time is required"),
-      days_for_delivery: Yup.number()
+      delivery_time: Yup.number()
         .when("type", {
           is: "NO",
           then: Yup.number()
-            .typeError("Days for delivery must be a number")
-            .positive("Days for delivery must be greater than zero")
+            .typeError("Delivery time must be a number")
+            .positive("Delivery time must be greater than zero")
 
-            .required("Days for delivery is required"),
+            .required("Delivery time is required"),
         })
         .when("type", {
           is: "TP",
           then: Yup.number()
-            .typeError("Days for delivery must be a number")
-            .positive("Days for delivery must be greater than zero")
+            .typeError("Delivery time must be a number")
+            .positive("Delivery time must be greater than zero")
 
-            .required("Days for delivery is required"),
+            .required("Delivery time is required"),
         }),
       first_payment: Yup.number()
         .when("type", {
@@ -75,6 +75,7 @@ const SendOfferModal = ({
       interval_subscription: Yup.string(),
     }),
     onSubmit: async (values, { resetForm }) => {
+      console.log(values);
       dispatch(
         createOffer(
           values,
@@ -469,30 +470,30 @@ const SendOfferModal = ({
                       for="last_name"
                       className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
                     >
-                      Days for delivery
+                      Delivery time
                     </label>
 
                     <div className="mt-1  sm:mt-0 sm:col-span-2">
                       <div className="relative">
                         <input
                           type="text"
-                          name="days_for_delivery"
-                          id="days_for_delivery"
+                          name="delivery_time"
+                          id="delivery_time"
                           form="send-offer-form"
                           className={
-                            formik.touched.days_for_delivery &&
-                            formik.errors.days_for_delivery
+                            formik.touched.delivery_time &&
+                            formik.errors.delivery_time
                               ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                               : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           }
                           placeholder="7 days"
-                          aria-describedby="days_for_delivery-description"
-                          value={formik.values.days_for_delivery}
+                          aria-describedby="delivery_time-description"
+                          value={formik.values.delivery_time}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
-                        {formik.touched.days_for_delivery &&
-                          formik.errors.days_for_delivery && (
+                        {formik.touched.delivery_time &&
+                          formik.errors.delivery_time && (
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                               <svg
                                 className="h-5 w-5 text-red-500"
@@ -510,13 +511,13 @@ const SendOfferModal = ({
                             </div>
                           )}
                       </div>
-                      {formik.touched.days_for_delivery &&
-                        formik.errors.days_for_delivery && (
+                      {formik.touched.delivery_time &&
+                        formik.errors.delivery_time && (
                           <p
                             class="mt-2 text-sm text-red-600"
-                            id="days_for_delivery-error"
+                            id="delivery_time-error"
                           >
-                            {formik.errors.days_for_delivery}
+                            {formik.errors.delivery_time}
                           </p>
                         )}
                     </div>

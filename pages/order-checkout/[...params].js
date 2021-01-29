@@ -8,7 +8,7 @@ import useAuthRequired from "hooks/useAuthRequired";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOffer } from "redux/actions/offers";
+import { getUserByJwt } from "redux/actions/auth";
 const OrderCheckout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const OrderCheckout = () => {
             {step == 0 && <ProductInfo offer={offer} />}
             {step == 1 && (
               <>
-                {isAuthenticated ? (
+                {authReducer.is_authenticated ? (
                   <PaymentMethodComponent offer={offer} />
                 ) : (
                   <BuyerInformation
@@ -72,7 +72,7 @@ const OrderCheckout = () => {
                 offer={offer}
                 step={step}
                 hanldeGoToStepTwo={hanldeGoToStepTwo}
-                isAuthenticated={isAuthenticated}
+                isAuthenticated={authReducer.is_authenticated}
               />
             )}
           </section>

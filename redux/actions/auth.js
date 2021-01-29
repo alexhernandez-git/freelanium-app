@@ -97,6 +97,25 @@ export const loadUser = () => async (dispatch, getState) => {
       });
     });
 };
+export const getUserByJwt = (token) => async (dispatch, getState) => {
+  // User Loading
+  await dispatch({ type: USER_LOADING });
+  await axios
+    .post(`${process.env.HOST}/api/users/get_user_by_email_jwt/`, {
+      token: token,
+    })
+    .then((res) => {
+      dispatch({
+        type: USER_LOADED,
+        payload: { user: res.data },
+      });
+    })
+    .catch(async (err) => {
+      await dispatch({
+        type: LOAD_USER_ERROR,
+      });
+    });
+};
 export const login = (data) => async (dispatch, getState) => {
   console.log(data);
   await axios

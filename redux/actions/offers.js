@@ -18,7 +18,7 @@ export const fetchOffer = (offer_id) => async (dispatch, getState) => {
     type: FETCH_OFFER,
   });
   await axios
-    .get(`${process.env.HOST}/api/offers/${offer_id}/`)
+    .get(`${process.env.HOST}/api/offers/${offer_id}/`, tokenConfig(getState))
     .then(async (res) => {
       await dispatch({
         type: FETCH_OFFER_SUCCESS,
@@ -26,6 +26,7 @@ export const fetchOffer = (offer_id) => async (dispatch, getState) => {
       });
     })
     .catch((err) => {
+      dispatch(createAlert("ERROR", err.response.data));
       dispatch({
         type: FETCH_OFFER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
