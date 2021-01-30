@@ -231,6 +231,7 @@ const SendOfferModal = ({
                       <SearchBuyers
                         errors={searchFormik.errors?.buyer}
                         touched={searchFormik.touched?.buyer}
+                        searchFormik={searchFormik}
                         search={search}
                         setSearch={setSearch}
                         openBuyersListRef={openBuyersListRef}

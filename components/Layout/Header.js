@@ -155,7 +155,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                     <span className="inline-flex rounded-md shadow ml-3">
                       <Link href="/dashboard">
-                        <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 cursor-pointer">
+                        <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 cursor-pointer">
                           Go to Dashboard
                         </span>
                       </Link>

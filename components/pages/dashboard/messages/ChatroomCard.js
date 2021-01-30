@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChat } from "redux/actions/chat";
+import AuthReducer from "redux/reducers/authReducer";
 import chatReducer from "redux/reducers/chatReducer";
 import { getLastMessage } from "utils/getMessages";
 
 const ChatroomCard = ({ chat, handleFetchChat }) => {
   const chatReducer = useSelector((state) => state.chatReducer);
+  const authReducer = useSelector((state) => state.authReducer);
   return (
     <li onClick={() => handleFetchChat(chat.id)}>
       <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
@@ -39,15 +41,19 @@ const ChatroomCard = ({ chat, handleFetchChat }) => {
               {chat.room_name}
             </p>
             <p className="text-sm text-gray-500 truncate">
+              {chat.last_message_sent_by_username}:{" "}
               {getLastMessage(chat.last_message)}
             </p>
           </a>
         </div>
-        {!chat.last_message_seen && chatReducer.chat?.id !== chat.id && (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            New messages
-          </span>
-        )}
+        {console.log(chat)}
+        {!chat.last_message_seen &&
+          chat.last_message_sent_by === authReducer.user?.id &&
+          chatReducer.chat?.id !== chat.id && (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              New messages
+            </span>
+          )}
       </div>
     </li>
   );

@@ -9,6 +9,7 @@ import * as Yup from "yup";
 const SearchBuyers = ({
   errors,
   touched,
+  searchFormik,
   search,
   setSearch,
   buyerSelected,
@@ -215,17 +216,18 @@ const SearchBuyers = ({
                         id="email"
                         form={"set-email-form"}
                         className={
-                          formik.touched.email && formik.errors.email
+                          searchFormik.touched.email &&
+                          searchFormik.errors.email
                             ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                             : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         }
                         placeholder="you@example.com"
                         aria-describedby="email-description"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={searchFormik.values.email}
+                        onChange={searchFormik.handleChange}
+                        onBlur={searchFormik.handleBlur}
                       />
-                      {formik.touched.email && formik.errors.email && (
+                      {searchFormik.touched.email && searchFormik.errors.email && (
                         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                           <svg
                             className="h-5 w-5 text-red-500"
@@ -243,9 +245,9 @@ const SearchBuyers = ({
                         </div>
                       )}
                     </div>
-                    {formik.touched.email && formik.errors.email && (
+                    {searchFormik.touched.email && searchFormik.errors.email && (
                       <p class="mt-2 text-sm text-red-600" id="email-error">
-                        {formik.errors.email}
+                        {searchFormik.errors.email}
                       </p>
                     )}
                   </div>
