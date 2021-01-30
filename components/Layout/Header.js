@@ -92,7 +92,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   <span className="sr-only">Workflow</span>
                   <img
                     className="h-8 w-auto sm:h-10 mr-2"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
                     alt=""
                   />
                   <span className="text-2xl font-bold text-gray-700">
@@ -105,7 +105,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   <button
                     onMouseDown={handleToggleMobileMenu}
                     type="button"
-                    className="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    className="bg-gray-50 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500"
                     id="main-menu"
                     aria-haspopup="true"
                   >
@@ -155,7 +155,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   <div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
                     <span className="inline-flex rounded-md shadow ml-3">
                       <Link href="/dashboard">
-                        <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
+                        <span className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 cursor-pointer">
                           Go to Dashboard
                         </span>
                       </Link>
@@ -172,7 +172,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                     </Link>
                     <span className="inline-flex rounded-md shadow">
                       <Link href="/login">
-                        <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                        <a className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-cyan-600 bg-white hover:bg-gray-50">
                           Log in
                         </a>
                       </Link>
@@ -180,7 +180,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                     <span className="inline-flex rounded-md shadow ml-3">
                       <span
                         onClick={handleShowModal}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
                       >
                         Try it free
                       </span>
@@ -233,7 +233,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
             <div>
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
                 alt=""
               />
             </div>
@@ -241,7 +241,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
               <button
                 onClick={handleCloseMobileMenu}
                 type="button"
-                className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500"
               >
                 <span className="sr-only">Close menu</span>
                 <svg
@@ -304,7 +304,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
             <div role="none">
               <Link href="/login">
                 <a
-                  className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                  className="block w-full px-5 py-3 text-center font-medium text-cyan-600 bg-gray-50 hover:bg-gray-100"
                   role="menuitem"
                 >
                   Log in on

@@ -96,7 +96,7 @@ const SearchBuyers = ({
                 className={
                   touched && errors
                     ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                    : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 }
               />
               {touched && errors && (
@@ -135,7 +135,7 @@ const SearchBuyers = ({
             <ul className="relative z-0 divide-y divide-gray-200 max-h-80 overflow-auto mt-2">
               {offersReducer.buyers?.results.length === 0 && (
                 <li className="bg-white">
-                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                     <span className="text-gray-600 text-sm w-full text-center">
                       No buyers found
                     </span>
@@ -150,7 +150,7 @@ const SearchBuyers = ({
                       key={buyer.id}
                       onClick={handleSelectBuyer.bind(self, buyer)}
                     >
-                      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
+                      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
                         <div className="flex-shrink-0">
                           {buyer.picture ? (
                             <img
@@ -217,7 +217,7 @@ const SearchBuyers = ({
                         className={
                           formik.touched.email && formik.errors.email
                             ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                            : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         }
                         placeholder="you@example.com"
                         aria-describedby="email-description"
@@ -254,7 +254,7 @@ const SearchBuyers = ({
                     <button
                       type="submit"
                       form={"set-email-form"}
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                     >
                       Add
                     </button>
@@ -269,7 +269,7 @@ const SearchBuyers = ({
                 <button
                   onClick={handleShowEmailInput}
                   type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:col-start-1 sm:text-sm"
                 >
                   Send offer by email
                 </button>

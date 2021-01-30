@@ -1,8 +1,19 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  isEmailAvailable,
+  isUsernameAvailable,
+  register_buyer,
+  resetEmailAvailable,
+  resetUsernameAvailable,
+} from "redux/actions/auth";
 import * as Yup from "yup";
 
 const BuyerInformation = ({ handleAuthenticate }) => {
+  const authReducer = useSelector((state) => state.authReducer);
+  const { username_available_error, email_available_error } = authReducer;
+  const dispatch = useDispatch();
   const initialValues = {
     email: "",
     username: "",
@@ -35,9 +46,29 @@ const BuyerInformation = ({ handleAuthenticate }) => {
       dispatch(register_buyer(values));
     },
   });
+
+  useEffect(() => {
+    dispatch(resetEmailAvailable());
+    if (formik.values.email != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isEmailAvailable({ email: formik.values.email }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.email]);
+
+  useEffect(() => {
+    dispatch(resetUsernameAvailable());
+    if (formik.values.username != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isUsernameAvailable({ username: formik.values.username }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.username]);
   return (
     <section aria-labelledby="payment_details_heading">
-      <form action="#" method="POST">
+      <form onSubmit={formik.handleSubmit}>
         <div className="shadow sm:rounded-md sm:overflow-hidden">
           <div className="bg-white py-6 px-4 sm:p-6">
             <div>
@@ -167,7 +198,8 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       id="email"
                       autocomplete="email"
                       className={
-                        formik.touched.email && formik.errors.email
+                        (formik.touched.email && formik.errors.email) ||
+                        email_available_error
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                           : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
@@ -175,7 +207,8 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
                     />
-                    {formik.touched.email && formik.errors.email && (
+                    {((formik.touched.email && formik.errors.email) ||
+                      email_available_error) && (
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                         <svg
                           className="h-5 w-5 text-red-500"
@@ -198,6 +231,18 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       {formik.errors.email}
                     </p>
                   )}
+                  {email_available_error &&
+                    email_available_error.data.non_field_errors.map(
+                      (message, i) => (
+                        <p
+                          key={i}
+                          class="mt-2 text-sm text-red-600"
+                          id="email-error"
+                        >
+                          {message}
+                        </p>
+                      )
+                    )}
                 </div>
               </div>
 
@@ -216,7 +261,8 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       id="username"
                       autocomplete="username"
                       className={
-                        formik.touched.username && formik.errors.username
+                        (formik.touched.username && formik.errors.username) ||
+                        username_available_error
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                           : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
@@ -224,7 +270,8 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
                     />
-                    {formik.touched.username && formik.errors.username && (
+                    {((formik.touched.username && formik.errors.username) ||
+                      username_available_error) && (
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                         <svg
                           className="h-5 w-5 text-red-500"
@@ -247,6 +294,18 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                       {formik.errors.username}
                     </p>
                   )}
+                  {username_available_error &&
+                    username_available_error.data.non_field_errors.map(
+                      (message, i) => (
+                        <p
+                          key={i}
+                          class="mt-2 text-sm text-red-600"
+                          id="email-error"
+                        >
+                          {message}
+                        </p>
+                      )
+                    )}
                 </div>
               </div>
               <div className="col-span-4 sm:col-span-2">
@@ -259,10 +318,9 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                 <div className="mt-1 ">
                   <div className="relative">
                     <input
-                      type="text"
+                      type="password"
                       name="password"
                       id="password"
-                      autocomplete="email"
                       className={
                         formik.touched.password && formik.errors.password
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
@@ -308,10 +366,9 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                 <div className="mt-1 ">
                   <div className="relative">
                     <input
-                      type="text"
+                      type="password"
                       name="password_confirmation"
                       id="password_confirmation"
-                      autocomplete="email"
                       className={
                         formik.touched.password_confirmation &&
                         formik.errors.password_confirmation
@@ -372,8 +429,7 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                 .
               </p>
               <button
-                type="button"
-                onClick={handleAuthenticate}
+                type="submit"
                 className="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Continue

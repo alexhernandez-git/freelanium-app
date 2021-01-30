@@ -105,16 +105,13 @@ export const getUserByJwt = (token) => async (dispatch, getState) => {
       token: token,
     })
     .then((res) => {
+      console.log(res.data);
       dispatch({
-        type: USER_LOADED,
-        payload: { user: res.data },
+        type: LOGIN_SUCCESS,
+        payload: res.data,
       });
     })
-    .catch(async (err) => {
-      await dispatch({
-        type: LOAD_USER_ERROR,
-      });
-    });
+    .catch(async (err) => {});
 };
 export const login = (data) => async (dispatch, getState) => {
   console.log(data);

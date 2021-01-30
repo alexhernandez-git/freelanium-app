@@ -69,7 +69,7 @@ const Header = () => {
                 {/* <!-- Mobile menu button --> */}
                 <button
                   onMouseDown={handleToggleMobileMenu}
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500"
                   aria-expanded="false"
                 >
                   <span className="sr-only">Open main menu</span>
@@ -130,12 +130,12 @@ const Header = () => {
                 />
               </div>
               <div className="hidden md:ml-6 md:flex md:space-x-8">
-                {/* <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" --> */}
+                {/* <!-- Current: "border-cyan-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" --> */}
                 <Link href="/dashboard">
                   <a
                     className={
                       router.pathname === "/dashboard"
-                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        ? "border-cyan-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                     }
                   >
@@ -146,7 +146,7 @@ const Header = () => {
                   <a
                     className={
                       /\/order?/.test(router.pathname)
-                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        ? "border-cyan-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                     }
                   >
@@ -157,13 +157,13 @@ const Header = () => {
                   <a
                     className={
                       router.pathname === "/dashboard/messages"
-                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium relative"
+                        ? "border-cyan-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium relative"
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium relative"
                     }
                   >
                     Messages
                     {authReducer?.user?.pending_messages && (
-                      <span class="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-indigo-600"></span>
+                      <span class="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-cyan-600"></span>
                     )}
                   </a>
                 </Link>
@@ -171,7 +171,7 @@ const Header = () => {
                   <a
                     className={
                       router.pathname === "/dashboard/contacts"
-                        ? "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                        ? "border-cyan-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                     }
                   >
@@ -201,7 +201,7 @@ const Header = () => {
                     <button
                       onClick={handleToggleSendOfferModal}
                       type="button"
-                      className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="relative shadow inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                     >
                       {/* <!-- Heroicon name: plus --> */}
                       <svg
@@ -243,7 +243,7 @@ const Header = () => {
                   {user && (
                     <div>
                       <button
-                        className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                         id="user-menu"
                         aria-haspopup="true"
                         onMouseDown={handleToggleDropdownMenu}
@@ -375,12 +375,12 @@ const Header = () => {
           className={`${mobileMenuOpen ? "block" : "hidden"} md:hidden`}
         >
           <div className="pt-2 pb-3 space-y-1">
-            {/* <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" --> */}
+            {/* <!-- Current: "bg-cyan-50 border-cyan-500 text-cyan-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" --> */}
             <Link href="/dashboard">
               <a
                 className={
                   router.pathname === "/dashboard"
-                    ? "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                    ? "bg-cyan-50 border-cyan-500 text-cyan-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                 }
               >
@@ -391,7 +391,7 @@ const Header = () => {
               <a
                 className={
                   /\/order?/.test(router.pathname)
-                    ? "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                    ? "bg-cyan-50 border-cyan-500 text-cyan-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                 }
               >
@@ -402,7 +402,7 @@ const Header = () => {
               <a
                 className={
                   router.pathname === "/dashboard/messages"
-                    ? "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                    ? "bg-cyan-50 border-cyan-500 text-cyan-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                 }
               >
@@ -413,7 +413,7 @@ const Header = () => {
               <a
                 className={
                   router.pathname === "/dashboard/contacts"
-                    ? "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
+                    ? "bg-cyan-50 border-cyan-500 text-cyan-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
                 }
               >

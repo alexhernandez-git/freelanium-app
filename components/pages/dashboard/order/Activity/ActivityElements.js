@@ -188,7 +188,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
             activityButton: (
               <a
                 target="_blank"
-                href={`/order-checkout/${activity?.offer?.id}/fawef`}
+                href={`/order-checkout/${activity?.offer?.id}`}
               >
                 <PrimaryButton>Continue</PrimaryButton>
               </a>

@@ -35,7 +35,7 @@ const Footer = () => {
                   <select
                     id="currency"
                     name="currency"
-                    className="appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={handleChangeCurrency}
                   >
                     {currencies.map((currency, i) =>

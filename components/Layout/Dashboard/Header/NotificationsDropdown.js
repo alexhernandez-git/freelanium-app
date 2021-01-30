@@ -70,9 +70,9 @@ const NotificationsDropdown = () => {
           onMouseDown={handleToggleNotifications}
           className={`bg-white p-1 rounded-full ${
             authReducer?.user?.pending_notifications
-              ? "text-indigo-600 hover:text-indigo-700"
+              ? "text-cyan-600 hover:text-cyan-700"
               : "text-gray-400 hover:text-gray-500"
-          }  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+          }  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500`}
         >
           <span className="sr-only">View notifications</span>
           <svg

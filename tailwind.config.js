@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       colors: {
         rose: colors.rose,
+        teal: colors.teal,
+        cyan: colors.cyan,
       },
       animation: {
         "animate-spin": "spin 1s linear infinite",
@@ -21,5 +23,8 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

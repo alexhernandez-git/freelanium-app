@@ -25,7 +25,9 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
 
   useEffect(() => {
     if (messagesReducer.first_loading) {
-      handleScrollToBottom();
+      setTimeout(() => {
+        handleScrollToBottom();
+      }, 1);
       if (chatRef.current) {
         chatRef.current.addEventListener("scroll", handleScroll);
         return () =>
