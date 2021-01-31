@@ -112,8 +112,8 @@ const loginPage = () => {
                   <span className="text-sm">Go back</span>
                 </div>
                 {authReducer.forget_password_error &&
-                  authReducer.forget_password_error.data.non_field_errors &&
-                  authReducer.forget_password_error.data.non_field_errors.map(
+                  authReducer.forget_password_error?.data?.non_field_errors &&
+                  authReducer.forget_password_error?.data?.non_field_errors.map(
                     (message, i) => (
                       <div
                         key={i}

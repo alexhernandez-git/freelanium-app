@@ -21,7 +21,7 @@ const SendOfferModal = ({
       buyer_email: "",
       title: "",
       description: "",
-      total_amount: "",
+      unit_amount: "",
       delivery_time: 0,
       first_payment: 0,
       type: "NO",
@@ -39,7 +39,7 @@ const SendOfferModal = ({
       }),
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
-      total_amount: Yup.number()
+      unit_amount: Yup.number()
         .typeError("Total offer amount must be a number")
         .positive("Total offer amount must be greater than zero")
         .required("Total offer amount time is required"),
@@ -69,7 +69,7 @@ const SendOfferModal = ({
             .required("First payment is required"),
         })
         .lessThan(
-          Yup.ref("total_amount"),
+          Yup.ref("unit_amount"),
           "First payment can not exceed total offer amount"
         ),
       interval_subscription: Yup.string(),
@@ -416,11 +416,11 @@ const SendOfferModal = ({
                       <div className="relative">
                         <input
                           type="text"
-                          name="total_amount"
-                          id="total_amount"
+                          name="unit_amount"
+                          id="unit_amount"
                           className={
-                            formik.touched.total_amount &&
-                            formik.errors.total_amount
+                            formik.touched.unit_amount &&
+                            formik.errors.unit_amount
                               ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                               : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           }
@@ -428,13 +428,13 @@ const SendOfferModal = ({
                             authReducer.currency
                           )}`}
                           form="send-offer-form"
-                          aria-describedby="total_amount"
-                          value={formik.values.total_amount}
+                          aria-describedby="unit_amount"
+                          value={formik.values.unit_amount}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         />
-                        {formik.touched.total_amount &&
-                          formik.errors.total_amount && (
+                        {formik.touched.unit_amount &&
+                          formik.errors.unit_amount && (
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                               <svg
                                 className="h-5 w-5 text-red-500"
@@ -454,12 +454,12 @@ const SendOfferModal = ({
                       </div>
                     </div>
 
-                    {formik.touched.total_amount && formik.errors.total_amount && (
+                    {formik.touched.unit_amount && formik.errors.unit_amount && (
                       <p
                         class="mt-2 text-sm text-red-600"
-                        id="total_amount-error"
+                        id="unit_amount-error"
                       >
-                        {formik.errors.total_amount}
+                        {formik.errors.unit_amount}
                       </p>
                     )}
                   </div>

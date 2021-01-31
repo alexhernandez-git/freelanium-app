@@ -51,7 +51,7 @@ const InviteContactForm = ({
               onSubmit={formik.handleSubmit}
             >
               <div className="flex-1 h-0 overflow-y-auto">
-                <div className="py-6 px-4 bg-indigo-700 sm:px-6">
+                <div className="py-6 px-4 bg-gradient-to-r from-teal-500 to-cyan-600 sm:px-6">
                   <div className="flex items-center justify-between">
                     <h2
                       id="slide-over-heading"
@@ -62,7 +62,7 @@ const InviteContactForm = ({
                     <div className="ml-3 h-7 flex items-center">
                       <button
                         type="button"
-                        className="bg-indigo-700 rounded-md text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                        className="rounded-md text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                         onClick={handleHideInviteContact}
                       >
                         <span className="sr-only">Close panel</span>

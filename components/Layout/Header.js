@@ -180,7 +180,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                     <span className="inline-flex rounded-md shadow ml-3">
                       <span
                         onClick={handleShowModal}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 cursor-pointer"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:bg-cyan-700 cursor-pointer"
                       >
                         Try it free
                       </span>

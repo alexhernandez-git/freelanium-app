@@ -1,63 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { CardElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { changePaymentMethod, attachPaymentMethod } from "redux/actions/auth";
 import Spinner from "components/ui/Spinner";
 
-const PaymentMethodComponent = () => {
+const PaymentMethodComponent = ({
+  offer,
+  formik,
+  stripeError,
+  setStripeError,
+}) => {
   const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
-  const stripe = useStripe();
-  const elements = useElements();
-  const [stripeError, setStripeError] = useState(null);
-  const stripeSubmit = async (values, resetForm) => {
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
-
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement);
-
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-
-    if (error) {
-      console.log("[error]", error);
-      setStripeError(error);
-    } else {
-      console.log("[PaymentMethod]", paymentMethod);
-      setStripeError(null);
-      dispatch(
-        attachPaymentMethod(
-          { ...values, payment_method_id: paymentMethod.id },
-          handleCloseAddPaymentMethod,
-          resetForm
-        )
-      );
-    }
-  };
-  const formik = useFormik({
-    initialValues: {
-      card_name: "",
-    },
-    validationSchema: Yup.object({
-      card_name: Yup.string()
-        .max(150, "Name must be at most 150 characters")
-        .required("Credit card name is required"),
-    }),
-    onSubmit: async (values, { resetForm }) => {
-      stripeSubmit(values, resetForm);
-    },
-  });
 
   const handleCardElement = (e) => {
     console.log(e);
@@ -76,7 +32,7 @@ const PaymentMethodComponent = () => {
 
   return (
     <section aria-labelledby="payment_details_heading">
-      <form action="#" method="POST">
+      <form onSubmit={formik.handleSubmit}>
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div className="bg-white py-6 px-4 sm:p-6 relative rounded-tl-md rounded-tr-md">
             {authReducer.adding_payment_method && (
@@ -111,7 +67,7 @@ const PaymentMethodComponent = () => {
                     className={
                       formik.touched.card_name && formik.errors.card_name
                         ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                        : "block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                     }
                     value={formik.values.card_name}
                     onChange={formik.handleChange}

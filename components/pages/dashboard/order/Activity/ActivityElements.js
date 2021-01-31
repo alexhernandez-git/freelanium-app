@@ -271,7 +271,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
                   </div>
                   <div className="px-4 py-5 sm:px-6">
                     <span className="text-3xl">
-                      ${activity?.offer?.total_amount}
+                      ${activity?.offer?.unit_amount}
                     </span>
                   </div>
                 </div>

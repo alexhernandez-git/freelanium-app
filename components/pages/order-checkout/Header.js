@@ -41,14 +41,14 @@ const Header = ({ step }) => {
                     <span className="px-6 py-1 flex items-center text-sm font-medium">
                       {step == 0 && (
                         <span
-                          className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full"
+                          className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-cyan-600 rounded-full"
                           aria-current="step"
                         >
-                          <span className="text-indigo-600">01</span>
+                          <span className="text-cyan-600">01</span>
                         </span>
                       )}
                       {(step == 1 || step == 2) && (
-                        <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
+                        <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full group-hover:bg-cyan-800">
                           <svg
                             className="w-6 h-6 text-white"
                             xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const Header = ({ step }) => {
                       <span
                         className={
                           step == 0
-                            ? "ml-4 text-sm font-medium text-indigo-600"
+                            ? "ml-4 text-sm font-medium text-cyan-600"
                             : "ml-4 text-sm font-medium text-gray-900"
                         }
                       >
@@ -107,14 +107,14 @@ const Header = ({ step }) => {
                     )}
                     {step == 1 && (
                       <span
-                        className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full"
+                        className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-cyan-600 rounded-full"
                         aria-current="step"
                       >
-                        <span className="text-indigo-600">02</span>
+                        <span className="text-cyan-600">02</span>
                       </span>
                     )}
                     {step == 2 && (
-                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
+                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 rounded-full group-hover:bg-cyan-800">
                         <svg
                           className="w-6 h-6 text-white"
                           xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +135,7 @@ const Header = ({ step }) => {
                         (step == 0 &&
                           "ml-4 text-gray-500 group-hover:text-gray-900") ||
                         (step == 1 &&
-                          "ml-4 text-sm font-medium text-indigo-600") ||
+                          "ml-4 text-sm font-medium text-cyan-600") ||
                         (step == 2 && "ml-4 text-sm font-medium text-gray-900")
                       }
                     >
@@ -185,7 +185,7 @@ const Header = ({ step }) => {
               <select
                 id="currency"
                 name="currency"
-                className="cursor-pointer appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="cursor-pointer appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                 onChange={handleChangeCurrency}
               >
                 {currencies.map((currency) =>

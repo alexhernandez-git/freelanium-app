@@ -1,6 +1,10 @@
+import getSymbolFromCurrency from "currency-symbol-map";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const ProductInfo = ({ offer }) => {
+  const authReducer = useSelector((state) => state.authReducer);
+
   return (
     <div>
       {offer?.type === "TP" && (
@@ -19,10 +23,11 @@ const ProductInfo = ({ offer }) => {
         <div>
           <p className="mt text-sm text-gray-500">{offer?.description}</p>
         </div>
-        <p className="hidden md:flex pl-20 pr-5 font-bold">
-          ${offer?.total_amount}{" "}
+        <p className="hidden md:flex pl-20 pr-5 font-medium text-gray-600">
+          {getSymbolFromCurrency(authReducer.currency)}
+          {offer?.subtotal}
           {offer?.type === "RO" && (
-            <span className="ml-1 font-normal">
+            <span className="font-normal">
               {offer?.interval_subscription === "AN" ? "/year" : "/month"}
             </span>
           )}
