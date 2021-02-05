@@ -170,7 +170,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
 
   useEffect(() => {
     const setActivityData = async () => {
-      switch (type) {
+      switch (activity.status) {
         case "AC":
           await setData({
             activityIcon: SuccessIcon(),

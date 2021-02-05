@@ -38,7 +38,9 @@ const billing = () => {
       const paymentMethod = authReducer.user?.payment_methods.find(
         (pm) => pm.id == planDefaultPaymentMethod
       );
-      setPlanPaymentMethod(paymentMethod);
+      if (paymentMethod) {
+        setPlanPaymentMethod(paymentMethod);
+      }
     }
   }, [
     authReducer.is_loading,

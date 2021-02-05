@@ -27,6 +27,62 @@ const earnings = () => {
       {/* Asside */}
       <SettingsLayout>
         <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+          <div class="bg-gray-50 pt-12 sm:pt-16 shadow sm:rounded-md sm:overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                  Earnings
+                </h2>
+                {/* <p class="mt-3 text-xl text-gray-500 sm:mt-4">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Repellendus repellat laudantium.
+                </p> */}
+              </div>
+            </div>
+            <div class="mt-10 pb-12 bg-white sm:pb-16">
+              <div class="relative">
+                <div class="absolute inset-0 h-1/2 bg-gray-50"></div>
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div class="max-w-4xl mx-auto">
+                    <dl class="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-4">
+                      <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                        <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
+                          Net income
+                        </dt>
+                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                          $1000
+                        </dd>
+                      </div>
+                      <div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                        <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
+                          Withdrawn
+                        </dt>
+                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                          $323
+                        </dd>
+                      </div>
+                      <div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                        <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
+                          Used for purchases
+                        </dt>
+                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                          $323
+                        </dd>
+                      </div>
+                      <div class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+                        <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
+                          Available for withdrawal
+                        </dt>
+                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                          $323
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <form action="#" method="POST">
             <div className="shadow sm:rounded-md sm:overflow-hidden">
               <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
@@ -54,7 +110,7 @@ const earnings = () => {
                         {/* <Link href="/settings/billing-information">
                                 <a
                                   href="#"
-                                  class="block w-full text-center rounded-lg border border-transparent bg-indigo-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-indigo-700"
+                                  class="block w-full text-center rounded-lg border border-transparent bg-cyan-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-cyan-700"
                                   aria-describedby="tier-growth"
                                 >
                                   Start your trial
@@ -63,7 +119,7 @@ const earnings = () => {
 
                         {authReducer.stripe_connecting ? (
                           <>
-                            <span class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                            <span class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600  hover:bg-cyan-700">
                               <Spinner />
                             </span>
                           </>
@@ -76,7 +132,7 @@ const earnings = () => {
                               >
                                 <a
                                   target="_blank"
-                                  class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700"
+                                  class="flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700  px-5 py-3 border border-transparent text-base font-medium rounded-md text-white"
                                 >
                                   Stripe dashboard
                                 </a>
@@ -85,7 +141,7 @@ const earnings = () => {
                               <Link
                                 href={`https://connect.stripe.com/express/oauth/authorize?response_type=code&amp;client_id=${process.env.STRIPE_CLIENT_ID}&amp;scope=read_write`}
                               >
-                                <a class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700">
+                                <a class="flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700  px-5 py-3 border border-transparent text-base font-medium rounded-md text-white">
                                   Connect with stripe
                                 </a>
                               </Link>
@@ -100,7 +156,7 @@ const earnings = () => {
               {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-cyan-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Save
                 </button>

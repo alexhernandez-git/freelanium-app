@@ -90,21 +90,21 @@ export const createOffer = (
 
 export const acceptOffer = (data) => async (dispatch, getState) => {
   await dispatch({
-    type: FETCH_OFFER,
+    type: ACCEPT_OFFER,
   });
   console.log(data);
   await axios
     .post(`${process.env.HOST}/api/orders/`, data, tokenConfig(getState))
     .then(async (res) => {
       await dispatch({
-        type: FETCH_OFFER_SUCCESS,
+        type: ACCEPT_OFFER_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch(createAlert("ERROR", err.response.data));
       dispatch({
-        type: FETCH_OFFER_FAIL,
+        type: ACCEPT_OFFER_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });
     });

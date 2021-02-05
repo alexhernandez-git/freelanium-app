@@ -166,12 +166,29 @@ const Header = ({ step }) => {
                 <li className="relative flex-1 flex border-none">
                   <span className="group flex items-center">
                     <span className="px-6 py-1 flex items-center text-sm font-medium">
-                      <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-full group-hover:border-gray-400">
-                        <span className="text-gray-500 group-hover:text-gray-900">
-                          03
+                      {step < 2 && (
+                        <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-full group-hover:border-gray-400">
+                          <span className="text-gray-500 group-hover:text-gray-900">
+                            03
+                          </span>
                         </span>
-                      </span>
-                      <span className="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900">
+                      )}
+                      {step == 2 && (
+                        <span
+                          className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-cyan-600 rounded-full"
+                          aria-current="step"
+                        >
+                          <span className="text-cyan-600">03</span>
+                        </span>
+                      )}
+                      <span
+                        className={
+                          (step < 2 &&
+                            "ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900") ||
+                          (step == 2 &&
+                            "ml-4 text-sm font-medium text-cyan-600")
+                        }
+                      >
                         Access to dasboard
                       </span>
                     </span>

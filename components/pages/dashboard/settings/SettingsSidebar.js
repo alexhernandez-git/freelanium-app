@@ -13,7 +13,7 @@ const SettingsSidebar = () => {
           <a
             className={
               router.pathname === "/dashboard/settings"
-                ? "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                ? "bg-gray-50 text-cyan-700 hover:text-cyan-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                 : "text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium"
             }
             aria-current="page"
@@ -21,7 +21,7 @@ const SettingsSidebar = () => {
             <svg
               className={
                 router.pathname === "/dashboard/settings"
-                  ? "text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  ? "text-cyan-500 group-hover:text-cyan-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                   : "text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
               }
               xmlns="http://www.w3.org/2000/svg"
@@ -44,14 +44,14 @@ const SettingsSidebar = () => {
           <a
             className={
               router.pathname === "/dashboard/settings/security"
-                ? "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                ? "bg-gray-50 text-cyan-700 hover:text-cyan-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                 : "text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium"
             }
           >
             <svg
               className={
                 router.pathname === "/dashboard/settings/security"
-                  ? "text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                  ? "text-cyan-500 group-hover:text-cyan-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                   : "text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
               }
               xmlns="http://www.w3.org/2000/svg"
@@ -76,14 +76,14 @@ const SettingsSidebar = () => {
             <a
               className={
                 router.pathname === "/dashboard/settings/plan-and-billing"
-                  ? "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                  ? "bg-gray-50 text-cyan-700 hover:text-cyan-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                   : "text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium"
               }
             >
               <svg
                 className={
                   router.pathname === "/dashboard/settings/plan-and-billing"
-                    ? "text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                    ? "text-cyan-500 group-hover:text-cyan-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                     : "text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                 }
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,14 +111,14 @@ const SettingsSidebar = () => {
             <a
               className={
                 router.pathname === "/dashboard/settings/plan-and-billing"
-                  ? "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                  ? "bg-gray-50 text-cyan-700 hover:text-cyan-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                   : "text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium"
               }
             >
               <svg
                 className={
                   router.pathname === "/dashboard/settings/plan-and-billing"
-                    ? "text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                    ? "text-cyan-500 group-hover:text-cyan-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                     : "text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                 }
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,14 +144,14 @@ const SettingsSidebar = () => {
               <a
                 className={
                   router.pathname === "/dashboard/settings/earnings"
-                    ? "bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
+                    ? "bg-gray-50 text-cyan-700 hover:text-cyan-700 hover:bg-white group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                     : "text-gray-900 hover:text-gray-900 hover:bg-gray-50 group rounded-md px-3 py-2 flex items-center text-sm font-medium"
                 }
               >
                 <svg
                   className={
                     router.pathname === "/dashboard/settings/earnings"
-                      ? "text-indigo-500 group-hover:text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                      ? "text-cyan-500 group-hover:text-cyan-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                       : "text-gray-400 group-hover:text-gray-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"
                   }
                   xmlns="http://www.w3.org/2000/svg"

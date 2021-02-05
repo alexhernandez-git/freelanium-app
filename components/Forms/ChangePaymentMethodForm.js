@@ -129,53 +129,57 @@ const ChangePaymentMethodForm = ({
                 <fieldset>
                   <legend className="sr-only">Pricing plans</legend>
                   <ul className="relative bg-white rounded-md -space-y-px">
-                    {paymentMethods.map((payment_method, index) => (
-                      <li key={payment_method.id}>
-                        <div
-                          className={`relative border ${
-                            index === 0 && "rounded-tl-md rounded-tr-md"
-                          } p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}
-                        >
-                          <label className="flex items-center text-sm cursor-pointer">
-                            <input
-                              name="payment_method_id"
-                              type="radio"
-                              className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
-                              aria-describedby="plan-option-pricing-0 plan-option-limit-0"
-                              onChange={formikPaymentMethods.handleChange}
-                              onBlur={formikPaymentMethods.handleBlur}
-                              value={payment_method.id}
-                              checked={
-                                formikPaymentMethods.values.payment_method_id ==
-                                payment_method.id
-                              }
-                            />
-                            <span className="ml-3 text-gray-900">
-                              {payment_method.billing_details.name}
-                            </span>
-                          </label>
-                          <p
-                            id="plan-option-pricing-1"
-                            className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
-                          >
-                            <span className="font-medium">
-                              **** **** **** {payment_method.card.last4}
-                            </span>
-                          </p>
-                          <div
-                            id="plan-option-limit-1"
-                            className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:flex justify-end items-center"
-                          >
-                            <p
-                              id="plan-option-limit-2"
-                              class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
+                    {authReducer.user?.payment_methods.map(
+                      (payment_method, index) =>
+                        payment_method.id !==
+                          authReducer.user?.plan_default_payment_method && (
+                          <li key={payment_method.id}>
+                            <div
+                              className={`relative border ${
+                                index === 0 && "rounded-tl-md rounded-tr-md"
+                              } p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}
                             >
-                              {payment_method.card.brand}
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
+                              <label className="flex items-center text-sm cursor-pointer">
+                                <input
+                                  name="payment_method_id"
+                                  type="radio"
+                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
+                                  aria-describedby="plan-option-pricing-0 plan-option-limit-0"
+                                  onChange={formikPaymentMethods.handleChange}
+                                  onBlur={formikPaymentMethods.handleBlur}
+                                  value={payment_method.id}
+                                  checked={
+                                    formikPaymentMethods.values
+                                      .payment_method_id == payment_method.id
+                                  }
+                                />
+                                <span className="ml-3 text-gray-900">
+                                  {payment_method.billing_details.name}
+                                </span>
+                              </label>
+                              <p
+                                id="plan-option-pricing-1"
+                                className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
+                              >
+                                <span className="font-medium">
+                                  **** **** **** {payment_method.card.last4}
+                                </span>
+                              </p>
+                              <div
+                                id="plan-option-limit-1"
+                                className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:flex justify-end items-center"
+                              >
+                                <p
+                                  id="plan-option-limit-2"
+                                  class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
+                                >
+                                  {payment_method.card.brand}
+                                </p>
+                              </div>
+                            </div>
+                          </li>
+                        )
+                    )}
 
                     <li>
                       <div

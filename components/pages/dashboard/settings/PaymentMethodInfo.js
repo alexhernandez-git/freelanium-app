@@ -31,6 +31,8 @@ const PaymentMethodInfo = ({
               </div>
 
               <div class="col-span-4 sm:col-span-2">
+                {console.log(planPaymentMethod)}
+
                 <span className="font-bold">
                   **** **** ****{" "}
                   {planPaymentMethod && planPaymentMethod?.card.last4}

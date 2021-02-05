@@ -1,3 +1,4 @@
+import Spinner from "components/ui/Spinner";
 import getSymbolFromCurrency from "currency-symbol-map";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -10,9 +11,15 @@ const OrderSummary = ({
   formik,
 }) => {
   const authReducer = useSelector((state) => state.authReducer);
+  const offersReducer = useSelector((state) => state.offersReducer);
 
   return (
-    <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+    <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 relative">
+      {offersReducer.accepting_offer && (
+        <div className="absolute right-4 flex justify-center items-center">
+          <Spinner />
+        </div>
+      )}
       <h2 id="timeline-title" class="text-lg font-bold text-gray-900">
         Summary
       </h2>
