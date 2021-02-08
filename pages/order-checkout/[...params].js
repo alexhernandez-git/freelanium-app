@@ -14,6 +14,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { acceptOffer } from "redux/actions/offers";
+import PaymentMethodForm from "components/Forms/PaymentMethodForm";
 const OrderCheckout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -75,61 +76,23 @@ const OrderCheckout = () => {
     }
   }, [offersReducer.is_loading, authReducer.currency]);
 
-  const stripe = useStripe();
-  const elements = useElements();
   const [stripeError, setStripeError] = useState(null);
-  const stripeSubmit = async (values) => {
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement);
-
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-
-    if (error) {
-      console.log("[error]", error);
-      setStripeError(error);
-    } else {
-      console.log("[PaymentMethod]", paymentMethod);
-      setStripeError(null);
-
+  const formik = useFormik({
+    initialValues: {
+      payment_method_id: authReducer.user?.default_payment_method,
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      payment_method_id: Yup.string().required("Payment method is required"),
+    }),
+    onSubmit: async (values) => {
       dispatch(
         acceptOffer({
           ...values,
           offer: offer,
-          payment_method_id: paymentMethod.id,
         })
       );
-      // dispatch(
-      //   attachPaymentMethod(
-      //     { ...values, payment_method_id: paymentMethod.id },
-      //     handleCloseAddPaymentMethod,
-      //     resetForm
-      //   )
-      // );
-    }
-  };
-  const formik = useFormik({
-    initialValues: {
-      card_name: "",
-    },
-    validationSchema: Yup.object({
-      card_name: Yup.string()
-        .max(150, "Name must be at most 150 characters")
-        .required("Credit card name is required"),
-    }),
-    onSubmit: async (values) => {
-      stripeSubmit(values);
     },
   });
 
@@ -142,9 +105,15 @@ const OrderCheckout = () => {
     router.push("/dashboard");
   };
   return !initialDataReducer.initial_data_fetched || !offersReducer.offer ? (
-    <div className="flex justify-center items-center h-screen">
-      <Spinner />
-    </div>
+    offersReducer.error ? (
+      <div className="h-screen flex justify-center items-center text-gray-500">
+        Offer not avaliable
+      </div>
+    ) : (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    )
   ) : (
     <div>
       {/* Header */}
@@ -223,12 +192,21 @@ const OrderCheckout = () => {
                 {step == 1 && (
                   <>
                     {authReducer.is_authenticated ? (
-                      <PaymentMethodComponent
-                        offer={offer}
-                        formik={formik}
-                        stripeError={stripeError}
-                        setStripeError={setStripeError}
-                      />
+                      authReducer.user?.payment_methods ? (
+                        <PaymentMethodForm
+                          offer={offer}
+                          formikPaymentMethods={formik}
+                          stripeError={stripeError}
+                          setStripeError={setStripeError}
+                        />
+                      ) : (
+                        <PaymentMethodComponent
+                          offer={offer}
+                          formik={formik}
+                          stripeError={stripeError}
+                          setStripeError={setStripeError}
+                        />
+                      )
                     ) : (
                       <BuyerInformation
                         handleAuthenticate={handleAuthenticate}

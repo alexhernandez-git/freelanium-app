@@ -31,11 +31,12 @@ const billing = () => {
       authReducer.user?.payment_methods &&
       authReducer.user?.payment_methods.length > 0 &&
       !authReducer.changing_payment_method &&
-      !authReducer.adding_billing_information
+      !authReducer.adding_billing_information &&
+      authReducer.user?.plan_payment_methods
     ) {
       const planDefaultPaymentMethod =
         authReducer.user.plan_default_payment_method;
-      const paymentMethod = authReducer.user?.payment_methods.find(
+      const paymentMethod = authReducer.user?.plan_payment_methods.find(
         (pm) => pm.id == planDefaultPaymentMethod
       );
       if (paymentMethod) {
@@ -55,7 +56,7 @@ const billing = () => {
     <>
       {/* Asside */}
       <SettingsLayout>
-        {authReducer.user?.default_payment_method ? (
+        {authReducer.user?.plan_default_payment_method ? (
           <>
             <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
               {changingPaymentMethod ? (

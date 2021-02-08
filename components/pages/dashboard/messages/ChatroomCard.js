@@ -48,7 +48,7 @@ const ChatroomCard = ({ chat, handleFetchChat }) => {
         </div>
         {console.log(chat)}
         {!chat.last_message_seen &&
-          chat.last_message_sent_by === authReducer.user?.id &&
+          chat.last_message_sent_by !== authReducer.user?.id &&
           chatReducer.chat?.id !== chat.id && (
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
               New messages

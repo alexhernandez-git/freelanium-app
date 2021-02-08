@@ -750,6 +750,36 @@ export const becomeASeller = () => async (dispatch, getState) => {
     });
 };
 
+export const attachPlanPaymentMethod = (
+  values,
+  handleCloseAddPaymentMethod,
+  resetForm
+) => async (dispatch, getState) => {
+  dispatch({
+    type: ADD_PAYMENT_METHOD,
+  });
+  await axios
+    .patch(
+      `${process.env.HOST}/api/users/attach_plan_payment_method/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch({
+        type: ADD_PAYMENT_METHOD_SUCCESS,
+        payload: res.data,
+      });
+      resetForm({});
+      handleCloseAddPaymentMethod();
+    })
+    .catch((err) => {
+      dispatch({
+        type: ADD_PAYMENT_METHOD_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
 export const attachPaymentMethod = (
   values,
   handleCloseAddPaymentMethod,
@@ -765,10 +795,6 @@ export const attachPaymentMethod = (
       tokenConfig(getState)
     )
     .then((res) => {
-      dispatch(
-        createAlert("SUCCESS", "Your plan has been succesfully reactivated")
-      );
-
       dispatch({
         type: ADD_PAYMENT_METHOD_SUCCESS,
         payload: res.data,

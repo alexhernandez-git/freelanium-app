@@ -3,16 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changePaymentMethod,
-  attachPlanPaymentMethod,
-} from "redux/actions/auth";
+import { changePaymentMethod, attachPaymentMethod } from "redux/actions/auth";
 import Spinner from "components/ui/Spinner";
 
-const ChangePaymentMethodForm = ({
-  handleCloseChangePaymentMethod,
-  planPaymentMethod,
-}) => {
+const PaymentMethodForm = ({ formikPaymentMethods }) => {
   const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
   const stripe = useStripe();
@@ -43,7 +37,7 @@ const ChangePaymentMethodForm = ({
       console.log("[PaymentMethod]", paymentMethod);
       setStripeError(null);
       dispatch(
-        attachPlanPaymentMethod(
+        attachPaymentMethod(
           { ...values, payment_method_id: paymentMethod.id },
           handleCloseAddPaymentMethod,
           resetForm
@@ -79,33 +73,7 @@ const ChangePaymentMethodForm = ({
   const handleCloseAddPaymentMethod = (e) => {
     setAddPaymentMethod(false);
   };
-  const [paymentMethods, setPaymentMethods] = useState([]);
-  useEffect(() => {
-    if (
-      !authReducer.is_loading &&
-      planPaymentMethod &&
-      authReducer.user?.plan_payment_methods &&
-      !authReducer.adding_payment_method
-    ) {
-      const paymentMethods = authReducer.user?.plan_payment_methods.filter(
-        (pm) => pm.id !== planPaymentMethod.id
-      );
-      setPaymentMethods(paymentMethods);
-    }
-  }, [planPaymentMethod, authReducer.adding_payment_method]);
-  const formikPaymentMethods = useFormik({
-    initialValues: {
-      payment_method_id: authReducer.user?.plan_default_payment_method,
-    },
-    validationSchema: Yup.object({
-      payment_method_id: Yup.string().required("Payment method is required"),
-    }),
-    onSubmit: async (values, { resetForm }) => {
-      dispatch(
-        changePaymentMethod(values, handleCloseChangePaymentMethod, resetForm)
-      );
-    },
-  });
+
   return (
     <section aria-labelledby="payment_details_heading">
       <form onSubmit={formik.handleSubmit} id="new-payment-method-form"></form>
@@ -132,55 +100,57 @@ const ChangePaymentMethodForm = ({
                 <fieldset>
                   <legend className="sr-only">Pricing plans</legend>
                   <ul className="relative bg-white rounded-md -space-y-px">
-                    {authReducer.user?.plan_payment_methods &&
-                      authReducer.user?.plan_payment_methods.map(
-                        (payment_method, index) => (
-                          <li key={payment_method.id}>
-                            <div
-                              className={`relative border ${
-                                index === 0 && "rounded-tl-md rounded-tr-md"
-                              } p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}
-                            >
-                              <label className="flex items-center text-sm cursor-pointer">
-                                <input
-                                  name="payment_method_id"
-                                  type="radio"
-                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
-                                  aria-describedby="plan-option-pricing-0 plan-option-limit-0"
-                                  onChange={formikPaymentMethods.handleChange}
-                                  onBlur={formikPaymentMethods.handleBlur}
-                                  value={payment_method.id}
-                                  checked={
-                                    formikPaymentMethods.values
-                                      .payment_method_id == payment_method.id
-                                  }
-                                />
-                                <span className="ml-3 text-gray-900">
-                                  {payment_method.billing_details.name}
-                                </span>
-                              </label>
-                              <p
-                                id="plan-option-pricing-1"
-                                className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
-                              >
-                                <span className="font-medium">
-                                  **** **** **** {payment_method.card.last4}
-                                </span>
-                              </p>
+                    {authReducer.user?.payment_methods &&
+                      authReducer.user?.payment_methods.map(
+                        (payment_method, index) =>
+                          payment_method.id !==
+                            authReducer.user?.plan_default_payment_method && (
+                            <li key={payment_method.id}>
                               <div
-                                id="plan-option-limit-1"
-                                className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:flex justify-end items-center"
+                                className={`relative border ${
+                                  index === 0 && "rounded-tl-md rounded-tr-md"
+                                } p-4 flex flex-col md:pl-4 md:pr-6 md:grid md:grid-cols-3`}
                               >
+                                <label className="flex items-center text-sm cursor-pointer">
+                                  <input
+                                    name="payment_method_id"
+                                    type="radio"
+                                    className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
+                                    aria-describedby="plan-option-pricing-0 plan-option-limit-0"
+                                    onChange={formikPaymentMethods.handleChange}
+                                    onBlur={formikPaymentMethods.handleBlur}
+                                    value={payment_method.id}
+                                    checked={
+                                      formikPaymentMethods.values
+                                        .payment_method_id == payment_method.id
+                                    }
+                                  />
+                                  <span className="ml-3 text-gray-900">
+                                    {payment_method.billing_details.name}
+                                  </span>
+                                </label>
                                 <p
-                                  id="plan-option-limit-2"
-                                  class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
+                                  id="plan-option-pricing-1"
+                                  className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
                                 >
-                                  {payment_method.card.brand}
+                                  <span className="font-medium">
+                                    **** **** **** {payment_method.card.last4}
+                                  </span>
                                 </p>
+                                <div
+                                  id="plan-option-limit-1"
+                                  className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:flex justify-end items-center"
+                                >
+                                  <p
+                                    id="plan-option-limit-2"
+                                    class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
+                                  >
+                                    {payment_method.card.brand}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        )
+                            </li>
+                          )
                       )}
 
                     <li>
@@ -188,8 +158,8 @@ const ChangePaymentMethodForm = ({
                         className={`relative border border-gray-200 rounded-bl-md rounded-br-md ${
                           !addPaymentMethod && "px-4 py-2"
                         } ${
-                          paymentMethods &&
-                          paymentMethods.length == 0 &&
+                          authReducer.user?.payment_methods &&
+                          authReducer.user?.payment_methods.length == 0 &&
                           "rounded-tl-md rounded-tr-md"
                         } cursor-pointer`}
                         onClick={handleOpenAddPaymentMethod}
@@ -353,20 +323,12 @@ const ChangePaymentMethodForm = ({
               </div>
             </div>
           </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 flex justify-between">
-            <button
-              type="button"
-              onClick={handleCloseChangePaymentMethod}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-indigo-600  border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Change
-            </button>
+          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 flex justify-between items-center">
+            <img
+              src="/static/images/stripe-powered-by.png"
+              alt="image"
+              className="h-8"
+            />
           </div>
         </div>
       </form>
@@ -374,4 +336,4 @@ const ChangePaymentMethodForm = ({
   );
 };
 
-export default ChangePaymentMethodForm;
+export default PaymentMethodForm;

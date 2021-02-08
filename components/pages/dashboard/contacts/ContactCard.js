@@ -180,51 +180,49 @@ const ContactCard = ({ contact, id }) => {
           </div>
         </div>
       </div>
-      <Link href="/dashboard/profile">
-        <div className="flex-1 flex flex-col p-8 cursor-pointer border-b border-gray-200">
-          {/* w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full */}
-          {picture ? (
-            <img
-              className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full"
-              src={
-                new RegExp(process.env.HOST).test(picture)
-                  ? picture
-                  : process.env.HOST + picture
-              }
-              alt=""
-            />
-          ) : (
-            <span className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full overflow-hidden bg-gray-100">
-              <svg
-                className="h-full w-full text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </span>
-          )}
-          <h3 className="mt-6 text-gray-900 text-sm font-medium">{username}</h3>
-          {seller_view && (
-            <dl className="mt-1 flex-grow flex flex-col justify-between">
-              <dt className="sr-only">Title</dt>
-              {/* <dd className="text-gray-500 text-sm">Paradigm Representative</dd> */}
-              <dt className="sr-only">Role</dt>
-              <dd className="mt-3">
-                {is_seller ? (
-                  <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-                    Seller
-                  </span>
-                ) : (
-                  <span className="px-2 py-1 text-blue-800 text-xs font-medium bg-blue-100 rounded-full">
-                    Buyer
-                  </span>
-                )}
-              </dd>
-            </dl>
-          )}
-        </div>
-      </Link>
+      <div className="flex-1 flex flex-col p-8 border-b border-gray-200">
+        {/* w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full */}
+        {picture ? (
+          <img
+            className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full"
+            src={
+              new RegExp(process.env.HOST).test(picture)
+                ? picture
+                : process.env.HOST + picture
+            }
+            alt=""
+          />
+        ) : (
+          <span className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full overflow-hidden bg-gray-100">
+            <svg
+              className="h-full w-full text-gray-300"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </span>
+        )}
+        <h3 className="mt-6 text-gray-900 text-sm font-medium">{username}</h3>
+        {seller_view && (
+          <dl className="mt-1 flex-grow flex flex-col justify-between">
+            <dt className="sr-only">Title</dt>
+            {/* <dd className="text-gray-500 text-sm">Paradigm Representative</dd> */}
+            <dt className="sr-only">Role</dt>
+            <dd className="mt-3">
+              {is_seller ? (
+                <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                  Seller
+                </span>
+              ) : (
+                <span className="px-2 py-1 text-blue-800 text-xs font-medium bg-blue-100 rounded-full">
+                  Buyer
+                </span>
+              )}
+            </dd>
+          </dl>
+        )}
+      </div>
       <div>
         <div className="-mt-px flex divide-x divide-gray-200">
           <div className="-ml-px w-0 flex-1 flex">
