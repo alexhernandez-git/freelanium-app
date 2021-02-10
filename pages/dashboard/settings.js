@@ -402,6 +402,7 @@ const settings = () => {
                       onChange={personalInfoForm.handleChange}
                       onBlur={personalInfoForm.handleBlur}
                       value={personalInfoForm.values.currency}
+                      disabled
                     >
                       <option defaultValue disabled value="">
                         Select one

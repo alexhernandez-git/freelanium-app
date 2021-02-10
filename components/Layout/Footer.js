@@ -37,6 +37,7 @@ const Footer = () => {
                     name="currency"
                     className="appearance-none block w-full bg-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-10 text-base text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={handleChangeCurrency}
+                    disabled={authReducer.is_authenticated ? true : false}
                   >
                     {currencies.map((currency, i) =>
                       currency.code === defaultValue ? (

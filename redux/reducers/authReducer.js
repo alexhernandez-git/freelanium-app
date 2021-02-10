@@ -410,7 +410,7 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         is_updating_user: false,
-        user: action.payload,
+        user: { ...state.user, ...action.payload },
         currency: action.payload.currency,
       };
     case UPDATE_USER_FAIL:
