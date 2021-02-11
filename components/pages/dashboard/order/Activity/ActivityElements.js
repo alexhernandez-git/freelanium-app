@@ -76,7 +76,7 @@ const SuccessIcon = () => {
   );
 };
 
-const Offer = () => {
+export const Offer = () => {
   return (
     <li>
       <div className="relative pb-8">

@@ -10,6 +10,7 @@ import notificationsReducer from "./notificationsReducer";
 import plansReducer from "./plansReducer";
 import sellerInvoicesReducer from "./sellerInvoicesReducer";
 import offersReducer from "./offersReducer";
+import ordersReducer from "./ordersReducer";
 
 export default combineReducers({
   initialDataReducer: initialDataReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   plansReducer: plansReducer,
   sellerInvoicesReducer: sellerInvoicesReducer,
   offersReducer: offersReducer,
+  ordersReducer: ordersReducer,
 });

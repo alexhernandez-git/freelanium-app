@@ -1,23 +1,70 @@
 import Link from "next/link";
-import React from "react";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrCreateChat } from "redux/actions/chats";
 
 const OrderTabsRow = ({ order }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const authReducer = useSelector((state) => state.authReducer);
+  const getStatus = () => {
+    switch (order.status) {
+      case "AC":
+        return "Accepted";
+      case "DE":
+        return "Deliveried";
+      case "CA":
+        return "Cancelled";
+    }
+  };
+
+  const getUser = () => {
+    const user = authReducer.user;
+    if (user?.seller_view) {
+      return order?.buyer;
+    } else {
+      return order?.seller;
+    }
+  };
+
+  const handleGetOrCreateChat = () => {
+    dispatch(getOrCreateChat(getUser().id, router.push));
+  };
+
   return (
     <tr>
       <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center">
           <div class="flex-shrink-0 h-10 w-10">
-            <img
-              class="h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60"
-              alt=""
-            />
+            {getUser().picture ? (
+              <img
+                className="h-10 w-10 rounded-full"
+                src={
+                  new RegExp(process.env.HOST).test(user.picture)
+                    ? user.picture
+                    : process.env.HOST + user.picture
+                }
+                alt=""
+              />
+            ) : (
+              <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                <svg
+                  className="h-full w-full text-gray-300"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </span>
+            )}
           </div>
           <div class="ml-4">
-            <div class="text-sm font-medium text-gray-900">Jane Cooper</div>
+            <div class="text-sm font-medium text-gray-900">
+              {getUser().first_name} {getUser().last_name}
+            </div>
             <div class="text-sm text-gray-500">
-              <Link href="/dashboard/messages">
+              <div onClick={handleGetOrCreateChat} className="cursor-pointer">
                 <a className="mt-2 flex items-center text-sm text-gray-500 cursor-pointer hover:underline">
                   <svg
                     className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
@@ -31,22 +78,22 @@ const OrderTabsRow = ({ order }) => {
                   </svg>
                   <span className="truncate">Send message</span>
                 </a>
-              </Link>
+              </div>
             </div>
           </div>
         </div>
       </td>
       <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">{order}</div>
-        <div class="text-sm text-gray-500">Optimization</div>
+        <div class="text-sm text-gray-900">{order.title}</div>
+        {/* <div class="text-sm text-gray-500">Optimization</div> */}
       </td>
       <td class="px-6 py-4 whitespace-nowrap">
         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-          Completed
+          {getStatus()}
         </span>
       </td>
       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-        <Link href="/dashboard/order/1">
+        <Link href={`/dashboard/order/${order.id}/`}>
           <a class="text-indigo-600 hover:text-indigo-900">View</a>
         </Link>
       </td>

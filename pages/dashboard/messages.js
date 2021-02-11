@@ -33,16 +33,20 @@ export default function Messages() {
     setShowMessages(false);
   };
 
-  const [cantRender, authReducer] = useAuthRequired();
+  const [canRender, authReducer, initialDataFetched] = useAuthRequired();
 
   useEffect(() => {
-    if (!authReducer.is_loading && authReducer.is_authenticated) {
+    if (
+      initialDataFetched &&
+      !authReducer.is_loading &&
+      authReducer.is_authenticated
+    ) {
       const handleFetchChats = async () => {
         await dispatch(fetchChats());
       };
       handleFetchChats();
     }
-  }, [authReducer.is_loading]);
+  }, [initialDataFetched]);
 
   const chatReducer = useSelector((state) => state.chatReducer);
   const handleFetchChat = (id) => {
@@ -57,7 +61,7 @@ export default function Messages() {
       dispatch(unsetPendingMessages());
     }
   }, [authReducer.is_loading]);
-  return !cantRender ? (
+  return !canRender ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
     </div>

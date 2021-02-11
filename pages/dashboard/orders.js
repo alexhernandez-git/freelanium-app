@@ -3,13 +3,36 @@ import OrdersTabs from "components/pages/dashboard/orders/OrdersTabs";
 import OrderTabsRow from "components/pages/dashboard/orders/OrderTabs/OrderTabsRow";
 import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchOrders } from "redux/actions/orders";
 import Layout from "../../components/Layout/Dashboard/Layout";
 
 export default function Orders() {
-  const [cantRender, authReducer] = useAuthRequired();
+  const [canRender, authReducer] = useAuthRequired();
+  const dispatch = useDispatch();
+  const ordersReducer = useSelector((state) => state.ordersReducer);
 
-  return !cantRender ? (
+  useEffect(() => {
+    if (canRender) {
+      dispatch(fetchOrders());
+    }
+  }, [canRender, authReducer.user?.seller_view]);
+
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    if (search != "") {
+      const timeoutId = setTimeout(async () => {
+        await dispatch(fetchOrders(search));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    } else {
+      if (!ordersReducer.is_loading) {
+        dispatch(fetchOrders());
+      }
+    }
+  }, [search]);
+  return !canRender ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
     </div>
@@ -21,10 +44,12 @@ export default function Orders() {
           : "Your Orders"
       }
       searchBar="Search Orders"
+      searchState={{ search, setSearch }}
     >
-      {authReducer.user && authReducer.user.seller_view && (
+      {/* {authReducer.user && authReducer.user.seller_view && (
         <OrdersTabs tab="PRIORITY" />
-      )}
+      )} */}
+
       <OrdersList />
     </Layout>
   );
