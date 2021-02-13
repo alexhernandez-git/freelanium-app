@@ -10,7 +10,8 @@ export const getNotificationActivityMessage = (activity, actor) => {
         case "AC":
           return "Offer Accepted";
       }
-      break;
+    case "MR":
+      return `$${activity.activity.amount} recieved from order`;
 
     default:
       return "New notification";

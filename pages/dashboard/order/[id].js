@@ -1,8 +1,8 @@
 import Layout from "components/Layout/Dashboard/Layout";
 import OrderLayout from "components/pages/dashboard/order/OrderLayout";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   OfferActivity,
   RequestChangeDateDelivery,
@@ -13,14 +13,17 @@ import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
 import useAuthRequired from "hooks/useAuthRequired";
 import Spinner from "components/ui/Spinner";
-const BoardDnDNoSSR = dynamic(
-  () => import("components/pages/dashboard/order/Board/BoardDnD"),
-  {
-    ssr: false,
-  }
-);
+import { fetchOrder } from "redux/actions/order";
+import { useRouter } from "next/router";
+// const BoardDnDNoSSR = dynamic(
+//   () => import("components/pages/dashboard/order/Board/BoardDnD"),
+//   {
+//     ssr: false,
+//   }
+// );
 
 const OrderBoard = () => {
+  const dispatch = useDispatch();
   const optionsRef = useRef();
   const [optionsOpen, setDropdownMenuOpen] = useState(false);
   const handleToggleOptions = () => {
@@ -32,8 +35,16 @@ const OrderBoard = () => {
     }
   };
   useOutsideClick(optionsRef, () => handleCloseOptions());
-  const [cantRender, authReducer] = useAuthRequired();
-  return !cantRender ? (
+  const [canRender, authReducer, initialDataFetched] = useAuthRequired();
+  const router = useRouter();
+  const { id } = router.query;
+  useEffect(() => {
+    if ((initialDataFetched, id)) {
+      dispatch(fetchOrder(id));
+    }
+  }, initialDataFetched);
+
+  return !canRender ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
     </div>

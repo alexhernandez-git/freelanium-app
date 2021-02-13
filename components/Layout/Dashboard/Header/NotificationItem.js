@@ -44,11 +44,17 @@ const NotificationItem = ({ notification }) => {
       break;
   }
   const goToNotification = () => {
-    dispatch(getOrCreateChat(notification.actor.id, router.push));
+    if (notification.is_chat_notification) {
+      dispatch(getOrCreateChat(notification.actor.id, router.push));
+    } else {
+      router.push(
+        "/dashboard/order/" + notification.activity.activity.order.id
+      );
+    }
   };
   return (
     <li
-      className="py-4 hover:opacity-70 cursor-pointer"
+      className={`py-4 hover:opacity-70 cursor-pointer `}
       onClick={goToNotification}
     >
       <div className="flex items-center space-x-4">

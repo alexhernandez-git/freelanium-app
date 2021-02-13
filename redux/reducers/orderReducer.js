@@ -1,33 +1,29 @@
-import {
-  FETCH_ORDERS,
-  FETCH_ORDERS_SUCCESS,
-  FETCH_ORDERS_FAIL,
-} from "../types";
+import { FETCH_ORDER, FETCH_ORDER_SUCCESS, FETCH_ORDER_FAIL } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   is_loading: true,
-  orders: { results: [] },
+  order: null,
   error: null,
 };
-export default function ordersReducer(state = initialState, action) {
+export default function orderReducer(state = initialState, action) {
   switch (action.type) {
     case HYDRATE:
       // Attention! This will overwrite client state! Real apps should use proper reconciliation.
       return { ...state, ...action.payload };
-    case FETCH_ORDERS:
+    case FETCH_ORDER:
       return {
         ...state,
         is_loading: true,
       };
-    case FETCH_ORDERS_SUCCESS:
+    case FETCH_ORDER_SUCCESS:
       return {
         ...state,
         is_loading: false,
-        orders: action.payload,
+        order: action.payload,
         error: null,
       };
-    case FETCH_ORDERS_FAIL:
+    case FETCH_ORDER_FAIL:
       return {
         ...state,
         is_loading: false,

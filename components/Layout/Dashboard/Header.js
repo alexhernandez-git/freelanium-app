@@ -183,7 +183,7 @@ const Header = () => {
             <div className="flex items-center">
               <div className="hidden lg:block flex-shrink-0 mr-5">
                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium  text-green-500">
-                  Credits: $2
+                  Credits: ${user?.net_income}
                 </span>
               </div>
               {user && user.seller_view ? (

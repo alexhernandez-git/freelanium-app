@@ -18,7 +18,16 @@ const OrderTabsRow = ({ order }) => {
         return "Cancelled";
     }
   };
-
+  const getStatusColor = () => {
+    switch (order.status) {
+      case "AC":
+        return "text-green-800 bg-green-100";
+      case "DE":
+        return "text-blue-800 bg-blue-100";
+      case "CA":
+        return "text-red-800 bg-red-100";
+    }
+  };
   const getUser = () => {
     const user = authReducer.user;
     if (user?.seller_view) {
@@ -41,9 +50,9 @@ const OrderTabsRow = ({ order }) => {
               <img
                 className="h-10 w-10 rounded-full"
                 src={
-                  new RegExp(process.env.HOST).test(user.picture)
-                    ? user.picture
-                    : process.env.HOST + user.picture
+                  new RegExp(process.env.HOST).test(getUser().picture)
+                    ? getUser().picture
+                    : process.env.HOST + getUser().picture
                 }
                 alt=""
               />
@@ -88,7 +97,12 @@ const OrderTabsRow = ({ order }) => {
         {/* <div class="text-sm text-gray-500">Optimization</div> */}
       </td>
       <td class="px-6 py-4 whitespace-nowrap">
-        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+        <span
+          class={
+            "px-2 inline-flex text-xs leading-5 font-semibold rounded-full " +
+            getStatusColor()
+          }
+        >
           {getStatus()}
         </span>
       </td>

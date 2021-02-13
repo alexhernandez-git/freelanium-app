@@ -50,7 +50,7 @@ const earnings = () => {
                           Net income
                         </dt>
                         <dd class="order-1 text-5xl font-extrabold text-cyan-600">
-                          $1000
+                          ${authReducer?.user?.net_income}
                         </dd>
                       </div>
                       <div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
@@ -58,7 +58,7 @@ const earnings = () => {
                           Withdrawn
                         </dt>
                         <dd class="order-1 text-5xl font-extrabold text-cyan-600">
-                          $323
+                          ${authReducer?.user?.withdrawn}
                         </dd>
                       </div>
                       <div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
@@ -66,7 +66,7 @@ const earnings = () => {
                           Used for purchases
                         </dt>
                         <dd class="order-1 text-5xl font-extrabold text-cyan-600">
-                          $323
+                          ${authReducer?.user?.used_for_purchases}
                         </dd>
                       </div>
                       <div class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
@@ -74,7 +74,7 @@ const earnings = () => {
                           Available for withdrawal
                         </dt>
                         <dd class="order-1 text-5xl font-extrabold text-cyan-600">
-                          $323
+                          ${authReducer?.user?.available_for_withdawal}
                         </dd>
                       </div>
                     </dl>
@@ -98,12 +98,11 @@ const earnings = () => {
                       <div class="flex-1">
                         <div>
                           <h3 class="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-white text-gray-800">
-                            Recive payments
+                            Withdrawn money
                           </h3>
                         </div>
                         <div class="mt-4 text-sm text-gray-600">
-                          For send offers and recive payments connect with
-                          stripe
+                          Withdrawn money with stripe
                         </div>
                       </div>
                       <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
