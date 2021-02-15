@@ -23,7 +23,7 @@ export default function Dashboard() {
         </div>
         <div className="col-start-5 col-span-9">
           <Orders />
-          <Activity />
+          {/* <Activity /> */}
         </div>
       </div>
     </Layout>

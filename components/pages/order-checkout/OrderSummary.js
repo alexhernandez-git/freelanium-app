@@ -45,13 +45,26 @@ const OrderSummary = ({
                 {offer.service_fee}
               </span>
             </dd>
+            {offer.used_credits > 0 && (
+              <>
+                <dt class="text-sm font-medium text-gray-500   col-span-2">
+                  Used credits
+                </dt>
+                <dd class="flex text-sm text-gray-500 mt-0">
+                  <span class="flex-grow">
+                    -{getSymbolFromCurrency(authReducer.currency)}
+                    {offer.used_credits}
+                  </span>
+                </dd>
+              </>
+            )}
           </div>
           <div class="py-5 grid grid-cols-3 gap-4 border-b border-gray-200">
             <dt class="text-sm font-bold text-gray-900 col-span-2">Total</dt>
             <dd class="flex text-sm text-gray-900 mt-0">
               <span class="flex-grow font-bold">
                 {getSymbolFromCurrency(authReducer.currency)}
-                {offer?.unit_amount}
+                {(offer?.unit_amount - offer?.used_credits).toFixed(2)}
                 {offer?.type === "RO" && (
                   <span className="font-normal">
                     {offer.interval_subscription === "AN" ? "/year" : "/month"}

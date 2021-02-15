@@ -31,6 +31,8 @@ export const fetchChat = (id, handleCloseProfile = false) => async (
       }
     })
     .catch((err) => {
+      console.log(err.response);
+
       dispatch({
         type: FETCH_CHAT_FAIL,
         payload: { data: err.response.data, status: err.response.status },

@@ -11,11 +11,11 @@ const OrderTabsRow = ({ order }) => {
   const getStatus = () => {
     switch (order.status) {
       case "AC":
-        return "Accepted";
+        return "ACTIVE";
       case "DE":
-        return "Deliveried";
+        return "DELIVERIED";
       case "CA":
-        return "Cancelled";
+        return "CANCELLED";
     }
   };
   const getStatusColor = () => {

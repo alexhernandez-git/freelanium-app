@@ -64,7 +64,11 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
     setStripeError(e.error);
   };
 
-  const [addPaymentMethod, setAddPaymentMethod] = useState(false);
+  const [addPaymentMethod, setAddPaymentMethod] = useState(
+    !authReducer.user?.payment_methods ||
+      (authReducer.user?.payment_methods &&
+        authReducer.user?.payment_methods.length === 0)
+  );
   const handleOpenAddPaymentMethod = () => {
     if (!addPaymentMethod) {
       setAddPaymentMethod(true);
@@ -91,7 +95,7 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
                 id="payment_details_heading"
                 className="text-lg leading-6 font-medium text-gray-900"
               >
-                Change payment method
+                Payment methods
               </h2>
             </div>
 
@@ -158,8 +162,10 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
                         className={`relative border border-gray-200 rounded-bl-md rounded-br-md ${
                           !addPaymentMethod && "px-4 py-2"
                         } ${
-                          authReducer.user?.payment_methods &&
-                          authReducer.user?.payment_methods.length == 0 &&
+                          (!authReducer.user?.payment_methods ||
+                            (authReducer.user?.payment_methods &&
+                              authReducer.user?.payment_methods.length ===
+                                0)) &&
                           "rounded-tl-md rounded-tr-md"
                         } cursor-pointer`}
                         onClick={handleOpenAddPaymentMethod}

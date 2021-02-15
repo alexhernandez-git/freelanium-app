@@ -159,21 +159,16 @@ const settings = () => {
                     >
                       Username
                     </label>
-                    <div className="mt-1 rounded-md shadow-sm flex">
-                      <span className="bg-gray-50 border border-r-0 border-gray-300 rounded-l-md px-3 inline-flex items-center text-gray-500 sm:text-sm">
-                        fullordertracker.com/
-                      </span>
-                      <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        autoComplete="username"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                        onChange={profileForm.handleChange}
-                        onBlur={profileForm.handleBlur}
-                        value={profileForm.values.username}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      name="username"
+                      id="username"
+                      autoComplete="username"
+                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                      onChange={profileForm.handleChange}
+                      onBlur={profileForm.handleBlur}
+                      value={profileForm.values.username}
+                    />
                     {username_available && (
                       <p
                         className="mt-2 text-sm text-green-600"

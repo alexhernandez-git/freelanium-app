@@ -13,8 +13,9 @@ import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
 import useAuthRequired from "hooks/useAuthRequired";
 import Spinner from "components/ui/Spinner";
-import { fetchOrder } from "redux/actions/order";
+import { fetchOrder, fetchOrderActivities } from "redux/actions/order";
 import { useRouter } from "next/router";
+import moment from "moment";
 // const BoardDnDNoSSR = dynamic(
 //   () => import("components/pages/dashboard/order/Board/BoardDnD"),
 //   {
@@ -36,13 +37,74 @@ const OrderBoard = () => {
   };
   useOutsideClick(optionsRef, () => handleCloseOptions());
   const [canRender, authReducer, initialDataFetched] = useAuthRequired();
+
   const router = useRouter();
   const { id } = router.query;
+
   useEffect(() => {
-    if ((initialDataFetched, id)) {
-      dispatch(fetchOrder(id));
+    const handleFetchOrder = async () => {
+      if (initialDataFetched && id) {
+        await dispatch(fetchOrder(id));
+        await dispatch(fetchOrderActivities(id));
+      }
+    };
+    handleFetchOrder();
+  }, [initialDataFetched]);
+
+  const orderReducer = useSelector((state) => state.orderReducer);
+
+  const [user, setUser] = useState(null);
+  const [status, setStatus] = useState(null);
+  const getActivityComponent = (activity) => {
+    if (activity) {
+      const { type } = activity;
+      switch (type) {
+        case "OF":
+          return <OfferActivity chat={false} ac={activity} />;
+        default:
+          return false;
+      }
     }
-  }, initialDataFetched);
+  };
+  const getUser = () => {
+    if (authReducer.user?.id == orderReducer.order?.buyer?.id) {
+      setUser(orderReducer.order.seller);
+    } else {
+      setUser(orderReducer.order.buyer);
+    }
+  };
+  const getStatus = () => {
+    switch (orderReducer.order?.status) {
+      case "AC":
+        setStatus(
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            ACTIVE
+          </span>
+        );
+        break;
+      case "DE":
+        setStatus(
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            DELIVERED
+          </span>
+        );
+        break;
+      case "CA":
+        setStatus(
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-red-800">
+            CANCELLED
+          </span>
+        );
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (!orderReducer.is_lodaing && orderReducer.order) {
+      getStatus();
+      getUser();
+    }
+  }, [orderReducer.is_loading]);
 
   return !canRender ? (
     <div className="flex justify-center items-center h-screen">
@@ -50,16 +112,6 @@ const OrderBoard = () => {
     </div>
   ) : (
     <Layout noPadding>
-      {/* {authReducer.user && authReducer.user.seller_view ? (
-        <OrderLayout title={"Board"} noPadding>
-          <div
-            className="mt-5 overflow-x-auto"
-            style={{ height: "calc(100vh - 168.6px)" }}
-          >
-            <BoardDnDNoSSR />
-          </div>
-        </OrderLayout>
-      ) : ( */}
       <>
         <div class="min-h-screen bg-gray-100">
           <main class="py-10">
@@ -67,11 +119,27 @@ const OrderBoard = () => {
               <div class="flex items-center space-x-5">
                 <div class="flex-shrink-0">
                   <div class="relative">
-                    <img
-                      class="h-16 w-16 rounded-full"
-                      src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                      alt=""
-                    />
+                    {user?.picture ? (
+                      <img
+                        class="h-16 w-16 rounded-full"
+                        src={
+                          new RegExp(process.env.HOST).test(user.picture)
+                            ? user.picture
+                            : process.env.HOST + user.picture
+                        }
+                        alt=""
+                      />
+                    ) : (
+                      <span className="inline-block h-16 w-16 rounded-full overflow-hidden bg-gray-100">
+                        <svg
+                          className="h-full w-full text-gray-300"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      </span>
+                    )}
                     <span
                       class="absolute inset-0 shadow-inner rounded-full"
                       aria-hidden="true"
@@ -80,11 +148,16 @@ const OrderBoard = () => {
                 </div>
                 <div>
                   <h1 class="text-2xl font-bold text-gray-900">
-                    Ricardo Cooper
+                    {user?.first_name} {user?.last_name}
                   </h1>
                   <p class="text-sm font-medium text-gray-500">
                     Job started on{" "}
-                    <time datetime="2020-08-25">August 25, 2020</time>
+                    <time datetime={orderReducer.order?.created}>
+                      {moment(orderReducer.order?.created).format(
+                        "MMMM DD, YYYY"
+                      )}
+                    </time>
+                    {/* <time datetime="2020-08-25">August 25, 2020</time> */}
                   </p>
                 </div>
               </div>
@@ -160,51 +233,51 @@ const OrderBoard = () => {
                           Job title
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                          Add stripe functionallity to website
+                          {orderReducer.order?.title}
                         </dd>
                       </div>
                       <div class="sm:col-span-2">
                         <dt class="text-sm font-medium text-gray-500">
-                          Seller name
+                          {authReducer.user?.id == orderReducer.order?.buyer?.id
+                            ? "Buyer"
+                            : "Seller"}{" "}
+                          name
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                          Margot Foster
+                          {user?.first_name} {user?.last_name}
                         </dd>
                       </div>
 
                       <div class="sm:col-span-1">
                         <dt class="text-sm font-medium text-gray-500">Cost</dt>
-                        <dd class="mt-1 text-sm text-gray-900">$120,000</dd>
+                        <dd class="mt-1 text-sm text-gray-900">
+                          ${orderReducer.order?.unit_amount}
+                        </dd>
                       </div>
                       <div class="sm:col-span-1">
                         <dt class="text-sm font-medium text-gray-500">
                           Delivery date
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                          28th December 2021
+                          {/* 28th December 2021 */}
+                          {orderReducer.order?.delivery_date &&
+                            moment(orderReducer.order?.delivery_date).format(
+                              "DD/MM/YYYY"
+                            )}
                         </dd>
                       </div>
                       <div class="sm:col-span-2">
                         <dt class="text-sm font-medium text-gray-500">
                           Status
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
-                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            ACTIVE
-                          </span>
-                        </dd>
+                        <dd class="mt-1 text-sm text-gray-900">{status}</dd>
                       </div>
                       <div class="sm:col-span-2">
                         <dt class="text-sm font-medium text-gray-500">
                           Description
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900">
-                          Fugiat ipsum ipsum deserunt culpa aute sint do nostrud
-                          anim incididunt cillum culpa consequat. Excepteur qui
-                          ipsum aliquip consequat sint. Sit id mollit nulla
-                          mollit nostrud in ea officia proident. Irure nostrud
-                          pariatur mollit ad adipisicing reprehenderit deserunt
-                          qui eu.
+                          {orderReducer.order?.description}
                         </dd>
                       </div>
                     </dl>
@@ -213,11 +286,21 @@ const OrderBoard = () => {
               </section>
 
               <div class="space-y-6 lg:col-start-1 lg:col-span-2">
-                <ul class="-mb-8">
-                  {/* <OfferActivity /> */}
-                  <RequestChangeDateDelivery />
-                  <RequestChangeDateDeliveryAccepted />
-                </ul>
+                {orderReducer.is_loading_activities ? (
+                  <div className="flex justify-center">
+                    <Spinner />
+                  </div>
+                ) : orderReducer.activities.length == 0 ? (
+                  <span className="text-gray-500">
+                    No activity in this order
+                  </span>
+                ) : (
+                  <ul class="-mb-8">
+                    {orderReducer.activities.map((activity) =>
+                      getActivityComponent(activity)
+                    )}
+                  </ul>
+                )}
               </div>
             </div>
           </main>

@@ -2,15 +2,12 @@ import axios from "axios";
 import BuyerInformation from "components/pages/order-checkout/BuyerInformation";
 import Header from "components/pages/order-checkout/Header";
 import OrderSummary from "components/pages/order-checkout/OrderSummary";
-import PaymentMethodComponent from "components/pages/order-checkout/PaymentMethod";
 import ProductInfo from "components/pages/order-checkout/ProductInfo";
 import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserByJwt } from "redux/actions/auth";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { acceptOffer } from "redux/actions/offers";
@@ -42,6 +39,7 @@ const OrderCheckout = () => {
     delivery_time: 0,
     accepted: false,
     interval_subscription: "",
+    used_credits: 0,
   });
   useEffect(() => {
     if (!offersReducer.is_loading && offersReducer.offer) {
@@ -57,12 +55,29 @@ const OrderCheckout = () => {
           const currencyRate = res.data.rates[authReducer.currency];
           const subtotal = offersReducer.offer.unit_amount * currencyRate;
           const fixed_fee = 0.3 * currencyRate;
-          const service_fee = (subtotal * 5) / 100 + fixed_fee;
-          const unit_amount = subtotal + service_fee;
+          let service_fee;
           let payment_at_delivery = 0;
           if (offersReducer.offer?.type == "TP") {
             payment_at_delivery =
               offersReducer.offer?.payment_at_delivery * currencyRate;
+            service_fee =
+              ((subtotal + payment_at_delivery) * 5) / 100 + fixed_fee;
+          } else {
+            service_fee = (subtotal * 5) / 100 + fixed_fee;
+          }
+
+          const unit_amount = subtotal + service_fee;
+          const available_for_withdawal =
+            authReducer.user?.available_for_withdawal;
+          let used_credits = 0;
+          if (available_for_withdawal > 0) {
+            console.log("entra");
+            if (available_for_withdawal > subtotal) {
+              used_credits = subtotal;
+            } else {
+              const diff = available_for_withdawal - subtotal;
+              used_credits = subtotal + diff;
+            }
           }
           setOffer({
             ...offersReducer.offer,
@@ -70,6 +85,7 @@ const OrderCheckout = () => {
             service_fee: service_fee.toFixed(2),
             unit_amount: unit_amount.toFixed(2),
             payment_at_delivery: payment_at_delivery.toFixed(2),
+            used_credits: used_credits.toFixed(2),
           });
         })
         .catch((err) => console.log("entra"));
@@ -77,7 +93,7 @@ const OrderCheckout = () => {
   }, [offersReducer.is_loading, authReducer.currency]);
 
   const [stripeError, setStripeError] = useState(null);
-
+  console.log(offer);
   const formik = useFormik({
     initialValues: {
       payment_method_id: authReducer.user?.default_payment_method,
@@ -101,9 +117,7 @@ const OrderCheckout = () => {
       setStep(2);
     }
   }, [offersReducer.accepting_offer]);
-  const handleGoToDashboard = () => {
-    router.push("/dashboard");
-  };
+
   return !initialDataReducer.initial_data_fetched || !offersReducer.offer ? (
     offersReducer.error ? (
       <div className="h-screen flex justify-center items-center text-gray-500">
@@ -173,13 +187,12 @@ const OrderCheckout = () => {
                     </div>
                   </div>
                   <div className="mt-5 sm:mt-6">
-                    <button
-                      type="button"
-                      onClick={handleGoToDashboard}
+                    <a
+                      href="/dashboard"
                       className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                     >
                       Go to your dashboard
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -192,21 +205,12 @@ const OrderCheckout = () => {
                 {step == 1 && (
                   <>
                     {authReducer.is_authenticated ? (
-                      authReducer.user?.payment_methods ? (
-                        <PaymentMethodForm
-                          offer={offer}
-                          formikPaymentMethods={formik}
-                          stripeError={stripeError}
-                          setStripeError={setStripeError}
-                        />
-                      ) : (
-                        <PaymentMethodComponent
-                          offer={offer}
-                          formik={formik}
-                          stripeError={stripeError}
-                          setStripeError={setStripeError}
-                        />
-                      )
+                      <PaymentMethodForm
+                        offer={offer}
+                        formikPaymentMethods={formik}
+                        stripeError={stripeError}
+                        setStripeError={setStripeError}
+                      />
                     ) : (
                       <BuyerInformation
                         handleAuthenticate={handleAuthenticate}

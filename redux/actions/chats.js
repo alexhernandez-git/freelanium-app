@@ -39,9 +39,11 @@ export const fetchChats = () => async (dispatch, getState) => {
       }
     })
     .catch((err) => {
+      console.log(err.response);
+
       dispatch({
         type: FETCH_CHATS_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response.data, status: err.response?.status },
       });
     });
 };
@@ -71,9 +73,11 @@ export const getOrCreateChat = (user_id, push) => async (
       push("/dashboard/messages");
     })
     .catch((err) => {
+      console.log(err.response);
+
       dispatch({
         type: CREATE_CHAT_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response.data, status: err.response?.status },
       });
       dispatch(createAlert("ERROR", "Something went wrong"));
     });
@@ -95,9 +99,10 @@ export const addChatToFeed = (id) => async (dispatch, getState) => {
       });
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch({
         type: ADD_CHAT_TO_FEED_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };

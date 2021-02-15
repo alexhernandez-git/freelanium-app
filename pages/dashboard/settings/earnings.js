@@ -49,7 +49,7 @@ const earnings = () => {
                         <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
                           Net income
                         </dt>
-                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                        <dd class="order-1 text-3xl font-extrabold text-cyan-600">
                           ${authReducer?.user?.net_income}
                         </dd>
                       </div>
@@ -57,7 +57,7 @@ const earnings = () => {
                         <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
                           Withdrawn
                         </dt>
-                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                        <dd class="order-1 text-3xl font-extrabold text-cyan-600">
                           ${authReducer?.user?.withdrawn}
                         </dd>
                       </div>
@@ -65,7 +65,7 @@ const earnings = () => {
                         <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
                           Used for purchases
                         </dt>
-                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                        <dd class="order-1 text-3xl font-extrabold text-cyan-600">
                           ${authReducer?.user?.used_for_purchases}
                         </dd>
                       </div>
@@ -73,7 +73,7 @@ const earnings = () => {
                         <dt class="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
                           Available for withdrawal
                         </dt>
-                        <dd class="order-1 text-5xl font-extrabold text-cyan-600">
+                        <dd class="order-1 text-3xl font-extrabold text-cyan-600">
                           ${authReducer?.user?.available_for_withdawal}
                         </dd>
                       </div>
@@ -98,11 +98,11 @@ const earnings = () => {
                       <div class="flex-1">
                         <div>
                           <h3 class="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-white text-gray-800">
-                            Withdrawn money
+                            Withdrawn your money
                           </h3>
                         </div>
                         <div class="mt-4 text-sm text-gray-600">
-                          Withdrawn money with stripe
+                          Withdrawn your money with stripe
                         </div>
                       </div>
                       <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
