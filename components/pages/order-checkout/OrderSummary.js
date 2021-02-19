@@ -47,11 +47,11 @@ const OrderSummary = ({
             </dd>
             {offer.used_credits > 0 && (
               <>
-                <dt class="text-sm font-medium text-gray-500   col-span-2">
+                <dt class="text-sm font-bold text-gray-900 col-span-2">
                   Used credits
                 </dt>
-                <dd class="flex text-sm text-gray-500 mt-0">
-                  <span class="flex-grow">
+                <dd class="flex text-sm text-gray-900 mt-0">
+                  <span class="flex-grow font-bold">
                     -{getSymbolFromCurrency(authReducer.currency)}
                     {offer.used_credits}
                   </span>

@@ -16,6 +16,9 @@ import Spinner from "components/ui/Spinner";
 import { fetchOrder, fetchOrderActivities } from "redux/actions/order";
 import { useRouter } from "next/router";
 import moment from "moment";
+import DeliveryOrderModal from "components/pages/dashboard/order/DeliveryOrderModal";
+import RequestCancelationModal from "components/pages/dashboard/order/RequestCancelationModal";
+import { getOrCreateChat } from "redux/actions/chats";
 // const BoardDnDNoSSR = dynamic(
 //   () => import("components/pages/dashboard/order/Board/BoardDnD"),
 //   {
@@ -105,6 +108,56 @@ const OrderBoard = () => {
       getUser();
     }
   }, [orderReducer.is_loading]);
+  const [intervalSubscription, setIntervalSubscription] = useState("");
+  useEffect(() => {
+    if (orderReducer.order?.interval_subscription) {
+      switch (orderReducer.order?.interval_subscription) {
+        case "MO":
+          setIntervalSubscription("Month");
+          break;
+        case "AN":
+          setIntervalSubscription("Anual");
+          break;
+      }
+    }
+  }, [orderReducer.order?.interval_subscription]);
+
+  const deliveryOrderModalRef = useRef();
+  const [openDeliveryOrderModal, setOpenDeliveryOrderModal] = useState(false);
+  const handleToggleDeliveryOrderModal = () => {
+    setOpenDeliveryOrderModal(!openDeliveryOrderModal);
+  };
+  const handleCloseDeliveryOrderModal = () => {
+    if (openDeliveryOrderModal) {
+      setOpenDeliveryOrderModal(false);
+    }
+  };
+  useOutsideClick(deliveryOrderModalRef, () => handleCloseDeliveryOrderModal());
+
+  const requestCancelationModalRef = useRef();
+  const [
+    openRequestCancelationModal,
+    setOpenRequestCancelationModal,
+  ] = useState(false);
+  const handleToggleRequestCancelationModal = () => {
+    setOpenRequestCancelationModal(!openRequestCancelationModal);
+  };
+  const handleCloseRequestCancelationModal = () => {
+    if (openRequestCancelationModal) {
+      setOpenRequestCancelationModal(false);
+    }
+  };
+  useOutsideClick(requestCancelationModalRef, () =>
+    handleCloseRequestCancelationModal()
+  );
+
+  const handleGoToChat = () => {
+    if (orderReducer.order?.buyer.id == authReducer.user?.id) {
+      dispatch(getOrCreateChat(orderReducer.order?.seller.id, router.push));
+    } else {
+      dispatch(getOrCreateChat(orderReducer.order?.buyer.id, router.push));
+    }
+  };
 
   return !canRender ? (
     <div className="flex justify-center items-center h-screen">
@@ -162,13 +215,24 @@ const OrderBoard = () => {
                 </div>
               </div>
               <div class="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                <Link href="/dashboard/messages">
-                  <SecondaryButton>Message</SecondaryButton>
-                </Link>
+                <button
+                  type="button"
+                  onClick={handleToggleDeliveryOrderModal}
+                  class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                >
+                  Delivery order
+                </button>
+                <button
+                  onClick={handleGoToChat}
+                  type="button"
+                  className={`inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none `}
+                >
+                  Message
+                </button>
                 <div class="relative inline-block text-left">
                   <div>
                     <button
-                      onClick={handleToggleOptions}
+                      onMouseDown={handleToggleOptions}
                       class="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                       id="options-menu"
                       aria-haspopup="true"
@@ -190,7 +254,7 @@ const OrderBoard = () => {
                   <div
                     class={`${
                       optionsOpen ? "block" : "hidden"
-                    } origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10`}
+                    } origin-top-right absolute -right-24 sm:left-0 md:left-auto  md:right-0 mt-2 w-56  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10`}
                     ref={optionsRef}
                   >
                     <div
@@ -199,13 +263,29 @@ const OrderBoard = () => {
                       aria-orientation="vertical"
                       aria-labelledby="options-menu"
                     >
+                      {/* {orderReducer.order?.type !== "RO" && (
+                        <a
+                          href="#"
+                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          Change delivery date
+                        </a>
+                      )}
                       <a
                         href="#"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                         role="menuitem"
                       >
-                        Support
-                      </a>
+                        Increase order amount
+                      </a> */}
+                      <span
+                        onMouseDown={handleToggleRequestCancelationModal}
+                        class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        role="menuitem"
+                      >
+                        Request a cancelation
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -248,24 +328,41 @@ const OrderBoard = () => {
                         </dd>
                       </div>
 
-                      <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">Cost</dt>
+                      {/* <div class="sm:col-span-1">
+                        <dt class="text-sm font-medium text-gray-500">
+                          Cost{" "}
+                          <span className="text-xs font-normal text-gray-400">
+                            (with fees)
+                          </span>
+                        </dt>
                         <dd class="mt-1 text-sm text-gray-900">
                           ${orderReducer.order?.unit_amount}
                         </dd>
-                      </div>
-                      <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">
-                          Delivery date
-                        </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
-                          {/* 28th December 2021 */}
-                          {orderReducer.order?.delivery_date &&
-                            moment(orderReducer.order?.delivery_date).format(
-                              "DD/MM/YYYY"
-                            )}
-                        </dd>
-                      </div>
+                      </div> */}
+                      {orderReducer.order?.type == "RO" ? (
+                        <div class="sm:col-span-1">
+                          <dt class="text-sm font-medium text-gray-500">
+                            Interval subscription
+                          </dt>
+                          <dd class="mt-1 text-sm text-gray-900">
+                            {/* 28th December 2021 */}
+                            {intervalSubscription}
+                          </dd>
+                        </div>
+                      ) : (
+                        <div class="sm:col-span-1">
+                          <dt class="text-sm font-medium text-gray-500">
+                            Delivery date
+                          </dt>
+                          <dd class="mt-1 text-sm text-gray-900">
+                            {/* 28th December 2021 */}
+                            {orderReducer.order?.delivery_date &&
+                              moment(orderReducer.order?.delivery_date).format(
+                                "DD/MM/YYYY"
+                              )}
+                          </dd>
+                        </div>
+                      )}
                       <div class="sm:col-span-2">
                         <dt class="text-sm font-medium text-gray-500">
                           Status
@@ -307,6 +404,16 @@ const OrderBoard = () => {
         </div>
       </>
       {/* )} */}
+      <DeliveryOrderModal
+        openDeliveryOrderModal={openDeliveryOrderModal}
+        deliveryOrderModalRef={deliveryOrderModalRef}
+        handleCloseDeliveryOrderModal={handleCloseDeliveryOrderModal}
+      />
+      <RequestCancelationModal
+        openRequestCancelationModal={openRequestCancelationModal}
+        requestCancelationModalRef={requestCancelationModalRef}
+        handleCloseRequestCancelationModal={handleCloseRequestCancelationModal}
+      />
     </Layout>
   );
 };

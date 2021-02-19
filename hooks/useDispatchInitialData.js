@@ -18,6 +18,7 @@ const useDispatchInitialData = async (dispatch, router) => {
   }
   await dispatch(loadCurrency());
   await dispatch(fetchPlans());
+
   console.log(router);
   switch (pathname) {
     case "/order-checkout/[...params]":

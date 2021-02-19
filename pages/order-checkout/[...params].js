@@ -61,17 +61,16 @@ const OrderCheckout = () => {
             payment_at_delivery =
               offersReducer.offer?.payment_at_delivery * currencyRate;
             service_fee =
-              ((subtotal + payment_at_delivery) * 5) / 100 + fixed_fee;
+              ((subtotal + payment_at_delivery) * 5) / 100 + fixed_fee * 2;
           } else {
             service_fee = (subtotal * 5) / 100 + fixed_fee;
           }
 
           const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
-            authReducer.user?.available_for_withdawal;
+            authReducer.user?.available_for_withdawal * currencyRate;
           let used_credits = 0;
           if (available_for_withdawal > 0) {
-            console.log("entra");
             if (available_for_withdawal > subtotal) {
               used_credits = subtotal;
             } else {

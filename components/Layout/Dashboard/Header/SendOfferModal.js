@@ -22,8 +22,8 @@ const SendOfferModal = ({
       title: "",
       description: "",
       unit_amount: "",
-      delivery_time: 0,
-      first_payment: 0,
+      delivery_time: null,
+      first_payment: null,
       type: "NO",
       interval_subscription: "MO",
     },
@@ -44,6 +44,7 @@ const SendOfferModal = ({
         .positive("Total offer amount must be greater than zero")
         .required("Total offer amount time is required"),
       delivery_time: Yup.number()
+        .nullable()
         .when("type", {
           is: "NO",
           then: Yup.number()
@@ -55,12 +56,14 @@ const SendOfferModal = ({
         .when("type", {
           is: "TP",
           then: Yup.number()
+
             .typeError("Delivery time must be a number")
             .positive("Delivery time must be greater than zero")
 
             .required("Delivery time is required"),
         }),
       first_payment: Yup.number()
+        .nullable()
         .when("type", {
           is: "TP",
           then: Yup.number()
@@ -87,6 +90,7 @@ const SendOfferModal = ({
       );
     },
   });
+  console.log(formik.errors);
   const handleSetBuyer = (buyer_id) => {
     formik.setFieldValue("send_offer_by_email", false);
     formik.setFieldValue("buyer", buyer_id);
@@ -366,10 +370,10 @@ const SendOfferModal = ({
                           {formik.errors.description}
                         </p>
                       )}
-                      <p className="mt-2 text-sm text-gray-500">
+                      {/* <p className="mt-2 text-sm text-gray-500">
                         Brief description for your profile. URLs are
                         hyperlinked.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>
