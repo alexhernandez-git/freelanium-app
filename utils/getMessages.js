@@ -10,6 +10,15 @@ export const getNotificationActivityMessage = (activity, actor) => {
         case "AC":
           return "Offer Accepted";
       }
+    case "DE":
+      switch (activity.activity.status) {
+        case "PE":
+          return "Order delivered by " + actor.username;
+      }
+      switch (activity.activity.status) {
+        case "AC":
+          return "Offer Accepted";
+      }
     case "RE":
       return `$${activity.activity.amount} recieved from order`;
 
@@ -24,7 +33,8 @@ export const getActivityMessage = (activity__type) => {
       return "New Offer";
     case "OFAC":
       return "Offer Accepted";
-
+    case "DEPE":
+      return "Order delivered";
     default:
       return "";
   }
@@ -36,6 +46,8 @@ export const getLastMessage = (last_message) => {
       return "New Offer";
     case "OFAC":
       return "Offer Accepted";
+    case "DEPE":
+      return "Order delivered";
     default:
       return last_message;
   }

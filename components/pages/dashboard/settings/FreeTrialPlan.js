@@ -88,7 +88,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                   </svg>
                                 </div>
                                 <p className="ml-3 text-base text-gray-700">
-                                  No fees
+                                  No hidden fees
                                 </p>
                               </li>
                               <li className="flex items-start">

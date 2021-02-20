@@ -218,13 +218,15 @@ const OrderBoard = () => {
                 </div>
               </div>
               <div class="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                <button
-                  type="button"
-                  onClick={handleToggleDeliveryOrderModal}
-                  class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                >
-                  Delivery order
-                </button>
+                {orderReducer.order?.seller?.id === authReducer.user?.id && (
+                  <button
+                    type="button"
+                    onClick={handleToggleDeliveryOrderModal}
+                    class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                  >
+                    Delivery order
+                  </button>
+                )}
                 <button
                   onClick={handleGoToChat}
                   type="button"

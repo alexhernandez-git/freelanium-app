@@ -10,10 +10,11 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   const chatReducer = useSelector((state) => state.chatReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
 
+  const messagesEndRef = useRef(null);
   const chatRef = useRef();
   const handleScrollToBottom = () => {
     if (chatRef.current) {
-      chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -201,6 +202,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                       <NotMyMessage key={message.id} message={message} />
                     )
                   )}
+                <div ref={messagesEndRef} />
               </ul>
             </div>
             {chatReducer.chat && (

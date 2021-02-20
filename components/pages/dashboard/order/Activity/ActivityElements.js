@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import axios from "axios";
+import getSymbolFromCurrency from "currency-symbol-map";
 // Alert icon
 
 //   <svg
@@ -202,7 +204,6 @@ export const OfferActivity = ({ ac, chat = false }) => {
       setActivityData();
     }
   }, [type]);
-  console.log(activity);
   const [offerType, setOfferType] = useState("");
   useEffect(() => {
     if (activity?.offer?.type) {
@@ -233,6 +234,33 @@ export const OfferActivity = ({ ac, chat = false }) => {
       }
     }
   }, [activity?.offer?.interval_subscription]);
+  const [offer, setOffer] = useState(activity?.offer);
+  useEffect(() => {
+    if (activity?.offer) {
+      axios
+        .get(
+          `https://api.exchangeratesapi.io/${
+            offer.rate_date ? offer.rate_date : "latest"
+          }?base=USD`
+        )
+        .then((res) => {
+          const currencyRate = res.data.rates[authReducer.currency];
+          const first_payment = activity?.offer.first_payment * currencyRate;
+          const subtotal = activity?.offer.subtotal * currencyRate;
+          const unit_amount = activity?.offer.unit_amount * currencyRate;
+          const payment_at_delivery =
+            activity?.offer.payment_at_delivery * currencyRate;
+          setOffer({
+            ...activity?.offer,
+            first_payment: first_payment.toFixed(2),
+            subtotal: subtotal.toFixed(2),
+            unit_amount: unit_amount.toFixed(2),
+            payment_at_delivery: payment_at_delivery.toFixed(2),
+          });
+        })
+        .catch((err) => setOffer(activity?.offer));
+    }
+  }, [activity?.offer]);
   return (
     <li>
       <div className={`relative pb-8 text-left ${chat && "overflow-auto"}`}>
@@ -298,12 +326,13 @@ export const OfferActivity = ({ ac, chat = false }) => {
                 <div className="flex justify-between items-center">
                   <div className="px-4 py-5 sm:px-6 truncate">
                     <h3 className="text-xl font-medium text-gray-900 truncate">
-                      {activity?.offer?.title}
+                      {offer?.title}
                     </h3>
                   </div>
                   <div className="px-4 py-5 sm:px-6">
                     <span className="text-3xl">
-                      ${activity?.offer?.unit_amount}
+                      {getSymbolFromCurrency(authReducer.currency)}
+                      {offer?.unit_amount}
                     </span>
                   </div>
                 </div>
@@ -314,8 +343,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         Full name
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                        {activity?.offer?.seller?.first_name}{" "}
-                        {activity?.offer?.seller?.last_name}
+                        {offer?.seller?.first_name} {offer?.seller?.last_name}
                       </dd>
                     </div>
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -323,7 +351,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         Title
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                        {activity?.offer?.title}
+                        {offer?.title}
                       </dd>
                     </div>
                     <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -331,7 +359,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         Description
                       </dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                        {activity?.offer?.description}
+                        {offer?.description}
                       </dd>
                     </div>
                     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -342,14 +370,15 @@ export const OfferActivity = ({ ac, chat = false }) => {
                         {offerType}
                       </dd>
                     </div>
-                    {activity?.offer?.type === "TP" && (
+                    {offer?.type === "TP" && (
                       <>
                         <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                           <dt className="text-sm font-medium text-gray-500">
                             First payment
                           </dt>
                           <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                            ${activity?.offer?.first_payment}
+                            {getSymbolFromCurrency(authReducer.currency)}
+                            {offer.first_payment}
                           </dd>
                         </div>
                         <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -357,12 +386,13 @@ export const OfferActivity = ({ ac, chat = false }) => {
                             Payment at delivery
                           </dt>
                           <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                            ${activity?.offer?.payment_at_delivery}
+                            {getSymbolFromCurrency(authReducer.currency)}
+                            {offer.payment_at_delivery}
                           </dd>
                         </div>
                       </>
                     )}
-                    {activity?.offer?.type === "RO" ? (
+                    {offer?.type === "RO" ? (
                       <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500">
                           Interval subscription
@@ -377,11 +407,11 @@ export const OfferActivity = ({ ac, chat = false }) => {
                           Days for delivery
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all whitespace-pre-line">
-                          {activity?.offer?.delivery_time} days
+                          {offer?.delivery_time} days
                         </dd>
                       </div>
                     )}
-                    {activity?.offer?.buyer?.id === authReducer.user?.id && (
+                    {offer?.buyer?.id === authReducer.user?.id && (
                       <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-medium text-gray-500"></dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end">
@@ -869,7 +899,6 @@ export const OrderDelivered = ({ ac, chat = false }) => {
 
   useEffect(() => {
     const setActivityData = async () => {
-      console.log(activity);
       switch (activity.status) {
         case "AC":
           await setData({
@@ -884,7 +913,7 @@ export const OrderDelivered = ({ ac, chat = false }) => {
           await setData({
             activityIcon: InfoIcon(),
             activityTitle: "Order delivery",
-            activityMessage: `${activity?.delivery?.order?.seller?.first_name} deliveried the order`,
+            activityMessage: `${activity?.delivery?.order?.seller?.first_name} delivered the order`,
             activityButton: (
               <a
                 target="_blank"
@@ -902,7 +931,6 @@ export const OrderDelivered = ({ ac, chat = false }) => {
       setActivityData();
     }
   }, [type]);
-  console.log(data);
   return (
     <li>
       <div className="relative pb-8">
@@ -1044,15 +1072,18 @@ export const OrderDelivered = ({ ac, chat = false }) => {
                       </span>
                     </dd>
                   </div>
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500"></dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                      <span className="mr-3 text-gray-500 cursor-pointer">
-                        Request revision
-                      </span>
-                      <PrimaryButton>Accept</PrimaryButton>
-                    </dd>
-                  </div>
+                  {activity?.delivery?.order?.buyer?.id ===
+                    authReducer.user?.id && (
+                    <div className="sm:col-span-2">
+                      <dt className="text-sm font-medium text-gray-500"></dt>
+                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
+                        <span className="mr-3 text-gray-500 cursor-pointer">
+                          Request revision
+                        </span>
+                        <PrimaryButton>Accept</PrimaryButton>
+                      </dd>
+                    </div>
+                  )}
                 </dl>
               </div>
             </div>

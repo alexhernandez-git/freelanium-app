@@ -27,15 +27,31 @@ const OrderSummary = ({
       <div class="mt-4 flow-root">
         <dl class="divide-y divide-gray-200">
           <div class="py-5 grid grid-cols-3 gap-4 pt-5">
-            <dt class="text-sm font-medium text-gray-500  col-span-2">
-              Subtotal
-            </dt>
-            <dd class="flex text-sm text-gray-500 mt-0">
-              <span class="flex-grow">
-                {getSymbolFromCurrency(authReducer.currency)}
-                {offer.subtotal}
-              </span>
-            </dd>
+            {offer?.type === "TP" ? (
+              <>
+                <dt class="text-sm font-medium text-gray-500  col-span-2">
+                  Subtotal first payment
+                </dt>
+                <dd class="flex text-sm text-gray-500 mt-0">
+                  <span class="flex-grow">
+                    {getSymbolFromCurrency(authReducer.currency)}
+                    {offer.first_payment}
+                  </span>
+                </dd>
+              </>
+            ) : (
+              <>
+                <dt class="text-sm font-medium text-gray-500  col-span-2">
+                  Subtotal
+                </dt>
+                <dd class="flex text-sm text-gray-500 mt-0">
+                  <span class="flex-grow">
+                    {getSymbolFromCurrency(authReducer.currency)}
+                    {offer.subtotal}
+                  </span>
+                </dd>
+              </>
+            )}
             <dt class="text-sm font-medium text-gray-500   col-span-2">
               Service fee
             </dt>

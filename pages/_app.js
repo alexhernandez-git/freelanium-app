@@ -88,7 +88,7 @@ function WrappedApp({ Component, pageProps }) {
               await dispatch(
                 createAlert(
                   "SUCCESS",
-                  "Offer deliveried from " + data.sent_by__username
+                  "Order delivered by " + data.sent_by__username
                 )
               );
             }
