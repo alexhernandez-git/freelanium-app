@@ -1,21 +1,26 @@
 import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import { OfferActivity } from "../order/Activity/ActivityElements";
+import {
+  OfferActivity,
+  OrderDelivered,
+} from "../order/Activity/ActivityElements";
+const getActivityComponent = (message) => {
+  if (message.activity) {
+    const { type } = message.activity;
+    console.log(type);
 
-export const MyMessage = ({ message }) => {
-  const getActivityComponent = () => {
-    if (message.activity) {
-      const { type } = message.activity;
-      switch (type) {
-        case "OF":
-          return <OfferActivity chat={true} ac={message.activity} />;
-        default:
-          return false;
-      }
+    switch (type) {
+      case "OF":
+        return <OfferActivity chat={true} ac={message.activity} />;
+      case "DE":
+        return <OrderDelivered chat={true} ac={message.activity} />;
+      default:
+        return false;
     }
-  };
-
+  }
+};
+export const MyMessage = ({ message }) => {
   const authReducer = useSelector((state) => state.authReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
   const messageIndex = messagesReducer.messages.results.indexOf(message);
@@ -97,23 +102,12 @@ export const MyMessage = ({ message }) => {
           )}
         </div>
       </div>
-      {getActivityComponent()}
+      {getActivityComponent(message)}
     </li>
   );
 };
 
 export const NotMyMessage = ({ message }) => {
-  const getActivityComponent = () => {
-    if (message.activity) {
-      const { type } = message.activity;
-      switch (type) {
-        case "OF":
-          return <OfferActivity chat={true} ac={message.activity} />;
-        default:
-          return false;
-      }
-    }
-  };
   const authReducer = useSelector((state) => state.authReducer);
   const messagesReducer = useSelector((state) => state.messagesReducer);
   const messageIndex = messagesReducer.messages.results.indexOf(message);
@@ -190,7 +184,7 @@ export const NotMyMessage = ({ message }) => {
           </div>
         </div>
       </div>
-      {getActivityComponent()}
+      {getActivityComponent(message)}
     </li>
   );
 };

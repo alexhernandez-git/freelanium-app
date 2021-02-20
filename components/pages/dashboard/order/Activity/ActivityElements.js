@@ -855,38 +855,114 @@ export const RequestIncreaseMoneyAccepted = () => {
   );
 };
 
-export const OfferDelivered = () => {
+export const OrderDelivered = ({ ac, chat = false }) => {
+  const { activity, type } = ac;
+  const [status, setStatus] = useState("ACCEPTED");
+  const [data, setData] = useState({
+    activityTitle: "",
+    activityMessage: "",
+    activityIcon: null,
+    activityButton: null,
+    opacity: false,
+  });
+  const authReducer = useSelector((state) => state.authReducer);
+
+  useEffect(() => {
+    const setActivityData = async () => {
+      console.log(activity);
+      switch (activity.status) {
+        case "AC":
+          await setData({
+            activityIcon: SuccessIcon(),
+            activityTitle: "Offer Accepted",
+            activityMessage: `${activity?.delivery?.order?.buyer?.first_name} has accepted the offer.`,
+            activityButton: <PrimaryButton disabled>Accepted</PrimaryButton>,
+            opacity: true,
+          });
+          break;
+        default:
+          await setData({
+            activityIcon: InfoIcon(),
+            activityTitle: "Order delivery",
+            activityMessage: `${activity?.delivery?.order?.seller?.first_name} deliveried the order`,
+            activityButton: (
+              <a
+                target="_blank"
+                href={`/order-checkout/${activity?.offer?.id}`}
+              >
+                <PrimaryButton>Accept</PrimaryButton>
+              </a>
+            ),
+            opacity: false,
+          });
+          break;
+      }
+    };
+    if (status) {
+      setActivityData();
+    }
+  }, [type]);
+  console.log(data);
   return (
     <li>
       <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
+        {!chat && (
+          <span
+            className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+            aria-hidden="true"
+          ></span>
+        )}
         <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {InfoIcon()}
+          {!chat && (
+            <div>
+              <div className="relative px-1">
+                <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                  {data.activityIcon}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="min-w-0 flex-1">
             <div className="flex justify-between">
               <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Delivery
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Alex delivered the order.
-                </p>
+                {chat ? (
+                  <div className="sm:flex items-center">
+                    <div>
+                      <div className="relative px-1">
+                        <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                          {data.activityIcon}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:ml-2">
+                      <span href="#" className="font-medium text-gray-900">
+                        {data.activityTitle}
+                      </span>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                        {data.activityMessage}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span href="#" className="font-medium text-gray-900">
+                      {data.activityTitle}
+                    </span>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      {data.activityMessage}
+                    </p>
+                  </>
+                )}
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
+              <p className="mt-0.5 text-sm text-gray-500">
+                {moment(ac?.created).fromNow()}
+              </p>
             </div>
             <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg">
               <div className="px-4 py-5 sm:px-6">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Añadir funcionalidad de stripe a tu web
+                  {activity?.delivery?.order?.title}
                 </h3>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -896,7 +972,8 @@ export const OfferDelivered = () => {
                       Full name
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900">
-                      Margot Foster
+                      {activity?.delivery?.order?.seller?.first_name}{" "}
+                      {activity?.delivery?.order?.seller?.last_name}
                     </dd>
                   </div>
                   <div className="sm:col-span-2">
@@ -904,14 +981,10 @@ export const OfferDelivered = () => {
                       Delivery message
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Omnis soluta sunt adipisci consectetur suscipit vitae
-                      asperiores vero, beatae nesciunt magnam quibusdam illum
-                      quaerat fugiat odio aliquam accusamus harum recusandae
-                      illo.
+                      {activity?.delivery?.response}
                     </dd>
                   </div>
-                  <div className="sm:col-span-2">
+                  {/* <div className="sm:col-span-2">
                     <div className="flex">
                       <svg
                         className="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300 mr-3"
@@ -956,7 +1029,7 @@ export const OfferDelivered = () => {
                         />
                       </svg>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="sm:col-span-2">
                     <dt className="text-sm font-medium text-gray-500">
                       Include Source Files
@@ -974,7 +1047,7 @@ export const OfferDelivered = () => {
                   <div className="sm:col-span-2">
                     <dt className="text-sm font-medium text-gray-500"></dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                      <span className="mr-3 text-gray-500">
+                      <span className="mr-3 text-gray-500 cursor-pointer">
                         Request revision
                       </span>
                       <PrimaryButton>Accept</PrimaryButton>
@@ -990,7 +1063,7 @@ export const OfferDelivered = () => {
   );
 };
 
-export const OfferDeliveredAccepted = () => {
+export const OrderDeliveredAccepted = () => {
   return (
     <li>
       <div className="relative pb-8">

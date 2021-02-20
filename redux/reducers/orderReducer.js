@@ -5,6 +5,9 @@ import {
   FETCH_ORDER_ACTIVITIES,
   FETCH_ORDER_ACTIVITIES_SUCCESS,
   FETCH_ORDER_ACTIVITIES_FAIL,
+  DELIVER_ORDER,
+  DELIVER_ORDER_SUCCESS,
+  DELIVER_ORDER_FAIL,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -15,6 +18,8 @@ const initialState = {
   is_loading_activities: false,
   activities: [],
   activities_error: null,
+  delivering_order: false,
+  delivery_error: null,
 };
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
@@ -58,6 +63,23 @@ export default function orderReducer(state = initialState, action) {
         activities_error: action.payload,
       };
 
+    case DELIVER_ORDER:
+      return {
+        ...state,
+        delivering_order: true,
+      };
+    case DELIVER_ORDER_SUCCESS:
+      return {
+        ...state,
+        delivering_order: false,
+        delivery_error: null,
+      };
+    case DELIVER_ORDER_FAIL:
+      return {
+        ...state,
+        delivering_order: false,
+        delivery_error: action.payload,
+      };
     default:
       return state;
   }

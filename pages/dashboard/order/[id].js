@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 import {
   OfferActivity,
+  OrderDelivered,
   RequestChangeDateDelivery,
   RequestChangeDateDeliveryAccepted,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
@@ -64,6 +65,8 @@ const OrderBoard = () => {
       switch (type) {
         case "OF":
           return <OfferActivity chat={false} ac={activity} />;
+        case "DE":
+          return <OrderDelivered chat={false} ac={activity} />;
         default:
           return false;
       }
