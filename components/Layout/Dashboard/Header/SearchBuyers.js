@@ -134,15 +134,18 @@ const SearchBuyers = ({
         <div className={`${!openBuyersList && "hidden"} relative`}>
           <div className="absolute  bg-white w-full z-40 shadow rounded mt-1 ">
             <ul className="relative z-0 divide-y divide-gray-200 max-h-80 overflow-auto mt-2">
-              {offersReducer.buyers?.results.length === 0 && (
-                <li className="bg-white">
-                  <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
-                    <span className="text-gray-600 text-sm w-full text-center">
-                      No buyers found
-                    </span>
-                  </div>
-                </li>
-              )}
+              {offersReducer.buyers?.results.length === 0 ||
+                (offersReducer.buyers?.results.length === 1 &&
+                  offersReducer.buyers?.results[0]?.id ===
+                    authReducer.user?.id && (
+                    <li className="bg-white">
+                      <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                        <span className="text-gray-600 text-sm w-full text-center">
+                          No buyers found
+                        </span>
+                      </div>
+                    </li>
+                  ))}
               {offersReducer.buyers?.results.map(
                 (buyer) =>
                   buyer.id !== authReducer.user?.id && (

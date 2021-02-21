@@ -291,13 +291,22 @@ const OrderBoard = () => {
                       >
                         Increase order amount
                       </a> */}
-                      <span
-                        onMouseDown={handleToggleRequestCancelationModal}
-                        class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        role="menuitem"
-                      >
-                        Request a cancelation
-                      </span>
+                      {orderReducer.order?.type === "RO" ? (
+                        <span
+                          class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          Unsuscribe
+                        </span>
+                      ) : (
+                        <span
+                          onMouseDown={handleToggleRequestCancelationModal}
+                          class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          Request a cancelation
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -415,7 +424,6 @@ const OrderBoard = () => {
           </main>
         </div>
       </>
-      {/* )} */}
       <DeliveryOrderModal
         openDeliveryOrderModal={openDeliveryOrderModal}
         deliveryOrderModalRef={deliveryOrderModalRef}
