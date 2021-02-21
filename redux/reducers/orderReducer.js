@@ -8,6 +8,11 @@ import {
   DELIVER_ORDER,
   DELIVER_ORDER_SUCCESS,
   DELIVER_ORDER_FAIL,
+  ADD_DELIVERY_TO_ORDER,
+  CANCELATION_REQUEST,
+  CANCELATION_REQUEST_SUCCESS,
+  CANCELATION_REQUEST_FAIL,
+  ADD_CANCELATION_REQUEST_TO_ORDER,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -20,12 +25,14 @@ const initialState = {
   activities_error: null,
   delivering_order: false,
   delivery_error: null,
+  requesting_cancelation: false,
+  request_cancelation_error: null,
 };
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   return { ...state, ...action.payload.orderReducer };
     case FETCH_ORDER:
       return {
         ...state,
@@ -79,6 +86,61 @@ export default function orderReducer(state = initialState, action) {
         ...state,
         delivering_order: false,
         delivery_error: action.payload,
+      };
+    case ADD_DELIVERY_TO_ORDER:
+      return {
+        ...state,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "DE",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              delivery: {
+                ...action.payload,
+              },
+              status: "PE",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
+      };
+    case CANCELATION_REQUEST:
+      return {
+        ...state,
+        requesting_cancelation: true,
+      };
+    case CANCELATION_REQUEST_SUCCESS:
+      return {
+        ...state,
+        requesting_cancelation: false,
+        request_cancelation_error: null,
+      };
+    case CANCELATION_REQUEST_FAIL:
+      return {
+        ...state,
+        requesting_cancelation: false,
+        request_cancelation_error: action.payload,
+      };
+    case ADD_CANCELATION_REQUEST_TO_ORDER:
+      return {
+        ...state,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "CA",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              cancel_order: {
+                ...action.payload,
+              },
+              status: "PE",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
       };
     default:
       return state;

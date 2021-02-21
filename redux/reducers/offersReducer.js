@@ -29,9 +29,9 @@ const initialState = {
 };
 export default function offersReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   return { ...state, ...action.payload.offersReducer };
     case FETCH_OFFER:
       return {
         ...state,

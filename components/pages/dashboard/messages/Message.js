@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import {
   OfferActivity,
   OrderDelivered,
+  RequestCancelOrder,
 } from "../order/Activity/ActivityElements";
 const getActivityComponent = (message) => {
   if (message.activity) {
@@ -15,6 +16,8 @@ const getActivityComponent = (message) => {
         return <OfferActivity chat={true} ac={message.activity} />;
       case "DE":
         return <OrderDelivered chat={true} ac={message.activity} />;
+      case "CA":
+        return <RequestCancelOrder chat={true} ac={message.activity} />;
       default:
         return false;
     }

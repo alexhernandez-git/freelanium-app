@@ -133,9 +133,11 @@ const initialState = {
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   console.log("hydrate", action.payload);
+    //   console.log("hydrate state", state);
+    //   return { ...state, ...action.payload.authReducer };
     case CHANGE_CURRENCY:
       localStorage.setItem("currency", action.payload);
 

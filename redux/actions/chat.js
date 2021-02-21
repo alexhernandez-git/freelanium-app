@@ -17,25 +17,50 @@ export const fetchChat = (id, handleCloseProfile = false) => async (
     type: FETCH_CHAT,
   });
   await axios
-    .get(`${process.env.HOST}/api/chats/${id}`, tokenConfig(getState))
+    .get(`${process.env.HOST}/api/chats/${id}/`, tokenConfig(getState))
     .then(async (res) => {
-      await dispatch({
-        type: FETCH_CHAT_SUCCESS,
-        payload: res.data,
-      });
-      await dispatch(fetchMessages(res.data.id));
-      await dispatch({ type: REMOVE_CURRENT_CHAT });
-      await dispatch({ type: SET_SEEN_CHAT, payload: res.data.id });
-      if (handleCloseProfile) {
-        handleCloseProfile();
+      try {
+        await dispatch({
+          type: FETCH_CHAT_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await dispatch(fetchMessages(res.data.id));
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await dispatch({ type: REMOVE_CURRENT_CHAT });
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await dispatch({ type: SET_SEEN_CHAT, payload: res.data.id });
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        if (handleCloseProfile) {
+          await handleCloseProfile();
+        }
+      } catch (error) {
+        console.log(error);
       }
     })
-    .catch((err) => {
-      console.log(err.response);
-
-      dispatch({
-        type: FETCH_CHAT_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
-      });
+    .catch(async (err) => {
+      try {
+        await dispatch({
+          type: FETCH_CHAT_FAIL,
+          payload: {
+            data: err.response?.data,
+            status: err.response?.status,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
 };

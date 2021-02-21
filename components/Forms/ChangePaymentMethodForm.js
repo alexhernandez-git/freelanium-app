@@ -188,8 +188,8 @@ const ChangePaymentMethodForm = ({
                         className={`relative border border-gray-200 rounded-bl-md rounded-br-md ${
                           !addPaymentMethod && "px-4 py-2"
                         } ${
-                          paymentMethods &&
-                          paymentMethods.length == 0 &&
+                          authReducer.user?.payment_methods &&
+                          authReducer.user?.payment_methods == 0 &&
                           "rounded-tl-md rounded-tr-md"
                         } cursor-pointer`}
                         onClick={handleOpenAddPaymentMethod}

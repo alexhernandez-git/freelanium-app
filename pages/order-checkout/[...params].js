@@ -219,10 +219,7 @@ const OrderCheckout = () => {
                         setStripeError={setStripeError}
                       />
                     ) : (
-                      <BuyerInformation
-                        handleAuthenticate={handleAuthenticate}
-                        offer={offer}
-                      />
+                      <BuyerInformation offer={offer} />
                     )}
                   </>
                 )}

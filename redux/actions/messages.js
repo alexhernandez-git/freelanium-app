@@ -51,17 +51,21 @@ export const fetchMessage = (chat__pk, message__pk) => async (
   });
   await axios
     .get(
-      `${process.env.HOST}/api/chats/${chat__pk}/messages/${message__pk}`,
+      `${process.env.HOST}/api/chats/${chat__pk}/messages/${message__pk}/`,
       tokenConfig(getState)
     )
     .then(async (res) => {
-      await dispatch({
-        type: FETCH_MESSAGE_SUCCESS,
-        payload: res.data,
-      });
+      try {
+        await dispatch({
+          type: FETCH_MESSAGE_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     })
-    .catch((err) => {
-      dispatch({
+    .catch(async (err) => {
+      await dispatch({
         type: FETCH_MESSAGE_FAIL,
         payload: { data: err.response.data, status: err.response.status },
       });

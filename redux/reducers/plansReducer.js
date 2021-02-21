@@ -8,9 +8,9 @@ const initialState = {
 };
 export default function plansReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   return { ...state, ...action.payload.plansReducer };
     case FETCH_PLANS:
       return {
         ...state,

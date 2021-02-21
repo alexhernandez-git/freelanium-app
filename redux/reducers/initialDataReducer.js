@@ -4,11 +4,11 @@ import { HYDRATE } from "next-redux-wrapper";
 const initialState = {
   initial_data_fetched: false,
 };
-export default function plansReducer(state = initialState, action) {
+export default function initialDataReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   return { ...state, ...action.payload.initialDataReducer };
     case INITIAL_DATA_FETCHED:
       return {
         ...state,

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   OfferActivity,
   OrderDelivered,
+  RequestCancelOrder,
   RequestChangeDateDelivery,
   RequestChangeDateDeliveryAccepted,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
@@ -64,9 +65,15 @@ const OrderBoard = () => {
       const { type } = activity;
       switch (type) {
         case "OF":
-          return <OfferActivity chat={false} ac={activity} />;
+          return <OfferActivity chat={false} ac={activity} key={activity.id} />;
         case "DE":
-          return <OrderDelivered chat={false} ac={activity} />;
+          return (
+            <OrderDelivered chat={false} ac={activity} key={activity.id} />
+          );
+        case "CA":
+          return (
+            <RequestCancelOrder chat={false} ac={activity} key={activity.id} />
+          );
         default:
           return false;
       }
@@ -317,7 +324,7 @@ const OrderBoard = () => {
                         <dt class="text-sm font-medium text-gray-500">
                           Job title
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
+                        <dd class="mt-1 text-sm text-gray-900 truncate">
                           {orderReducer.order?.title}
                         </dd>
                       </div>

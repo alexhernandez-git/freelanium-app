@@ -74,11 +74,11 @@ export const createOffer = (
         type: CREATE_OFFER_SUCCESS,
         payload: res.data,
       });
-      handleCloseSendOfferModal();
-      resetForm({});
-      handleUnselectBuyer();
-      handleUnsetBuyerEmail();
-      dispatch(createAlert("SUCCESS", "Offer successfully created"));
+      await handleCloseSendOfferModal();
+      await resetForm({});
+      await handleUnselectBuyer();
+      await handleUnsetBuyerEmail();
+      await dispatch(createAlert("SUCCESS", "Offer successfully created"));
     })
     .catch((err) => {
       dispatch({

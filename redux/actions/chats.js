@@ -133,19 +133,31 @@ export const newActivityEvent = (
     (chat) => chat.id === chat__id
   );
   if (result) {
-    await dispatch({
-      type: NEW_MESSAGE_EVENT,
-      payload: {
-        chat__id: chat__id,
-        message__text: getActivityMessage(activity__event),
-      },
-    });
+    try {
+      await dispatch({
+        type: NEW_MESSAGE_EVENT,
+        payload: {
+          chat__id: chat__id,
+          message__text: getActivityMessage(activity__event),
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
     const current_chat = getState().chatReducer.chat?.id == chat__id;
     if (current_chat) {
-      await dispatch(fetchMessage(chat__id, message__id));
+      try {
+        await dispatch(fetchMessage(chat__id, message__id));
+      } catch (error) {
+        console.log(error);
+      }
     }
   } else {
-    await dispatch(addChatToFeed(chat__id));
+    try {
+      await dispatch(addChatToFeed(chat__id));
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

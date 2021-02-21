@@ -123,11 +123,12 @@ const Header = () => {
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                   alt="Workflow"
                 />
-                <img
+                <span className="text-xl font-bold">Freelenium</span>
+                {/* <img
                   className="hidden lg:block h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
                   alt="Workflow"
-                />
+                /> */}
               </div>
               <div className="hidden md:ml-6 md:flex md:space-x-8">
                 {/* <!-- Current: "border-cyan-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" --> */}

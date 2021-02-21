@@ -9,9 +9,9 @@ const initialState = {
 };
 export default function chatReducer(state = initialState, action) {
   switch (action.type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...action.payload };
+    // case HYDRATE:
+    //   // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+    //   return { ...state, ...action.payload.chatReducer };
     case FETCH_CHAT:
       return {
         ...state,

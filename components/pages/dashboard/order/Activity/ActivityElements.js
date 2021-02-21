@@ -561,38 +561,113 @@ export const RequestChangeDateDeliveryAccepted = () => {
   );
 };
 
-export const RequestCancelOrder = () => {
+export const RequestCancelOrder = ({ ac, chat = false }) => {
+  const { activity, type } = ac;
+  const [status, setStatus] = useState("ACCEPTED");
+  const [data, setData] = useState({
+    activityTitle: "",
+    activityMessage: "",
+    activityIcon: null,
+    activityButton: null,
+    opacity: false,
+  });
+  const authReducer = useSelector((state) => state.authReducer);
+
+  useEffect(() => {
+    const setActivityData = async () => {
+      switch (activity.status) {
+        case "AC":
+          await setData({
+            activityIcon: SuccessIcon(),
+            activityTitle: "Order Cancelled",
+            activityMessage: `${activity?.offer?.buyer?.first_name} has accepted the cancelation.`,
+            activityButton: <PrimaryButton disabled>Accepted</PrimaryButton>,
+            opacity: true,
+          });
+          break;
+        default:
+          await setData({
+            activityIcon: InfoIcon(),
+            activityTitle: "Cancelation Request",
+            activityMessage: "Alex sent a cancelation request",
+            activityButton: (
+              <a
+                target="_blank"
+                href={`/order-checkout/${activity?.offer?.id}`}
+              >
+                <PrimaryButton>Continue</PrimaryButton>
+              </a>
+            ),
+            opacity: false,
+          });
+          break;
+      }
+    };
+    if (status) {
+      setActivityData();
+    }
+  }, [type]);
+  console.log(activity);
   return (
     <li>
-      <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
+      <div className={`relative pb-8 text-left ${chat && "overflow-auto"}`}>
+        {!chat && (
+          <span
+            className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+            aria-hidden="true"
+          ></span>
+        )}
         <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {InfoIcon()}
+          {!chat && (
+            <div>
+              <div className="relative px-1">
+                <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                  {data.activityIcon}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="min-w-0 flex-1">
             <div className="flex justify-between">
               <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Request cancel order
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Alex sent you a request to cancel the order.
-                </p>
+                {chat ? (
+                  <div className="sm:flex items-center">
+                    <div>
+                      <div className="relative px-1">
+                        <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                          {data.activityIcon}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:ml-2">
+                      <span href="#" className="font-medium text-gray-900">
+                        {data.activityTitle}
+                      </span>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                        {data.activityMessage}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span href="#" className="font-medium text-gray-900">
+                      {data.activityTitle}
+                    </span>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      {data.activityMessage}
+                    </p>
+                  </>
+                )}
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
+              <p className="mt-0.5 text-sm text-gray-500">
+                {moment(ac?.created).fromNow()}
+              </p>
             </div>
             <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg">
               <div className="px-4 py-5 sm:px-6">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Alex has requested a order cancelation
+                  {activity?.cancel_order?.order?.title}
                 </h3>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -602,22 +677,21 @@ export const RequestCancelOrder = () => {
                       Reason
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consequuntur, rem minus aut, adipisci magni earum
-                      voluptatum facere provident voluptate quasi et alias eius
-                      tempora necessitatibus asperiores, tempore saepe. Quia,
-                      velit?
+                      {activity?.cancel_order?.reason}
                     </dd>
                   </div>
                 </dl>
               </div>
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500"></dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                  <span className="mr-3 text-gray-500">Cancel</span>
-                  <PrimaryButton>Accept</PrimaryButton>
-                </dd>
-              </div>
+              {activity?.cancel_order?.issued_by?.id !==
+                authReducer.user?.id && (
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500"></dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
+                    <span className="mr-3 text-gray-500">Cancel</span>
+                    <PrimaryButton>Accept</PrimaryButton>
+                  </dd>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1058,20 +1132,22 @@ export const OrderDelivered = ({ ac, chat = false }) => {
                       </svg>
                     </div>
                   </div> */}
-                  <div className="sm:col-span-2">
-                    <dt className="text-sm font-medium text-gray-500">
-                      Include Source Files
-                    </dt>
-                    <dd className="mt-2 text-sm text-gray-900">
-                      <div className="border-2 border-gray-500 p-4 w-52 text-center rounded opacity-25">
-                        Source Files
-                      </div>
-                      <span className="mt-2 text-gray-500">
-                        The source files will be available when you accept the
-                        delivery
-                      </span>
-                    </dd>
-                  </div>
+                  {activity?.delivery?.source_file && (
+                    <div className="sm:col-span-2">
+                      <dt className="text-sm font-medium text-gray-500">
+                        Include Source Files
+                      </dt>
+                      <dd className="mt-2 text-sm text-gray-900">
+                        <div className="border-2 border-gray-500 p-4 w-52 text-center rounded opacity-25">
+                          Source Files
+                        </div>
+                        <span className="mt-2 text-gray-500">
+                          The source files will be available when you accept the
+                          delivery
+                        </span>
+                      </dd>
+                    </div>
+                  )}
                   {activity?.delivery?.order?.buyer?.id ===
                     authReducer.user?.id && (
                     <div className="sm:col-span-2">

@@ -31,12 +31,8 @@ const DeliveryOrderModal = ({
       source_file: Yup.mixed().test(
         "fileSize",
         "File too large",
-        (value) => value && value.size <= FILE_SIZE
+        (value) => value == null || (value && value.size <= FILE_SIZE)
       ),
-      // .test("fileFormat", "Unsupported Format", (value) => {
-      //   console.log(value);
-      //   return value && SUPPORTED_FORMATS.includes(value.type);
-      // }),
     }),
     onSubmit: async (values, { resetForm }) => {
       console.log(values);

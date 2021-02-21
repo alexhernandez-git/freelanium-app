@@ -10,7 +10,7 @@ import {
 } from "redux/actions/auth";
 import * as Yup from "yup";
 
-const BuyerInformation = ({ handleAuthenticate }) => {
+const BuyerInformation = () => {
   const authReducer = useSelector((state) => state.authReducer);
   const { username_available_error, email_available_error } = authReducer;
   const dispatch = useDispatch();
@@ -232,7 +232,7 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                     </p>
                   )}
                   {email_available_error &&
-                    email_available_error.data.non_field_errors.map(
+                    email_available_error.data?.non_field_errors.map(
                       (message, i) => (
                         <p
                           key={i}
@@ -295,7 +295,7 @@ const BuyerInformation = ({ handleAuthenticate }) => {
                     </p>
                   )}
                   {username_available_error &&
-                    username_available_error.data.non_field_errors.map(
+                    username_available_error.data?.non_field_errors.map(
                       (message, i) => (
                         <p
                           key={i}
