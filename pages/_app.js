@@ -96,6 +96,34 @@ function WrappedApp({ Component, pageProps }) {
               newActivityEvent(data.chat__pk, data.message__pk, data.event)
             );
             break;
+          case "CAPE":
+            if (data.sent_by__pk !== authReducer.user?.id) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(
+                createAlert("SUCCESS", "Order cancelation request")
+              );
+            }
+            await dispatch(
+              newActivityEvent(data.chat__pk, data.message__pk, data.event)
+            );
+            break;
+          case "CAAC":
+            if (data.sent_by__pk !== authReducer.user?.id) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(createAlert("SUCCESS", "Order cancelled"));
+            }
+            await dispatch(
+              newActivityEvent(data.chat__pk, data.message__pk, data.event)
+            );
+            break;
           default:
             break;
         }

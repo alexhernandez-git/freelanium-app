@@ -25,10 +25,10 @@ export const getNotificationActivityMessage = (activity, actor) => {
       switch (activity.activity.status) {
         case "PE":
           return "Cancelation order requested by " + actor.username;
-      }
-      switch (activity.activity.status) {
         case "AC":
           return "Order cancelled";
+        case "CA":
+          return "Order not cancelled";
       }
     default:
       return "New notification";
@@ -47,6 +47,8 @@ export const getActivityMessage = (activity__type) => {
       return "Cancelation order requested";
     case "CAAC":
       return "Order cancelled";
+    case "CACA":
+      return "Order not cancelled";
     default:
       return "";
   }
@@ -64,6 +66,8 @@ export const getLastMessage = (last_message) => {
       return "Cancelation order requested";
     case "CAAC":
       return "Order cancelled";
+    case "CACA":
+      return "Order not cancelled";
     default:
       return last_message;
   }

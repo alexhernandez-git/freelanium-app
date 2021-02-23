@@ -31,7 +31,7 @@ export const fetchNotifications = () => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: FETCH_NOTIFICATIONS_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };
@@ -54,7 +54,7 @@ export const fetchMoreNotifications = () => async (dispatch, getState) => {
       .catch((err) => {
         dispatch({
           type: FETCH_MORE_NOTIFICATIONS_FAIL,
-          payload: { data: err.response.data, status: err.response.status },
+          payload: { data: err.response?.data, status: err.response?.status },
         });
       });
   }
@@ -88,7 +88,7 @@ export const addOrUpdateNotificationToFeed = (id) => async (
     .catch((err) => {
       dispatch({
         type: ADD_NOTIFICATION_TO_FEED_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };
@@ -111,7 +111,7 @@ export const setAllNotificationsRead = () => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: SET_ALL_NOTIFICATIONS_READ_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };

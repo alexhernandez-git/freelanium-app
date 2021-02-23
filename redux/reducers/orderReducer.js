@@ -8,11 +8,15 @@ import {
   DELIVER_ORDER,
   DELIVER_ORDER_SUCCESS,
   DELIVER_ORDER_FAIL,
-  ADD_DELIVERY_TO_ORDER,
   CANCELATION_REQUEST,
   CANCELATION_REQUEST_SUCCESS,
   CANCELATION_REQUEST_FAIL,
-  ADD_CANCELATION_REQUEST_TO_ORDER,
+  CANCEL_CANCELATION_REQUEST,
+  CANCEL_CANCELATION_REQUEST_SUCCESS,
+  CANCEL_CANCELATION_REQUEST_FAIL,
+  ACCEPT_CANCELATION_REQUEST,
+  ACCEPT_CANCELATION_REQUEST_SUCCESS,
+  ACCEPT_CANCELATION_REQUEST_FAIL,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -27,6 +31,10 @@ const initialState = {
   delivery_error: null,
   requesting_cancelation: false,
   request_cancelation_error: null,
+  cancelling_cancelation_request: false,
+  cancel_cancelation_request_error: null,
+  accepting_cancelation_request: false,
+  accept_cancelation_request_error: null,
 };
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
@@ -79,17 +87,6 @@ export default function orderReducer(state = initialState, action) {
       return {
         ...state,
         delivering_order: false,
-        delivery_error: null,
-      };
-    case DELIVER_ORDER_FAIL:
-      return {
-        ...state,
-        delivering_order: false,
-        delivery_error: action.payload,
-      };
-    case ADD_DELIVERY_TO_ORDER:
-      return {
-        ...state,
         activities: [
           {
             id: Math.random().toString(36).substring(7),
@@ -105,7 +102,15 @@ export default function orderReducer(state = initialState, action) {
           },
           ...state.activities,
         ],
+        delivery_error: null,
       };
+    case DELIVER_ORDER_FAIL:
+      return {
+        ...state,
+        delivering_order: false,
+        delivery_error: action.payload,
+      };
+
     case CANCELATION_REQUEST:
       return {
         ...state,
@@ -115,17 +120,6 @@ export default function orderReducer(state = initialState, action) {
       return {
         ...state,
         requesting_cancelation: false,
-        request_cancelation_error: null,
-      };
-    case CANCELATION_REQUEST_FAIL:
-      return {
-        ...state,
-        requesting_cancelation: false,
-        request_cancelation_error: action.payload,
-      };
-    case ADD_CANCELATION_REQUEST_TO_ORDER:
-      return {
-        ...state,
         activities: [
           {
             id: Math.random().toString(36).substring(7),
@@ -141,6 +135,77 @@ export default function orderReducer(state = initialState, action) {
           },
           ...state.activities,
         ],
+        request_cancelation_error: null,
+      };
+    case CANCELATION_REQUEST_FAIL:
+      return {
+        ...state,
+        requesting_cancelation: false,
+        request_cancelation_error: action.payload,
+      };
+    case CANCEL_CANCELATION_REQUEST:
+      return {
+        ...state,
+        cancelling_cancelation_request: true,
+      };
+    case CANCEL_CANCELATION_REQUEST_SUCCESS:
+      return {
+        ...state,
+        cancelling_cancelation_request: false,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "CA",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              cancel_order: {
+                ...action.payload,
+              },
+              status: "CA",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
+        cancel_cancelation_request_error: null,
+      };
+    case CANCEL_CANCELATION_REQUEST_FAIL:
+      return {
+        ...state,
+        cancelling_cancelation_request: false,
+        cancel_cancelation_request_error: action.payload,
+      };
+    case ACCEPT_CANCELATION_REQUEST:
+      return {
+        ...state,
+        accepting_cancelation_request: true,
+      };
+    case ACCEPT_CANCELATION_REQUEST_SUCCESS:
+      return {
+        ...state,
+        accepting_cancelation_request: false,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "CA",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              cancel_order: {
+                ...action.payload,
+              },
+              status: "AC",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
+        accept_cancelation_request_error: null,
+      };
+    case ACCEPT_CANCELATION_REQUEST_FAIL:
+      return {
+        ...state,
+        accepting_cancelation_request: false,
+        accept_cancelation_request_error: action.payload,
       };
     default:
       return state;
