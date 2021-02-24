@@ -7,7 +7,11 @@ import moment from "moment";
 import axios from "axios";
 import getSymbolFromCurrency from "currency-symbol-map";
 import useOutsideClick from "hooks/useOutsideClick";
-import { acceptCancelationRequest } from "redux/actions/order";
+import {
+  acceptCancelationRequest,
+  cancelCancelationRequest,
+} from "redux/actions/order";
+import RequestRevisionModal from "../RequestRevisionModal";
 // Alert icon
 
 //   <svg
@@ -174,7 +178,7 @@ export const OfferActivity = ({ ac, chat = false }) => {
 
   useEffect(() => {
     const setActivityData = async () => {
-      switch (activity.status) {
+      switch (activity?.status) {
         case "AC":
           await setData({
             activityIcon: SuccessIcon(),
@@ -579,7 +583,7 @@ export const RequestCancelOrder = ({ ac, chat = false }) => {
 
   useEffect(() => {
     const setActivityData = async () => {
-      switch (activity.status) {
+      switch (activity?.status) {
         case "AC":
           await setData({
             activityIcon: SuccessIcon(),
@@ -643,7 +647,10 @@ export const RequestCancelOrder = ({ ac, chat = false }) => {
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500"></dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                  <span className="cursor-pointer mr-3 text-gray-500">
+                  <span
+                    className="cursor-pointer mr-3 text-gray-500"
+                    onClick={handleCancelCancelation}
+                  >
                     Cancel
                   </span>
                   <button
@@ -663,7 +670,7 @@ export const RequestCancelOrder = ({ ac, chat = false }) => {
           break;
       }
     };
-    if (activity.status) {
+    if (activity?.status) {
       setActivityData();
     }
   }, [type]);
@@ -687,6 +694,14 @@ export const RequestCancelOrder = ({ ac, chat = false }) => {
         activity?.cancel_order?.order?.id,
         activity?.cancel_order?.id,
         handleModalClose
+      )
+    );
+  };
+  const handleCancelCancelation = () => {
+    dispatch(
+      cancelCancelationRequest(
+        activity?.cancel_order?.order?.id,
+        activity?.cancel_order?.id
       )
     );
   };
@@ -1124,7 +1139,7 @@ export const OrderDelivered = ({ ac, chat = false }) => {
 
   useEffect(() => {
     const setActivityData = async () => {
-      switch (activity.status) {
+      switch (activity?.status) {
         case "AC":
           await setData({
             activityIcon: SuccessIcon(),
@@ -1152,10 +1167,22 @@ export const OrderDelivered = ({ ac, chat = false }) => {
           break;
       }
     };
-    if (status) {
+    if (activity?.status) {
       setActivityData();
     }
   }, [type]);
+  const requestRevisionRef = useRef();
+  const [openRequestRevision, setOpenRequestRevision] = useState(false);
+  const handleRequestRevisionToggle = () => {
+    setOpenRequestRevision(!openRequestRevision);
+  };
+  const handleCloseRequestRevision = () => {
+    if (openRequestRevision) {
+      setOpenRequestRevision(false);
+    }
+  };
+  useOutsideClick(requestRevisionRef, () => handleCloseRequestRevision());
+
   return (
     <li>
       <div className="relative pb-8">
@@ -1304,7 +1331,10 @@ export const OrderDelivered = ({ ac, chat = false }) => {
                     <div className="sm:col-span-2">
                       <dt className="text-sm font-medium text-gray-500"></dt>
                       <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-end items-center">
-                        <span className="mr-3 text-gray-500 cursor-pointer">
+                        <span
+                          className="mr-3 text-gray-500 cursor-pointer"
+                          onClick={handleRequestRevisionToggle}
+                        >
                           Request revision
                         </span>
                         <PrimaryButton>Accept</PrimaryButton>
@@ -1317,6 +1347,12 @@ export const OrderDelivered = ({ ac, chat = false }) => {
           </div>
         </div>
       </div>
+      <RequestRevisionModal
+        requestRevisionRef={requestRevisionRef}
+        openRequestRevision={openRequestRevision}
+        handleCloseRequestRevision={handleCloseRequestRevision}
+        orderId={activity?.delivery?.order?.id}
+      />
     </li>
   );
 };
@@ -1452,38 +1488,73 @@ export const OrderDeliveredAccepted = () => {
   );
 };
 
-export const RequestDeliveryRevision = () => {
+export const RequestDeliveryRevision = ({ ac, chat = false }) => {
+  const { activity, type } = ac;
+  console.log("activity: ", activity);
+  const authReducer = useSelector((state) => state.authReducer);
+
   return (
     <li>
       <div className="relative pb-8">
-        <span
-          className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-          aria-hidden="true"
-        ></span>
+        {!chat && (
+          <span
+            className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+            aria-hidden="true"
+          ></span>
+        )}
         <div className="relative flex items-start space-x-3">
-          <div>
-            <div className="relative px-1">
-              <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                {InfoIcon()}
+          {!chat && (
+            <div>
+              <div className="relative px-1">
+                <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                  {InfoIcon()}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="min-w-0 flex-1">
             <div className="flex justify-between">
               <div className="text-sm">
-                <span href="#" className="font-medium text-gray-900">
-                  Delivery revision
-                </span>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  Alex requested a delivery revision.
-                </p>
+                {chat ? (
+                  <div className="sm:flex items-center">
+                    <div>
+                      <div className="relative px-1">
+                        <div className="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
+                          {InfoIcon()}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-2 sm:ml-2">
+                      <span href="#" className="font-medium text-gray-900">
+                        Delivery revision
+                      </span>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                        {activity?.revision?.order?.buyer?.username} requested a
+                        delivery revision.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span href="#" className="font-medium text-gray-900">
+                      Delivery revision
+                    </span>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      {activity?.revision?.order?.buyer?.username} requested a
+                      delivery revision.
+                    </p>
+                  </>
+                )}
               </div>
-              <p className="mt-0.5 text-sm text-gray-500">6 days ago</p>
+              <p className="mt-0.5 text-sm text-gray-500">
+                {moment(ac?.created).fromNow()}
+              </p>
             </div>
             <div className="mt-2 bg-white shadow overflow-hidden sm:rounded-lg">
               <div className="px-4 py-5 sm:px-6">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Alex requested a delivery revision
+                  {activity?.revision?.order?.buyer?.username} requested a
+                  delivery revision
                 </h3>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -1493,11 +1564,7 @@ export const RequestDeliveryRevision = () => {
                       Delivery revision message
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Omnis soluta sunt adipisci consectetur suscipit vitae
-                      asperiores vero, beatae nesciunt magnam quibusdam illum
-                      quaerat fugiat odio aliquam accusamus harum recusandae
-                      illo.
+                      {activity?.revision?.reason}
                     </dd>
                   </div>
 

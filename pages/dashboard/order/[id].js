@@ -9,6 +9,7 @@ import {
   RequestCancelOrder,
   RequestChangeDateDelivery,
   RequestChangeDateDeliveryAccepted,
+  RequestDeliveryRevision,
 } from "components/pages/dashboard/order/Activity/ActivityElements";
 import { SecondaryButton } from "components/ui/Buttons";
 import useOutsideClick from "hooks/useOutsideClick";
@@ -65,15 +66,13 @@ const OrderBoard = () => {
       const { type } = activity;
       switch (type) {
         case "OF":
-          return <OfferActivity chat={false} ac={activity} key={activity.id} />;
+          return <OfferActivity ac={activity} key={activity.id} />;
         case "DE":
-          return (
-            <OrderDelivered chat={false} ac={activity} key={activity.id} />
-          );
+          return <OrderDelivered ac={activity} key={activity.id} />;
         case "CA":
-          return (
-            <RequestCancelOrder chat={false} ac={activity} key={activity.id} />
-          );
+          return <RequestCancelOrder ac={activity} key={activity.id} />;
+        case "RE":
+          return <RequestDeliveryRevision ac={activity} key={activity.id} />;
         default:
           return false;
       }
@@ -104,7 +103,7 @@ const OrderBoard = () => {
         break;
       case "CA":
         setStatus(
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-red-800">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
             CANCELLED
           </span>
         );

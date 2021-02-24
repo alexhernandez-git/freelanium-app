@@ -20,7 +20,7 @@ export const getNotificationActivityMessage = (activity, actor) => {
           return "Offer Accepted";
       }
     case "RE":
-      return `$${activity.activity.amount} recieved from order`;
+      return `Revision request`;
     case "CA":
       switch (activity.activity.status) {
         case "PE":
@@ -49,6 +49,8 @@ export const getActivityMessage = (activity__type) => {
       return "Order cancelled";
     case "CACA":
       return "Order not cancelled";
+    case "RE":
+      return "Revision request";
     default:
       return "";
   }
@@ -68,6 +70,8 @@ export const getLastMessage = (last_message) => {
       return "Order cancelled";
     case "CACA":
       return "Order not cancelled";
+    case "RE":
+      return "Revision request";
     default:
       return last_message;
   }

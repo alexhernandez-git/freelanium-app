@@ -5,6 +5,7 @@ import {
   OfferActivity,
   OrderDelivered,
   RequestCancelOrder,
+  RequestDeliveryRevision,
 } from "../order/Activity/ActivityElements";
 const getActivityComponent = (message) => {
   if (message.activity) {
@@ -18,6 +19,8 @@ const getActivityComponent = (message) => {
         return <OrderDelivered chat={true} ac={message.activity} />;
       case "CA":
         return <RequestCancelOrder chat={true} ac={message.activity} />;
+      case "RE":
+        return <RequestDeliveryRevision chat={true} ac={message.activity} />;
       default:
         return false;
     }

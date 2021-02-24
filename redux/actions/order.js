@@ -19,6 +19,9 @@ import {
   ACCEPT_CANCELATION_REQUEST,
   ACCEPT_CANCELATION_REQUEST_SUCCESS,
   ACCEPT_CANCELATION_REQUEST_FAIL,
+  REVISION_REQUEST,
+  REVISION_REQUEST_SUCCESS,
+  REVISION_REQUEST_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -223,6 +226,47 @@ export const acceptCancelationRequest = (
     .catch(async (err) => {
       await dispatch({
         type: ACCEPT_CANCELATION_REQUEST_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const requestRevision = (
+  values,
+  order_id,
+  resetForm,
+  handleCloseModal
+) => async (dispatch, getState) => {
+  await dispatch({
+    type: REVISION_REQUEST,
+  });
+
+  await axios
+    .post(
+      `${process.env.HOST}/api/orders/${order_id}/revisions/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      try {
+        await dispatch({
+          type: REVISION_REQUEST_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      await resetForm({});
+      await handleCloseModal();
+      try {
+        await dispatch(createAlert("SUCCESS", "Revision request issued"));
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    .catch(async (err) => {
+      await dispatch({
+        type: REVISION_REQUEST_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });
