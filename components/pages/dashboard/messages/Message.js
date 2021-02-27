@@ -1,12 +1,11 @@
 import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import {
-  OfferActivity,
-  OrderDelivered,
-  RequestCancelOrder,
-  RequestDeliveryRevision,
-} from "../order/Activity/ActivityElements";
+import OfferActivity from "../order/Activity/OfferActivity";
+import OrderDelivery from "../order/Activity/OrderDelivery";
+import RequestCancelOrder from "../order/Activity/RequestCancelOrder";
+import RequestRevision from "../order/Activity/RequestRevision";
+
 const getActivityComponent = (message) => {
   if (message.activity) {
     const { type } = message.activity;
@@ -16,11 +15,11 @@ const getActivityComponent = (message) => {
       case "OF":
         return <OfferActivity chat={true} ac={message.activity} />;
       case "DE":
-        return <OrderDelivered chat={true} ac={message.activity} />;
+        return <OrderDelivery chat={true} ac={message.activity} />;
       case "CA":
         return <RequestCancelOrder chat={true} ac={message.activity} />;
       case "RE":
-        return <RequestDeliveryRevision chat={true} ac={message.activity} />;
+        return <RequestRevision chat={true} ac={message.activity} />;
       default:
         return false;
     }

@@ -36,6 +36,7 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
     } else {
       console.log("[PaymentMethod]", paymentMethod);
       setStripeError(null);
+      console.log("attachPaymentMethod", paymentMethod);
       dispatch(
         attachPaymentMethod(
           { ...values, payment_method_id: paymentMethod.id },
@@ -55,6 +56,7 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
         .required("Credit card name is required"),
     }),
     onSubmit: async (values, { resetForm }) => {
+      console.log("entra");
       stripeSubmit(values, resetForm);
     },
   });

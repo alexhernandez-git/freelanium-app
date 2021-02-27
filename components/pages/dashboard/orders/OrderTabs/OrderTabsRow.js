@@ -13,7 +13,7 @@ const OrderTabsRow = ({ order }) => {
       case "AC":
         return "ACTIVE";
       case "DE":
-        return "DELIVERIED";
+        return "DELIVERED";
       case "CA":
         return "CANCELLED";
     }

@@ -123,7 +123,7 @@ const Header = () => {
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                   alt="Workflow"
                 />
-                <span className="text-xl font-normal">talendy</span>
+                <span className="text-xl font-normal">freelanium</span>
                 {/* <img
                   className="hidden lg:block h-8 w-auto"
                   src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
@@ -184,7 +184,7 @@ const Header = () => {
             <div className="flex items-center">
               <div className="hidden lg:block flex-shrink-0 mr-5">
                 <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium  text-green-500">
-                  Credits: ${user?.available_for_withdawal}
+                  ${user?.available_for_withdawal}
                 </span>
               </div>
               {user && user.seller_view ? (

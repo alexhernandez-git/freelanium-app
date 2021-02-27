@@ -59,19 +59,15 @@ const OrderCheckout = () => {
             subtotal = offersReducer.offer.first_payment * currencyRate;
           }
           const fixed_fee = 0.3 * currencyRate;
-          let service_fee;
+          const service_fee = (subtotal * 5) / 100 + fixed_fee;
           let payment_at_delivery = 0;
           let first_payment = 0;
           if (offersReducer.offer?.type == "TP") {
             payment_at_delivery =
               offersReducer.offer?.payment_at_delivery * currencyRate;
-            service_fee =
-              ((subtotal + payment_at_delivery) * 5) / 100 + fixed_fee * 2;
+
             first_payment = offersReducer.offer.first_payment * currencyRate;
-          } else {
-            service_fee = (subtotal * 5) / 100 + fixed_fee;
           }
-          console.log(subtotal);
 
           const unit_amount = subtotal + service_fee;
           const available_for_withdawal =

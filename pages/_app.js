@@ -39,7 +39,8 @@ function WrappedApp({ Component, pageProps }) {
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async function (e) {
         const data = JSON.parse(e.data);
-        console.log(data);
+        console.log("data", data.sent_by__pk);
+        console.log("data", authReducer?.user?.id);
         switch (data.event) {
           case "MESSAGE_RECEIVED":
             if (chatReducer.chat?.id !== data.chat__pk) {
@@ -132,6 +133,32 @@ function WrappedApp({ Component, pageProps }) {
                 addOrUpdateNotificationToFeed(data.notification__pk)
               );
               await dispatch(createAlert("SUCCESS", "Order not cancelled"));
+            }
+            await dispatch(
+              newActivityEvent(data.chat__pk, data.message__pk, data.event)
+            );
+            break;
+          case "DEAC":
+            if (data.sent_by__pk !== authReducer.user?.id) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(createAlert("SUCCESS", "Order not cancelled"));
+            }
+            await dispatch(
+              newActivityEvent(data.chat__pk, data.message__pk, data.event)
+            );
+            break;
+          case "RE":
+            if (data.sent_by__pk !== authReducer.user?.id) {
+              await dispatch(setPendingMessages());
+              await dispatch(setPendingNotifications());
+              await dispatch(
+                addOrUpdateNotificationToFeed(data.notification__pk)
+              );
+              await dispatch(createAlert("SUCCESS", "Order revision request"));
             }
             await dispatch(
               newActivityEvent(data.chat__pk, data.message__pk, data.event)

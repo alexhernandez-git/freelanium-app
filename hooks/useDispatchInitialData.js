@@ -27,6 +27,7 @@ const useDispatchInitialData = async (dispatch, router) => {
 
       break;
   }
+
   await dispatch(initialDataFetched());
 };
 

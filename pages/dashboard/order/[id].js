@@ -3,14 +3,7 @@ import OrderLayout from "components/pages/dashboard/order/OrderLayout";
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  OfferActivity,
-  OrderDelivered,
-  RequestCancelOrder,
-  RequestChangeDateDelivery,
-  RequestChangeDateDeliveryAccepted,
-  RequestDeliveryRevision,
-} from "components/pages/dashboard/order/Activity/ActivityElements";
+
 import { SecondaryButton } from "components/ui/Buttons";
 import useOutsideClick from "hooks/useOutsideClick";
 import Link from "next/link";
@@ -22,6 +15,10 @@ import moment from "moment";
 import DeliveryOrderModal from "components/pages/dashboard/order/DeliveryOrderModal";
 import RequestCancelationModal from "components/pages/dashboard/order/RequestCancelationModal";
 import { getOrCreateChat } from "redux/actions/chats";
+import OfferActivity from "components/pages/dashboard/order/Activity/OfferActivity";
+import OrderDelivery from "components/pages/dashboard/order/Activity/OrderDelivery";
+import RequestCancelOrder from "components/pages/dashboard/order/Activity/RequestCancelOrder";
+import RequestRevision from "components/pages/dashboard/order/Activity/RequestRevision";
 // const BoardDnDNoSSR = dynamic(
 //   () => import("components/pages/dashboard/order/Board/BoardDnD"),
 //   {
@@ -68,11 +65,11 @@ const OrderBoard = () => {
         case "OF":
           return <OfferActivity ac={activity} key={activity.id} />;
         case "DE":
-          return <OrderDelivered ac={activity} key={activity.id} />;
+          return <OrderDelivery ac={activity} key={activity.id} />;
         case "CA":
           return <RequestCancelOrder ac={activity} key={activity.id} />;
         case "RE":
-          return <RequestDeliveryRevision ac={activity} key={activity.id} />;
+          return <RequestRevision ac={activity} key={activity.id} />;
         default:
           return false;
       }
@@ -224,15 +221,16 @@ const OrderBoard = () => {
                 </div>
               </div>
               <div class="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-                {orderReducer.order?.seller?.id === authReducer.user?.id && (
-                  <button
-                    type="button"
-                    onClick={handleToggleDeliveryOrderModal}
-                    class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                  >
-                    Delivery order
-                  </button>
-                )}
+                {orderReducer.order?.seller?.id === authReducer.user?.id &&
+                  orderReducer.order?.status === "AC" && (
+                    <button
+                      type="button"
+                      onClick={handleToggleDeliveryOrderModal}
+                      class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                    >
+                      Delivery order
+                    </button>
+                  )}
                 <button
                   onClick={handleGoToChat}
                   type="button"
@@ -240,41 +238,43 @@ const OrderBoard = () => {
                 >
                   Message
                 </button>
-                <div class="relative inline-block text-left">
-                  <div>
-                    <button
-                      onMouseDown={handleToggleOptions}
-                      class="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
-                      id="options-menu"
-                      aria-haspopup="true"
-                      aria-expanded="true"
-                    >
-                      <span class="sr-only">Open options</span>
-                      <svg
-                        class="h-5 w-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                      </svg>
-                    </button>
-                  </div>
+                {orderReducer.order?.status === "AC" && (
+                  <>
+                    <div class="relative inline-block text-left">
+                      <div>
+                        <button
+                          onMouseDown={handleToggleOptions}
+                          class="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                          id="options-menu"
+                          aria-haspopup="true"
+                          aria-expanded="true"
+                        >
+                          <span class="sr-only">Open options</span>
+                          <svg
+                            class="h-5 w-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                          </svg>
+                        </button>
+                      </div>
 
-                  <div
-                    class={`${
-                      optionsOpen ? "block" : "hidden"
-                    } origin-top-right absolute -right-24 sm:left-0 md:left-auto  md:right-0 mt-2 w-56  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10`}
-                    ref={optionsRef}
-                  >
-                    <div
-                      class="py-1"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="options-menu"
-                    >
-                      {/* {orderReducer.order?.type !== "RO" && (
+                      <div
+                        class={`${
+                          optionsOpen ? "block" : "hidden"
+                        } origin-top-right absolute -right-24 sm:left-0 md:left-auto  md:right-0 mt-2 w-56  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10`}
+                        ref={optionsRef}
+                      >
+                        <div
+                          class="py-1"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="options-menu"
+                        >
+                          {/* {orderReducer.order?.type !== "RO" && (
                         <a
                           href="#"
                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -290,25 +290,28 @@ const OrderBoard = () => {
                       >
                         Increase order amount
                       </a> */}
-                      {orderReducer.order?.type === "RO" ? (
-                        <span
-                          class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                          role="menuitem"
-                        >
-                          Unsuscribe
-                        </span>
-                      ) : (
-                        <span
-                          onMouseDown={handleToggleRequestCancelationModal}
-                          class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                          role="menuitem"
-                        >
-                          Request a cancelation
-                        </span>
-                      )}
+
+                          {orderReducer.order?.type === "RO" ? (
+                            <span
+                              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Unsuscribe
+                            </span>
+                          ) : (
+                            <span
+                              onMouseDown={handleToggleRequestCancelationModal}
+                              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              role="menuitem"
+                            >
+                              Request a cancelation
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             </div>
 

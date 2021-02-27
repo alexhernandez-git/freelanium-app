@@ -22,6 +22,9 @@ import {
   REVISION_REQUEST,
   REVISION_REQUEST_SUCCESS,
   REVISION_REQUEST_FAIL,
+  ACCEPT_DELIVERY,
+  ACCEPT_DELIVERY_SUCCESS,
+  ACCEPT_DELIVERY_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -267,6 +270,47 @@ export const requestRevision = (
     .catch(async (err) => {
       await dispatch({
         type: REVISION_REQUEST_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const acceptDelviery = (order_id, id) => async (dispatch, getState) => {
+  await dispatch({
+    type: ACCEPT_DELIVERY,
+  });
+
+  await axios
+    .patch(
+      `${process.env.HOST}/api/orders/${order_id}/deliveries/${id}/accept_delivery/`,
+      {},
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      try {
+        await dispatch({
+          type: ACCEPT_DELIVERY_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await dispatch(createAlert("SUCCESS", "Delivery accepted"));
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    .catch(async (err) => {
+      try {
+        await dispatch(
+          createAlert("ERROR", err.response?.data?.non_field_errors[0])
+        );
+      } catch (error) {
+        console.log(error);
+      }
+      await dispatch({
+        type: ACCEPT_DELIVERY_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });

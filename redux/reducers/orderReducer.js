@@ -20,8 +20,10 @@ import {
   REVISION_REQUEST,
   REVISION_REQUEST_SUCCESS,
   REVISION_REQUEST_FAIL,
+  ACCEPT_DELIVERY,
+  ACCEPT_DELIVERY_SUCCESS,
+  ACCEPT_DELIVERY_FAIL,
 } from "../types";
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   is_loading: true,
@@ -40,6 +42,8 @@ const initialState = {
   accept_cancelation_request_error: null,
   requesting_revision: false,
   request_revision_error: null,
+  accepting_delivery: false,
+  accept_delivery_error: null,
 };
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
@@ -242,6 +246,38 @@ export default function orderReducer(state = initialState, action) {
         ...state,
         requesting_revision: false,
         request_revision_error: action.payload,
+      };
+    case ACCEPT_DELIVERY:
+      return {
+        ...state,
+        accepting_delivery: true,
+      };
+    case ACCEPT_DELIVERY_SUCCESS:
+      return {
+        ...state,
+        accepting_delivery: false,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "DE",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              delivery: {
+                ...action.payload,
+              },
+              status: "AC",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
+        accept_delivery_error: null,
+      };
+    case ACCEPT_DELIVERY_FAIL:
+      return {
+        ...state,
+        accepting_delivery: false,
+        accept_delivery_error: action.payload,
       };
     default:
       return state;
