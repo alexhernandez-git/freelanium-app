@@ -275,7 +275,14 @@ export const requestRevision = (
     });
 };
 
-export const acceptDelviery = (order_id, id) => async (dispatch, getState) => {
+export const acceptDelviery = (
+  order_id,
+  id,
+  values = {},
+  handleCloseAcceptTwoPaymentsOrder = () => {},
+  resetForm = () => {}
+) => async (dispatch, getState) => {
+  console.log("values", values);
   await dispatch({
     type: ACCEPT_DELIVERY,
   });
@@ -283,7 +290,7 @@ export const acceptDelviery = (order_id, id) => async (dispatch, getState) => {
   await axios
     .patch(
       `${process.env.HOST}/api/orders/${order_id}/deliveries/${id}/accept_delivery/`,
-      {},
+      values,
       tokenConfig(getState)
     )
     .then(async (res) => {
@@ -297,6 +304,16 @@ export const acceptDelviery = (order_id, id) => async (dispatch, getState) => {
       }
       try {
         await dispatch(createAlert("SUCCESS", "Delivery accepted"));
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await handleCloseAcceptTwoPaymentsOrder();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await resetForm({});
       } catch (error) {
         console.log(error);
       }

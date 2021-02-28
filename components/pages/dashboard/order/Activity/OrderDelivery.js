@@ -275,6 +275,7 @@ const OrderDelivery = ({ ac, chat = false }) => {
         openAcceptTwoPaymentsOrder={openAcceptTwoPaymentsOrder}
         handleCloseAcceptTwoPaymentsOrder={handleCloseAcceptTwoPaymentsOrder}
         order={activity?.delivery?.order}
+        delivery_id={activity?.delivery?.id}
       />
     </li>
   );

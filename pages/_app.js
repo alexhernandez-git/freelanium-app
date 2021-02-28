@@ -145,7 +145,7 @@ function WrappedApp({ Component, pageProps }) {
               await dispatch(
                 addOrUpdateNotificationToFeed(data.notification__pk)
               );
-              await dispatch(createAlert("SUCCESS", "Order not cancelled"));
+              await dispatch(createAlert("SUCCESS", "Delivery accepted"));
             }
             await dispatch(
               newActivityEvent(data.chat__pk, data.message__pk, data.event)

@@ -6,28 +6,51 @@ import getSymbolFromCurrency from "currency-symbol-map";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import PaymentMethodForm from "components/Forms/PaymentMethodForm";
+import { acceptDelviery } from "redux/actions/order";
+import Spinner from "components/ui/Spinner";
 const AcceptTwoPaymentsOrderModal = ({
   acceptTwoPaymentsOrderRef,
   openAcceptTwoPaymentsOrder,
   handleCloseAcceptTwoPaymentsOrder,
   order,
+  delivery_id,
 }) => {
   const authReducer = useSelector((state) => state.authReducer);
+  const orderReducer = useSelector((state) => state.orderReducer);
   const dispatch = useDispatch();
+
   const [stripeError, setStripeError] = useState(null);
+  const [orderObject, setOrderObject] = useState(null);
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       payment_method_id: authReducer.user?.default_payment_method,
+      order_checkout: orderObject,
     },
-    enableReinitialize: true,
     validationSchema: Yup.object({
       payment_method_id: Yup.string().required("Payment method is required"),
+      order_checkout: Yup.object().required(),
     }),
-    onSubmit: async (values) => {
-      console.log(values);
+    onSubmit: async (values, { resetForm }) => {
+      console.log("order object ", formik.values);
+
+      dispatch(
+        acceptDelviery(
+          order.id,
+          delivery_id,
+          {
+            ...values,
+            order_checkout: values.order_checkout,
+          },
+          handleCloseAcceptTwoPaymentsOrder,
+          resetForm
+        )
+      );
     },
   });
-  const [orderObject, setOrderObject] = useState(null);
+
+  console.log(formik.values);
   useEffect(() => {
     if (openAcceptTwoPaymentsOrder && order) {
       axios
@@ -68,7 +91,10 @@ const AcceptTwoPaymentsOrderModal = ({
         .catch((err) => console.log("entra"));
     }
   }, [openAcceptTwoPaymentsOrder]);
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formik.handleSubmit();
+  };
   return (
     <div
       className={`${
@@ -79,10 +105,7 @@ const AcceptTwoPaymentsOrderModal = ({
         <div className="fixed inset-0 transition-opacity" aria-hidden="true">
           <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
         </div>
-        <form
-          id="accept-two-payments-order"
-          onSubmit={formik.handleSubmit}
-        ></form>
+        <form id="accept-two-payments-order" onSubmit={handleSubmit}></form>
         <span
           className="hidden sm:inline-block sm:align-middle sm:h-screen"
           aria-hidden="true"
@@ -96,6 +119,11 @@ const AcceptTwoPaymentsOrderModal = ({
           aria-modal="true"
           aria-labelledby="modal-headline"
         >
+          {orderReducer.accepting_delivery && (
+            <div className="absolute right-6">
+              <Spinner />
+            </div>
+          )}
           <div>
             <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
               <div>
@@ -121,7 +149,7 @@ const AcceptTwoPaymentsOrderModal = ({
                         <dd class="flex text-sm text-gray-500 mt-0">
                           <span class="flex-grow">
                             {getSymbolFromCurrency(authReducer.currency)}
-                            {orderObject?.subtotal}
+                            {formik.values.order_checkout?.subtotal}
                           </span>
                         </dd>
 
@@ -131,10 +159,10 @@ const AcceptTwoPaymentsOrderModal = ({
                         <dd class="flex text-sm text-gray-500 mt-0">
                           <span class="flex-grow">
                             {getSymbolFromCurrency(authReducer.currency)}
-                            {orderObject?.service_fee}
+                            {formik.values.order_checkout?.service_fee}
                           </span>
                         </dd>
-                        {orderObject?.used_credits > 0 && (
+                        {formik.values.order_checkout?.used_credits > 0 && (
                           <>
                             <dt class="text-sm font-bold text-gray-900 col-span-2">
                               Used credits
@@ -142,7 +170,7 @@ const AcceptTwoPaymentsOrderModal = ({
                             <dd class="flex text-sm text-gray-900 mt-0">
                               <span class="flex-grow font-bold">
                                 -{getSymbolFromCurrency(authReducer.currency)}
-                                {orderObject?.used_credits}
+                                {formik.values.order_checkout?.used_credits}
                               </span>
                             </dd>
                           </>
@@ -156,8 +184,8 @@ const AcceptTwoPaymentsOrderModal = ({
                           <span class="flex-grow font-bold">
                             {getSymbolFromCurrency(authReducer.currency)}
                             {(
-                              orderObject?.unit_amount -
-                              orderObject?.used_credits
+                              formik.values.order_checkout?.unit_amount -
+                              formik.values.order_checkout?.used_credits
                             ).toFixed(2)}
                           </span>
                         </dd>
@@ -177,8 +205,7 @@ const AcceptTwoPaymentsOrderModal = ({
           </div>
           <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <button
-              type="submit"
-              form="accept-two-payments-order"
+              onClick={handleSubmit}
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 text-base font-medium text-white hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:col-start-2 sm:text-sm"
             >
               Accept Order
