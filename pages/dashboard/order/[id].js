@@ -19,6 +19,7 @@ import OfferActivity from "components/pages/dashboard/order/Activity/OfferActivi
 import OrderDelivery from "components/pages/dashboard/order/Activity/OrderDelivery";
 import RequestCancelOrder from "components/pages/dashboard/order/Activity/RequestCancelOrder";
 import RequestRevision from "components/pages/dashboard/order/Activity/RequestRevision";
+import UnsubscribeOrderModal from "components/pages/dashboard/order/UnsubscribeOrderModal";
 // const BoardDnDNoSSR = dynamic(
 //   () => import("components/pages/dashboard/order/Board/BoardDnD"),
 //   {
@@ -157,6 +158,20 @@ const OrderBoard = () => {
     handleCloseRequestCancelationModal()
   );
 
+  const unsubscribeOrderModalRef = useRef();
+  const [openUnsubscribeOrderModal, setUnsubscribeOrderModal] = useState(false);
+  const handleToggleUnsubscribeOrderModal = () => {
+    setUnsubscribeOrderModal(!openUnsubscribeOrderModal);
+  };
+  const handleCloseUnsubscribeOrderModal = () => {
+    if (openUnsubscribeOrderModal) {
+      setUnsubscribeOrderModal(false);
+    }
+  };
+  useOutsideClick(unsubscribeOrderModalRef, () =>
+    handleCloseUnsubscribeOrderModal()
+  );
+
   const handleGoToChat = () => {
     if (orderReducer.order?.buyer.id == authReducer.user?.id) {
       dispatch(getOrCreateChat(orderReducer.order?.seller.id, router.push));
@@ -293,6 +308,7 @@ const OrderBoard = () => {
 
                           {orderReducer.order?.type === "RO" ? (
                             <span
+                              onMouseDown={handleToggleUnsubscribeOrderModal}
                               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
                             >
@@ -435,6 +451,11 @@ const OrderBoard = () => {
         openRequestCancelationModal={openRequestCancelationModal}
         requestCancelationModalRef={requestCancelationModalRef}
         handleCloseRequestCancelationModal={handleCloseRequestCancelationModal}
+      />
+      <UnsubscribeOrderModal
+        unsubscribeOrderModalRef={unsubscribeOrderModalRef}
+        openUnsubscribeOrderModal={openUnsubscribeOrderModal}
+        handleCloseUnsubscribeOrderModal={handleCloseUnsubscribeOrderModal}
       />
     </Layout>
   );

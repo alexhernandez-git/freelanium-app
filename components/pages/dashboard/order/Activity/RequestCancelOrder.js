@@ -21,15 +21,36 @@ const RequestCancelOrder = ({ ac, chat = false }) => {
     opacity: false,
   });
   const authReducer = useSelector((state) => state.authReducer);
-
+  const getCancelationIcon = () => {
+    if (activity?.cancel_order?.order?.type === "RO") {
+      if (activity?.cancel_order?.order?.seller?.id === authReducer.user?.id) {
+        return InfoIcon();
+      } else {
+        return SuccessIcon();
+      }
+    } else {
+      return SuccessIcon();
+    }
+  };
+  const getCancelationMessage = () => {
+    if (activity?.cancel_order?.order?.type === "RO") {
+      if (activity?.cancel_order?.order?.seller?.id === authReducer.user?.id) {
+        return `${activity?.cancel_order?.order?.buyer?.first_name} has unsubscribed the order`;
+      } else {
+        return `You cancel the subscription`;
+      }
+    } else {
+      return `Order cancelation has been accepted`;
+    }
+  };
   useEffect(() => {
     const setActivityData = async () => {
       switch (activity?.status) {
         case "AC":
           await setData({
-            activityIcon: SuccessIcon(),
+            activityIcon: getCancelationIcon(),
             activityTitle: "Order Cancelled",
-            activityMessage: `Order cancelation has been accepted`,
+            activityMessage: getCancelationMessage(),
             activityButton: (
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500"></dt>

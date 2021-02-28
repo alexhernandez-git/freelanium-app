@@ -25,6 +25,9 @@ import {
   ACCEPT_DELIVERY,
   ACCEPT_DELIVERY_SUCCESS,
   ACCEPT_DELIVERY_FAIL,
+  UNSUBSCRIBE_ORDER,
+  UNSUBSCRIBE_ORDER_SUCCESS,
+  UNSUBSCRIBE_ORDER_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -152,6 +155,49 @@ export const requestCancelation = (
     .catch(async (err) => {
       await dispatch({
         type: CANCELATION_REQUEST_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const unsubscribeOrder = (
+  values,
+  resetForm,
+  handleCloseUnsubscribeOrderModal
+) => async (dispatch, getState) => {
+  await dispatch({
+    type: UNSUBSCRIBE_ORDER,
+  });
+
+  await axios
+    .post(
+      `${process.env.HOST}/api/orders/${
+        getState().orderReducer.order.id
+      }/cancel-orders/unsubscribe_order/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      try {
+        await dispatch({
+          type: UNSUBSCRIBE_ORDER_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      await resetForm({});
+      await handleCloseUnsubscribeOrderModal();
+      try {
+        await dispatch(createAlert("SUCCESS", "Subscription cancelled"));
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    .catch(async (err) => {
+      await dispatch({
+        type: UNSUBSCRIBE_ORDER_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });

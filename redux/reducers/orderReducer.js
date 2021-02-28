@@ -23,6 +23,9 @@ import {
   ACCEPT_DELIVERY,
   ACCEPT_DELIVERY_SUCCESS,
   ACCEPT_DELIVERY_FAIL,
+  UNSUBSCRIBE_ORDER,
+  UNSUBSCRIBE_ORDER_SUCCESS,
+  UNSUBSCRIBE_ORDER_FAIL,
 } from "../types";
 
 const initialState = {
@@ -44,6 +47,8 @@ const initialState = {
   request_revision_error: null,
   accepting_delivery: false,
   accept_delivery_error: null,
+  unsubscribing_order: false,
+  unsubscribe_order_error: null,
 };
 export default function orderReducer(state = initialState, action) {
   switch (action.type) {
@@ -151,6 +156,38 @@ export default function orderReducer(state = initialState, action) {
         ...state,
         requesting_cancelation: false,
         request_cancelation_error: action.payload,
+      };
+    case UNSUBSCRIBE_ORDER:
+      return {
+        ...state,
+        unsubscribing_order: true,
+      };
+    case UNSUBSCRIBE_ORDER_SUCCESS:
+      return {
+        ...state,
+        unsubscribing_order: false,
+        activities: [
+          {
+            id: Math.random().toString(36).substring(7),
+            type: "CA",
+            activity: {
+              id: Math.random().toString(36).substring(7),
+              cancel_order: {
+                ...action.payload,
+              },
+              status: "AC",
+            },
+            created: new Date(),
+          },
+          ...state.activities,
+        ],
+        unsubscribe_order_error: null,
+      };
+    case UNSUBSCRIBE_ORDER_FAIL:
+      return {
+        ...state,
+        unsubscribing_order: false,
+        unsubscribe_order_error: action.payload,
       };
     case CANCEL_CANCELATION_REQUEST:
       return {
