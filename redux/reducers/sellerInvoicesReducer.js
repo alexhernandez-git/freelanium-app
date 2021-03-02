@@ -7,7 +7,12 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   is_loading: false,
-  invoices: [],
+  invoices: {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  },
   error: null,
 };
 export default function sellerInvoicesReducer(state = initialState, action) {
@@ -24,7 +29,10 @@ export default function sellerInvoicesReducer(state = initialState, action) {
       return {
         ...state,
         is_loading: false,
-        invoices: action.payload.data,
+        invoices: {
+          ...action.payload,
+          results: action.payload.results,
+        },
         error: null,
       };
     case FETCH_INVOICES_FAIL:

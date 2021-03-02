@@ -90,13 +90,12 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
               <Link href="/">
                 <a href="#" className="flex items-center">
                   <span className="sr-only">Workflow</span>
-                  <img
-                    className="h-8 w-auto sm:h-10 mr-2"
-                    src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
-                    alt=""
-                  />
+
                   <span className="text-2xl font-bold text-gray-700">
-                    FullOrderTracker
+                    <img
+                      src="../../static/images/freelanium_logo.png"
+                      className="w-24 h-24"
+                    />
                   </span>
                 </a>
               </Link>

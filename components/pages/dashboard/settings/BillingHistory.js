@@ -1,8 +1,12 @@
 import Spinner from "components/ui/Spinner";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSellerInvoces } from "redux/actions/sellerInvoices";
+import {
+  fetchSellerInvoces,
+  fetchSellerInvocesPagination,
+} from "redux/actions/sellerInvoices";
 import moment from "moment";
+import Pagination from "components/ui/Pagination";
 const BillingHistory = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -11,6 +15,9 @@ const BillingHistory = () => {
   const sellerInvoicesReducer = useSelector(
     (state) => state.sellerInvoicesReducer
   );
+  const handleChangePage = (url) => {
+    dispatch(fetchSellerInvocesPagination(url));
+  };
   return (
     <section aria-labelledby="billing_history_heading">
       <div className="bg-white pt-6 shadow sm:rounded-md sm:overflow-hidden">
@@ -36,12 +43,12 @@ const BillingHistory = () => {
                       >
                         Date
                       </th>
-                      <th
+                      {/* <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Description
-                      </th>
+                      </th> */}
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -65,19 +72,18 @@ const BillingHistory = () => {
                   </thead>
 
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {sellerInvoicesReducer.invoices &&
-                      sellerInvoicesReducer.invoices.map((invoice) => (
+                    {sellerInvoicesReducer.invoices.results &&
+                      sellerInvoicesReducer.invoices.results.map((invoice) => (
                         <tr>
+                          {console.log(invoice)}
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {moment(new Date(invoice.created * 1000)).format(
-                              "DD-MM-YYYY"
-                            )}
+                            {moment(invoice.created).format("DD-MM-YYYY")}
                           </td>
-                          <td className="max-w-sm px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">
+                          {/* <td className="max-w-sm px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate">
                             {invoice.lines.data[0].description}
-                          </td>
+                          </td> */}
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {invoice.amount_paid / 100}
+                            {invoice.amount_paid}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {invoice.currency}
@@ -95,8 +101,7 @@ const BillingHistory = () => {
                       ))}
                   </tbody>
                 </table>
-
-                {!sellerInvoicesReducer.invoices &&
+                {!sellerInvoicesReducer.invoices.results &&
                   sellerInvoicesReducer.is_loading && (
                     <div classNameName="flex justify-center py-3">
                       <Spinner />
@@ -107,6 +112,15 @@ const BillingHistory = () => {
           </div>
         </div>
       </div>
+      {sellerInvoicesReducer.invoices &&
+        (sellerInvoicesReducer.invoices.previous ||
+          sellerInvoicesReducer.invoices.next) && (
+          <Pagination
+            previous={sellerInvoicesReducer.invoices.previous}
+            next={sellerInvoicesReducer.invoices.next}
+            changePage={handleChangePage}
+          />
+        )}
     </section>
   );
 };

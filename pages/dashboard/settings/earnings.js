@@ -10,13 +10,13 @@ import { stripeConnect } from "redux/actions/auth";
 const earnings = () => {
   const router = useRouter();
   const code = router.query.code ? router.query.code : null;
-  const [cantRender, authReducer] = useAuthRequired();
+  const [cantRender, authReducer, initial_data_fetched] = useAuthRequired();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!authReducer.is_loading && authReducer.user && code) {
+    if (initial_data_fetched && authReducer.user && code) {
       dispatch(stripeConnect(code));
     }
-  }, [authReducer.is_loading]);
+  }, [initial_data_fetched]);
 
   return !cantRender ? (
     <div className="flex justify-center items-center h-screen">

@@ -28,8 +28,6 @@ const billing = () => {
   useEffect(() => {
     if (
       !authReducer.is_loading &&
-      authReducer.user?.payment_methods &&
-      authReducer.user?.payment_methods.length > 0 &&
       !authReducer.changing_payment_method &&
       !authReducer.adding_billing_information &&
       authReducer.user?.plan_payment_methods
@@ -39,6 +37,7 @@ const billing = () => {
       const paymentMethod = authReducer.user?.plan_payment_methods.find(
         (pm) => pm.id == planDefaultPaymentMethod
       );
+
       if (paymentMethod) {
         setPlanPaymentMethod(paymentMethod);
       }
