@@ -75,6 +75,7 @@ import {
   ADD_PAYMENT_METHOD,
   ADD_PAYMENT_METHOD_SUCCESS,
   ADD_PAYMENT_METHOD_FAIL,
+  SET_NEW_EARNINGS_TO_USER,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -650,6 +651,18 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         adding_payment_method: false,
         add_payment_method_error: action.payload,
+      };
+    case SET_NEW_EARNINGS_TO_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          withdrawn:
+            parseFloat(state.user.withdrawn) + parseFloat(action.payload),
+          available_for_withdawal:
+            parseFloat(state.user.available_for_withdawal) -
+            parseFloat(action.payload),
+        },
       };
     default:
       return state;

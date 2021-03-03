@@ -241,20 +241,66 @@ const OrderDelivery = ({ ac, chat = false }) => {
                     </div>
                   </div> */}
                   {activity?.delivery?.source_file && (
-                    <div className="sm:col-span-2">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Include Source Files
-                      </dt>
-                      <dd className="mt-2 text-sm text-gray-900">
-                        <div className="border-2 border-gray-500 p-4 w-52 text-center rounded opacity-25">
-                          Source Files
+                    <>
+                      {activity?.status === "AC" ? (
+                        <>
+                          <div className="sm:col-span-2">
+                            <dt className="text-sm font-medium text-gray-500">
+                              Include Source Files
+                            </dt>
+                            <dd className="mt-2 text-sm text-gray-900">
+                              <a
+                                target="_blank"
+                                href={
+                                  new RegExp(process.env.HOST).test(
+                                    activity?.delivery?.source_file
+                                  )
+                                    ? activity?.delivery?.source_file
+                                    : process.env.HOST +
+                                      activity?.delivery?.source_file
+                                }
+                              >
+                                <div className="border-2 border-green-500 text-green-500 p-4 w-52 text-center rounded">
+                                  Source Files
+                                </div>
+                              </a>
+                              <span className="mt-2 text-gray-500">
+                                Files available{" "}
+                                <a
+                                  target="_blank"
+                                  href={
+                                    new RegExp(process.env.HOST).test(
+                                      activity?.delivery?.source_file
+                                    )
+                                      ? activity?.delivery?.source_file
+                                      : process.env.HOST +
+                                        activity?.delivery?.source_file
+                                  }
+                                  className="underline text-green-500"
+                                >
+                                  Download
+                                </a>
+                              </span>
+                            </dd>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="sm:col-span-2">
+                          <dt className="text-sm font-medium text-gray-500">
+                            Include Source Files
+                          </dt>
+                          <dd className="mt-2 text-sm text-gray-900">
+                            <div className="border-2 border-gray-500 p-4 w-52 text-center rounded opacity-25">
+                              Source Files
+                            </div>
+                            <span className="mt-2 text-gray-500">
+                              The source files will be available when you accept
+                              the delivery
+                            </span>
+                          </dd>
                         </div>
-                        <span className="mt-2 text-gray-500">
-                          The source files will be available when you accept the
-                          delivery
-                        </span>
-                      </dd>
-                    </div>
+                      )}
+                    </>
                   )}
                   {activity?.delivery?.order?.buyer?.id ===
                     authReducer.user?.id && data.activityButton}

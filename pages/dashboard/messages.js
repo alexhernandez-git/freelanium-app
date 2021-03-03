@@ -85,7 +85,7 @@ export default function Messages() {
                   <div class="flex-1 flex flex-col items-center w-40">
                     {chatReducer.chat?.to_user?.picture ? (
                       <img
-                        class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full"
+                        class="w-32 h-32 flex-shrink-0 mx-auto rounded-full bg-white"
                         src={
                           new RegExp(process.env.HOST).test(
                             chatReducer.chat.to_user?.picture

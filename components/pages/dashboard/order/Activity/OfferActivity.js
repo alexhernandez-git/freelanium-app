@@ -26,7 +26,17 @@ const OfferActivity = ({ ac, chat = false }) => {
             activityIcon: SuccessIcon(),
             activityTitle: "Offer Accepted",
             activityMessage: `${activity?.offer?.buyer?.first_name} has accepted the offer`,
-            activityButton: <PrimaryButton disabled>Accepted</PrimaryButton>,
+            activityButton: (
+              <button
+                type="button"
+                disabled={true}
+                className={`inline-flex items-center px-3 py-2 border border-transparent 
+              text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+              bg-indigo-600 focus:outline-none cursor-default opacity-75`}
+              >
+                Accepted
+              </button>
+            ),
             opacity: true,
           });
           break;
@@ -165,11 +175,7 @@ const OfferActivity = ({ ac, chat = false }) => {
                 {moment(ac?.created).fromNow()}
               </p>
             </div>
-            <div
-              className={`mt-2 text-sm text-gray-700 ${
-                data.opacity && "opacity-75"
-              }`}
-            >
+            <div className={`mt-2 text-sm text-gray-700`}>
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="flex justify-between items-center">
                   <div className="px-4 py-5 sm:px-6 truncate">
