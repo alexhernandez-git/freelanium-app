@@ -181,6 +181,7 @@ const WithdrawFundsModal = ({
                 </div>
               </div>
             </div>
+
             <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
               <button
                 type="submit"
@@ -196,6 +197,17 @@ const WithdrawFundsModal = ({
               >
                 Cancel
               </button>
+            </div>
+            <div className="mt-4 text-sm text-gray-500">
+              <span>
+                Currency conversion fees are included. Please note{" "}
+                <span className="text-bold">
+                  withdrawals are limited to 5000 per withdrawal
+                </span>{" "}
+                and cannot be undone. It may take up to 7 business days to
+                transfer funds. Your bank or payment processor may apply extra
+                fees.
+              </span>
             </div>
           </div>
         </form>
