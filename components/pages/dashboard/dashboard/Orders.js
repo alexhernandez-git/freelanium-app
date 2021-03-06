@@ -36,7 +36,9 @@ const Orders = ({ selectValue, handleChangeSelectValue }) => {
           <div className="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap ">
             <div className="ml-4 mt-2">
               <h3 className="text-xl leading-6 font-medium text-gray-700">
-                Active orders
+                {selectValue === "ACTIVE" && "Active orders"}
+                {selectValue === "COMPLETED" && "Completed orders"}
+                {selectValue === "CANCELLED" && "Cancelled orders"}
                 {/* {authReducer.user && authReducer.user.seller_view && (
                   <span className="text-gray-500">- 3</span>
                 )} */}
@@ -60,7 +62,9 @@ const Orders = ({ selectValue, handleChangeSelectValue }) => {
                           <Spinner />
                         </div>
                       )}
-                      Active orders
+                      {selectValue === "ACTIVE" && "Active orders"}
+                      {selectValue === "COMPLETED" && "Completed orders"}
+                      {selectValue === "CANCELLED" && "Cancelled orders"}
                     </span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                       {/* <!-- Heroicon name: selector --> */}

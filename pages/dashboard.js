@@ -6,15 +6,21 @@ import Layout from "components/Layout/Dashboard/Layout";
 import { useEffect, useState } from "react";
 import useAuthRequired from "hooks/useAuthRequired";
 import Spinner from "components/ui/Spinner";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchLastMessages } from "redux/actions/lastMessages";
 import { fetchDashboardOrders } from "redux/actions/dashboardOrders";
 
 export default function Dashboard() {
   const [cantRender, authReducer, initialDataFetched] = useAuthRequired();
+  const dashboardOrdersReducer = useSelector(
+    (state) => state.dashboardOrdersReducer
+  );
   const dispatch = useDispatch();
   const [selectValue, setSelectValue] = useState("ACTIVE");
   const handleFetchDashboardOrders = async (value) => {
+    if (dashboardOrdersReducer.orders.length !== 0 && value === selectValue) {
+      return;
+    }
     switch (value) {
       case "ACTIVE":
         await dispatch(fetchDashboardOrders(value));
