@@ -62,7 +62,7 @@ const InviteContactForm = ({
                     <div className="ml-3 h-7 flex items-center">
                       <button
                         type="button"
-                        className="rounded-md text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                        className="rounded-md text-cyan-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                         onClick={handleHideInviteContact}
                       >
                         <span className="sr-only">Close panel</span>
@@ -111,7 +111,7 @@ const InviteContactForm = ({
                             type="text"
                             name="email"
                             id="email"
-                            className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            className="block w-full shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.email}
@@ -136,7 +136,7 @@ const InviteContactForm = ({
                             id="message"
                             name="message"
                             rows="4"
-                            className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                            className="block w-full shadow-sm sm:text-sm focus:ring-cyan-500 focus:border-cyan-500 border-gray-300 rounded-md"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.message}
@@ -157,7 +157,7 @@ const InviteContactForm = ({
                                 value={"buyer"}
                                 aria-describedby="privacy_public_description"
                                 type="radio"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                className="focus:ring-cyan-500 h-4 w-4 text-cyan-600 border-gray-300"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 checked={formik.values.type == "buyer"}
@@ -188,7 +188,7 @@ const InviteContactForm = ({
                                   value={"seller"}
                                   aria-describedby="privacy_private-to-project_description"
                                   type="radio"
-                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                                  className="focus:ring-cyan-500 h-4 w-4 text-cyan-600 border-gray-300"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
                                   checked={formik.values.type == "seller"}
@@ -218,10 +218,10 @@ const InviteContactForm = ({
                         <div className="flex text-sm">
                           <a
                             href="#"
-                            className="group inline-flex items-center font-medium text-indigo-600 hover:text-indigo-900"
+                            className="group inline-flex items-center font-medium text-cyan-600 hover:text-cyan-900"
                           >
                             <svg
-                              className="h-5 w-5 text-indigo-500 group-hover:text-indigo-900"
+                              className="h-5 w-5 text-cyan-500 group-hover:text-cyan-900"
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 20 20"
                               fill="currentColor"
@@ -265,13 +265,15 @@ const InviteContactForm = ({
                 <button
                   onClick={handleHideInviteContact}
                   type="button"
-                  className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={`ml-4 inline-flex items-center px-3 py-2 border border-transparent 
+            text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+            bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
                 >
                   Send
                 </button>

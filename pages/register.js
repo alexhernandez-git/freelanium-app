@@ -80,9 +80,9 @@ const registerPage = () => {
           <li className="md:flex-1">
             <a
               href="#"
-              className="group pl-4 py-2 flex flex-col border-l-4 border-indigo-600 hover:border-indigo-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+              className="group pl-4 py-2 flex flex-col border-l-4 border-cyan-600 hover:border-cyan-800 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
             >
-              <span className="text-xs text-indigo-600 font-semibold uppercase group-hover:text-indigo-800">
+              <span className="text-xs text-cyan-600 font-semibold uppercase group-hover:text-cyan-800">
                 Step 1
               </span>
               <span className="text-sm font-medium">Insert your email</span>
@@ -92,10 +92,10 @@ const registerPage = () => {
           <li className="md:flex-1">
             <a
               href="#"
-              className="pl-4 py-2 flex flex-col border-l-4 border-indigo-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+              className="pl-4 py-2 flex flex-col border-l-4 border-cyan-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
               aria-current="step"
             >
-              <span className="text-xs text-indigo-600 font-semibold uppercase">
+              <span className="text-xs text-cyan-600 font-semibold uppercase">
                 Step 2
               </span>
               <span className="text-sm font-medium">Application form</span>
@@ -119,14 +119,14 @@ const registerPage = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+            src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Some Assembly Required
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 max-w">
-            <span className="font-medium text-indigo-600">
+            <span className="font-medium text-cyan-600">
               Start your 14-day free trial
             </span>
           </p>
@@ -141,7 +141,6 @@ const registerPage = () => {
                   key={i}
                   className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
                 >
-                  <p className="font-bold">Error</p>
                   <p>{message}</p>
                 </div>
               ))}
@@ -159,7 +158,7 @@ const registerPage = () => {
                     name="first_name"
                     type="text"
                     autoComplete="first_name"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.first_name}
@@ -168,7 +167,6 @@ const registerPage = () => {
               </div>
               {formik.touched.first_name && formik.errors.first_name ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                  <p className="font-bold">Error</p>
                   <p>{formik.errors.first_name}</p>
                 </div>
               ) : null}
@@ -185,7 +183,7 @@ const registerPage = () => {
                     name="last_name"
                     type="text"
                     autoComplete="last_name"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.last_name}
@@ -194,7 +192,6 @@ const registerPage = () => {
               </div>
               {formik.touched.last_name && formik.errors.last_name ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                  <p className="font-bold">Error</p>
                   <p>{formik.errors.last_name}</p>
                 </div>
               ) : null}
@@ -211,7 +208,7 @@ const registerPage = () => {
                     name="username"
                     type="text"
                     autoComplete="username"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
@@ -233,7 +230,6 @@ const registerPage = () => {
                 )}
               {formik.touched.username && formik.errors.username ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                  <p className="font-bold">Error</p>
                   <p>{formik.errors.username}</p>
                 </div>
               ) : null}
@@ -251,7 +247,7 @@ const registerPage = () => {
                     name="password"
                     type="password"
                     autoComplete="current-password"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
@@ -260,7 +256,6 @@ const registerPage = () => {
               </div>
               {formik.touched.password && formik.errors.password ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                  <p className="font-bold">Error</p>
                   <p>{formik.errors.password}</p>
                 </div>
               ) : null}
@@ -277,7 +272,7 @@ const registerPage = () => {
                     name="password_confirmation"
                     type="password"
                     autoComplete=""
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password_confirmation}
@@ -287,14 +282,13 @@ const registerPage = () => {
               {formik.touched.password_confirmation &&
               formik.errors.password_confirmation ? (
                 <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                  <p className="font-bold">Error</p>
                   <p>{formik.errors.password_confirmation}</p>
                 </div>
               ) : null}
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   CONTINUE
                 </button>

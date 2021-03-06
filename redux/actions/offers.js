@@ -29,10 +29,10 @@ export const fetchOffer = (offer_id) => async (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      dispatch(createAlert("ERROR", err.response.data));
+      dispatch(createAlert("ERROR", err.response?.data));
       dispatch({
         type: FETCH_OFFER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };
@@ -52,7 +52,7 @@ export const searchBuyers = (search = "") => async (dispatch, getState) => {
     .catch((err) => {
       dispatch({
         type: SEARCH_BUYERS_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };
@@ -80,10 +80,14 @@ export const createOffer = (
       await handleUnsetBuyerEmail();
       await dispatch(createAlert("SUCCESS", "Offer successfully created"));
     })
-    .catch((err) => {
-      dispatch({
+    .catch(async (err) => {
+      await dispatch(
+        createAlert("ERROR", err.response?.data?.non_field_errors[0])
+      );
+
+      await dispatch({
         type: CREATE_OFFER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };
@@ -102,10 +106,10 @@ export const acceptOffer = (data) => async (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      dispatch(createAlert("ERROR", err.response.data));
+      dispatch(createAlert("ERROR", err.response?.data));
       dispatch({
         type: ACCEPT_OFFER_FAIL,
-        payload: { data: err.response.data, status: err.response.status },
+        payload: { data: err.response?.data, status: err.response?.status },
       });
     });
 };

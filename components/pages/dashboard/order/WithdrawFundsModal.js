@@ -27,6 +27,7 @@ const WithdrawFundsModal = ({
         .typeError("Amount must be a number")
         .positive("Amount must be greater than zero")
         .required("Amount is required")
+        .moreThan(1, "Amount must be greater than $1.00")
         .lessThan(
           authReducer.user?.available_for_withdawal + 1,
           `Amount can not exceed total available for withdrawal ($${authReducer.user?.available_for_withdawal})`
@@ -124,7 +125,7 @@ const WithdrawFundsModal = ({
                                   : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               }
                               placeholder={`$300`}
-                              form="send-offer-form"
+                              form={"withdraw-funds-form"}
                               aria-describedby="amount"
                               value={formik.values.amount}
                               onChange={formik.handleChange}

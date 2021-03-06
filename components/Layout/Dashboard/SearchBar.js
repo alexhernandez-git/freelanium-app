@@ -8,13 +8,13 @@ const SearchBar = ({ text, searchState }) => {
           type="text"
           name="email"
           id="email"
-          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300"
+          className="focus:ring-cyan-500 focus:border-cyan-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300"
           placeholder={text}
           value={searchState?.search}
           onChange={(e) => searchState?.setSearch(e.target.value)}
         />
       </div>
-      <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+      <button className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500">
         {/* <!-- Heroicon name: sort-ascending --> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -19,6 +19,7 @@ import getStripe from "utils/get-stripejs";
 import { fetchPlans } from "redux/actions/plans";
 import useDispatchInitialData from "hooks/useDispatchInitialData";
 import { useRouter } from "next/router";
+import useAuthRequired from "hooks/useAuthRequired";
 
 function WrappedApp({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -27,8 +28,10 @@ function WrappedApp({ Component, pageProps }) {
     useDispatchInitialData(dispatch, router);
   }, []);
 
-  const authReducer = useSelector((state) => state.authReducer);
+  const [cantRender, authReducer, initialDataFetched] = useAuthRequired();
+
   const chatReducer = useSelector((state) => state.chatReducer);
+
   const ws = useRef(null);
   useEffect(() => {
     if (!authReducer.is_loading && authReducer.is_authenticated) {

@@ -13,6 +13,8 @@ import offersReducer from "./offersReducer";
 import ordersReducer from "./ordersReducer";
 import orderReducer from "./orderReducer";
 import earningsReducer from "./earningsReducer";
+import dashboardOrdersReducer from "./dashboardOrdersReducer";
+import lastMessagesReducer from "./lastMessagesReducer";
 
 export default combineReducers({
   initialDataReducer: initialDataReducer,
@@ -29,4 +31,6 @@ export default combineReducers({
   ordersReducer: ordersReducer,
   orderReducer: orderReducer,
   earningsReducer: earningsReducer,
+  dashboardOrdersReducer: dashboardOrdersReducer,
+  lastMessagesReducer: lastMessagesReducer,
 });

@@ -293,14 +293,14 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         error: null,
       };
-    case TOOGLE_VIEWS:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          seller_view: action.payload,
-        },
-      };
+    // case TOOGLE_VIEWS:
+    //   return {
+    //     ...state,
+    //     user: {
+    //       ...state.user,
+    //       seller_view: action.payload,
+    //     },
+    //   };
     case SEND_VERIFICATION_EMAIL:
       return {
         ...state,
@@ -657,11 +657,13 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          withdrawn:
-            parseFloat(state.user.withdrawn) + parseFloat(action.payload),
-          available_for_withdawal:
+          withdrawn: (
+            parseFloat(state.user.withdrawn) + parseFloat(action.payload)
+          ).toFixed(2),
+          available_for_withdawal: (
             parseFloat(state.user.available_for_withdawal) -
-            parseFloat(action.payload),
+            parseFloat(action.payload)
+          ).toFixed(2),
         },
       };
     default:

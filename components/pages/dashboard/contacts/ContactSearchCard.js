@@ -47,14 +47,26 @@ const ContactSearchCard = ({ contact, myContact }) => {
         </div>
         <div>
           {myContact ? (
-            <PrimaryButton onClick={handleGetOrCreateChat}>
+            <button
+              onClick={handleGetOrCreateChat}
+              type="button"
+              className={`inline-flex items-center px-3 py-2 border border-transparent 
+              text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+              bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
+            >
               Send message
-            </PrimaryButton>
+            </button>
           ) : (
             <div className="flex">
-              <PrimaryButton className="mr-3" onClick={handleGetOrCreateChat}>
+              <button
+                onClick={handleGetOrCreateChat}
+                type="button"
+                className={`mr-3 inline-flex items-center px-3 py-2 border border-transparent 
+              text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+              bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
+              >
                 Send message
-              </PrimaryButton>
+              </button>
               <SecondaryButton
                 className="cursor-pointer"
                 onClick={handleAddContact}

@@ -9,6 +9,7 @@ import {
   WITHDRAW_FUNDS_FAIL,
   SET_NEW_EARNINGS_TO_USER,
 } from "../types";
+import { createAlert } from "./alerts";
 
 export const fetchEarnings = () => async (dispatch, getState) => {
   await dispatch({

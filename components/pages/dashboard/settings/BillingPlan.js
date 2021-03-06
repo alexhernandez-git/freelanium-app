@@ -136,7 +136,7 @@ const BillingPlan = () => {
                       <input
                         name="pricing_plan"
                         type="radio"
-                        className="h-4 w-4 text-orange-500 cursor-pointer focus:ring-gray-900 border-gray-300"
+                        className="h-4 w-4 text-orange-500 cursor-pointer border-gray-300 text-cyan-500 focus:ring-cyan-500 "
                         aria-describedby="plan-option-pricing-1 plan-option-limit-1"
                         checked
                       />
@@ -180,7 +180,7 @@ const BillingPlan = () => {
                 <button
                   type="button"
                   onClick={handleShowModal}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Cancel subscription
                 </button>

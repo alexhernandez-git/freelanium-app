@@ -3,12 +3,45 @@ import Inbox from "components/pages/dashboard/dashboard/Inbox";
 import Orders from "components/pages/dashboard/dashboard/Orders";
 import UserCard from "components/pages/dashboard/dashboard/UserCard";
 import Layout from "components/Layout/Dashboard/Layout";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuthRequired from "hooks/useAuthRequired";
 import Spinner from "components/ui/Spinner";
+import { useDispatch } from "react-redux";
+import { fetchLastMessages } from "redux/actions/lastMessages";
+import { fetchDashboardOrders } from "redux/actions/dashboardOrders";
 
 export default function Dashboard() {
-  const [cantRender, authReducer] = useAuthRequired();
+  const [cantRender, authReducer, initialDataFetched] = useAuthRequired();
+  const dispatch = useDispatch();
+  const [selectValue, setSelectValue] = useState("ACTIVE");
+  const handleFetchDashboardOrders = async (value) => {
+    switch (value) {
+      case "ACTIVE":
+        await dispatch(fetchDashboardOrders(value));
+        break;
+      case "COMPLETED":
+        await dispatch(fetchDashboardOrders(value));
+        break;
+      case "CANCELLED":
+        await dispatch(fetchDashboardOrders(value));
+        break;
+    }
+  };
+  const handleFetchDashboardData = async () => {
+    await handleFetchDashboardOrders(selectValue);
+    await dispatch(fetchLastMessages());
+  };
+
+  const handleChangeSelectValue = (value) => {
+    handleFetchDashboardOrders(value);
+    setSelectValue(value);
+  };
+
+  useEffect(() => {
+    if (initialDataFetched) {
+      handleFetchDashboardData();
+    }
+  }, [initialDataFetched]);
 
   return !cantRender ? (
     <div className="flex justify-center items-center h-screen">
@@ -22,7 +55,10 @@ export default function Dashboard() {
           <Inbox />
         </div>
         <div className="col-start-5 col-span-9">
-          <Orders />
+          <Orders
+            selectValue={selectValue}
+            handleChangeSelectValue={handleChangeSelectValue}
+          />
           {/* <Activity /> */}
         </div>
       </div>

@@ -76,7 +76,7 @@ const billing = () => {
               <BillingHistory />
             </div>
           </>
-        ) : authReducer?.user?.have_active_plan ? (
+        ) : authReducer?.user?.is_seller ? (
           <>
             {addBillingInformation ? (
               <AddBillingInformationForm />

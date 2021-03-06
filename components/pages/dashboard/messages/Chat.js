@@ -214,7 +214,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                         type="text"
                         name="text"
                         id="text"
-                        className="block w-full sm:text-sm border-gray-200 ring-0 focus:outline-none focus:shadow-none resize-none border-b-0 border-l-0 border-r-0 focus:border-gray-200"
+                        className="block w-full sm:text-sm border-gray-200 ring-0 focus:outline-none focus:shadow-none resize-none border-b-0 border-l-0 border-r-0 focus:border-gray-200 focus:ring-cyan-500"
                         placeholder="Message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}

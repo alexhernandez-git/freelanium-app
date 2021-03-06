@@ -17,7 +17,7 @@ const features = () => {
       <div class="bg-white mt-12">
         <div class="max-w-7xl 2xl:max-w-3/4  mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
           <div>
-            <h2 class="text-base font-semibold text-indigo-600 uppercase tracking-wide">
+            <h2 class="text-base font-semibold text-cyan-600 uppercase tracking-wide">
               Everything you need
             </h2>
             <p class="mt-2 text-3xl font-extrabold text-gray-900">
@@ -250,11 +250,11 @@ const features = () => {
         </div>
       </div>
       {/* <!-- This example requires Tailwind CSS v2.0+ --> */}
-      <div class="bg-indigo-50">
+      <div class="bg-cyan-50">
         <div class="max-w-7xl 2xl:max-w-3/4 mx-auto py-12 px-4 sm:px-6 lg:py-24 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">
             <span class="block">Ready to dive in?</span>
-            <span class="block text-indigo-600">
+            <span class="block text-cyan-600">
               Start your free trial today.
             </span>
           </h2>
@@ -262,7 +262,7 @@ const features = () => {
             <div class="inline-flex rounded-md shadow">
               <a
                 onClick={handleOpenTryFree}
-                class="cursor-pointer inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                className="cursor-pointer mt-8 w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 border border-transparent px-5 py-3 inline-flex items-center justify-center text-base font-medium rounded-md text-white hover:bg-cyan-700 sm:mt-10 sm:w-auto xl:mt-0"
               >
                 Get started
               </a>

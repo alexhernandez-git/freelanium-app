@@ -78,7 +78,7 @@ const RegisterForm = ({ isSeller, token }) => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h3 className="text-center text-2xl font-extrabold text-gray-700">
           Get access to your own{" "}
-          <span className="block text-indigo-400">
+          <span className="block text-cyan-400">
             {isSeller ? "seller" : "buyer"} dashboard
           </span>
         </h3>
@@ -87,28 +87,55 @@ const RegisterForm = ({ isSeller, token }) => {
         <label htmlFor="username" className="sr-only">
           Username
         </label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          autoComplete="username"
-          placeholder="Username"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.username}
-        />
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autoComplete="username"
+            placeholder="Username"
+            className={
+              (formik.touched.username && formik.errors.username) ||
+              username_available_error
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.username}
+          />
+          {((formik.touched.username && formik.errors.username) ||
+            username_available_error) && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
+        {formik.touched.username && formik.errors.username && (
+          <p class="mt-2 text-sm text-red-600" id="username-error">
+            {formik.errors.username}
+          </p>
+        )}
+        {username_available_error &&
+          username_available_error.data.non_field_errors.map((message, i) => (
+            <p class="mt-2 text-sm text-red-600" id="username-error">
+              {message}
+            </p>
+          ))}
       </div>
-      {username_available_error &&
-        username_available_error.data.non_field_errors.map((message, i) => (
-          <div
-            key={i}
-            className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
-          >
-            <p className="font-bold">Error</p>
-            <p>{message}</p>
-          </div>
-        ))}
+
       {formik.touched.username && formik.errors.username ? (
         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
           <p className="font-bold">Error</p>
@@ -119,127 +146,245 @@ const RegisterForm = ({ isSeller, token }) => {
         <label htmlFor="first_name" className="sr-only">
           First name
         </label>
-        <input
-          type="text"
-          name="first_name"
-          id="first_name"
-          autoComplete="first_name"
-          placeholder="First name"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.first_name}
-        />
-      </div>
-      {formik.touched.first_name && formik.errors.first_name ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.first_name}</p>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            type="text"
+            name="first_name"
+            id="first_name"
+            autoComplete="first_name"
+            placeholder="First name"
+            className={
+              formik.touched.first_name && formik.errors.first_name
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.first_name}
+          />
+          {formik.touched.first_name && formik.errors.first_name && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-      ) : null}
+        {formik.touched.first_name && formik.errors.first_name && (
+          <p class="mt-2 text-sm text-red-600" id="first_name-error">
+            {formik.errors.first_name}
+          </p>
+        )}
+      </div>
+
       <div>
         <label htmlFor="last_name" className="sr-only">
           Last name
         </label>
-        <input
-          type="text"
-          name="last_name"
-          id="last_name"
-          autoComplete="last_name"
-          placeholder="Last name"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.last_name}
-        />
-      </div>
-      {formik.touched.last_name && formik.errors.last_name ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.last_name}</p>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            type="text"
+            name="last_name"
+            id="last_name"
+            autoComplete="last_name"
+            placeholder="Last name"
+            className={
+              formik.touched.last_name && formik.errors.last_name
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.last_name}
+          />
+          {formik.touched.last_name && formik.errors.last_name && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-      ) : null}
+        {formik.touched.last_name && formik.errors.last_name && (
+          <p class="mt-2 text-sm text-red-600" id="last_name-error">
+            {formik.errors.last_name}
+          </p>
+        )}
+      </div>
+
       <div>
         <label htmlFor="email" className="sr-only">
           Email
         </label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          placeholder="Email"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
-      </div>
-      {email_available_error &&
-        email_available_error.data.non_field_errors &&
-        email_available_error.data.non_field_errors.map((message, i) => (
-          <div
-            key={i}
-            className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
-          >
-            <p className="font-bold">Error</p>
-            <p>{message}</p>
-          </div>
-        ))}
-      {formik.touched.email && formik.errors.email ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.email}</p>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            className={
+              (formik.touched.email && formik.errors.email) ||
+              email_available_error
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-      ) : null}
+        {((formik.touched.email && formik.errors.email) ||
+          email_available_error) && (
+          <p class="mt-2 text-sm text-red-600" id="email-error">
+            {formik.errors.email}
+          </p>
+        )}
+        {email_available_error &&
+          email_available_error.data.non_field_errors &&
+          email_available_error.data.non_field_errors.map((message, i) => (
+            <p class="mt-2 text-sm text-red-600" id="email-error">
+              {message}
+            </p>
+          ))}
+      </div>
+
       <div>
         <label htmlFor="password" className="sr-only">
           Password
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-        />
-      </div>
-      {formik.touched.password && formik.errors.password ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.password}</p>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            autoComplete="current-password"
+            className={
+              formik.touched.password && formik.errors.password
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-red-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          )}
         </div>
-      ) : null}
+        {formik.touched.password && formik.errors.password && (
+          <p class="mt-2 text-sm text-red-600" id="password-error">
+            {formik.errors.password}
+          </p>
+        )}
+      </div>
+
       <div>
         <label htmlFor="password_confirmation" className="sr-only">
           Password
         </label>
-        <input
-          id="password_confirmation"
-          name="password_confirmation"
-          type="password"
-          placeholder="Password confirmation"
-          autoComplete="password_confirmation"
-          className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password_confirmation}
-        />
-      </div>
-      {formik.touched.password_confirmation &&
-      formik.errors.password_confirmation ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.password_confirmation}</p>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password"
+            placeholder="Password confirmation"
+            autoComplete="password_confirmation"
+            className={
+              formik.touched.password_confirmation &&
+              formik.errors.password_confirmation
+                ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
+                : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password_confirmation}
+          />
+          {formik.touched.password_confirmation &&
+            formik.errors.password_confirmation && (
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-red-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            )}
         </div>
-      ) : null}
+        {formik.touched.password_confirmation &&
+          formik.errors.password_confirmation && (
+            <p
+              class="mt-2 text-sm text-red-600"
+              id="password_confirmation-error"
+            >
+              {formik.errors.password_confirmation}
+            </p>
+          )}
+      </div>
+
       <div>
         <button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
         >
           Create your account
         </button>

@@ -34,12 +34,12 @@ const RegisterLayout = ({ isSeller, token }) => {
                 {isSeller ? (
                   <>
                     <span className="">Ecosystem to charge</span>{" "}
-                    <span className="text-indigo-400 ">your customers</span>
+                    <span className="text-cyan-400 ">your customers</span>
                   </>
                 ) : (
                   <>
                     <span className="">Have more control in</span>{" "}
-                    <span className="text-indigo-400 ">your projects</span>
+                    <span className="text-cyan-400 ">your projects</span>
                   </>
                 )}
               </h1>

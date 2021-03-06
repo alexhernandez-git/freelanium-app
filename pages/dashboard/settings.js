@@ -164,7 +164,7 @@ const settings = () => {
                       name="username"
                       id="username"
                       autoComplete="username"
-                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                      className="focus:ring-cyan-500 focus:border-cyan-500 flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
                       onChange={profileForm.handleChange}
                       onBlur={profileForm.handleBlur}
                       value={profileForm.values.username}
@@ -210,7 +210,7 @@ const settings = () => {
                         id="about"
                         name="about"
                         rows="3"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-cyan-500 focus:border-cyan-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="you@example.com"
                         onChange={profileForm.handleChange}
                         onBlur={profileForm.handleBlur}
@@ -253,7 +253,7 @@ const settings = () => {
                       )}
 
                       <label
-                        className="cursor-pointer ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="cursor-pointer ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                         htmlFor="profile-img"
                       >
                         Change
@@ -277,7 +277,7 @@ const settings = () => {
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-gradient-to-r from-teal-500 to-cyan-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Save
                 </button>
@@ -310,7 +310,7 @@ const settings = () => {
                       name="first_name"
                       id="first_name"
                       autoComplete="given-name"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={personalInfoForm.handleChange}
                       onBlur={personalInfoForm.handleBlur}
                       value={personalInfoForm.values.first_name}
@@ -335,7 +335,7 @@ const settings = () => {
                       name="last_name"
                       id="last_name"
                       autoComplete="family-name"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={personalInfoForm.handleChange}
                       onBlur={personalInfoForm.handleBlur}
                       value={personalInfoForm.values.last_name}
@@ -359,7 +359,7 @@ const settings = () => {
                       id="country"
                       name="country"
                       autoComplete="country"
-                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={personalInfoForm.handleChange}
                       onBlur={personalInfoForm.handleBlur}
                       value={personalInfoForm.values.country}
@@ -393,7 +393,7 @@ const settings = () => {
                       id="currency"
                       name="currency"
                       autoComplete="currency"
-                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={personalInfoForm.handleChange}
                       onBlur={personalInfoForm.handleBlur}
                       value={personalInfoForm.values.currency}
@@ -413,7 +413,7 @@ const settings = () => {
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-gradient-to-r from-teal-500 to-cyan-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Save
                 </button>
@@ -445,7 +445,7 @@ const settings = () => {
                       name="email"
                       id="email_address"
                       autoComplete="email"
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={emailForm.handleChange}
                       onBlur={emailForm.handleBlur}
                       value={emailForm.values.email}
@@ -487,7 +487,7 @@ const settings = () => {
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                   type="submit"
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="bg-gradient-to-r from-teal-500 to-cyan-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                 >
                   Save
                 </button>

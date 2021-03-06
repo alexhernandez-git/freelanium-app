@@ -39,7 +39,7 @@ const pricing = () => {
             <div>
               <h1 className="text-4xl font-extrabold sm:text-5xl sm:tracking-tight">
                 <span className="text-gray-900">Everything you need for </span>
-                <span className="text-indigo-600">{priceLabel} a month</span>
+                <span className="text-cyan-600">{priceLabel} a month</span>
               </h1>
               <p className="mt-5 text-xl text-gray-500">
                 Includes every feature we offer plus unlimited projects and
@@ -48,14 +48,14 @@ const pricing = () => {
             </div>
             <a
               onClick={handleOpenTryFree}
-              className="cursor-pointer mt-8 w-full bg-indigo-600 border border-transparent px-5 py-3 inline-flex items-center justify-center text-base font-medium rounded-md text-white hover:bg-indigo-700 sm:mt-10 sm:w-auto xl:mt-0"
+              className="cursor-pointer mt-8 w-full bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 border border-transparent px-5 py-3 inline-flex items-center justify-center text-base font-medium rounded-md text-white hover:bg-cyan-700 sm:mt-10 sm:w-auto xl:mt-0"
             >
               Get started today
             </a>
           </div>
           <div className="border-t border-gray-200 pt-16 xl:grid xl:grid-cols-3 xl:gap-x-8">
             <div>
-              <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">
+              <h2 className="text-base font-semibold text-cyan-600 tracking-wide uppercase">
                 Everything you need
               </h2>
               <p className="mt-2 text-3xl font-extrabold text-gray-900">

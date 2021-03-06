@@ -13,7 +13,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const handleToggleView = () => {
     dispatch(toggleView());
-    router.push("/dashboard");
   };
 
   const router = useRouter();
@@ -23,12 +22,13 @@ const Header = () => {
     setDropdownMenuOpen(!dropdownMenuOpen);
   };
   const handleCloseDropdownMenu = () => {
-    console.log("entra en dropdown menu");
-
     if (dropdownMenuOpen) {
       setDropdownMenuOpen(false);
     }
   };
+  useEffect(() => {
+    handleCloseDropdownMenu();
+  }, [authReducer?.user?.seller_view]);
   useOutsideClick(dropdownMenuRef, () => handleCloseDropdownMenu());
   // Mobile menu
   const mobileMenuRef = useRef();

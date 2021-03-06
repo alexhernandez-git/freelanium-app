@@ -58,9 +58,15 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           <li className="bg-white">
             <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50">
               <div>
-                <PrimaryButton onClick={handleShowInviteContact}>
+                <button
+                  onClick={handleShowInviteContact}
+                  type="button"
+                  className={`inline-flex items-center px-3 py-2 border border-transparent 
+              text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+              bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
+                >
                   Invite your contact
-                </PrimaryButton>
+                </button>
               </div>
             </div>
           </li>

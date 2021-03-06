@@ -49,7 +49,9 @@ const UserCard = () => {
           <span className="text-xl text-gray-600 ">
             Earned on {moment().format("MMMM")}
           </span>
-          <span className="text-2xl font-bold text-gray-600">$600</span>
+          <span className="text-2xl font-medium text-green-500">
+            ${user?.earned_this_month ? user?.earned_this_month : 0}
+          </span>
         </div>
       )}
     </div>

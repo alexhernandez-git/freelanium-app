@@ -145,7 +145,7 @@ const ChangePaymentMethodForm = ({
                                 <input
                                   name="payment_method_id"
                                   type="radio"
-                                  className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 cursor-pointer border-gray-300"
+                                  className="focus:ring-cyan-500 h-4 w-4 text-cyan-500 cursor-pointer border-gray-300"
                                   aria-describedby="plan-option-pricing-0 plan-option-limit-0"
                                   onChange={formikPaymentMethods.handleChange}
                                   onBlur={formikPaymentMethods.handleBlur}
@@ -230,7 +230,7 @@ const ChangePaymentMethodForm = ({
                                         formik.touched.card_name &&
                                         formik.errors.card_name
                                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                                          : "block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                          : "block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-cyan-500 sm:text-sm"
                                       }
                                       value={formik.values.card_name}
                                       onChange={formik.handleChange}
@@ -357,13 +357,13 @@ const ChangePaymentMethodForm = ({
             <button
               type="button"
               onClick={handleCloseChangePaymentMethod}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-indigo-600  border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-gradient-to-r from-teal-500 to-cyan-600  border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
             >
               Change
             </button>

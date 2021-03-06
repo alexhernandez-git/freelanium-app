@@ -18,7 +18,7 @@ import Pagination from "components/ui/Pagination";
 import Spinner from "components/ui/Spinner";
 
 export default function Home() {
-  const [cantRender, authReducer] = useAuthRequired();
+  const [cantRender, authReducer, initialData] = useAuthRequired();
   const [isSearching, setIsSearching] = useState(false);
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
@@ -49,11 +49,11 @@ export default function Home() {
   useOutsideClick(inviteContactRef, () => handleHideInviteContact());
 
   useEffect(() => {
-    if (!authReducer.is_loading && authReducer.is_authenticated) {
+    if (initialData) {
       const handleFetchContacts = async () => await dispatch(fetchContacts());
       handleFetchContacts();
     }
-  }, [authReducer.is_loading]);
+  }, [initialData]);
 
   const contactsReducer = useSelector((state) => state.contactsReducer);
 
@@ -72,7 +72,7 @@ export default function Home() {
     <Layout
       pageName={!isSearching && "Contacts"}
       goBack={isSearching && handleHideSearching}
-      searchBar="Search / Add Contacts"
+      searchBar="Search Contacts"
       searchState={{ search, setSearch }}
     >
       {isSearching ? (
@@ -81,6 +81,17 @@ export default function Home() {
         </>
       ) : (
         <>
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={handleShowInviteContact}
+              type="button"
+              className={`inline-flex items-center px-3 py-2 border border-transparent 
+            text-sm leading-4 font-medium rounded-md shadow-sm text-white 
+            bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
+            >
+              Invite Contacts
+            </button>
+          </div>
           {!contactsReducer.is_loading &&
             contactsReducer.contacts &&
             contactsReducer.contacts.results.length == 0 && (

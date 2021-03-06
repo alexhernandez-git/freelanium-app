@@ -474,10 +474,6 @@ export const stripeConnect = (auth_code) => async (dispatch, getState) => {
 export const toggleView = () => async (dispatch, getState) => {
   const view = getState().authReducer.user.seller_view;
 
-  dispatch({
-    type: TOOGLE_VIEWS,
-    payload: !view,
-  });
   await axios
     .patch(
       `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
@@ -486,10 +482,7 @@ export const toggleView = () => async (dispatch, getState) => {
     )
     .then((res) => {
       console.log(res);
-      dispatch({
-        type: UPDATE_USER_SUCCESS,
-        payload: res.data,
-      });
+      location.reload();
     })
     .catch((err) => {
       dispatch({
