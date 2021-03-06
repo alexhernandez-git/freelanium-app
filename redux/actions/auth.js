@@ -75,6 +75,9 @@ import {
   ADD_PAYMENT_METHOD,
   ADD_PAYMENT_METHOD_SUCCESS,
   ADD_PAYMENT_METHOD_FAIL,
+  PAYPAL_CONNECT,
+  PAYPAL_CONNECT_SUCCESS,
+  PAYPAL_CONNECT_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -466,6 +469,39 @@ export const stripeConnect = (auth_code) => async (dispatch, getState) => {
       dispatch(createAlert("ERROR", "Error at connect with Stripe"));
       dispatch({
         type: STRIPE_CONNECT_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const paypalConnect = (
+  values,
+  handleClosePaypalConnectModal,
+  resetForm
+) => async (dispatch, getState) => {
+  await dispatch({
+    type: PAYPAL_CONNECT,
+  });
+  await axios
+    .post(
+      `${process.env.HOST}/api/users/paypal_connect/`,
+      values,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      console.log(res.data);
+      await dispatch({
+        type: PAYPAL_CONNECT_SUCCESS,
+        payload: res.data,
+      });
+      await dispatch(createAlert("SUCCESS", "Connected with PayPal"));
+      await handleClosePaypalConnectModal();
+      await resetForm({});
+    })
+    .catch(async (err) => {
+      await dispatch(createAlert("ERROR", "Error at connect with PayPal"));
+      await dispatch({
+        type: PAYPAL_CONNECT_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });

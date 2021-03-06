@@ -65,6 +65,7 @@ function WrappedApp({ Component, pageProps }) {
             break;
           // Offer pendent
           case "OFPE":
+            console.log(data);
             if (data.sent_by__pk !== authReducer.user?.id) {
               await dispatch(setPendingMessages());
               await dispatch(setPendingNotifications());

@@ -1,6 +1,6 @@
 import WithdrawFundsModal from "components/pages/dashboard/order/WithdrawFundsModal";
-import BillingHistory from "components/pages/dashboard/settings/BillingHistory";
 import EarningsHistory from "components/pages/dashboard/settings/EarningsHistory";
+import PaypalConnectModal from "components/pages/dashboard/settings/PaypalConnectModal";
 import SettingsLayout from "components/pages/dashboard/settings/SettingsLayout";
 import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
@@ -40,6 +40,19 @@ const earnings = () => {
     }
   };
   useOutsideClick(withdrawFundsRef, () => handleCloseWithdrawFunds());
+
+  // Paypal connect
+  const paypalConnectModalRef = useRef();
+  const [openPaypalConnectModal, setOpenPaypalConnectModal] = useState(false);
+  const handleTogglePaypalConnectForm = () => {
+    setOpenPaypalConnectModal(!openPaypalConnectModal);
+  };
+  const handleClosePaypalConnectModal = () => {
+    if (openPaypalConnectModal) {
+      setOpenPaypalConnectModal(false);
+    }
+  };
+  useOutsideClick(paypalConnectModalRef, () => handleClosePaypalConnectModal());
 
   return !cantRender ? (
     <div className="flex justify-center items-center h-screen">
@@ -125,21 +138,9 @@ const earnings = () => {
                           </h3>
                         </div>
 
-                        {authReducer?.user?.stripe_account_id &&
-                        authReducer?.user?.stripe_dashboard_url ? (
-                          <div className="lg:w-56 mt-4">
-                            <Link href={authReducer.user.stripe_dashboard_url}>
-                              <a
-                                target="_blank"
-                                className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:col-start-1 sm:text-sm"
-                              >
-                                Stripe dashboard
-                              </a>
-                            </Link>
-                          </div>
-                        ) : (
+                        {!authReducer?.user?.paypal_email && (
                           <div className="mt-4 text-sm text-gray-600">
-                            Connect to stripe to withdraw your money
+                            Connect to PayPal to withdraw your money
                           </div>
                         )}
                       </div>
@@ -162,24 +163,32 @@ const earnings = () => {
                           </>
                         ) : (
                           <>
-                            {authReducer?.user?.stripe_account_id &&
-                            authReducer?.user?.stripe_dashboard_url ? (
+                            {authReducer?.user?.paypal_email ? (
                               <>
                                 <span
                                   onMouseDown={handleToggleWithdrawFunds}
-                                  className="cursor-pointer shadow flex items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700  px-5 py-3 border border-transparent text-base font-medium rounded-md text-white"
+                                  className="cursor-pointer  flex items-center justify-center border-gray-300 shadow-sm bg-white text-base font-medium text-gray-700 hover:bg-gray-50  px-5 py-3 border border-transparent rounded-md"
                                 >
+                                  <img
+                                    src="/static/images/paypal-logo.png"
+                                    className="w-6 h-6 mr-2"
+                                  />
                                   Withdrawn
                                 </span>
                               </>
                             ) : (
-                              <Link
-                                href={`https://connect.stripe.com/express/oauth/authorize?response_type=code&amp;client_id=${process.env.STRIPE_CLIENT_ID}&amp;scope=read_write`}
-                              >
-                                <a className="flex shadow items-center justify-center bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700  px-5 py-3 border border-transparent text-base font-medium rounded-md text-white">
-                                  Connect with stripe
-                                </a>
-                              </Link>
+                              <>
+                                <span
+                                  onMouseDown={handleTogglePaypalConnectForm}
+                                  className="cursor-pointer  flex items-center justify-center border-gray-300 shadow-sm bg-white text-base font-medium text-gray-700 hover:bg-gray-50  px-5 py-3 border border-transparent rounded-md"
+                                >
+                                  <img
+                                    src="/static/images/paypal-logo.png"
+                                    className="w-6 h-6 mr-2"
+                                  />
+                                  Connect with PayPal
+                                </span>
+                              </>
                             )}
                           </>
                         )}
@@ -207,6 +216,11 @@ const earnings = () => {
         openWithdrawFunds={openWithdrawFunds}
         withdrawFundsRef={withdrawFundsRef}
         handleCloseWithdrawFunds={handleCloseWithdrawFunds}
+      />
+      <PaypalConnectModal
+        paypalConnectModalRef={paypalConnectModalRef}
+        openPaypalConnectModal={openPaypalConnectModal}
+        handleClosePaypalConnectModal={handleClosePaypalConnectModal}
       />
     </>
   );

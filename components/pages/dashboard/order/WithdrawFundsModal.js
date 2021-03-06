@@ -90,15 +90,31 @@ const WithdrawFundsModal = ({
 
                       <div className="mt-1   sm:mt-0 sm:col-span-2">
                         <div className="flex items-center">
-                          <div className="overflow-hidden rounded h-5 w-5">
+                          <div className="h-5 w-5">
                             <img
                               className="w-full"
-                              src="/static/images/stripe-logo.jpg"
+                              src="/static/images/paypal-logo.png"
                               alt=""
                             />
                           </div>
                           <div className="relative text-gray-500 ml-2">
-                            Bank Transfer
+                            PayPal Account
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
+                      <label
+                        for="first_name"
+                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      >
+                        Paypal account
+                      </label>
+
+                      <div className="mt-1   sm:mt-0 sm:col-span-2">
+                        <div className="flex items-center">
+                          <div className="relative text-gray-500">
+                            {authReducer.user?.paypal_email}
                           </div>
                         </div>
                       </div>

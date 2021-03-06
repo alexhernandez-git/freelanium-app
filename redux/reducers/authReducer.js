@@ -76,6 +76,9 @@ import {
   ADD_PAYMENT_METHOD_SUCCESS,
   ADD_PAYMENT_METHOD_FAIL,
   SET_NEW_EARNINGS_TO_USER,
+  PAYPAL_CONNECT,
+  PAYPAL_CONNECT_SUCCESS,
+  PAYPAL_CONNECT_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -131,6 +134,8 @@ const initialState = {
   become_a_seller_error: null,
   adding_payment_method: false,
   add_payment_method_error: null,
+  paypal_connecting: false,
+  paypal_connect_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -490,6 +495,25 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         stripe_connecting: false,
         stripe_connect_error: action.payload,
+      };
+    case PAYPAL_CONNECT:
+      return {
+        ...state,
+        paypal_connecting: true,
+      };
+    case PAYPAL_CONNECT_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          paypal_email: action.payload.email,
+        },
+      };
+    case PAYPAL_CONNECT_FAIL:
+      return {
+        ...state,
+        paypal_connecting: false,
+        paypal_connect_error: action.payload,
       };
     case INVITE_USER:
       return {
