@@ -677,6 +677,7 @@ export default function AuthReducer(state = initialState, action) {
         add_payment_method_error: action.payload,
       };
     case SET_NEW_EARNINGS_TO_USER:
+      console.log("withdrawn amount", parseFloat(action.payload));
       return {
         ...state,
         user: {
@@ -684,8 +685,8 @@ export default function AuthReducer(state = initialState, action) {
           withdrawn: (
             parseFloat(state.user.withdrawn) + parseFloat(action.payload)
           ).toFixed(2),
-          available_for_withdawal: (
-            parseFloat(state.user.available_for_withdawal) -
+          available_for_withdrawal: (
+            parseFloat(state.user.available_for_withdrawal) -
             parseFloat(action.payload)
           ).toFixed(2),
         },
