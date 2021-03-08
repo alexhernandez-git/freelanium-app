@@ -80,7 +80,7 @@ const earnings = () => {
                 <div className="absolute inset-0 h-1/2 bg-gray-50"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="max-w-4xl mx-auto">
-                    <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-4">
+                    <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-5">
                       <div className="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                         <dt className="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
                           Net income
@@ -110,7 +110,21 @@ const earnings = () => {
                           Available funds
                         </dt>
                         <dd className="order-1 text-3xl font-extrabold text-cyan-600">
-                          ${authReducer?.user?.available_for_withdawal}
+                          $
+                          {authReducer?.user?.available_for_withdrawal
+                            ? authReducer?.user?.available_for_withdrawal
+                            : "0.00"}
+                        </dd>
+                      </div>
+                      <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+                        <dt className="order-2 mt-2 text-sm leading-6 font-medium text-gray-500">
+                          Pending clearance
+                        </dt>
+                        <dd className="order-1 text-3xl font-extrabold text-cyan-600">
+                          $
+                          {authReducer?.user?.pending_clearance
+                            ? authReducer?.user?.pending_clearance
+                            : "0.00"}
                         </dd>
                       </div>
                     </dl>

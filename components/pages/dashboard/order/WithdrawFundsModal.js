@@ -29,8 +29,8 @@ const WithdrawFundsModal = ({
         .required("Amount is required")
         .moreThan(1, "Amount must be greater than $1.00")
         .lessThan(
-          authReducer.user?.available_for_withdawal + 1,
-          `Amount can not exceed total available for withdrawal ($${authReducer.user?.available_for_withdawal})`
+          authReducer.user?.available_for_withdrawal + 1,
+          `Amount can not exceed total available for withdrawal ($${authReducer.user?.available_for_withdrawal})`
         ),
     }),
     onSubmit: async (values, { resetForm }) => {
