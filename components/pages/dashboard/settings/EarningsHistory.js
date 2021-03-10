@@ -12,12 +12,25 @@ const EarningsHistory = () => {
   const handleChangePage = (url) => {
     dispatch(fetchEarningsPagination(url));
   };
-  const getEarningType = (type) => {
-    switch (type) {
+  const getEarningType = (earning) => {
+    switch (earning.type) {
       case "OR":
-        return "Order revenue";
+        if (moment().isAfter(moment(earning.available_for_withdrawn_date))) {
+          return "Order revenue";
+        }
+        const days_left = moment(earning.available_for_withdrawn_date).diff(
+          moment(),
+          "days"
+        );
+        const percentage = (100 - (100 * days_left) / 14).toFixed(0);
+
+        return <div>Pending clearance {percentage}%</div>;
       case "WI":
         return "Withdrawn funds";
+      case "RE":
+        return "Refund funds";
+      case "SP":
+        return "Credits spent";
     }
   };
   return (
@@ -78,16 +91,18 @@ const EarningsHistory = () => {
                             {earning.lines.data[0].description}
                           </td> */}
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {getEarningType(earning.type)}
+                            {getEarningType(earning)}
                           </td>
                           <td
                             className={`px-6 py-4 whitespace-nowrap text-sm ${
-                              earning.type === "WI"
+                              earning.type === "WI" || earning.type === "SP"
                                 ? "text-red-500"
                                 : "text-green-500"
                             } font-bold`}
                           >
-                            {earning.type === "WI" && "-"}${earning.amount}
+                            {(earning.type === "WI" || earning.type === "SP") &&
+                              "-"}
+                            ${earning.amount}
                           </td>
                         </tr>
                       ))}
