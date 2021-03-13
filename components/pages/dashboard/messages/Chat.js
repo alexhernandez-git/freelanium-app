@@ -57,6 +57,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
       ws.current = new WebSocket(
         process.env.WS + "/ws/chat/" + chatReducer.chat.id + "/"
       );
+      console.log(process.env.WS + "/ws/chat/" + chatReducer.chat.id + "/");
       ws.current.onopen = () => console.log("ws opened");
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async (e) => {

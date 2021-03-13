@@ -38,6 +38,9 @@ function WrappedApp({ Component, pageProps }) {
       ws.current = new WebSocket(
         process.env.WS + "/ws/notifications/" + authReducer.user.id + "/"
       );
+      console.log(
+        process.env.WS + "/ws/notifications/" + authReducer.user.id + "/"
+      );
       ws.current.onopen = () => console.log("ws opened");
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async function (e) {
