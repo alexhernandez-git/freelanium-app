@@ -14,7 +14,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   const chatRef = useRef();
   const handleScrollToBottom = () => {
     if (chatRef.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current?.scrollIntoView();
     }
   };
 
@@ -195,6 +195,17 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
           >
             <div className="p-3 h-full overflow-y-auto" ref={chatRef}>
               <ul>
+                {messagesReducer.messages.results.length > 0 &&
+                  messagesReducer.messages.next && (
+                    <li className="text-center mb-10">
+                      <span
+                        className="text-gray-500 text-sm cursor-pointer underline"
+                        onClick={handleScroll}
+                      >
+                        Load more messages
+                      </span>
+                    </li>
+                  )}
                 {messagesReducer.messages.results.length > 0 &&
                   messagesReducer.messages.results.map((message) =>
                     message.sent_by.id == authReducer.user?.id ? (

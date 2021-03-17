@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   isUsernameAvailable,
   register_seller,
+  resetAuthErrors,
   resetEmailAvailable,
   resetUsernameAvailable,
 } from "redux/actions/auth";
@@ -69,6 +70,11 @@ const registerPage = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [formik.values.username]);
+  useEffect(() => {
+    if (authReducer?.register_error?.data?.non_field_errors) {
+      dispatch(resetAuthErrors());
+    }
+  }, [formik.values.password]);
   return authReducer.registing ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
@@ -259,6 +265,18 @@ const registerPage = () => {
                   <p>{formik.errors.password}</p>
                 </div>
               ) : null}
+              {authReducer &&
+                authReducer?.register_error?.data?.non_field_errors &&
+                authReducer.register_error.data.non_field_errors.map(
+                  (message, i) => (
+                    <div
+                      key={i}
+                      className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                    >
+                      <p>{message}</p>
+                    </div>
+                  )
+                )}
               <div>
                 <label
                   htmlFor="password_confirmation"

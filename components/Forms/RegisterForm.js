@@ -8,6 +8,7 @@ import {
   isUsernameAvailable,
   register_buyer,
   register_seller,
+  resetAuthErrors,
   resetEmailAvailable,
   resetUsernameAvailable,
 } from "redux/actions/auth";
@@ -73,6 +74,11 @@ const RegisterForm = ({ isSeller, token }) => {
       return () => clearTimeout(timeoutId);
     }
   }, [formik.values.username]);
+  useEffect(() => {
+    if (authReducer?.register_error?.data?.non_field_errors) {
+      dispatch(resetAuthErrors());
+    }
+  }, [formik.values.password]);
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -136,12 +142,6 @@ const RegisterForm = ({ isSeller, token }) => {
           ))}
       </div>
 
-      {formik.touched.username && formik.errors.username ? (
-        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-          <p className="font-bold">Error</p>
-          <p>{formik.errors.username}</p>
-        </div>
-      ) : null}
       <div>
         <label htmlFor="first_name" className="sr-only">
           First name
@@ -297,7 +297,8 @@ const RegisterForm = ({ isSeller, token }) => {
             placeholder="Password"
             autoComplete="current-password"
             className={
-              formik.touched.password && formik.errors.password
+              (formik.touched.password && formik.errors.password) ||
+              authReducer?.register_error?.data?.non_field_errors
                 ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
                 : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
             }
@@ -305,7 +306,8 @@ const RegisterForm = ({ isSeller, token }) => {
             onBlur={formik.handleBlur}
             value={formik.values.password}
           />
-          {formik.touched.password && formik.errors.password && (
+          {((formik.touched.password && formik.errors.password) ||
+            authReducer?.register_error?.data?.non_field_errors) && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
               <svg
                 className="h-5 w-5 text-red-500"
@@ -323,6 +325,13 @@ const RegisterForm = ({ isSeller, token }) => {
             </div>
           )}
         </div>
+        {authReducer &&
+          authReducer?.register_error?.data?.non_field_errors &&
+          authReducer.register_error.data.non_field_errors.map((message, i) => (
+            <p class="mt-2 text-sm text-red-600" id="email-error">
+              {message}
+            </p>
+          ))}
         {formik.touched.password && formik.errors.password && (
           <p class="mt-2 text-sm text-red-600" id="password-error">
             {formik.errors.password}

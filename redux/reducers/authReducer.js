@@ -79,6 +79,9 @@ import {
   PAYPAL_CONNECT,
   PAYPAL_CONNECT_SUCCESS,
   PAYPAL_CONNECT_FAIL,
+  REMOVE_ACCOUNT,
+  REMOVE_ACCOUNT_SUCCESS,
+  REMOVE_ACCOUNT_FAIL,
 } from "../types";
 
 import { HYDRATE } from "next-redux-wrapper";
@@ -136,6 +139,8 @@ const initialState = {
   add_payment_method_error: null,
   paypal_connecting: false,
   paypal_connect_error: null,
+  removing_account: false,
+  remove_account_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -297,6 +302,7 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         error: null,
+        register_error: null,
       };
     // case TOOGLE_VIEWS:
     //   return {
@@ -690,6 +696,25 @@ export default function AuthReducer(state = initialState, action) {
             parseFloat(action.payload)
           ).toFixed(2),
         },
+      };
+    case REMOVE_ACCOUNT:
+      return {
+        ...state,
+        removing_account: true,
+      };
+    case REMOVE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        user: null,
+        is_authenticated: false,
+        removing_account: false,
+        remove_account_error: null,
+      };
+    case REMOVE_ACCOUNT_FAIL:
+      return {
+        ...state,
+        removing_account: false,
+        remove_account_error: action.payload,
       };
     default:
       return state;
