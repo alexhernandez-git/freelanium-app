@@ -78,6 +78,9 @@ import {
   PAYPAL_CONNECT,
   PAYPAL_CONNECT_SUCCESS,
   PAYPAL_CONNECT_FAIL,
+  REMOVE_ACCOUNT,
+  REMOVE_ACCOUNT_SUCCESS,
+  REMOVE_ACCOUNT_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -834,6 +837,32 @@ export const attachPaymentMethod = (
     .catch((err) => {
       dispatch({
         type: ADD_PAYMENT_METHOD_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const removeAccount = (router) => async (dispatch, getState) => {
+  dispatch({
+    type: REMOVE_ACCOUNT,
+  });
+  await axios
+    .delete(
+      `${process.env.HOST}/api/users/${getState().authReducer.user.id}/`,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      await dispatch({
+        type: REMOVE_ACCOUNT_SUCCESS,
+        payload: res.data,
+      });
+      window.scrollTo(0, 0);
+      await router.push("/");
+      await dispatch(createAlert("SUCCESS", "Account successfully removed"));
+    })
+    .catch(async (err) => {
+      await dispatch({
+        type: REMOVE_ACCOUNT_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });

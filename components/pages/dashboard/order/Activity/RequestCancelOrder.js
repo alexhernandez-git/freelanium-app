@@ -299,7 +299,7 @@ const RequestCancelOrder = ({ ac, chat = false }) => {
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      This user will be removed from your contacts list.
+                      This order will be cancelled
                     </p>
                   </div>
                 </div>
