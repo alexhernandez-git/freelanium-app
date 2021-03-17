@@ -55,8 +55,14 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                             </span>
                           </div>*/}
                             <p className="mt-5 text-md text-gray-500">
-                              <span className="font-bold">$14 /mo</span> after
-                              the trial
+                              <span className="font-bold">
+                                {
+                                  authReducer.user?.current_plan_subscription
+                                    ?.plan_price_label
+                                }{" "}
+                                /mo
+                              </span>{" "}
+                              after the trial
                             </p>
                             <p className="mt-3 text-md text-gray-500">
                               Trial ends at{" "}
