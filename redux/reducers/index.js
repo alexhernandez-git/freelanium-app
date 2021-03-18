@@ -15,6 +15,7 @@ import orderReducer from "./orderReducer";
 import earningsReducer from "./earningsReducer";
 import dashboardOrdersReducer from "./dashboardOrdersReducer";
 import lastMessagesReducer from "./lastMessagesReducer";
+import activitiesReducer from "./activitiesReducer";
 
 export default combineReducers({
   initialDataReducer: initialDataReducer,
@@ -33,4 +34,5 @@ export default combineReducers({
   earningsReducer: earningsReducer,
   dashboardOrdersReducer: dashboardOrdersReducer,
   lastMessagesReducer: lastMessagesReducer,
+  activitiesReducer: activitiesReducer,
 });

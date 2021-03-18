@@ -57,7 +57,7 @@ export const fetchOrderActivities = (id) => async (dispatch, getState) => {
   });
   await axios
     .get(
-      `${process.env.HOST}/api/orders/${id}/activities/`,
+      `${process.env.HOST}/api/orders/${id}/list_activities/`,
       tokenConfig(getState)
     )
     .then(async (res) => {

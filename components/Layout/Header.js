@@ -306,7 +306,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   className="block w-full px-5 py-3 text-center font-medium text-cyan-600 bg-gray-50 hover:bg-gray-100"
                   role="menuitem"
                 >
-                  Log in on
+                  Log in
                 </a>
               </Link>
             </div>

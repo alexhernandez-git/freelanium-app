@@ -73,7 +73,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
-          <div className="flex space-x-6 md:order-2">
+          {/* <div className="flex space-x-6 md:order-2">
             <a href="#" className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">Facebook</span>
               <svg
@@ -149,9 +149,9 @@ const Footer = () => {
                 />
               </svg>
             </a>
-          </div>
+          </div> */}
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
-            &copy; 2020 Workflow, Inc. All rights reserved.
+            &copy; 2021 Freelanium, Inc. All rights reserved.
           </p>
         </div>
       </div>

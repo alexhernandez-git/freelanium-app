@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "components/ui/Spinner";
 
 const Orders = ({ selectValue, handleChangeSelectValue }) => {
-  const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
   const dashboardOrdersReducer = useSelector(
     (state) => state.dashboardOrdersReducer
@@ -217,6 +216,15 @@ const Orders = ({ selectValue, handleChangeSelectValue }) => {
           </div>
         </div>
         <ul className="divide-y divide-gray-200">
+          {dashboardOrdersReducer?.orders.length == 0 && (
+            <div className="p-5">
+              <span className="text-gray-500">
+                You don't have any {selectValue === "ACTIVE" && "active"}
+                {selectValue === "COMPLETED" && "completed"}
+                {selectValue === "CANCELLED" && "cancelled"} orders
+              </span>
+            </div>
+          )}
           {dashboardOrdersReducer?.orders.length > 0 &&
             dashboardOrdersReducer?.orders?.map((order) => (
               <li key={order.id}>

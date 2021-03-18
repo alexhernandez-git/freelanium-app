@@ -51,6 +51,17 @@ const OrdersList = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
+                {ordersReducer.orders.results?.length == 0 && (
+                  <tr>
+                    <td colspan={4}>
+                      <div className="p-5">
+                        <span className="text-gray-500">
+                          You don't have any orders
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                )}
                 {ordersReducer.orders.results &&
                   ordersReducer.orders.results.map((order) => (
                     <OrderTabsRow key={order.id} order={order} />

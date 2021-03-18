@@ -9,6 +9,7 @@ import Spinner from "components/ui/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLastMessages } from "redux/actions/lastMessages";
 import { fetchDashboardOrders } from "redux/actions/dashboardOrders";
+import { fetchActivities } from "redux/actions/activities";
 
 export default function Dashboard() {
   const [cantRender, authReducer, initialDataFetched] = useAuthRequired();
@@ -36,6 +37,7 @@ export default function Dashboard() {
   const handleFetchDashboardData = async () => {
     await handleFetchDashboardOrders(selectValue);
     await dispatch(fetchLastMessages());
+    // await dispatch(fetchActivities());
   };
 
   const handleChangeSelectValue = (value) => {

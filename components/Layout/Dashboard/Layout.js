@@ -107,7 +107,7 @@ const Layout = ({
                   Go back
                 </span>
               ) : (
-                <h1 className="text-3xl font-bold leading-tight text-gray-600">
+                <h1 className="text-center sm:text-left text-3xl font-bold leading-tight text-gray-600">
                   {pageName}
                 </h1>
               )}

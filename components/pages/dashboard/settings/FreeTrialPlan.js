@@ -42,21 +42,22 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                           <div className="px-6 py-8 bg-white sm:p-10 sm:pb-6">
                             <div>
                               <h3
-                                className="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-indigo-100 text-indigo-600"
+                                className="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-cyan-100 text-cyan-600"
                                 id="tier-standard"
                               >
                                 single plan
                               </h3>
                             </div>
-                            {/* <div className="mt-4 flex items-baseline text-6xl font-extrabold">
-                            $14
-                            <span className="ml-1 text-2xl font-medium text-gray-500">
-                            /mo
-                            </span>
-                          </div>*/}
+
                             <p className="mt-5 text-md text-gray-500">
-                              <span className="font-bold">$14 /mo</span> after
-                              the trial
+                              <span className="font-bold">
+                                {
+                                  authReducer.user?.current_plan_subscription
+                                    ?.plan_price_label
+                                }{" "}
+                                /mo
+                              </span>{" "}
+                              after the trial
                             </p>
                             <p className="mt-3 text-md text-gray-500">
                               Trial ends at{" "}
@@ -64,7 +65,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                 {moment(
                                   authReducer.user?.free_trial_expiration
                                 ).format("DD of MMMM YYYY")}
-                              </span>{" "}
+                              </span>
                             </p>
                           </div>
                           <div className="flex-1 flex flex-col justify-between px-6 pt-6 pb-8 bg-gray-50 space-y-6 sm:p-10 sm:pt-6">
@@ -160,15 +161,6 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                 </p>
                               </li>
                             </ul>
-                            {/* <div className="rounded-md shadow">
-                                            <a
-                                            href="#"
-                                            className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                                            aria-describedby="tier-standard"
-                                            >
-                                            Get started
-                                            </a>
-                                          </div> */}
                           </div>
                         </div>
                       </div>
@@ -203,7 +195,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                               </Link> */}
                           <span
                             onClick={handleOpenAddBilling}
-                            className="cursor-pointer flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700"
+                            className="cursor-pointer flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-teal-500 to-cyan-600 "
                           >
                             Add Billing Information
                           </span>

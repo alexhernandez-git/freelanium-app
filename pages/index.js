@@ -53,7 +53,31 @@ const index = () => {
             </div>
           </div>
         </main>
-        <div className="mt-12 py-12 bg-white">
+        <div class="relative  pt-16">
+          <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl  2xl:max-w-3/4">
+            {/* <div>
+              <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">
+                Serverless
+              </h2>
+              <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                No server? No problem.
+              </p>
+              <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
+                Phasellus lorem quam molestie id quisque diam aenean nulla in.
+                Accumsan in quis quis nunc, ullamcorper malesuada. Eleifend
+                condimentum id viverra nulla.
+              </p>
+            </div> */}
+            <div class="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
+              <img
+                class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 mx-auto"
+                src="https://tailwindui.com/img/component-images/green-project-app-screenshot.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <div className="relative bg-white py-16 sm:py-24 lg:py-32">
           <div className="max-w-7xl  2xl:max-w-3/4 mx-auto px-4 sm:px-6 lg:px-8">
             <div className="lg:text-center">
               <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase">
@@ -156,7 +180,7 @@ const index = () => {
                   </div>
                   <div className="ml-4">
                     <dt className="text-lg leading-6 font-medium text-gray-900">
-                      Transfers are instant
+                      All in one
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
                       Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -188,7 +212,7 @@ const index = () => {
                   </div>
                   <div className="ml-4">
                     <dt className="text-lg leading-6 font-medium text-gray-900">
-                      Project management board
+                      Charge options
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
                       Lorem ipsum, dolor sit amet consectetur adipisicing elit.
