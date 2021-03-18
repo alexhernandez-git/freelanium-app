@@ -291,12 +291,12 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
                   Pricing
                 </a>
               </Link>
-              <Link href="/customers">
+              <Link href="/buyers">
                 <a
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                   role="menuitem"
                 >
-                  Are you a customer?
+                  Are you a buyer?
                 </a>
               </Link>
             </div>
