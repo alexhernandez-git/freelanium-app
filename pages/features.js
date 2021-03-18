@@ -48,7 +48,59 @@ const features = () => {
                 </svg>
                 <div class="ml-3">
                   <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Invite team members
+                    No hidden fees
+                  </dt>
+                  <dd class="mt-2 text-base text-gray-500">
+                    You can manage phone, email and chat conversations all from
+                    a single mailbox.
+                  </dd>
+                </div>
+              </div>
+              <div class="flex">
+                <svg
+                  class="flex-shrink-0 h-6 w-6 text-green-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <div class="ml-3">
+                  <dt class="text-lg leading-6 font-medium text-gray-900">
+                    Multiple charge options
+                  </dt>
+                  <dd class="mt-2 text-base text-gray-500">
+                    You can manage phone, email and chat conversations all from
+                    a single mailbox.
+                  </dd>
+                </div>
+              </div>
+              <div class="flex">
+                <svg
+                  class="flex-shrink-0 h-6 w-6 text-green-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <div class="ml-3">
+                  <dt class="text-lg leading-6 font-medium text-gray-900">
+                    Invite contacts
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
                     You can manage phone, email and chat conversations all from
@@ -75,7 +127,7 @@ const features = () => {
                 </svg>
                 <div class="ml-3">
                   <dt class="text-lg leading-6 font-medium text-gray-900">
-                    List view
+                    Orders list view
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
                     You can manage phone, email and chat conversations all from
@@ -102,7 +154,7 @@ const features = () => {
                 </svg>
                 <div class="ml-3">
                   <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Keyboard shortcuts
+                    Easy offer agreements
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
                     You can manage phone, email and chat conversations all from
@@ -129,7 +181,7 @@ const features = () => {
                 </svg>
                 <div class="ml-3">
                   <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Calendars
+                    Chat rooms
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
                     You can manage phone, email and chat conversations all from
@@ -164,7 +216,6 @@ const features = () => {
                   </dd>
                 </div>
               </div>
-
               <div class="flex">
                 <svg
                   class="flex-shrink-0 h-6 w-6 text-green-500"
@@ -183,61 +234,7 @@ const features = () => {
                 </svg>
                 <div class="ml-3">
                   <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Boards
-                  </dt>
-                  <dd class="mt-2 text-base text-gray-500">
-                    Find what you need with advanced filters, bulk actions, and
-                    quick views.
-                  </dd>
-                </div>
-              </div>
-
-              <div class="flex">
-                <svg
-                  class="flex-shrink-0 h-6 w-6 text-green-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <div class="ml-3">
-                  <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Reporting
-                  </dt>
-                  <dd class="mt-2 text-base text-gray-500">
-                    Find what you need with advanced filters, bulk actions, and
-                    quick views.
-                  </dd>
-                </div>
-              </div>
-
-              <div class="flex">
-                <svg
-                  class="flex-shrink-0 h-6 w-6 text-green-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <div class="ml-3">
-                  <dt class="text-lg leading-6 font-medium text-gray-900">
-                    Mobile app
+                    Orders control
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
                     Find what you need with advanced filters, bulk actions, and

@@ -42,8 +42,8 @@ const pricing = () => {
                 <span className="text-cyan-600">{priceLabel} a month</span>
               </h1>
               <p className="mt-5 text-xl text-gray-500">
-                Includes every feature we offer plus unlimited projects and
-                unlimited users.
+                And if you use the platform for a month, the{" "}
+                <span className="font-bold">next one is free</span>
               </p>
             </div>
             <a
@@ -86,7 +86,7 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Vitae in pulvinar odio id utobortis in inter.
+                    Easy offer agreements.
                   </span>
                 </li>
 
@@ -107,7 +107,7 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Sed sed id viverra viverra augue eget massa.
+                    Multiple charge options.
                   </span>
                 </li>
 
@@ -128,7 +128,7 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Urna, gravida amet, a, integer venenatis.
+                    No hidden fees.
                   </span>
                 </li>
 
@@ -149,28 +149,7 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Lobortis sed pharetra amet vitae eleifend.
-                  </span>
-                </li>
-
-                <li className="py-4 flex">
-                  <svg
-                    className="flex-shrink-0 h-6 w-6 text-green-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="ml-3 text-base text-gray-500">
-                    Ullamcorper blandit a consequat donec elit aoreet.
+                    Chat rooms.
                   </span>
                 </li>
               </ul>
@@ -192,7 +171,47 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Vitae in pulvinar odio id utobortis in inter.
+                    Orders list view.
+                  </span>
+                </li>
+                <li className="py-4 flex">
+                  <svg
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="ml-3 text-base text-gray-500">
+                    Invite contacts.
+                  </span>
+                </li>
+                <li className="py-4 flex">
+                  <svg
+                    className="flex-shrink-0 h-6 w-6 text-green-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="ml-3 text-base text-gray-500">
+                    Orders control.
                   </span>
                 </li>
 
@@ -213,70 +232,7 @@ const pricing = () => {
                     />
                   </svg>
                   <span className="ml-3 text-base text-gray-500">
-                    Sed sed id viverra viverra augue eget massa.
-                  </span>
-                </li>
-
-                <li className="py-4 flex">
-                  <svg
-                    className="flex-shrink-0 h-6 w-6 text-green-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="ml-3 text-base text-gray-500">
-                    Urna, gravida amet, a, integer venenatis.
-                  </span>
-                </li>
-
-                <li className="py-4 flex">
-                  <svg
-                    className="flex-shrink-0 h-6 w-6 text-green-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="ml-3 text-base text-gray-500">
-                    Lobortis sed pharetra amet vitae eleifend.
-                  </span>
-                </li>
-
-                <li className="py-4 flex">
-                  <svg
-                    className="flex-shrink-0 h-6 w-6 text-green-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="ml-3 text-base text-gray-500">
-                    Ullamcorper blandit a consequat donec elit aoreet.
+                    Notifications.
                   </span>
                 </li>
               </ul>

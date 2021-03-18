@@ -148,7 +148,13 @@ const BillingPlan = () => {
                       id="plan-option-pricing-1"
                       className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-center"
                     >
-                      <span className="font-medium">$9.99 / mo</span>
+                      <span className="font-medium">
+                        {
+                          authReducer.user?.current_plan_subscription
+                            ?.plan_price_label
+                        }{" "}
+                        / mo
+                      </span>
                     </p>
                     <p
                       id="plan-option-limit-1"
