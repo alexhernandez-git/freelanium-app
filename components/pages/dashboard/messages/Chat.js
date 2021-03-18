@@ -243,7 +243,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                   )}
                 {messagesReducer.messages.results.length > 0 &&
                   messagesReducer.messages.results.map((message) =>
-                    message.sent_by.id == authReducer.user?.id ? (
+                    message?.sent_by.id == authReducer.user?.id ? (
                       <MyMessage key={message.id} message={message} />
                     ) : (
                       <NotMyMessage key={message.id} message={message} />

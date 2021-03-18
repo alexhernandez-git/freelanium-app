@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "components/ui/Spinner";
 
 const Orders = ({ selectValue, handleChangeSelectValue }) => {
-  const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
   const dashboardOrdersReducer = useSelector(
     (state) => state.dashboardOrdersReducer

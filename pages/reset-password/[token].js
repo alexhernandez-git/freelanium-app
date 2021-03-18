@@ -3,11 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { changePassword, login, resetPassword } from "redux/actions/auth";
-import useRedirectIfIsAuthenticated from "hooks/useRedirectIfIsAuthenticated";
+import { resetPassword } from "redux/actions/auth";
 import { useAlert } from "hooks/useAlert";
 const loginPage = () => {
-  useRedirectIfIsAuthenticated();
   const dispatch = useDispatch();
   const authReducer = useSelector((state) => state.authReducer);
   const { isLoading, isAuthenticated } = authReducer;
@@ -41,7 +39,7 @@ const loginPage = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+            src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -66,7 +64,7 @@ const loginPage = () => {
                       name="password"
                       type="password"
                       autoComplete="current-password"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -93,7 +91,7 @@ const loginPage = () => {
                       name="confirm_password"
                       type="password"
                       autoComplete="current-confirm_password"
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.confirm_password}
@@ -112,7 +110,7 @@ const loginPage = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white   bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                   >
                     Change password
                   </button>

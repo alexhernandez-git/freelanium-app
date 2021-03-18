@@ -97,9 +97,7 @@ const Inbox = () => {
 
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium">
-                      {chat.last_message_sent_by_username}
-                    </h3>
+                    <h3 className="text-sm font-medium">{chat.room_name}</h3>
                     <p className="text-sm text-gray-500">
                       {moment(chat?.created).fromNow()}
                     </p>

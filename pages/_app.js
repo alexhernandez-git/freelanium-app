@@ -45,7 +45,7 @@ function WrappedApp({ Component, pageProps }) {
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async function (e) {
         const data = JSON.parse(e.data);
-        console.log("data", data.sent_by__pk);
+        console.log("data", data);
         console.log("data", authReducer?.user?.id);
         switch (data.event) {
           case "MESSAGE_RECEIVED":

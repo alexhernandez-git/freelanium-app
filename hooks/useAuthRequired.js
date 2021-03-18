@@ -11,7 +11,11 @@ const useAuthRequired = () => {
   const [canRender, setCanRender] = useState(false);
   useEffect(() => {
     if (initialDataReducer.initial_data_fetched) {
-      if (!is_authenticated && router.pathname != "/login") {
+      if (
+        !is_authenticated &&
+        router.pathname != "/login" &&
+        router.pathname != "/reset-password/[token]"
+      ) {
         router.push("/");
       } else {
         setCanRender(true);

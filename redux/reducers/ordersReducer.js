@@ -3,7 +3,6 @@ import {
   FETCH_ORDERS_SUCCESS,
   FETCH_ORDERS_FAIL,
 } from "../types";
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   is_loading: true,
