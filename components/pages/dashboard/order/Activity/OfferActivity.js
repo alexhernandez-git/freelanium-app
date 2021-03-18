@@ -32,7 +32,7 @@ const OfferActivity = ({ ac, chat = false }) => {
                 disabled={true}
                 className={`inline-flex items-center px-3 py-2 border border-transparent 
               text-sm leading-4 font-medium rounded-md shadow-sm text-white 
-              bg-indigo-600 focus:outline-none cursor-default opacity-75`}
+              bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700  focus:outline-none cursor-default opacity-75`}
               >
                 Accepted
               </button>

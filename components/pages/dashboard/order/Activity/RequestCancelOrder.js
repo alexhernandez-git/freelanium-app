@@ -63,7 +63,7 @@ const RequestCancelOrder = ({ ac, chat = false }) => {
                     disabled={true}
                     className={` inline-flex items-center px-3 py-2 border border-transparent 
               text-sm leading-4 font-medium rounded-md shadow-sm text-white  opacity-75
-              bg-indigo-600 hover:bg-indigo-700 focus:outline-none`}
+             bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
                   >
                     Accept
                   </button>
@@ -90,7 +90,7 @@ const RequestCancelOrder = ({ ac, chat = false }) => {
                     disabled={true}
                     className={` inline-flex items-center px-3 py-2 border border-transparent 
               text-sm leading-4 font-medium rounded-md shadow-sm text-white  opacity-70
-              bg-indigo-600 hover:bg-indigo-700 focus:outline-none`}
+             bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
                   >
                     Accept
                   </button>
@@ -120,7 +120,7 @@ const RequestCancelOrder = ({ ac, chat = false }) => {
                     type="button"
                     className={` inline-flex items-center px-3 py-2 border border-transparent 
               text-sm leading-4 font-medium rounded-md shadow-sm text-white 
-              bg-indigo-600 hover:bg-indigo-700 focus:outline-none`}
+              bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none`}
                   >
                     Accept
                   </button>
