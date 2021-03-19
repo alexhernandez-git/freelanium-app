@@ -148,7 +148,7 @@ const DeliveryOrderModal = ({
                         </span>
                         {formik.errors.source_file && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="source_file-error"
                           >
                             {formik.errors.source_file}
@@ -199,7 +199,7 @@ const DeliveryOrderModal = ({
                         </div>
                         {formik.touched.response && formik.errors.response && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="response-error"
                           >
                             {formik.errors.response}
@@ -216,14 +216,14 @@ const DeliveryOrderModal = ({
                         className="block text-sm font-medium text-gray-700"
                       >
                         Add portfolio sample
-                        <span class="cursor-pointer ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <span className="cursor-pointer ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           Add Image/ideo
                         </span>
                       </label>
                       <div className="mt-1 relative">
-                        <div class="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4 relative">
+                        <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4 relative">
                           <svg
-                            class="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300"
+                            className="h-32 w-full sm:w-32 border border-gray-300 bg-white text-gray-300"
                             preserveAspectRatio="none"
                             stroke="currentColor"
                             fill="none"
@@ -257,7 +257,7 @@ const DeliveryOrderModal = ({
                       </div>
                       {formik.touched.response && formik.errors.response && (
                         <p
-                          class="mt-2 text-sm text-red-600"
+                          className="mt-2 text-sm text-red-600"
                           id="response-error"
                         >
                           {formik.errors.response}

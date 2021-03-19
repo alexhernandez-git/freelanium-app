@@ -109,7 +109,7 @@ const RequestRevisionModal = ({
                         </div>
                         {formik.touched.reason && formik.errors.reason && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="reason-error"
                           >
                             {formik.errors.reason}

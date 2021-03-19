@@ -57,7 +57,7 @@ const billing = () => {
       <SettingsLayout>
         {authReducer.user?.plan_default_payment_method ? (
           <>
-            <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+            <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
               {changingPaymentMethod ? (
                 <ChangePaymentMethodForm
                   handleCloseChangePaymentMethod={

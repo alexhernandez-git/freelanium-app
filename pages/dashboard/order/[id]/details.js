@@ -14,48 +14,54 @@ const details = () => {
   ) : (
     <Layout noPadding>
       <OrderLayout title="Details">
-        <div class="divide-y divide-gray-200">
-          <div class="mt-6">
-            <dl class="divide-y divide-gray-200">
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm font-medium text-gray-500">Order Name</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">Chelsea Hagon</span>
+        <div className="divide-y divide-gray-200">
+          <div className="mt-6">
+            <dl className="divide-y divide-gray-200">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                <dt className="text-sm font-medium text-gray-500">
+                  Order Name
+                </dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">Chelsea Hagon</span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">Description</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">
+                  Description
+                </dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">
                     fewaaweafwawefweffawefwaeefafefwefawewafewfawefafwefw
                   </span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">Total</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">$50</span>
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">Total</dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">$50</span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">Status</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">Active</span>
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">Status</dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">Active</span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">Delivery Date</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">24th December 2021</span>
-                  <span class="flex-grow text-gray-500">23 days left</span>
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">
+                  Delivery Date
+                </dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">24th December 2021</span>
+                  <span className="flex-grow text-gray-500">23 days left</span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">Buyer</dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow flex items-center">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">Buyer</dt>
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow flex items-center">
                     <img
-                      class="h-8 w-8 rounded-full mr-2"
+                      className="h-8 w-8 rounded-full mr-2"
                       src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
                     />

@@ -130,13 +130,13 @@ const RegisterForm = ({ isSeller, token }) => {
           )}
         </div>
         {formik.touched.username && formik.errors.username && (
-          <p class="mt-2 text-sm text-red-600" id="username-error">
+          <p className="mt-2 text-sm text-red-600" id="username-error">
             {formik.errors.username}
           </p>
         )}
         {username_available_error &&
           username_available_error.data.non_field_errors.map((message, i) => (
-            <p class="mt-2 text-sm text-red-600" id="username-error">
+            <p className="mt-2 text-sm text-red-600" id="username-error">
               {message}
             </p>
           ))}
@@ -181,7 +181,7 @@ const RegisterForm = ({ isSeller, token }) => {
           )}
         </div>
         {formik.touched.first_name && formik.errors.first_name && (
-          <p class="mt-2 text-sm text-red-600" id="first_name-error">
+          <p className="mt-2 text-sm text-red-600" id="first_name-error">
             {formik.errors.first_name}
           </p>
         )}
@@ -226,7 +226,7 @@ const RegisterForm = ({ isSeller, token }) => {
           )}
         </div>
         {formik.touched.last_name && formik.errors.last_name && (
-          <p class="mt-2 text-sm text-red-600" id="last_name-error">
+          <p className="mt-2 text-sm text-red-600" id="last_name-error">
             {formik.errors.last_name}
           </p>
         )}
@@ -272,14 +272,14 @@ const RegisterForm = ({ isSeller, token }) => {
         </div>
         {((formik.touched.email && formik.errors.email) ||
           email_available_error) && (
-          <p class="mt-2 text-sm text-red-600" id="email-error">
+          <p className="mt-2 text-sm text-red-600" id="email-error">
             {formik.errors.email}
           </p>
         )}
         {email_available_error &&
           email_available_error.data.non_field_errors &&
           email_available_error.data.non_field_errors.map((message, i) => (
-            <p class="mt-2 text-sm text-red-600" id="email-error">
+            <p className="mt-2 text-sm text-red-600" id="email-error">
               {message}
             </p>
           ))}
@@ -328,12 +328,12 @@ const RegisterForm = ({ isSeller, token }) => {
         {authReducer &&
           authReducer?.register_error?.data?.non_field_errors &&
           authReducer.register_error.data.non_field_errors.map((message, i) => (
-            <p class="mt-2 text-sm text-red-600" id="email-error">
+            <p className="mt-2 text-sm text-red-600" id="email-error">
               {message}
             </p>
           ))}
         {formik.touched.password && formik.errors.password && (
-          <p class="mt-2 text-sm text-red-600" id="password-error">
+          <p className="mt-2 text-sm text-red-600" id="password-error">
             {formik.errors.password}
           </p>
         )}
@@ -382,7 +382,7 @@ const RegisterForm = ({ isSeller, token }) => {
         {formik.touched.password_confirmation &&
           formik.errors.password_confirmation && (
             <p
-              class="mt-2 text-sm text-red-600"
+              className="mt-2 text-sm text-red-600"
               id="password_confirmation-error"
             >
               {formik.errors.password_confirmation}

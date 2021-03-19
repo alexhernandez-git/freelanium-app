@@ -135,40 +135,40 @@ const AcceptTwoPaymentsOrderModal = ({
                 <div>
                   <p
                     id="timeline-title"
-                    class="text-lg font-medium text-gray-600 mt-4"
+                    className="text-lg font-medium text-gray-600 mt-4"
                   >
                     Payment at delivery
                   </p>
 
-                  <div class="flow-root">
-                    <dl class="divide-y divide-gray-200">
-                      <div class="py-5 grid grid-cols-3 gap-4 pt-5">
-                        <dt class="text-sm font-medium text-gray-500  col-span-2">
+                  <div className="flow-root">
+                    <dl className="divide-y divide-gray-200">
+                      <div className="py-5 grid grid-cols-3 gap-4 pt-5">
+                        <dt className="text-sm font-medium text-gray-500  col-span-2">
                           Subtotal
                         </dt>
-                        <dd class="flex text-sm text-gray-500 mt-0">
-                          <span class="flex-grow">
+                        <dd className="flex text-sm text-gray-500 mt-0">
+                          <span className="flex-grow">
                             {getSymbolFromCurrency(authReducer.currency)}
                             {formik.values.order_checkout?.subtotal}
                           </span>
                         </dd>
 
-                        <dt class="text-sm font-medium text-gray-500   col-span-2">
+                        <dt className="text-sm font-medium text-gray-500   col-span-2">
                           Service fee
                         </dt>
-                        <dd class="flex text-sm text-gray-500 mt-0">
-                          <span class="flex-grow">
+                        <dd className="flex text-sm text-gray-500 mt-0">
+                          <span className="flex-grow">
                             {getSymbolFromCurrency(authReducer.currency)}
                             {formik.values.order_checkout?.service_fee}
                           </span>
                         </dd>
                         {formik.values.order_checkout?.used_credits > 0 && (
                           <>
-                            <dt class="text-sm font-bold text-gray-900 col-span-2">
+                            <dt className="text-sm font-bold text-gray-900 col-span-2">
                               Used credits
                             </dt>
-                            <dd class="flex text-sm text-gray-900 mt-0">
-                              <span class="flex-grow font-bold">
+                            <dd className="flex text-sm text-gray-900 mt-0">
+                              <span className="flex-grow font-bold">
                                 -{getSymbolFromCurrency(authReducer.currency)}
                                 {formik.values.order_checkout?.used_credits}
                               </span>
@@ -176,12 +176,12 @@ const AcceptTwoPaymentsOrderModal = ({
                           </>
                         )}
                       </div>
-                      <div class="py-5 grid grid-cols-3 gap-4 border-b border-gray-200">
-                        <dt class="text-sm font-bold text-gray-900 col-span-2">
+                      <div className="py-5 grid grid-cols-3 gap-4 border-b border-gray-200">
+                        <dt className="text-sm font-bold text-gray-900 col-span-2">
                           Total
                         </dt>
-                        <dd class="flex text-sm text-gray-900 mt-0">
-                          <span class="flex-grow font-bold">
+                        <dd className="flex text-sm text-gray-900 mt-0">
+                          <span className="flex-grow font-bold">
                             {getSymbolFromCurrency(authReducer.currency)}
                             {(
                               formik.values.order_checkout?.unit_amount -

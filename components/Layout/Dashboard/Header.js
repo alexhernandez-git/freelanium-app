@@ -164,7 +164,7 @@ const Header = () => {
                   >
                     Messages
                     {authReducer?.user?.pending_messages && (
-                      <span class="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-cyan-600"></span>
+                      <span className="absolute top-6 -right-1 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-cyan-600"></span>
                     )}
                   </a>
                 </Link>

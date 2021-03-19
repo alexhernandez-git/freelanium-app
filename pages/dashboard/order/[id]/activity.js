@@ -15,8 +15,8 @@ const activity = () => {
   ) : (
     <Layout noPadding>
       <OrderLayout title="Activity">
-        <div class="flow-root">
-          <ul class="-mb-8">
+        <div className="flow-root">
+          <ul className="-mb-8">
             {/* <Offer />
             <RequestChangeDateDelivery />
             <RequestChangeDateDeliveryAccepted />

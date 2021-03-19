@@ -169,7 +169,7 @@ const WithdrawFundsModal = ({
 
                         {formik.touched.amount && formik.errors.amount && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="amount-error"
                           >
                             {formik.errors.amount}

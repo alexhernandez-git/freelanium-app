@@ -120,7 +120,10 @@ const SearchBuyers = ({
             </div>
 
             {touched && errors && (
-              <p class="mt-2 text-sm text-red-600" id="days_for_delivery-error">
+              <p
+                className="mt-2 text-sm text-red-600"
+                id="days_for_delivery-error"
+              >
                 {errors}
               </p>
             )}
@@ -249,7 +252,7 @@ const SearchBuyers = ({
                       )}
                     </div>
                     {searchFormik.touched.email && searchFormik.errors.email && (
-                      <p class="mt-2 text-sm text-red-600" id="email-error">
+                      <p className="mt-2 text-sm text-red-600" id="email-error">
                         {searchFormik.errors.email}
                       </p>
                     )}

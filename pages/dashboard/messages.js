@@ -83,10 +83,10 @@ export default function Messages() {
             {chatReducer.chat && !showProfile && (
               <aside className="hidden lg:flex lg:flex-col flex-shrink-0 w-50 border-l border-gray-200">
                 <div className="px-6 pt-6 pb-4">
-                  <div class="flex-1 flex flex-col items-center w-40">
+                  <div className="flex-1 flex flex-col items-center w-40">
                     {chatReducer.chat?.to_user?.picture ? (
                       <img
-                        class="w-32 h-32 flex-shrink-0 mx-auto rounded-full bg-white"
+                        className="w-32 h-32 flex-shrink-0 mx-auto rounded-full bg-white"
                         src={
                           new RegExp(process.env.HOST).test(
                             chatReducer.chat.to_user?.picture
@@ -109,23 +109,23 @@ export default function Messages() {
                       </span>
                     )}
 
-                    <h3 class="mt-6 text-gray-900 text-sm font-medium text-center">
+                    <h3 className="mt-6 text-gray-900 text-sm font-medium text-center">
                       {chatReducer.chat?.to_user?.username}
                     </h3>
                     {chatReducer.chat?.to_user?.is_seller ? (
-                      <dl class="mt-1 flex-grow flex flex-col justify-between text-center">
-                        <dt class="sr-only">Role</dt>
-                        <dd class="mt-3">
-                          <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                      <dl className="mt-1 flex-grow flex flex-col justify-between text-center">
+                        <dt className="sr-only">Role</dt>
+                        <dd className="mt-3">
+                          <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
                             Seller
                           </span>
                         </dd>
                       </dl>
                     ) : (
-                      <dl class="mt-1 flex-grow flex flex-col justify-between text-center">
-                        <dt class="sr-only">Role</dt>
-                        <dd class="mt-3">
-                          <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                      <dl className="mt-1 flex-grow flex flex-col justify-between text-center">
+                        <dt className="sr-only">Role</dt>
+                        <dd className="mt-3">
+                          <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
                             Buyer
                           </span>
                         </dd>
@@ -160,7 +160,7 @@ export default function Messages() {
                   className="relative z-0 divide-y divide-gray-200"
                   onClick={handleHideMessages}
                 >
-                  {chatsReducer.chats.length == 0 && (
+                  {!chatReducer.chat && chatsReducer.chats.length == 0 && (
                     <div className="block md:hidden rounded-md bg-blue-50 p-4 m-4">
                       <div className="flex">
                         <div className="flex-shrink-0">

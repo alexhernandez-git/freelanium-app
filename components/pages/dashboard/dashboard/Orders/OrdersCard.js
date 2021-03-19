@@ -147,7 +147,7 @@ const OrdersCard = ({ order }) => {
                   <p className="text-sm text-gray-900">
                     Delivery on{" "}
                     <time dateTime="2020-01-07">
-                      {moment(order?.created).format("MMMM D, YYYY")}
+                      {moment(order?.delivery_date).format("MMMM D, YYYY")}
                     </time>
                   </p>
                   {getStatusJSX()}

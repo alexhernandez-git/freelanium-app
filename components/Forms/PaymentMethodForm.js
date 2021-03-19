@@ -149,7 +149,7 @@ const PaymentMethodForm = ({ formikPaymentMethods }) => {
                                 >
                                   <p
                                     id="plan-option-limit-2"
-                                    class="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
+                                    className="ml-6 pl-1 text-sm md:ml-0 md:pl-0 md:text-right "
                                   >
                                     {payment_method.card.brand}
                                   </p>

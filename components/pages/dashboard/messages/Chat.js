@@ -191,7 +191,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
               )}
             </div>
           </div>
-          {chatsReducer.chats.length == 0 && (
+          {!chatReducer.chat && chatsReducer.chats.length == 0 && (
             <div className="hidden justify-start sm:flex flex-col relative overflow-hidden w-full h-full p-10">
               <div className="rounded-md bg-blue-50 p-4">
                 <div className="flex">

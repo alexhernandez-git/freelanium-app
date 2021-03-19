@@ -87,21 +87,21 @@ const OrderBoard = () => {
     switch (orderReducer.order?.status) {
       case "AC":
         setStatus(
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
             ACTIVE
           </span>
         );
         break;
       case "DE":
         setStatus(
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
             DELIVERED
           </span>
         );
         break;
       case "CA":
         setStatus(
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
             CANCELLED
           </span>
         );
@@ -187,15 +187,15 @@ const OrderBoard = () => {
   ) : (
     <Layout noPadding>
       <>
-        <div class="min-h-screen bg-gray-100">
-          <main class="py-10">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-              <div class="flex items-center space-x-5">
-                <div class="flex-shrink-0">
-                  <div class="relative">
+        <div className="min-h-screen bg-gray-100">
+          <main className="py-10">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+              <div className="flex items-center space-x-5">
+                <div className="flex-shrink-0">
+                  <div className="relative">
                     {user?.picture ? (
                       <img
-                        class="h-16 w-16 rounded-full"
+                        className="h-16 w-16 rounded-full"
                         src={
                           new RegExp(process.env.HOST).test(user.picture)
                             ? user.picture
@@ -215,16 +215,16 @@ const OrderBoard = () => {
                       </span>
                     )}
                     <span
-                      class="absolute inset-0 shadow-inner rounded-full"
+                      className="absolute inset-0 shadow-inner rounded-full"
                       aria-hidden="true"
                     ></span>
                   </div>
                 </div>
                 <div>
-                  <h1 class="text-2xl font-bold text-gray-900">
+                  <h1 className="text-2xl font-bold text-gray-900">
                     {user?.first_name} {user?.last_name}
                   </h1>
-                  <p class="text-sm font-medium text-gray-500">
+                  <p className="text-sm font-medium text-gray-500">
                     Job started on{" "}
                     <time datetime={orderReducer.order?.created}>
                       {moment(orderReducer.order?.created).format(
@@ -235,13 +235,13 @@ const OrderBoard = () => {
                   </p>
                 </div>
               </div>
-              <div class="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
+              <div className="mt-6 flex flex-col-reverse justify-stretch items-center space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
                 {orderReducer.order?.seller?.id === authReducer.user?.id &&
                   orderReducer.order?.status === "AC" && (
                     <button
                       type="button"
                       onClick={handleToggleDeliveryOrderModal}
-                      class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                      className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                     >
                       Delivery order
                     </button>
@@ -255,18 +255,18 @@ const OrderBoard = () => {
                 </button>
                 {orderReducer.order?.status === "AC" && (
                   <>
-                    <div class="relative inline-block text-left">
+                    <div className="relative inline-block text-left">
                       <div>
                         <button
                           onMouseDown={handleToggleOptions}
-                          class="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                          className="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                           id="options-menu"
                           aria-haspopup="true"
                           aria-expanded="true"
                         >
-                          <span class="sr-only">Open options</span>
+                          <span className="sr-only">Open options</span>
                           <svg
-                            class="h-5 w-5"
+                            className="h-5 w-5"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -284,7 +284,7 @@ const OrderBoard = () => {
                         ref={optionsRef}
                       >
                         <div
-                          class="py-1"
+                          className="py-1"
                           role="menu"
                           aria-orientation="vertical"
                           aria-labelledby="options-menu"
@@ -292,7 +292,7 @@ const OrderBoard = () => {
                           {/* {orderReducer.order?.type !== "RO" && (
                         <a
                           href="#"
-                          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                           role="menuitem"
                         >
                           Change delivery date
@@ -300,7 +300,7 @@ const OrderBoard = () => {
                       )}
                       <a
                         href="#"
-                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                         role="menuitem"
                       >
                         Increase order amount
@@ -309,7 +309,7 @@ const OrderBoard = () => {
                           {orderReducer.order?.type === "RO" ? (
                             <span
                               onMouseDown={handleToggleUnsubscribeOrderModal}
-                              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
                             >
                               Unsuscribe
@@ -317,7 +317,7 @@ const OrderBoard = () => {
                           ) : (
                             <span
                               onMouseDown={handleToggleRequestCancelationModal}
-                              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                               role="menuitem"
                             >
                               Request a cancelation
@@ -331,69 +331,69 @@ const OrderBoard = () => {
               </div>
             </div>
 
-            <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+            <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
               <section
                 aria-labelledby="timeline-title"
-                class="lg:col-start-3 lg:col-span-1"
+                className="lg:col-start-3 lg:col-span-1"
               >
-                <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                  <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
                       Order Information
                     </h3>
-                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
                       Details about the job.
                     </p>
                   </div>
-                  <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-                    <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                      <div class="sm:col-span-2">
-                        <dt class="text-sm font-medium text-gray-500">
+                  <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                      <div className="sm:col-span-2">
+                        <dt className="text-sm font-medium text-gray-500">
                           Job title
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900 truncate">
+                        <dd className="mt-1 text-sm text-gray-900 truncate">
                           {orderReducer.order?.title}
                         </dd>
                       </div>
-                      <div class="sm:col-span-2">
-                        <dt class="text-sm font-medium text-gray-500">
+                      <div className="sm:col-span-2">
+                        <dt className="text-sm font-medium text-gray-500">
                           {authReducer.user?.id == orderReducer.order?.buyer?.id
                             ? "Buyer"
                             : "Seller"}{" "}
                           name
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
+                        <dd className="mt-1 text-sm text-gray-900">
                           {user?.first_name} {user?.last_name}
                         </dd>
                       </div>
 
-                      {/* <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">
+                      {/* <div className="sm:col-span-1">
+                        <dt className="text-sm font-medium text-gray-500">
                           Cost{" "}
                           <span className="text-xs font-normal text-gray-400">
                             (with fees)
                           </span>
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
+                        <dd className="mt-1 text-sm text-gray-900">
                           ${orderReducer.order?.unit_amount}
                         </dd>
                       </div> */}
                       {orderReducer.order?.type == "RO" ? (
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm font-medium text-gray-500">
+                        <div className="sm:col-span-1">
+                          <dt className="text-sm font-medium text-gray-500">
                             Interval subscription
                           </dt>
-                          <dd class="mt-1 text-sm text-gray-900">
+                          <dd className="mt-1 text-sm text-gray-900">
                             {/* 28th December 2021 */}
                             {intervalSubscription}
                           </dd>
                         </div>
                       ) : (
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm font-medium text-gray-500">
+                        <div className="sm:col-span-1">
+                          <dt className="text-sm font-medium text-gray-500">
                             Delivery date
                           </dt>
-                          <dd class="mt-1 text-sm text-gray-900">
+                          <dd className="mt-1 text-sm text-gray-900">
                             {/* 28th December 2021 */}
                             {orderReducer.order?.delivery_date &&
                               moment(orderReducer.order?.delivery_date).format(
@@ -402,17 +402,17 @@ const OrderBoard = () => {
                           </dd>
                         </div>
                       )}
-                      <div class="sm:col-span-2">
-                        <dt class="text-sm font-medium text-gray-500">
+                      <div className="sm:col-span-2">
+                        <dt className="text-sm font-medium text-gray-500">
                           Status
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">{status}</dd>
+                        <dd className="mt-1 text-sm text-gray-900">{status}</dd>
                       </div>
-                      <div class="sm:col-span-2">
-                        <dt class="text-sm font-medium text-gray-500">
+                      <div className="sm:col-span-2">
+                        <dt className="text-sm font-medium text-gray-500">
                           Description
                         </dt>
-                        <dd class="mt-1 text-sm text-gray-900">
+                        <dd className="mt-1 text-sm text-gray-900">
                           {orderReducer.order?.description}
                         </dd>
                       </div>
@@ -421,7 +421,7 @@ const OrderBoard = () => {
                 </div>
               </section>
 
-              <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+              <div className="space-y-6 lg:col-start-1 lg:col-span-2">
                 {orderReducer.is_loading_activities ? (
                   <div className="flex justify-center">
                     <Spinner />
@@ -431,7 +431,7 @@ const OrderBoard = () => {
                     No activity in this order
                   </span>
                 ) : (
-                  <ul class="-mb-8">
+                  <ul className="-mb-8">
                     {orderReducer.activities.map((activity) =>
                       getActivityComponent(activity)
                     )}

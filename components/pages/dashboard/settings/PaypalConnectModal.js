@@ -111,7 +111,10 @@ const PaypalConnectModal = ({
                         )}
                       </div>
                       {formik.touched.email && formik.errors.email && (
-                        <p class="mt-2 text-sm text-red-600" id="email-error">
+                        <p
+                          className="mt-2 text-sm text-red-600"
+                          id="email-error"
+                        >
                           {formik.errors.email}
                         </p>
                       )}
@@ -165,7 +168,7 @@ const PaypalConnectModal = ({
                       {formik.touched.email_confirmation &&
                         formik.errors.email_confirmation && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="email_confirmation-error"
                           >
                             {formik.errors.email_confirmation}

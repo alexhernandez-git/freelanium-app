@@ -53,25 +53,25 @@ const index = () => {
             </div>
           </div>
         </main>
-        <div class="relative  pt-16">
-          <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl  2xl:max-w-3/4">
+        <div className="relative  pt-16">
+          <div className="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl  2xl:max-w-3/4">
             {/* <div>
-              <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">
+              <h2 className="text-base font-semibold tracking-wider text-cyan-600 uppercase">
                 Serverless
               </h2>
-              <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
                 No server? No problem.
               </p>
-              <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
+              <p className="mt-5 max-w-prose mx-auto text-xl text-gray-500">
                 Phasellus lorem quam molestie id quisque diam aenean nulla in.
                 Accumsan in quis quis nunc, ullamcorper malesuada. Eleifend
                 condimentum id viverra nulla.
               </p>
             </div> */}
-            <div class="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
+            <div className="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
               <img
-                class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 mx-auto"
-                src="https://tailwindui.com/img/component-images/green-project-app-screenshot.jpg"
+                className="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5 mx-auto"
+                src="/static/images/freelaniumsc1.png"
                 alt=""
               />
             </div>

@@ -311,7 +311,10 @@ const SendOfferModal = ({
                           )}
                         </div>
                         {formik.touched.title && formik.errors.title && (
-                          <p class="mt-2 text-sm text-red-600" id="title-error">
+                          <p
+                            className="mt-2 text-sm text-red-600"
+                            id="title-error"
+                          >
                             {formik.errors.title}
                           </p>
                         )}
@@ -364,7 +367,7 @@ const SendOfferModal = ({
                       </div>
                       {formik.touched.description && formik.errors.description && (
                         <p
-                          class="mt-2 text-sm text-red-600"
+                          className="mt-2 text-sm text-red-600"
                           id="description-error"
                         >
                           {formik.errors.description}
@@ -460,7 +463,7 @@ const SendOfferModal = ({
 
                     {formik.touched.unit_amount && formik.errors.unit_amount && (
                       <p
-                        class="mt-2 text-sm text-red-600"
+                        className="mt-2 text-sm text-red-600"
                         id="unit_amount-error"
                       >
                         {formik.errors.unit_amount}
@@ -519,7 +522,7 @@ const SendOfferModal = ({
                       {formik.touched.delivery_time &&
                         formik.errors.delivery_time && (
                           <p
-                            class="mt-2 text-sm text-red-600"
+                            className="mt-2 text-sm text-red-600"
                             id="delivery_time-error"
                           >
                             {formik.errors.delivery_time}
@@ -603,7 +606,7 @@ const SendOfferModal = ({
                         {formik.touched.first_payment &&
                           formik.errors.first_payment && (
                             <p
-                              class="mt-2 text-sm text-red-600"
+                              className="mt-2 text-sm text-red-600"
                               id="first_payment-error"
                             >
                               {formik.errors.first_payment}

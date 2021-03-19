@@ -14,35 +14,35 @@ const actions = () => {
   ) : (
     <Layout noPadding>
       <OrderLayout title="Actions">
-        <div class="divide-y divide-gray-200">
-          <div class="mt-6">
-            <dl class="divide-y divide-gray-200">
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                <dt class="text-sm font-medium text-gray-500">
+        <div className="divide-y divide-gray-200">
+          <div className="mt-6">
+            <dl className="divide-y divide-gray-200">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                <dt className="text-sm font-medium text-gray-500">
                   Request extend delivery time
                 </dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">
                     <SecondaryButton>Extend Delivery Time</SecondaryButton>
                   </span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">
                   Request a extra payment
                 </dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">
                     <SecondaryButton>Request a extra payment</SecondaryButton>
                   </span>
                 </dd>
               </div>
-              <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
-                <dt class="text-sm font-medium text-gray-500">
+              <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+                <dt className="text-sm font-medium text-gray-500">
                   Cancel the order
                 </dt>
-                <dd class="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  <span class="flex-grow">
+                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  <span className="flex-grow">
                     <SecondaryButton>Request Cancelation</SecondaryButton>
                   </span>
                 </dd>

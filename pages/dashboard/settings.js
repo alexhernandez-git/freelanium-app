@@ -250,7 +250,7 @@ const settings = () => {
                     <div className="mt-1 flex items-center">
                       {user && user.picture ? (
                         <img
-                          class="inline-block h-12 w-12 rounded-full"
+                          className="inline-block h-12 w-12 rounded-full"
                           src={
                             new RegExp(process.env.HOST).test(user.picture)
                               ? user.picture

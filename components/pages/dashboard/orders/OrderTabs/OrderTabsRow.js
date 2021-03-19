@@ -43,9 +43,9 @@ const OrderTabsRow = ({ order }) => {
 
   return (
     <tr>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 h-10 w-10">
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="flex items-center">
+          <div className="flex-shrink-0 h-10 w-10">
             {getUser().picture ? (
               <img
                 className="h-10 w-10 rounded-full"
@@ -68,11 +68,11 @@ const OrderTabsRow = ({ order }) => {
               </span>
             )}
           </div>
-          <div class="ml-4">
-            <div class="text-sm font-medium text-gray-900">
+          <div className="ml-4">
+            <div className="text-sm font-medium text-gray-900">
               {getUser().first_name} {getUser().last_name}
             </div>
-            <div class="text-sm text-gray-500">
+            <div className="text-sm text-gray-500">
               <div onClick={handleGetOrCreateChat} className="cursor-pointer">
                 <a className="mt-2 flex items-center text-sm text-gray-500 cursor-pointer hover:underline">
                   <svg
@@ -92,11 +92,11 @@ const OrderTabsRow = ({ order }) => {
           </div>
         </div>
       </td>
-      <td class="px-6 py-4 whitespace-nowrap">
-        <div class="text-sm text-gray-900">{order.title}</div>
-        {/* <div class="text-sm text-gray-500">Optimization</div> */}
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm text-gray-900">{order.title}</div>
+        {/* <div className="text-sm text-gray-500">Optimization</div> */}
       </td>
-      <td class="px-6 py-4 whitespace-nowrap">
+      <td className="px-6 py-4 whitespace-nowrap">
         <span
           class={
             "px-2 inline-flex text-xs leading-5 font-semibold rounded-full " +
@@ -106,9 +106,9 @@ const OrderTabsRow = ({ order }) => {
           {getStatus()}
         </span>
       </td>
-      <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <Link href={`/dashboard/order/${order.id}/`}>
-          <a class="text-indigo-600 hover:text-indigo-900">View</a>
+          <a className="text-indigo-600 hover:text-indigo-900">View</a>
         </Link>
       </td>
     </tr>

@@ -127,7 +127,10 @@ const BuyerInformation = () => {
                     )}
                   </div>
                   {formik.touched.first_name && formik.errors.first_name && (
-                    <p class="mt-2 text-sm text-red-600" id="first_name-error">
+                    <p
+                      className="mt-2 text-sm text-red-600"
+                      id="first_name-error"
+                    >
                       {formik.errors.first_name}
                     </p>
                   )}
@@ -176,7 +179,10 @@ const BuyerInformation = () => {
                     )}
                   </div>
                   {formik.touched.last_name && formik.errors.last_name && (
-                    <p class="mt-2 text-sm text-red-600" id="last_name-error">
+                    <p
+                      className="mt-2 text-sm text-red-600"
+                      id="last_name-error"
+                    >
                       {formik.errors.last_name}
                     </p>
                   )}
@@ -227,7 +233,7 @@ const BuyerInformation = () => {
                     )}
                   </div>
                   {formik.touched.email && formik.errors.email && (
-                    <p class="mt-2 text-sm text-red-600" id="email-error">
+                    <p className="mt-2 text-sm text-red-600" id="email-error">
                       {formik.errors.email}
                     </p>
                   )}
@@ -236,7 +242,7 @@ const BuyerInformation = () => {
                       (message, i) => (
                         <p
                           key={i}
-                          class="mt-2 text-sm text-red-600"
+                          className="mt-2 text-sm text-red-600"
                           id="email-error"
                         >
                           {message}
@@ -290,7 +296,10 @@ const BuyerInformation = () => {
                     )}
                   </div>
                   {formik.touched.username && formik.errors.username && (
-                    <p class="mt-2 text-sm text-red-600" id="username-error">
+                    <p
+                      className="mt-2 text-sm text-red-600"
+                      id="username-error"
+                    >
                       {formik.errors.username}
                     </p>
                   )}
@@ -299,7 +308,7 @@ const BuyerInformation = () => {
                       (message, i) => (
                         <p
                           key={i}
-                          class="mt-2 text-sm text-red-600"
+                          className="mt-2 text-sm text-red-600"
                           id="email-error"
                         >
                           {message}
@@ -349,7 +358,10 @@ const BuyerInformation = () => {
                     )}
                   </div>
                   {formik.touched.password && formik.errors.password && (
-                    <p class="mt-2 text-sm text-red-600" id="password-error">
+                    <p
+                      className="mt-2 text-sm text-red-600"
+                      id="password-error"
+                    >
                       {formik.errors.password}
                     </p>
                   )}
@@ -401,7 +413,7 @@ const BuyerInformation = () => {
                   {formik.touched.password_confirmation &&
                     formik.errors.password_confirmation && (
                       <p
-                        class="mt-2 text-sm text-red-600"
+                        className="mt-2 text-sm text-red-600"
                         id="password_confirmation-error"
                       >
                         {formik.errors.password_confirmation}
@@ -413,17 +425,26 @@ const BuyerInformation = () => {
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <div className="flex justify-between items-center">
-              <p class="text-xs leading-5 text-gray-500">
+              <p className="text-xs leading-5 text-gray-500">
                 By signing up, you agree to our{" "}
-                <a href="#" class="font-medium text-gray-900 hover:underline">
+                <a
+                  href="#"
+                  className="font-medium text-gray-900 hover:underline"
+                >
                   Terms
                 </a>
                 ,{" "}
-                <a href="#" class="font-medium text-gray-900 hover:underline">
+                <a
+                  href="#"
+                  className="font-medium text-gray-900 hover:underline"
+                >
                   Data Policy
                 </a>{" "}
                 and{" "}
-                <a href="#" class="font-medium text-gray-900 hover:underline">
+                <a
+                  href="#"
+                  className="font-medium text-gray-900 hover:underline"
+                >
                   Cookies Policy
                 </a>
                 .

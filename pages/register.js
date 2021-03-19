@@ -310,26 +310,26 @@ const registerPage = () => {
                 >
                   CONTINUE
                 </button>
-                <div class="pt-5">
-                  <p class="text-xs leading-5 text-gray-500">
+                <div className="pt-5">
+                  <p className="text-xs leading-5 text-gray-500">
                     By signing up, you agree to our{" "}
                     <a
                       href="#"
-                      class="font-medium text-gray-900 hover:underline"
+                      className="font-medium text-gray-900 hover:underline"
                     >
                       Terms
                     </a>
                     ,{" "}
                     <a
                       href="#"
-                      class="font-medium text-gray-900 hover:underline"
+                      className="font-medium text-gray-900 hover:underline"
                     >
                       Data Policy
                     </a>{" "}
                     and{" "}
                     <a
                       href="#"
-                      class="font-medium text-gray-900 hover:underline"
+                      className="font-medium text-gray-900 hover:underline"
                     >
                       Cookies Policy
                     </a>
