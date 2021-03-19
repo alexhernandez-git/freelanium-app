@@ -101,8 +101,7 @@ const index = () => {
                         Free to use
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        You will get access to your dashboard and track your
-                        orders.
+                        Get access to your dashboard and track your orders.
                       </dd>
                     </div>
                   </div>
@@ -130,8 +129,8 @@ const index = () => {
                         Worldwide transfers
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        You can handle the purchase of your project from
-                        professionals anywhere.
+                        Handle the purchase of your project from professionals
+                        anywhere.
                       </dd>
                     </div>
                   </div>
@@ -158,9 +157,7 @@ const index = () => {
                         Control about your project
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        With our system you will have control over your project,
-                        because for example in normal orders that are a single
-                        payment, the seller will only receive your money only if
+                        Have control over your project, finish the order only if
                         you accept the delivery.
                       </dd>
                     </div>
@@ -189,9 +186,8 @@ const index = () => {
                         Message system
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        You will have the ability to communicate with all the
-                        sellers you want through the same chat, reach
-                        agreements, execute actions, etc...
+                        Communicate with all the sellers you want through the
+                        chat, reach agreements, execute actions, etc.
                       </dd>
                     </div>
                   </div>

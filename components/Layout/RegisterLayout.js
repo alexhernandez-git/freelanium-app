@@ -46,14 +46,18 @@ const RegisterLayout = ({ isSeller, token }) => {
               <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                 {!isSeller &&
                   `With our order tracking system the seller will not get the money
-                until he has delivered a good job, and if it is not as you
+                until he has delivered a good job, so if it is not as you
                 expect, you can agree to a refund`}
               </p>
-              <p className="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">
-                {isSeller
-                  ? "Get your 14 days free trial"
-                  : "And it is absolutely free"}
-              </p>
+              {isSeller ? (
+                <p className="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">
+                  Get your 14 days free trial
+                </p>
+              ) : (
+                <p className="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">
+                  And it is absolutely <span className="font-bold">free</span>
+                </p>
+              )}
             </div>
           </div>
           <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">

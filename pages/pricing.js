@@ -42,7 +42,7 @@ const pricing = () => {
                 <span className="text-cyan-600">{priceLabel} a month</span>
               </h1>
               <p className="mt-5 text-xl text-gray-500">
-                And if you use the platform for a month, the{" "}
+                And if you don't use the platform for a month, the{" "}
                 <span className="font-bold">next one is free</span>
               </p>
             </div>
@@ -62,9 +62,8 @@ const pricing = () => {
                 All-in-one platform
               </p>
               <p className="mt-4 text-lg text-gray-500">
-                In this platform you can do everything, save your contacts, send
-                offers, reach agreements, chatting, charge customers and much
-                more.
+                Save your contacts, send offers, reach agreements, chatting,
+                charge customers and much more.
               </p>
             </div>
             <div className="mt-4 sm:mt-8 md:mt-10 md:grid md:grid-cols-2 md:gap-x-8 xl:mt-0 xl:col-span-2">

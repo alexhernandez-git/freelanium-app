@@ -119,7 +119,7 @@ const index = () => {
                       World wide
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      You can charge clients from all over the world.
+                      Charge your clients from all over the world.
                     </dd>
                   </div>
                 </div>
@@ -149,8 +149,7 @@ const index = () => {
                       No hidden fees
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      When to charge for a project we do not charge you
-                      commissions.
+                      0% commissions on all your orders.
                     </dd>
                   </div>
                 </div>
@@ -180,9 +179,8 @@ const index = () => {
                       All in one
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      In this platform you can do everything, save your
-                      contacts, send offers, reach agreements, chatting, charge
-                      customers and much more.
+                      Save your contacts, send offers, reach agreements,
+                      chatting, charge customers and much more.
                     </dd>
                   </div>
                 </div>
@@ -212,8 +210,8 @@ const index = () => {
                       Charge options
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      You will have 3 options for charge your customers, the
-                      normal, the two payments, and the recurrent.
+                      3 options for charge your customers, the normal, the two
+                      payments, and the recurrent.
                     </dd>
                   </div>
                 </div>

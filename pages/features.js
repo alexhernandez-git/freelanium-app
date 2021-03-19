@@ -24,9 +24,8 @@ const features = () => {
               All-in-one platform
             </p>
             <p className="mt-4 text-lg text-gray-500">
-              In this platform you can do everything, save your contacts, send
-              offers, reach agreements, chatting, charge customers and much
-              more.
+              Save your contacts, send offers, reach agreements, chats, charge
+              customers and much more.
             </p>
           </div>
           <div className="mt-12 lg:mt-0 lg:col-span-2">
@@ -52,8 +51,7 @@ const features = () => {
                     No hidden fees
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    When to charge for a project we do not charge you
-                    commissions.
+                    0% commissions on all your orders.
                   </dd>
                 </div>
               </div>
@@ -78,8 +76,8 @@ const features = () => {
                     Multiple charge options
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    You will have 3 options for charge your customers, the
-                    normal, the two payments, and the recurrent.
+                    3 options for charge your customers, the normal, the two
+                    payments, and the recurrent.
                   </dd>
                 </div>
               </div>
@@ -104,7 +102,7 @@ const features = () => {
                     Invite contacts
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    You can invite and save all your contacts.
+                    Invite and store all your contacts.
                   </dd>
                 </div>
               </div>
@@ -130,7 +128,7 @@ const features = () => {
                     Orders list view
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    You will be able to see the register of your orders.
+                    Control all the history of your orders.
                   </dd>
                 </div>
               </div>
@@ -235,9 +233,8 @@ const features = () => {
                     Orders control
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
-                    You will be save charging your customers because our money
-                    withholding system, the customers always will pay at the
-                    beggining.
+                    Securely charge your customers, with our money withholding
+                    system the customers always will pay at the beggining.
                   </dd>
                 </div>
               </div>
