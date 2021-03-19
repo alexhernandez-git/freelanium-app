@@ -101,38 +101,8 @@ const index = () => {
                         Free to use
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        Consequuntur omnis dicta cumque, inventore atque ab
-                        dolores aspernatur tempora ab doloremque.
-                      </dd>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white">
-                      <svg
-                        className="h-6 w-6"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
-                        />
-                      </svg>
-                    </div>
-                    <div className="mt-5">
-                      <dt className="text-lg leading-6 font-medium text-gray-900">
-                        Control about your project
-                      </dt>
-                      <dd className="mt-2 text-base text-gray-500">
-                        Corporis quisquam nostrum nulla veniam recusandae
-                        temporibus aperiam officia incidunt at distinctio
-                        ratione.
+                        You will get access to your dashboard and track your
+                        orders.
                       </dd>
                     </div>
                   </div>
@@ -160,9 +130,38 @@ const index = () => {
                         Worldwide transfers
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        Omnis, illo delectus? Libero, possimus nulla nemo
-                        tenetur adipisci repellat dolore eligendi velit
-                        doloribus mollitia.
+                        You can handle the purchase of your project from
+                        professionals anywhere.
+                      </dd>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 text-white">
+                      <svg
+                        className="h-6 w-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+                        />
+                      </svg>
+                    </div>
+                    <div className="mt-5">
+                      <dt className="text-lg leading-6 font-medium text-gray-900">
+                        Control about your project
+                      </dt>
+                      <dd className="mt-2 text-base text-gray-500">
+                        With our system you will have control over your project,
+                        because for example in normal orders that are a single
+                        payment, the seller will only receive your money only if
+                        you accept the delivery.
                       </dd>
                     </div>
                   </div>
@@ -190,9 +189,9 @@ const index = () => {
                         Message system
                       </dt>
                       <dd className="mt-2 text-base text-gray-500">
-                        Veniam necessitatibus reiciendis fugit explicabo dolorem
-                        nihil et omnis assumenda odit? Quisquam unde
-                        accusantium.
+                        You will have the ability to communicate with all the
+                        sellers you want through the same chat, reach
+                        agreements, execute actions, etc...
                       </dd>
                     </div>
                   </div>

@@ -9,13 +9,10 @@ const useAuthRequired = () => {
   const { is_authenticated } = authReducer;
   const router = useRouter();
   const [canRender, setCanRender] = useState(false);
+  const regEx = new RegExp("/dashboard*");
   useEffect(() => {
     if (initialDataReducer.initial_data_fetched) {
-      if (
-        !is_authenticated &&
-        router.pathname != "/login" &&
-        router.pathname != "/reset-password/[token]"
-      ) {
+      if (!is_authenticated && regEx.test(router.pathname)) {
         router.push("/");
       } else {
         setCanRender(true);
