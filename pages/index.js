@@ -87,8 +87,8 @@ const index = () => {
                 A better way to charge your customers
               </p>
               <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
-                magnam voluptatum cupiditate veritatis in accusamus quisquam.
+                You will have your space prepared to chat, negotiate agreements
+                and charge your clients
               </p>
             </div>
 
@@ -119,9 +119,7 @@ const index = () => {
                       World wide
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      You can charge clients from all over the world.
                     </dd>
                   </div>
                 </div>
@@ -151,9 +149,8 @@ const index = () => {
                       No hidden fees
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      When to charge for a project we do not charge you
+                      commissions.
                     </dd>
                   </div>
                 </div>
@@ -183,9 +180,9 @@ const index = () => {
                       All in one
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      In this platform you can do everything, save your
+                      contacts, send offers, reach agreements, chatting, charge
+                      customers and much more.
                     </dd>
                   </div>
                 </div>
@@ -215,9 +212,8 @@ const index = () => {
                       Charge options
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      You will have 3 options for charge your customers, the
+                      normal, the two payments, and the recurrent.
                     </dd>
                   </div>
                 </div>

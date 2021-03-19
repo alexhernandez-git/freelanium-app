@@ -42,7 +42,7 @@ const InviteContactForm = ({
       <div className="absolute inset-0 overflow-hidden">
         <section
           ref={inviteContactRef}
-          className="absolute inset-y-0 pl-16 max-w-full right-0 flex"
+          className="absolute inset-y-0 max-w-full right-0 flex"
           aria-labelledby="slide-over-heading"
         >
           <div className="w-screen max-w-md">

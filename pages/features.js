@@ -24,8 +24,9 @@ const features = () => {
               All-in-one platform
             </p>
             <p class="mt-4 text-lg text-gray-500">
-              Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
-              Malesuada adipiscing sagittis vel nulla nec.
+              In this platform you can do everything, save your contacts, send
+              offers, reach agreements, chatting, charge customers and much
+              more.
             </p>
           </div>
           <div class="mt-12 lg:mt-0 lg:col-span-2">
@@ -51,8 +52,8 @@ const features = () => {
                     No hidden fees
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    When to charge for a project we do not charge you
+                    commissions.
                   </dd>
                 </div>
               </div>
@@ -77,8 +78,8 @@ const features = () => {
                     Multiple charge options
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    You will have 3 options for charge your customers, the
+                    normal, the two payments, and the recurrent.
                   </dd>
                 </div>
               </div>
@@ -103,8 +104,7 @@ const features = () => {
                     Invite contacts
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    You can invite and save all your contacts.
                   </dd>
                 </div>
               </div>
@@ -130,8 +130,7 @@ const features = () => {
                     Orders list view
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    You will be able to see the register of your orders.
                   </dd>
                 </div>
               </div>
@@ -157,8 +156,8 @@ const features = () => {
                     Easy offer agreements
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    An agile agreements system provided by the most successful
+                    freelancers platforms.
                   </dd>
                 </div>
               </div>
@@ -184,8 +183,8 @@ const features = () => {
                     Chat rooms
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    You can manage phone, email and chat conversations all from
-                    a single mailbox.
+                    Not just a chat, is the most vailable tool for your
+                    comunication with your customers.
                   </dd>
                 </div>
               </div>
@@ -211,8 +210,7 @@ const features = () => {
                     Notifications
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    Find what you need with advanced filters, bulk actions, and
-                    quick views.
+                    All the activity will be registered and notification to you.
                   </dd>
                 </div>
               </div>
@@ -237,8 +235,9 @@ const features = () => {
                     Orders control
                   </dt>
                   <dd class="mt-2 text-base text-gray-500">
-                    Find what you need with advanced filters, bulk actions, and
-                    quick views.
+                    You will be save charging your customers because our money
+                    withholding system, the customers always will pay at the
+                    beggining.
                   </dd>
                 </div>
               </div>

@@ -62,9 +62,9 @@ const pricing = () => {
                 All-in-one platform
               </p>
               <p className="mt-4 text-lg text-gray-500">
-                Ac euismod vel sit maecenas id pellentesque eu sed consectetur.
-                Malesuada adipiscing sagittis vel nulla nec. Urna, sed a lectus
-                elementum blandit et.
+                In this platform you can do everything, save your contacts, send
+                offers, reach agreements, chatting, charge customers and much
+                more.
               </p>
             </div>
             <div className="mt-4 sm:mt-8 md:mt-10 md:grid md:grid-cols-2 md:gap-x-8 xl:mt-0 xl:col-span-2">

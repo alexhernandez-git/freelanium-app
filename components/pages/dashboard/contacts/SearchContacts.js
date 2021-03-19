@@ -1,4 +1,5 @@
 import { PrimaryButton, SecondaryButton } from "components/ui/Buttons";
+import Spinner from "components/ui/Spinner";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import ContactSearchCard from "./ContactSearchCard";
@@ -16,6 +17,11 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           <h3>Your contacts</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
+          {contactsReducer.is_loading_search && (
+            <div className="flex bg-white justify-center py-2">
+              <Spinner />
+            </div>
+          )}
           {contactsReducer.contacts_search.results &&
             contactsReducer.contacts_search.results.length > 0 &&
             contactsReducer.contacts_search.results.map((contact) => (
@@ -36,6 +42,11 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           <h3>Contacts available</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
+          {contactsReducer.is_loading_available_contacts && (
+            <div className="flex bg-white justify-center py-2">
+              <Spinner />
+            </div>
+          )}
           {contactsReducer.available_contacts.results &&
             contactsReducer.available_contacts.results.length > 0 &&
             contactsReducer.available_contacts.results.map((contact) => (
