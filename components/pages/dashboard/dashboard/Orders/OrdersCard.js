@@ -145,10 +145,16 @@ const OrdersCard = ({ order }) => {
               <div className="hidden md:block">
                 <div>
                   <p className="text-sm text-gray-900">
-                    Delivery on{" "}
-                    <time dateTime="2020-01-07">
-                      {moment(order?.delivery_date).format("MMMM D, YYYY")}
-                    </time>
+                    {order?.type == "RO" ? (
+                      "Recurrent Order"
+                    ) : (
+                      <>
+                        Delivery on{" "}
+                        <time dateTime="2020-01-07">
+                          {moment(order?.delivery_date).format("MMMM D, YYYY")}
+                        </time>
+                      </>
+                    )}
                   </p>
                   {getStatusJSX()}
                 </div>

@@ -98,7 +98,7 @@ const OrderCheckout = () => {
   }, [offersReducer.is_loading, authReducer.currency]);
 
   const [stripeError, setStripeError] = useState(null);
-  console.log(offer);
+  console.log(authReducer.user?.default_payment_method);
   const formik = useFormik({
     initialValues: {
       payment_method_id: authReducer.user?.default_payment_method,
