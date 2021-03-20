@@ -71,8 +71,8 @@ const OrderCheckout = () => {
 
           const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
-            (authReducer.user?.available_for_withdrawal +
-              authReducer.user?.pending_clearance) *
+            (parseFloat(authReducer.user?.available_for_withdrawal) +
+              parseFloat(authReducer.user?.pending_clearance)) *
             currencyRate;
           let used_credits = 0;
           if (available_for_withdawal > 0) {

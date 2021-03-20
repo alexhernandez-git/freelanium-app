@@ -70,7 +70,9 @@ const AcceptTwoPaymentsOrderModal = ({
 
           const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
-            authReducer.user?.available_for_withdawal * currencyRate;
+            (parseFloat(authReducer.user?.available_for_withdawal) +
+              parseFloat(authReducer.user?.pending_clearance)) *
+            currencyRate;
           let used_credits = 0;
           if (available_for_withdawal > 0) {
             if (available_for_withdawal > subtotal) {
@@ -194,11 +196,13 @@ const AcceptTwoPaymentsOrderModal = ({
                   </div>
                 </div>
                 <div>
-                  <PaymentMethodForm
-                    formikPaymentMethods={formik}
-                    stripeError={stripeError}
-                    setStripeError={setStripeError}
-                  />
+                  {openAcceptTwoPaymentsOrder && (
+                    <PaymentMethodForm
+                      formikPaymentMethods={formik}
+                      stripeError={stripeError}
+                      setStripeError={setStripeError}
+                    />
+                  )}
                 </div>
               </div>
             </div>

@@ -301,6 +301,14 @@ const Header = () => {
                           Account settings
                         </a>
                       </Link>
+                      <Link href="/dashboard/settings/earnings">
+                        <a
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                          role="menuitem"
+                        >
+                          Earnings
+                        </a>
+                      </Link>
                       {user && user.seller_view ? (
                         <>
                           <Link href="/dashboard/settings/plan-and-billing">
@@ -311,14 +319,7 @@ const Header = () => {
                               Plan & Billing
                             </a>
                           </Link>
-                          <Link href="/dashboard/settings/earnings">
-                            <a
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                              role="menuitem"
-                            >
-                              Earnings
-                            </a>
-                          </Link>
+
                           <span
                             onClick={handleToggleView}
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
