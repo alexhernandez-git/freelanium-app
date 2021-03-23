@@ -70,7 +70,7 @@ const AcceptTwoPaymentsOrderModal = ({
 
           const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
-            (parseFloat(authReducer.user?.available_for_withdawal) +
+            (parseFloat(authReducer.user?.available_for_withdrawal) +
               parseFloat(authReducer.user?.pending_clearance)) *
             currencyRate;
           let used_credits = 0;
@@ -97,6 +97,7 @@ const AcceptTwoPaymentsOrderModal = ({
     e.preventDefault();
     formik.handleSubmit();
   };
+  console.log(orderObject);
   return (
     <div
       className={`${
@@ -164,7 +165,7 @@ const AcceptTwoPaymentsOrderModal = ({
                             {formik.values.order_checkout?.service_fee}
                           </span>
                         </dd>
-                        {formik.values.order_checkout?.used_credits > 0 && (
+                        {orderObject?.used_credits > 0 && (
                           <>
                             <dt className="text-sm font-bold text-gray-900 col-span-2">
                               Used credits
@@ -172,7 +173,7 @@ const AcceptTwoPaymentsOrderModal = ({
                             <dd className="flex text-sm text-gray-900 mt-0">
                               <span className="flex-grow font-bold">
                                 -{getSymbolFromCurrency(authReducer.currency)}
-                                {formik.values.order_checkout?.used_credits}
+                                {orderObject?.used_credits}
                               </span>
                             </dd>
                           </>
