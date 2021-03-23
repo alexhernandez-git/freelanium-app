@@ -24,11 +24,21 @@ const EarningsHistory = () => {
         );
         const percentage = (100 - (100 * days_left) / 14).toFixed(0);
 
-        return <div>Pending clearance {percentage}%</div>;
+        return <div>Order revenue: Pending clearance {percentage}%</div>;
       case "WI":
         return "Withdrawn funds";
       case "RE":
-        return "Refund funds";
+        if (moment().isAfter(moment(earning.available_for_withdrawn_date))) {
+          return "Refund funds";
+        }
+        const days_left_refund = moment(
+          earning.available_for_withdrawn_date
+        ).diff(moment(), "days");
+        const percentage_refund = (100 - (100 * days_left_refund) / 14).toFixed(
+          0
+        );
+
+        return <div>Refund funds: Pending clearance {percentage_refund}%</div>;
       case "SP":
         return "Credits spent";
     }
@@ -83,7 +93,6 @@ const EarningsHistory = () => {
                     {earningsReducer.earnings.results &&
                       earningsReducer.earnings.results.map((earning) => (
                         <tr>
-                          {console.log(earning)}
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {moment(earning.created).format("DD-MM-YYYY")}
                           </td>

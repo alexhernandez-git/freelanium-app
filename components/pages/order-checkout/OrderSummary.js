@@ -165,6 +165,13 @@ const OrderSummary = ({
           </span>
         </div>
       )}
+      {step == 1 && offer?.type === "RO" && offer?.used_credits > 0 && (
+        <div className="mt-4 flex justify-center">
+          <span className="text-sm text-gray-500">
+            Credits only will be applied on this subscription cycle
+          </span>
+        </div>
+      )}
     </div>
   );
 };

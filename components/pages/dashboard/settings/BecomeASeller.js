@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { becomeASeller } from "redux/actions/auth";
@@ -9,6 +9,22 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
   const handleBecomeASeller = () => {
     dispatch(becomeASeller());
   };
+  const [priceLabel, setPriceLabel] = useState("");
+  const plansReducer = useSelector((state) => state.plansReducer);
+  useEffect(() => {
+    if (
+      !plansReducer.is_loading &&
+      plansReducer.plans &&
+      authReducer.currency
+    ) {
+      const currency = authReducer.currency;
+      const currentPlan = plansReducer.plans.find(
+        (plan) => plan.currency == currency && plan.type == "BA"
+      );
+      setPriceLabel(currentPlan.price_label);
+    }
+  }, [authReducer.currency, plansReducer.is_loading]);
+
   return (
     <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
       <form action="#" method="POST">
@@ -87,7 +103,7 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
                                 </svg>
                               </div>
                               <p className="ml-3 text-sm text-gray-700">
-                                Project management board
+                                Easy offer agreements
                               </p>
                             </li>
 
@@ -129,7 +145,7 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
                                 </svg>
                               </div>
                               <p className="ml-3 text-sm text-gray-700">
-                                Client portofolio
+                                Multiple charge options
                               </p>
                             </li>
                           </ul>
@@ -140,9 +156,9 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
                           Monthly subscription
                         </p>
                         <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900">
-                          <span>$9.99</span>
-                          <span className="ml-3 text-xl font-medium text-gray-500">
-                            USD
+                          <span>{priceLabel}</span>
+                          <span className="ml-3 text-xl font-medium text-gray-500 uppercase">
+                            {authReducer.user?.currency}
                           </span>
                         </div>
                         <p className="mt-4 text-sm">
