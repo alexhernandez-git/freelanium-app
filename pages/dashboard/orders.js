@@ -32,6 +32,9 @@ export default function Orders() {
       }
     }
   }, [search]);
+  const handleSearchOrders = () => {
+    dispatch(fetchOrders(search));
+  };
   return !canRender ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner />
@@ -45,6 +48,7 @@ export default function Orders() {
       }
       searchBar="Search Orders"
       searchState={{ search, setSearch }}
+      onSearchClick={handleSearchOrders}
     >
       {/* {authReducer.user && authReducer.user.seller_view && (
         <OrdersTabs tab="PRIORITY" />

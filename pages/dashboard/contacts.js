@@ -35,6 +35,15 @@ export default function Home() {
       setIsSearching(false);
     }
   }, [search]);
+  const handleSearchContacts = async () => {
+    if (search != "") {
+      setIsSearching(true);
+
+      await dispatch(searchContacts(search));
+
+      await dispatch(fetchAvailableContacts(search));
+    }
+  };
   const [inviteContact, setInviteContact] = useState(false);
   const handleShowInviteContact = () => {
     setInviteContact(true);
@@ -74,6 +83,7 @@ export default function Home() {
       goBack={isSearching && handleHideSearching}
       searchBar="Search Contacts"
       searchState={{ search, setSearch }}
+      onSearchClick={handleSearchContacts}
     >
       {isSearching ? (
         <>

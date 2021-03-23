@@ -13,6 +13,7 @@ const Layout = ({
   noPadding,
   noPaddingY,
   searchState,
+  onSearchClick,
   goBack,
   pageName = "",
 }) => {
@@ -114,7 +115,11 @@ const Layout = ({
               <div className="m-3 block sm:hidden"></div>
               {searchBar && (
                 <>
-                  <SearchBar text={searchBar} searchState={searchState} />
+                  <SearchBar
+                    text={searchBar}
+                    searchState={searchState}
+                    onSearchClick={onSearchClick}
+                  />
                 </>
               )}
             </div>
