@@ -234,7 +234,7 @@ const features = () => {
                   </dt>
                   <dd className="mt-2 text-base text-gray-500">
                     Securely charge your customers, with our money withholding
-                    system the customers always will pay at the beggining.
+                    system the customers always will pay at the beginning.
                   </dd>
                 </div>
               </div>
