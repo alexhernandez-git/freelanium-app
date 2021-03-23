@@ -7,7 +7,7 @@ const UserCard = () => {
   return (
     <div className="p-4  rounded-lg shadow bg-white mb-4">
       <div
-        className={`flex ${
+        className={`flex truncate ${
           user && user.seller_view ? "border-b pb-4 pt-2" : "py-2"
         } border-gray-200   rounded`}
       >

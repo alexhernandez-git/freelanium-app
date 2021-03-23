@@ -23,7 +23,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    if (search != "") {
+    if (search.trim() != "") {
       const timeoutId = setTimeout(async () => {
         setIsSearching(true);
         await dispatch(searchContacts(search));
@@ -36,7 +36,7 @@ export default function Home() {
     }
   }, [search]);
   const handleSearchContacts = async () => {
-    if (search != "") {
+    if (search.trim() != "") {
       setIsSearching(true);
 
       await dispatch(searchContacts(search));
