@@ -42,7 +42,10 @@ export const searchBuyers = (search = "") => async (dispatch, getState) => {
     type: SEARCH_BUYERS,
   });
   await axios
-    .get(`${process.env.HOST}/api/users/?search=${search}`)
+    .get(
+      `${process.env.HOST}/api/users/?search=${search}`,
+      tokenConfig(getState)
+    )
     .then(async (res) => {
       await dispatch({
         type: SEARCH_BUYERS_SUCCESS,
