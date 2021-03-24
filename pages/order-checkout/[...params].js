@@ -58,8 +58,7 @@ const OrderCheckout = () => {
           if (offersReducer.offer?.type == "TP") {
             subtotal = offersReducer.offer.first_payment * currencyRate;
           }
-          const fixed_fee = 0.3 * currencyRate;
-          const service_fee = (subtotal * 5) / 100 + fixed_fee;
+          const service_fee = (subtotal * 5) / 100;
           let payment_at_delivery = 0;
           let first_payment = 0;
           if (offersReducer.offer?.type == "TP") {
