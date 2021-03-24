@@ -553,7 +553,7 @@ export const inviteUser = (
       });
       resetForm({});
       dispatch(resetInviteUser());
-      dispatch(createAlert("SUCCESS", "Invitation has sent"));
+      dispatch(createAlert("SUCCESS", "Invitation has been sent"));
       handleHideInviteContact();
     })
     .catch((err) => {
