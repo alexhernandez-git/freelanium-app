@@ -58,8 +58,7 @@ const OrderCheckout = () => {
           if (offersReducer.offer?.type == "TP") {
             subtotal = offersReducer.offer.first_payment * currencyRate;
           }
-          const fixed_fee = 0.3 * currencyRate;
-          const service_fee = (subtotal * 5) / 100 + fixed_fee;
+
           let payment_at_delivery = 0;
           let first_payment = 0;
           if (offersReducer.offer?.type == "TP") {
@@ -69,7 +68,6 @@ const OrderCheckout = () => {
             first_payment = offersReducer.offer.first_payment * currencyRate;
           }
 
-          const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
             (parseFloat(authReducer.user?.available_for_withdrawal) +
               parseFloat(authReducer.user?.pending_clearance)) *
@@ -83,6 +81,10 @@ const OrderCheckout = () => {
               used_credits = subtotal + diff;
             }
           }
+          const fixed_fee = 0.3 * currencyRate;
+          const service_fee = ((subtotal - used_credits) * 5) / 100 + fixed_fee;
+          const unit_amount = subtotal + service_fee;
+
           setOffer({
             ...offersReducer.offer,
             first_payment: first_payment.toFixed(2),
