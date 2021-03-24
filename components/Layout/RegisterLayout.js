@@ -54,9 +54,16 @@ const RegisterLayout = ({ isSeller, token }) => {
                   Get your 14 days free trial
                 </p>
               ) : (
-                <p className="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">
-                  And it is absolutely <span className="font-bold">free</span>
-                </p>
+                <>
+                  <p className="mt-8 text-sm text-white uppercase tracking-wide font-normal sm:mt-10">
+                    <span className="font-bold">5%</span> transaction costs
+                  </p>
+                  <p className="mt-2 text-sm text-white uppercase tracking-wide font-normal">
+                    and absolutely{" "}
+                    <span className="font-bold">free dashboard</span> to manage
+                    your orders
+                  </p>
+                </>
               )}
             </div>
           </div>
