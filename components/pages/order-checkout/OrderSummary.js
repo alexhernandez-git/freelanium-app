@@ -53,7 +53,7 @@ const OrderSummary = ({
               </>
             )}
             <dt className="text-sm font-medium text-gray-500   col-span-2">
-              Service fee
+              Transaction costs
             </dt>
             <dd className="flex text-sm text-gray-500 mt-0">
               <span className="flex-grow">
