@@ -11,6 +11,7 @@ import BillingPlan from "components/pages/dashboard/settings/BillingPlan";
 import FreeTrialPlan from "components/pages/dashboard/settings/FreeTrialPlan";
 import BecomeASeller from "components/pages/dashboard/settings/BecomeASeller";
 import PaymentMethodInfo from "components/pages/dashboard/settings/PaymentMethodInfo";
+import Head from "next/head";
 const billing = () => {
   const [cantRender, authReducer] = useAuthRequired();
   const [addBillingInformation, setAddBillingInformation] = useState(false);
@@ -47,49 +48,58 @@ const billing = () => {
     authReducer.changing_payment_method,
     authReducer.adding_billing_information,
   ]);
-  return !cantRender || authReducer.adding_billing_information ? (
-    <div className="flex justify-center items-center h-screen">
-      <Spinner />
-    </div>
-  ) : (
+  return (
     <>
-      {/* Asside */}
-      <SettingsLayout>
-        {authReducer.user?.plan_default_payment_method ? (
-          <>
-            <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-              {changingPaymentMethod ? (
-                <ChangePaymentMethodForm
-                  handleCloseChangePaymentMethod={
-                    handleCloseChangePaymentMethod
-                  }
-                  planPaymentMethod={planPaymentMethod}
-                />
-              ) : (
-                <PaymentMethodInfo
-                  handleOpenChangePaymentMethod={handleOpenChangePaymentMethod}
-                  planPaymentMethod={planPaymentMethod}
-                />
-              )}
-              <BillingPlan />
+      <Head>
+        <title>Plan and billing</title>
+      </Head>
+      {!cantRender || authReducer.adding_billing_information ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {/* Asside */}
+          <SettingsLayout>
+            {authReducer.user?.plan_default_payment_method ? (
+              <>
+                <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+                  {changingPaymentMethod ? (
+                    <ChangePaymentMethodForm
+                      handleCloseChangePaymentMethod={
+                        handleCloseChangePaymentMethod
+                      }
+                      planPaymentMethod={planPaymentMethod}
+                    />
+                  ) : (
+                    <PaymentMethodInfo
+                      handleOpenChangePaymentMethod={
+                        handleOpenChangePaymentMethod
+                      }
+                      planPaymentMethod={planPaymentMethod}
+                    />
+                  )}
+                  <BillingPlan />
 
-              <BillingHistory />
-            </div>
-          </>
-        ) : authReducer?.user?.is_seller ? (
-          <>
-            {addBillingInformation ? (
-              <AddBillingInformationForm />
+                  <BillingHistory />
+                </div>
+              </>
+            ) : authReducer?.user?.is_seller ? (
+              <>
+                {addBillingInformation ? (
+                  <AddBillingInformationForm />
+                ) : (
+                  <FreeTrialPlan handleOpenAddBilling={handleOpenAddBilling} />
+                )}
+              </>
             ) : (
-              <FreeTrialPlan handleOpenAddBilling={handleOpenAddBilling} />
+              <>
+                <BecomeASeller />
+              </>
             )}
-          </>
-        ) : (
-          <>
-            <BecomeASeller />
-          </>
-        )}
-      </SettingsLayout>
+          </SettingsLayout>
+        </>
+      )}
     </>
   );
 };

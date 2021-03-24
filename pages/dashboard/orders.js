@@ -3,6 +3,7 @@ import OrdersTabs from "components/pages/dashboard/orders/OrdersTabs";
 import OrderTabsRow from "components/pages/dashboard/orders/OrderTabs/OrderTabsRow";
 import Spinner from "components/ui/Spinner";
 import useAuthRequired from "hooks/useAuthRequired";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "redux/actions/orders";
@@ -35,26 +36,33 @@ export default function Orders() {
   const handleSearchOrders = () => {
     dispatch(fetchOrders(search));
   };
-  return !canRender ? (
-    <div className="flex justify-center items-center h-screen">
-      <Spinner />
-    </div>
-  ) : (
-    <Layout
-      pageName={
-        authReducer.user && authReducer.user.seller_view
-          ? "Manage Orders"
-          : "Your Orders"
-      }
-      searchBar="Search Orders"
-      searchState={{ search, setSearch }}
-      onSearchClick={handleSearchOrders}
-    >
-      {/* {authReducer.user && authReducer.user.seller_view && (
+  return (
+    <>
+      <Head>
+        <title>Orders</title>
+      </Head>
+      {!canRender ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner />
+        </div>
+      ) : (
+        <Layout
+          pageName={
+            authReducer.user && authReducer.user.seller_view
+              ? "Manage Orders"
+              : "Your Orders"
+          }
+          searchBar="Search Orders"
+          searchState={{ search, setSearch }}
+          onSearchClick={handleSearchOrders}
+        >
+          {/* {authReducer.user && authReducer.user.seller_view && (
         <OrdersTabs tab="PRIORITY" />
       )} */}
 
-      <OrdersList />
-    </Layout>
+          <OrdersList />
+        </Layout>
+      )}
+    </>
   );
 }

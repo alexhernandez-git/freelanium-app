@@ -1,5 +1,6 @@
 import { Header, MobileHeader } from "components/Layout/Header";
 import Layout from "components/Layout/Layout";
+import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -13,6 +14,9 @@ const index = () => {
   };
   return (
     <>
+      <Head>
+        <title>Freelanium</title>
+      </Head>
       <Layout
         openTryItFree={openTryItFree}
         handleCloseTryFree={handleCloseTryFree}

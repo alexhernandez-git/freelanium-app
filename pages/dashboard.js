@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLastMessages } from "redux/actions/lastMessages";
 import { fetchDashboardOrders } from "redux/actions/dashboardOrders";
 import { fetchActivities } from "redux/actions/activities";
+import Head from "next/head";
 
 export default function Dashboard() {
   const [cantRender, authReducer, initialDataFetched] = useAuthRequired();
@@ -51,25 +52,32 @@ export default function Dashboard() {
     }
   }, [initialDataFetched]);
 
-  return !cantRender ? (
-    <div className="flex justify-center items-center h-screen">
-      <Spinner />
-    </div>
-  ) : (
-    <Layout pageName="Dashboard">
-      <div className="lg:grid grid-cols-12 gap-8">
-        <div className="col-span-4 mb-3 lg:m-0">
-          <UserCard />
-          <Inbox />
+  return (
+    <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
+      {!cantRender ? (
+        <div className="flex justify-center items-center h-screen">
+          <Spinner />
         </div>
-        <div className="col-start-5 col-span-9">
-          <Orders
-            selectValue={selectValue}
-            handleChangeSelectValue={handleChangeSelectValue}
-          />
-          {/* <Activity /> */}
-        </div>
-      </div>
-    </Layout>
+      ) : (
+        <Layout pageName="Dashboard">
+          <div className="lg:grid grid-cols-12 gap-8">
+            <div className="col-span-4 mb-3 lg:m-0">
+              <UserCard />
+              <Inbox />
+            </div>
+            <div className="col-start-5 col-span-9">
+              <Orders
+                selectValue={selectValue}
+                handleChangeSelectValue={handleChangeSelectValue}
+              />
+              {/* <Activity /> */}
+            </div>
+          </div>
+        </Layout>
+      )}
+    </>
   );
 }

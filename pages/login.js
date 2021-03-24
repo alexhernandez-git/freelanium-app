@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { forgetPassword, login } from "redux/actions/auth";
 import useRedirectIfIsAuthenticated from "hooks/useRedirectIfIsAuthenticated";
 import { useAlert } from "hooks/useAlert";
+import Head from "next/head";
 const loginPage = () => {
   useRedirectIfIsAuthenticated();
   const dispatch = useDispatch();
@@ -65,6 +66,9 @@ const loginPage = () => {
   const alert = useAlert();
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       {alert}
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">

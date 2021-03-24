@@ -3,6 +3,7 @@ import Layout from "components/Layout/Layout";
 import React, { useState } from "react";
 import Link from "next/link";
 import RegisterLayout from "components/Layout/RegisterLayout";
+import Head from "next/head";
 
 const index = () => {
   const [openTryItFree, setOpenTryItFree] = useState(false);
@@ -14,6 +15,9 @@ const index = () => {
   };
   return (
     <>
+      <Head>
+        <title>Buyers</title>
+      </Head>
       <Layout
         openTryItFree={openTryItFree}
         handleCloseTryFree={handleCloseTryFree}
