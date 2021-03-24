@@ -56,7 +56,8 @@ const RegisterLayout = ({ isSeller, token }) => {
               ) : (
                 <>
                   <p className="mt-8 text-sm text-white uppercase tracking-wide font-normal sm:mt-10">
-                    <span className="font-bold">5%</span> transaction costs
+                    <span className="font-bold">5% + $0.3 USD</span> transaction
+                    costs
                   </p>
                   <p className="mt-2 text-sm text-white uppercase tracking-wide font-normal">
                     and absolutely{" "}
