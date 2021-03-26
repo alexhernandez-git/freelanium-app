@@ -63,12 +63,7 @@ const AcceptTwoPaymentsOrderModal = ({
           const currencyRate = res.data.rates[authReducer.currency];
 
           const subtotal = order?.payment_at_delivery * currencyRate;
-          const fixed_fee = 0.3 * currencyRate;
-          const service_fee = (subtotal * 5) / 100 + fixed_fee;
 
-          console.log("subtotal", subtotal, service_fee);
-
-          const unit_amount = subtotal + service_fee;
           const available_for_withdawal =
             (parseFloat(authReducer.user?.available_for_withdrawal) +
               parseFloat(authReducer.user?.pending_clearance)) *
@@ -82,6 +77,10 @@ const AcceptTwoPaymentsOrderModal = ({
               used_credits = subtotal + diff;
             }
           }
+          const fixed_fee = 0.3 * currencyRate;
+          const service_fee = ((subtotal - used_credits) * 5) / 100 + fixed_fee;
+
+          const unit_amount = subtotal + service_fee;
           setOrderObject({
             ...order,
             subtotal: subtotal.toFixed(2),
