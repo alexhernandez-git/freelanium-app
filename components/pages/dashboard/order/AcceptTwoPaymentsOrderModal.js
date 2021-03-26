@@ -33,8 +33,6 @@ const AcceptTwoPaymentsOrderModal = ({
       order_checkout: Yup.object().required(),
     }),
     onSubmit: async (values, { resetForm }) => {
-      console.log("order object ", formik.values);
-
       dispatch(
         acceptDelviery(
           order.id,

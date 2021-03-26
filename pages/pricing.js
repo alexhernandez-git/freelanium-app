@@ -50,7 +50,7 @@ const pricing = () => {
                 </h1>
                 <p className="mt-5 text-xl text-gray-500">
                   And if you don't use the platform for a month, the{" "}
-                  <span className="font-bold">next one is free</span>
+                  <span className="font-bold">next one will be free</span>
                 </p>
               </div>
               <a
