@@ -12,6 +12,7 @@ import {
   resetEmailAvailable,
   resetUsernameAvailable,
 } from "redux/actions/auth";
+import Spinner from "components/ui/Spinner";
 const RegisterForm = ({ isSeller, token }) => {
   const dispatch = useDispatch();
 
@@ -393,9 +394,14 @@ const RegisterForm = ({ isSeller, token }) => {
       <div>
         <button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+          className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
         >
           Create your account
+          {authReducer.registing && (
+            <div className="ml-3">
+              <Spinner />
+            </div>
+          )}
         </button>
       </div>
     </form>
