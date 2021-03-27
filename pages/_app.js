@@ -175,11 +175,14 @@ function WrappedApp({ Component, pageProps }) {
             break;
         }
       };
+      if (!authReducer.is_authenticated) {
+        ws.current.close();
+      }
       return () => {
         ws.current.close();
       };
     }
-  }, [authReducer.is_loading]);
+  }, [authReducer.is_loading, authReducer.is_authenticated]);
 
   return (
     <Elements stripe={getStripe()}>
