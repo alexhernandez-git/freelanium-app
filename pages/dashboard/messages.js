@@ -96,9 +96,10 @@ export default function Messages() {
                           <img
                             className="w-32 h-32 flex-shrink-0 mx-auto rounded-full bg-white"
                             src={
-                              new RegExp(process.env.HOST).test(
-                                chatReducer.chat.to_user?.picture
-                              )
+                              new RegExp(
+                                process.env.HOST |
+                                  "https://freelanium.s3.amazonaws.com"
+                              ).test(chatReducer.chat.to_user?.picture)
                                 ? chatReducer.chat.to_user?.picture
                                 : process.env.HOST +
                                   chatReducer.chat.to_user?.picture

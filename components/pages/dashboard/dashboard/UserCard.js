@@ -18,7 +18,9 @@ const UserCard = () => {
                 <img
                   className="inline-block h-20 w-20 rounded-full"
                   src={
-                    new RegExp(process.env.HOST).test(user.picture)
+                    new RegExp(
+                      process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                    ).test(user.picture)
                       ? user.picture
                       : process.env.HOST + user.picture
                   }

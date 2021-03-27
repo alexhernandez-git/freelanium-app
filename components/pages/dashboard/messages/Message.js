@@ -86,7 +86,9 @@ export const MyMessage = ({ message }) => {
                 <img
                   className="h-10 w-10 rounded-full"
                   src={
-                    new RegExp(process.env.HOST).test(message.sent_by.picture)
+                    new RegExp(
+                      process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                    ).test(message.sent_by.picture)
                       ? message.sent_by.picture
                       : process.env.HOST + message.sent_by.picture
                   }
@@ -154,7 +156,9 @@ export const NotMyMessage = ({ message }) => {
                 <img
                   className="h-10 w-10 rounded-full"
                   src={
-                    new RegExp(process.env.HOST).test(message.sent_by.picture)
+                    new RegExp(
+                      process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                    ).test(message.sent_by.picture)
                       ? message.sent_by.picture
                       : process.env.HOST + message.sent_by.picture
                   }

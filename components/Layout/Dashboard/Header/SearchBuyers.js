@@ -163,7 +163,10 @@ const SearchBuyers = ({
                             <img
                               className="inline-block h-10 w-10 rounded-full"
                               src={
-                                new RegExp(process.env.HOST).test(buyer.picture)
+                                new RegExp(
+                                  process.env.HOST |
+                                    "https://freelanium.s3.amazonaws.com"
+                                ).test(buyer.picture)
                                   ? buyer.picture
                                   : process.env.HOST + buyer.picture
                               }

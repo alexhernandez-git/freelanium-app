@@ -150,6 +150,25 @@ const Footer = () => {
               </svg>
             </a>
           </div> */}
+          <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1 flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="text-gray-400 w-5 mr-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            <span className="">
+              <a href="mailto:support@freelanium.com">support@freelanium.com</a>
+            </span>
+          </p>
           <p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
             &copy; 2021 Freelanium, Inc. All rights reserved.
           </p>

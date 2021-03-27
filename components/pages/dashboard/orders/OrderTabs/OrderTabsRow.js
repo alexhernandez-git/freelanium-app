@@ -50,7 +50,9 @@ const OrderTabsRow = ({ order }) => {
               <img
                 className="h-10 w-10 rounded-full"
                 src={
-                  new RegExp(process.env.HOST).test(getUser().picture)
+                  new RegExp(
+                    process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                  ).test(getUser().picture)
                     ? getUser().picture
                     : process.env.HOST + getUser().picture
                 }

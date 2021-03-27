@@ -186,7 +186,9 @@ const ContactCard = ({ contact, id }) => {
           <img
             className="flex-shrink-0 mx-auto inline-block w-32 h-32 rounded-full"
             src={
-              new RegExp(process.env.HOST).test(picture)
+              new RegExp(
+                process.env.HOST | "https://freelanium.s3.amazonaws.com"
+              ).test(picture)
                 ? picture
                 : process.env.HOST + picture
             }

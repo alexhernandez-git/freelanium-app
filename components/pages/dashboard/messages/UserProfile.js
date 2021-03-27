@@ -26,9 +26,9 @@ const UserProfile = ({ handleCloseProfile = null }) => {
                 <img
                   className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                   src={
-                    new RegExp(process.env.HOST).test(
-                      chatReducer.chat?.to_user?.picture
-                    )
+                    new RegExp(
+                      process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                    ).test(chatReducer.chat?.to_user?.picture)
                       ? chatReducer.chat?.to_user?.picture
                       : process.env.HOST + chatReducer.chat?.to_user?.picture
                   }

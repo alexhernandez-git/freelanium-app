@@ -254,7 +254,10 @@ const Header = () => {
                           <img
                             className="h-8 w-8 rounded-full"
                             src={
-                              new RegExp(process.env.HOST).test(user.picture)
+                              new RegExp(
+                                process.env.HOST |
+                                  "https://freelanium.s3.amazonaws.com"
+                              ).test(user.picture)
                                 ? user.picture
                                 : process.env.HOST + user.picture
                             }
@@ -431,7 +434,10 @@ const Header = () => {
                     <img
                       className="h-10 w-10 rounded-full"
                       src={
-                        new RegExp(process.env.HOST).test(user.picture)
+                        new RegExp(
+                          process.env.HOST |
+                            "https://freelanium.s3.amazonaws.com"
+                        ).test(user.picture)
                           ? user.picture
                           : process.env.HOST + user.picture
                       }

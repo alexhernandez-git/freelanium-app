@@ -63,7 +63,9 @@ const NotificationItem = ({ notification }) => {
             <img
               className="h-8 w-8 rounded-full"
               src={
-                new RegExp(process.env.HOST).test(notification.actor.picture)
+                new RegExp(
+                  process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                ).test(notification.actor.picture)
                   ? notification.actor.picture
                   : process.env.HOST + notification.actor.picture
               }

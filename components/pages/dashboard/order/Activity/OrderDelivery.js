@@ -252,9 +252,10 @@ const OrderDelivery = ({ ac, chat = false }) => {
                               <a
                                 target="_blank"
                                 href={
-                                  new RegExp(process.env.HOST).test(
-                                    activity?.delivery?.source_file
-                                  )
+                                  new RegExp(
+                                    process.env.HOST |
+                                      "https://freelanium.s3.amazonaws.com"
+                                  ).test(activity?.delivery?.source_file)
                                     ? activity?.delivery?.source_file
                                     : process.env.HOST +
                                       activity?.delivery?.source_file
@@ -269,9 +270,10 @@ const OrderDelivery = ({ ac, chat = false }) => {
                                 <a
                                   target="_blank"
                                   href={
-                                    new RegExp(process.env.HOST).test(
-                                      activity?.delivery?.source_file
-                                    )
+                                    new RegExp(
+                                      process.env.HOST |
+                                        "https://freelanium.s3.amazonaws.com"
+                                    ).test(activity?.delivery?.source_file)
                                       ? activity?.delivery?.source_file
                                       : process.env.HOST +
                                         activity?.delivery?.source_file

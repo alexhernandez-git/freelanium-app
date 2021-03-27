@@ -16,7 +16,9 @@ const ChatroomCard = ({ chat, handleFetchChat }) => {
             <img
               className="h-10 w-10 rounded-full"
               src={
-                new RegExp(process.env.HOST).test(chat.picture)
+                new RegExp(
+                  process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                ).test(chat.picture)
                   ? chat.picture
                   : process.env.HOST + chat.picture
               }

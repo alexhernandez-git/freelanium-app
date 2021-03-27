@@ -21,7 +21,9 @@ const ContactSearchCard = ({ contact, myContact }) => {
             <img
               className="h-10 w-10 rounded-full"
               src={
-                new RegExp(process.env.HOST).test(picture)
+                new RegExp(
+                  process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                ).test(picture)
                   ? picture
                   : process.env.HOST + picture
               }

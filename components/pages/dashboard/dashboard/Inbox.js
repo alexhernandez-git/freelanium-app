@@ -77,7 +77,9 @@ const Inbox = () => {
                   <img
                     className="h-6 w-6 rounded-full"
                     src={
-                      new RegExp(process.env.HOST).test(chat.picture)
+                      new RegExp(
+                        process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                      ).test(chat.picture)
                         ? chat.picture
                         : process.env.HOST + chat.picture
                     }
