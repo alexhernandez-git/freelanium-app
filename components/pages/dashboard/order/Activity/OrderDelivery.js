@@ -249,12 +249,12 @@ const OrderDelivery = ({ ac, chat = false }) => {
                               Include Source Files
                             </dt>
                             <dd className="mt-2 text-sm text-gray-900">
+                              {console.log(activity?.delivery?.source_file)}
                               <a
                                 target="_blank"
                                 href={
                                   new RegExp(
-                                    process.env.HOST |
-                                      "https://freelanium.s3.amazonaws.com"
+                                    `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
                                   ).test(activity?.delivery?.source_file)
                                     ? activity?.delivery?.source_file
                                     : process.env.HOST +
@@ -271,8 +271,7 @@ const OrderDelivery = ({ ac, chat = false }) => {
                                   target="_blank"
                                   href={
                                     new RegExp(
-                                      process.env.HOST |
-                                        "https://freelanium.s3.amazonaws.com"
+                                      `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
                                     ).test(activity?.delivery?.source_file)
                                       ? activity?.delivery?.source_file
                                       : process.env.HOST +
