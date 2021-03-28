@@ -620,6 +620,7 @@ export const addBillingInformation = (values, payment_method) => async (
       });
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
       dispatch({
         type: ADD_BILLING_INFORMATION_FAIL,
