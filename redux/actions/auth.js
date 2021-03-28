@@ -619,10 +619,9 @@ export const addBillingInformation = (values, payment_method) => async (
         payload: res.data,
       });
     })
-    .catch((err) => {
-      console.log(err.response);
-      dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
-      dispatch({
+    .catch(async (err) => {
+      await dispatch(createAlert("ERROR", "Something went wrong with Stripe"));
+      await dispatch({
         type: ADD_BILLING_INFORMATION_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
