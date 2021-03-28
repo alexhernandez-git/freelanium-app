@@ -12,6 +12,7 @@ import {
 } from "redux/actions/auth";
 import Spinner from "components/ui/Spinner";
 import Head from "next/head";
+import Link from "next/link";
 const registerPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -320,24 +321,19 @@ const registerPage = () => {
                       <p className="text-xs leading-5 text-gray-500">
                         By signing up, you agree to our{" "}
                         <a
-                          href="#"
+                          href="/terms"
+                          target="_blank"
                           className="font-medium text-gray-900 hover:underline"
                         >
                           Terms
-                        </a>
-                        ,{" "}
-                        <a
-                          href="#"
-                          className="font-medium text-gray-900 hover:underline"
-                        >
-                          Data Policy
                         </a>{" "}
                         and{" "}
                         <a
-                          href="#"
+                          href="/privacy"
+                          target="_blank"
                           className="font-medium text-gray-900 hover:underline"
                         >
-                          Cookies Policy
+                          Privacy Policy
                         </a>
                         .
                       </p>
