@@ -76,6 +76,13 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
     }
   }, [chatReducer.chat]);
 
+  const handlePressEnter = (e) => {
+    console.log("entra");
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   return (
     <>
       <div
@@ -264,6 +271,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
                         className="block w-full sm:text-sm border-gray-200 ring-0 focus:outline-none focus:shadow-none resize-none border-b-0 border-l-0 border-r-0 focus:border-gray-200 focus:ring-cyan-500"
                         placeholder="Message..."
                         value={message}
+                        onKeyUp={handlePressEnter}
                         onChange={(e) => setMessage(e.target.value)}
                       />
                     </div>
