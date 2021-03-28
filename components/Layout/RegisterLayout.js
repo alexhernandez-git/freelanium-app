@@ -83,7 +83,7 @@ const RegisterLayout = ({ isSeller, token }) => {
                     className="font-medium text-gray-900 hover:underline"
                   >
                     Terms
-                  </a>
+                  </a>{" "}
                   and{" "}
                   <a
                     target="_blank"
