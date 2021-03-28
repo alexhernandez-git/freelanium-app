@@ -20,7 +20,7 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const [selectValue, setSelectValue] = useState("ACTIVE");
   const handleFetchDashboardOrders = async (value) => {
-    if (dashboardOrdersReducer.orders.length !== 0 && value === selectValue) {
+    if (value === selectValue) {
       return;
     }
     switch (value) {
