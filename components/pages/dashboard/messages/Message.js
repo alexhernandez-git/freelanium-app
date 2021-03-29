@@ -193,7 +193,7 @@ export const NotMyMessage = ({ message }) => {
                   className="h-10 w-10 rounded-full"
                   src={
                     new RegExp(
-                      process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                      `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
                     ).test(message.sent_by.picture)
                       ? message.sent_by.picture
                       : process.env.HOST + message.sent_by.picture
@@ -231,7 +231,7 @@ export const NotMyMessage = ({ message }) => {
                     download={file?.name}
                     href={
                       new RegExp(
-                        process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                        `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
                       ).test(file?.file)
                         ? file?.file
                         : process.env.HOST + file?.file
