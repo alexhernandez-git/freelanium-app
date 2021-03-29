@@ -5,10 +5,10 @@ import reducer from "./reducers";
 import createSagaMiddleware from "redux-saga";
 
 const bindMiddleware = (middleware) => {
-  if (process.env.NODE_ENV !== "production") {
-    const { composeWithDevTools } = require("redux-devtools-extension");
-    return composeWithDevTools(applyMiddleware(...middleware));
-  }
+  // if (process.env.NODE_ENV !== "production") {
+  const { composeWithDevTools } = require("redux-devtools-extension");
+  return composeWithDevTools(applyMiddleware(...middleware));
+  // }
   return applyMiddleware(...middleware);
 };
 
