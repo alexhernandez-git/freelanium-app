@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
 const FreeTrialPlan = ({ handleOpenAddBilling }) => {
   const authReducer = useSelector((state) => state.authReducer);
+  const plansReducer = useSelector((state) => state.plansReducer);
+  const [priceLabel, setPriceLabel] = useState("");
+
+  useEffect(() => {
+    if (
+      !plansReducer.is_loading &&
+      plansReducer.plans &&
+      authReducer.currency
+    ) {
+      const currency = authReducer.currency;
+      const currentPlan = plansReducer.plans.find(
+        (plan) => plan.currency == currency && plan.type == "BA"
+      );
+      setPriceLabel(currentPlan.price_label);
+    }
+  }, [authReducer.currency, plansReducer.is_loading]);
   return (
     <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
       <form action="#" method="POST">
@@ -48,25 +64,57 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                 single plan
                               </h3>
                             </div>
-
-                            <p className="mt-5 text-md text-gray-500">
-                              <span className="font-bold">
-                                {
-                                  authReducer.user?.current_plan_subscription
-                                    ?.plan_price_label
-                                }{" "}
+                            {authReducer.user?.current_plan_subscription
+                              ?.status === "trialing" && (
+                              <>
+                                <p className="mt-5 text-md text-gray-500">
+                                  <span className="font-bold">
+                                    {
+                                      authReducer.user
+                                        ?.current_plan_subscription
+                                        ?.plan_price_label
+                                    }{" "}
+                                    /mo
+                                  </span>{" "}
+                                  after the trial
+                                </p>
+                                <p className="mt-3 text-md text-gray-500">
+                                  Trial ends at{" "}
+                                  <span className="font-bold">
+                                    {moment(
+                                      authReducer.user?.free_trial_expiration
+                                    ).format("DD of MMMM YYYY")}
+                                  </span>
+                                </p>
+                              </>
+                            )}
+                            {authReducer.user?.current_plan_subscription
+                              ?.status === "past_due" && (
+                              <>
+                                <p className="mt-5 text-md text-gray-500">
+                                  <span className="font-bold">
+                                    {
+                                      authReducer.user
+                                        ?.current_plan_subscription
+                                        ?.plan_price_label
+                                    }
+                                  </span>{" "}
+                                  /mo
+                                </p>
+                                <p className="mt-3 text-md text-gray-500">
+                                  <span className="text-red-500">
+                                    Payment method not attached, please add your
+                                    billing information
+                                  </span>
+                                </p>
+                              </>
+                            )}
+                            {!authReducer.user?.current_plan_subscription && (
+                              <p className="mt-5 text-md text-gray-500">
+                                <span className="font-bold">{priceLabel}</span>{" "}
                                 /mo
-                              </span>{" "}
-                              after the trial
-                            </p>
-                            <p className="mt-3 text-md text-gray-500">
-                              Trial ends at{" "}
-                              <span className="font-bold">
-                                {moment(
-                                  authReducer.user?.free_trial_expiration
-                                ).format("DD of MMMM YYYY")}
-                              </span>
-                            </p>
+                              </p>
+                            )}
                           </div>
                           <div className="flex-1 flex flex-col justify-between px-6 pt-6 pb-8 bg-gray-50 space-y-6 sm:p-10 sm:pt-6">
                             <ul className="space-y-4">
