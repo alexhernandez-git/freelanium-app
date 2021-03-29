@@ -83,7 +83,7 @@ export const MyMessage = ({ message }) => {
                       download={file?.name}
                       href={
                         new RegExp(
-                          `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
+                          `${process.env.HOST}|https://freelanium.s3.amazonaws.com|data`
                         ).test(file?.file)
                           ? file?.file
                           : process.env.HOST + file?.file
@@ -230,7 +230,7 @@ export const NotMyMessage = ({ message }) => {
                     download={file?.name}
                     href={
                       new RegExp(
-                        `${process.env.HOST}|https://freelanium.s3.amazonaws.com`
+                        `${process.env.HOST}|https://freelanium.s3.amazonaws.com|data`
                       ).test(file?.file)
                         ? file?.file
                         : process.env.HOST + file?.file
