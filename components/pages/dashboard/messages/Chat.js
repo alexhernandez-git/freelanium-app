@@ -41,21 +41,66 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
   }, [messagesReducer.first_loading]);
   const ws = useRef(null);
 
+  const [filesAttached, setFilesAttached] = useState([]);
+
+  const handleAttachFiles = (e) => {
+    e.preventDefault();
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    let totalSize = 0;
+    for (let i; i < filesAttached.length; i++) {
+      totalSize += filesAttached[i]?.size;
+    }
+    totalSize += file?.size;
+    const maxAllowedSize = 1073741824;
+    console.log(totalSize);
+    if (totalSize > maxAllowedSize) {
+      alert("Over max size");
+      return;
+    }
+    file?.slice(0, 100000);
+    const reader = new FileReader();
+    reader.onload = () => {
+      console.log(reader.result);
+      const base64_file = {
+        file: reader.result,
+        size: file?.size,
+        name: file?.name,
+      };
+      setFilesAttached([...filesAttached, base64_file]);
+    };
+    try {
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveFile = (index) => {
+    let filesAttachedArr = [...filesAttached];
+    filesAttachedArr.splice(index, 1);
+    setFilesAttached(filesAttachedArr);
+  };
+
   const [message, setMessage] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (message !== "") {
+    if (message !== "" || filesAttached.length > 0) {
       ws.current.send(
         JSON.stringify({
           text: message,
           sent_by: authReducer.user,
+          files: filesAttached,
         })
       );
       setMessage("");
+      setFilesAttached([]);
     }
   };
+
   useEffect(() => {
     if (!chatReducer.is_loading && chatReducer.chat) {
+      setFilesAttached([]);
       ws.current = new WebSocket(
         process.env.WS + "/ws/chat/" + chatReducer.chat.id + "/"
       );
@@ -64,6 +109,7 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
       ws.current.onclose = () => console.log("ws closed");
       ws.current.onmessage = async (e) => {
         const data = JSON.parse(e.data);
+        console.log("data", data);
         await dispatch(addMessage(data));
         if (authReducer.user.id === data.sent_by.id) {
           await dispatch(changeLastMessage(data.chat__id, data.text));
@@ -261,9 +307,64 @@ const Chat = ({ showMessages, handleShowMessages, handleClickProfile }) => {
             </div>
             {chatReducer.chat && (
               <div className="absolute bottom-0 w-full">
+                <div className="flex overflow-auto">
+                  {filesAttached.length > 0 &&
+                    filesAttached.map((file, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex rounded-full items-center py-0.5 pl-2.5 pr-1 text-sm font-medium bg-gray-100 text-gray-700 m-1"
+                      >
+                        {file?.name}
+                        <button
+                          onClick={handleRemoveFile.bind(this, i)}
+                          type="button"
+                          className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:outline-none focus:bg-gray-500 focus:text-white"
+                        >
+                          <span className="sr-only">Remove large option</span>
+                          <svg
+                            className="h-2 w-2"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 8 8"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeWidth="1.5"
+                              d="M1 1l6 6m0-6L1 7"
+                            />
+                          </svg>
+                        </button>
+                      </span>
+                    ))}
+                </div>
                 <form onSubmit={handleSubmit}>
-                  <div className="mt-1 flex rounded-md shadow-sm">
+                  <div className="flex rounded-md shadow-sm">
                     <div className="relative flex items-stretch flex-grow">
+                      <input
+                        type="file"
+                        className="hidden"
+                        id="attach-files-input"
+                        onChange={handleAttachFiles}
+                      />
+                      <label
+                        for="attach-files-input"
+                        className="cursor-pointer -ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-200  text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none border-l-0 border-b-0"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          className="h-5 w-5 text-gray-400"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                          />
+                        </svg>
+                      </label>
                       <textarea
                         type="text"
                         name="text"

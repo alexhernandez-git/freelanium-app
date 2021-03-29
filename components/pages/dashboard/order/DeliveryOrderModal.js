@@ -232,7 +232,7 @@ const DeliveryOrderModal = ({
                           >
                             <path
                               vector-effect="non-scaling-stroke"
-                              stroke-width="1"
+                              strokeWidth="1"
                               d="M0 0l200 200M0 200L200 0"
                             />
                           </svg>

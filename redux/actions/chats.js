@@ -165,7 +165,6 @@ export const changeLastMessage = (chat__id, message__text) => async (
   dispatch,
   getState
 ) => {
-  console.log(chat__id, message__text);
   const result = getState().chatsReducer.chats.some(
     (chat) => chat.id === chat__id
   );

@@ -75,6 +75,42 @@ export const MyMessage = ({ message }) => {
                   </span>
                 </div>
               )}
+              <div className="flex justify-end flex-wrap">
+                {message?.files &&
+                  message.files?.length > 0 &&
+                  message.files.map((file) => (
+                    <a
+                      download={file?.name}
+                      href={
+                        new RegExp(
+                          process.env.HOST |
+                            "https://freelanium.s3.amazonaws.com"
+                        ).test(file?.file)
+                          ? file?.file
+                          : process.env.HOST + file?.file
+                      }
+                      target="_blank"
+                    >
+                      <div className="mt-2 ml-2 text-sm text-gray-700 flex justify-end">
+                        <div className="flex flex-col items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            className="h-16 w-16 text-gray-500"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className="text-gray-500">{file?.name}</span>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+              </div>
               <div className="mt-2 text-sm text-gray-700 flex justify-end">
                 <p className="break-all whitespace-pre-line">{message.text}</p>
               </div>
@@ -187,6 +223,41 @@ export const NotMyMessage = ({ message }) => {
                 </div>
               </div>
             )}
+            <div className="flex justify-start flex-wrap">
+              {message?.files &&
+                message.files?.length > 0 &&
+                message.files.map((file) => (
+                  <a
+                    download={file?.name}
+                    href={
+                      new RegExp(
+                        process.env.HOST | "https://freelanium.s3.amazonaws.com"
+                      ).test(file?.file)
+                        ? file?.file
+                        : process.env.HOST + file?.file
+                    }
+                    target="_blank"
+                  >
+                    <div className="mt-2 mr-2 text-sm text-gray-700 flex justify-start">
+                      <div className="flex flex-col items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          className="h-16 w-16 text-gray-500"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span className="text-gray-500">{file?.name}</span>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+            </div>
             <div className="mt-2 text-sm text-gray-700">
               <p className="break-all whitespace-pre-line">{message.text}</p>
             </div>
