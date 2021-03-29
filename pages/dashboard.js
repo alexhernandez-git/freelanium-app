@@ -19,30 +19,16 @@ export default function Dashboard() {
   );
   const dispatch = useDispatch();
   const [selectValue, setSelectValue] = useState("ACTIVE");
-  const handleFetchDashboardOrders = async (value) => {
-    if (value === selectValue) {
-      return;
-    }
-    switch (value) {
-      case "ACTIVE":
-        await dispatch(fetchDashboardOrders(value));
-        break;
-      case "COMPLETED":
-        await dispatch(fetchDashboardOrders(value));
-        break;
-      case "CANCELLED":
-        await dispatch(fetchDashboardOrders(value));
-        break;
-    }
-  };
+
   const handleFetchDashboardData = async () => {
-    await handleFetchDashboardOrders(selectValue);
     await dispatch(fetchLastMessages());
+    await dispatch(fetchDashboardOrders(selectValue));
     // await dispatch(fetchActivities());
   };
 
-  const handleChangeSelectValue = (value) => {
-    handleFetchDashboardOrders(value);
+  const handleChangeSelectValue = async (value) => {
+    await dispatch(fetchDashboardOrders(value));
+
     setSelectValue(value);
   };
 
