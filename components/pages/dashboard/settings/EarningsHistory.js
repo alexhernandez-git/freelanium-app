@@ -22,7 +22,7 @@ const EarningsHistory = () => {
           moment(),
           "days"
         );
-        const percentage = (100 - (100 * days_left) / 14).toFixed(0);
+        const percentage = (100 - (100 * days_left) / 15).toFixed(0);
 
         return <div>Order revenue: Pending clearance {percentage}%</div>;
       case "WI":
@@ -34,7 +34,7 @@ const EarningsHistory = () => {
         const days_left_refund = moment(
           earning.available_for_withdrawn_date
         ).diff(moment(), "days");
-        const percentage_refund = (100 - (100 * days_left_refund) / 14).toFixed(
+        const percentage_refund = (100 - (100 * days_left_refund) / 15).toFixed(
           0
         );
 
