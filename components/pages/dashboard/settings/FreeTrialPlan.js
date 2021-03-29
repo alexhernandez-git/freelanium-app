@@ -134,7 +134,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                   </svg>
                                 </div>
                                 <p className="ml-3 text-base text-gray-700">
-                                  Project managment
+                                  Easy offer agreements
                                 </p>
                               </li>
 
@@ -157,7 +157,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                                   </svg>
                                 </div>
                                 <p className="ml-3 text-base text-gray-700">
-                                  Client portofolio
+                                  Multiple charge options
                                 </p>
                               </li>
                             </ul>
