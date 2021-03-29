@@ -179,4 +179,13 @@ export default [
     code: "ZAR",
     name_plural: "South African rand",
   },
+  {
+    symbol: "₨",
+    name: "Pakistani Rupee",
+    symbol_native: "₨",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "PKR",
+    name_plural: "Pakistani Rupees",
+  },
 ];
