@@ -188,4 +188,13 @@ export default [
     code: "PKR",
     name_plural: "Pakistani Rupees",
   },
+  {
+    symbol: "CN¥",
+    name: "Chinese Yuan",
+    symbol_native: "CN¥",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "CNY",
+    name_plural: "Chinese yuan",
+  },
 ];
