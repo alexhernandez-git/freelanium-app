@@ -354,12 +354,12 @@ const OrderBoard = () => {
                   </div>
                 </div>
 
-                <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+                <div className="sticky mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
                   <section
                     aria-labelledby="timeline-title"
-                    className="lg:col-start-3 lg:col-span-1"
+                    className="lg:col-start-3 lg:col-span-1 relative"
                   >
-                    <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                    <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 sticky top-5">
                       <div className="px-4 py-5 sm:px-6">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
                           Order Information
