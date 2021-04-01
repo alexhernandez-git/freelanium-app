@@ -49,7 +49,7 @@ const InviteContactForm = ({
         {(ref) => (
           <div
             ref={ref}
-            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40"
             aria-hidden="true"
           ></div>
         )}
