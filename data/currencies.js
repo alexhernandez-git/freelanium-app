@@ -197,4 +197,13 @@ export default [
     code: "CNY",
     name_plural: "Chinese yuan",
   },
+  {
+    symbol: "SR",
+    name: "Saudi Riyal",
+    symbol_native: "ر.س.‏",
+    decimal_digits: 2,
+    rounding: 0,
+    code: "SAR",
+    name_plural: "Saudi riyals",
+  },
 ];
