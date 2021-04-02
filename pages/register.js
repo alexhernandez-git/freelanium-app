@@ -358,7 +358,7 @@ const registerPage = () => {
                         </div>
                       </div>
                       {coupon_available_error &&
-                        coupon_available_error.data.non_field_errors &&
+                        coupon_available_error?.data?.non_field_errors &&
                         coupon_available_error.data.non_field_errors.map(
                           (message, i) => (
                             <div
