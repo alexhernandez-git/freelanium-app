@@ -27,11 +27,15 @@ import {
   IS_EMAIL_AVAILABLE,
   IS_EMAIL_AVAILABLE_SUCCESS,
   IS_EMAIL_AVAILABLE_FAIL,
+  IS_COUPON_AVAILABLE,
+  IS_COUPON_AVAILABLE_SUCCESS,
+  IS_COUPON_AVAILABLE_FAIL,
   RESET_EMAIL_AVAILABLE,
   IS_USERNAME_AVAILABLE,
   IS_USERNAME_AVAILABLE_SUCCESS,
   IS_USERNAME_AVAILABLE_FAIL,
   RESET_USERNAME_AVAILABLE,
+  RESET_COUPON_AVAILABLE,
   SEND_VERIFICATION_EMAIL,
   SEND_VERIFICATION_EMAIL_SUCCESS,
   SEND_VERIFICATION_EMAIL_FAIL,
@@ -179,6 +183,27 @@ export const isUsernameAvailable = (email) => async (dispatch, getState) => {
 
 export const resetUsernameAvailable = () => async (dispatch, getState) => {
   dispatch({ type: RESET_USERNAME_AVAILABLE });
+};
+export const isCouponAvailable = (email) => async (dispatch, getState) => {
+  dispatch({ type: IS_COUPON_AVAILABLE });
+  await axios
+    .post(`${process.env.HOST}/api/users/is_coupon_available/`, email)
+    .then((res) => {
+      dispatch({
+        type: IS_COUPON_AVAILABLE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: IS_COUPON_AVAILABLE_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const resetCouponAvailable = () => async (dispatch, getState) => {
+  dispatch({ type: RESET_COUPON_AVAILABLE });
 };
 
 export const register_seller = (data) => async (dispatch, getState) => {

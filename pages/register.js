@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,8 @@ import {
   resetAuthErrors,
   resetEmailAvailable,
   resetUsernameAvailable,
+  resetCouponAvailable,
+  isCouponAvailable,
 } from "redux/actions/auth";
 import Spinner from "components/ui/Spinner";
 import Head from "next/head";
@@ -22,6 +24,7 @@ const registerPage = () => {
     is_authenticated,
     email_available,
     username_available_error,
+    coupon_available_error,
   } = authReducer;
 
   const formik = useFormik({
@@ -32,6 +35,7 @@ const registerPage = () => {
       last_name: "",
       password: "",
       password_confirmation: "",
+      coupon: "",
     },
     validationSchema: Yup.object({
       first_name: Yup.string().required("First name is required"),
@@ -44,6 +48,7 @@ const registerPage = () => {
       password_confirmation: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Password confirmation is required"),
+      coupon: Yup.string(),
     }),
     onSubmit: async (values) => {
       // console.log(valores);
@@ -72,11 +77,30 @@ const registerPage = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [formik.values.username]);
+  React.useEffect(() => {
+    dispatch(resetCouponAvailable());
+    if (formik.values.coupon != "") {
+      const timeoutId = setTimeout(() => {
+        dispatch(isCouponAvailable({ coupon: formik.values.coupon }));
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [formik.values.coupon]);
   useEffect(() => {
     if (authReducer?.register_error?.data?.non_field_errors) {
       dispatch(resetAuthErrors());
     }
   }, [formik.values.password]);
+  const [couponOpen, setCouponOpen] = useState(false);
+  const handleOpenCoupon = () => {
+    setCouponOpen(true);
+  };
+  const handleCloseCoupon = () => {
+    setCouponOpen(false);
+  };
+  const handleToggleCoupon = () => {
+    setCouponOpen(!couponOpen);
+  };
   return (
     <>
       <Head>
@@ -236,7 +260,6 @@ const registerPage = () => {
                           key={i}
                           className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
                         >
-                          <p className="font-bold">Username</p>
                           <p>{message}</p>
                         </div>
                       )
@@ -310,6 +333,49 @@ const registerPage = () => {
                       <p>{formik.errors.password_confirmation}</p>
                     </div>
                   ) : null}
+                  <div>
+                    <span
+                      className="text-sm text-gray-500 cursor-pointer hover:underline"
+                      onClick={handleOpenCoupon}
+                    >
+                      Enter promo code
+                    </span>
+                  </div>
+                  {couponOpen && (
+                    <>
+                      <div>
+                        <div>
+                          <input
+                            id="coupon"
+                            name="coupon"
+                            type="text"
+                            autoComplete="coupon"
+                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.coupon}
+                          />
+                        </div>
+                      </div>
+                      {coupon_available_error &&
+                        coupon_available_error.data.non_field_errors &&
+                        coupon_available_error.data.non_field_errors.map(
+                          (message, i) => (
+                            <div
+                              key={i}
+                              className="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
+                            >
+                              <p>{message}</p>
+                            </div>
+                          )
+                        )}
+                      {formik.touched.coupon && formik.errors.coupon ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                          <p>{formik.errors.coupon}</p>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
                   <div>
                     <button
                       type="submit"

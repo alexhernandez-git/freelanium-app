@@ -25,6 +25,10 @@ import {
   IS_EMAIL_AVAILABLE_SUCCESS,
   IS_EMAIL_AVAILABLE_FAIL,
   RESET_EMAIL_AVAILABLE,
+  IS_COUPON_AVAILABLE,
+  IS_COUPON_AVAILABLE_SUCCESS,
+  IS_COUPON_AVAILABLE_FAIL,
+  RESET_COUPON_AVAILABLE,
   IS_USERNAME_AVAILABLE,
   IS_USERNAME_AVAILABLE_SUCCESS,
   IS_USERNAME_AVAILABLE_FAIL,
@@ -109,6 +113,9 @@ const initialState = {
   username_available_loading: false,
   username_available: false,
   username_available_error: null,
+  coupon_available_loading: false,
+  coupon_available: false,
+  coupon_available_error: null,
   sending_verification_email: false,
   send_verification_email_error: null,
   verifing_account: false,
@@ -216,6 +223,33 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         email_available: false,
         email_available_error: null,
+      };
+    case IS_COUPON_AVAILABLE:
+      return {
+        ...state,
+        coupon_available_loading: true,
+      };
+    case IS_COUPON_AVAILABLE_SUCCESS:
+      return {
+        ...state,
+        coupon_available_loading: false,
+
+        coupon_available: action.payload.coupon,
+        coupon_available_error: null,
+      };
+    case IS_COUPON_AVAILABLE_FAIL:
+      return {
+        ...state,
+        coupon_available_loading: false,
+
+        coupon_available: false,
+        coupon_available_error: action.payload,
+      };
+    case RESET_COUPON_AVAILABLE:
+      return {
+        ...state,
+        coupon_available: false,
+        coupon_available_error: null,
       };
     case IS_USERNAME_AVAILABLE:
       return {
