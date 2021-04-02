@@ -97,7 +97,7 @@ const OfferActivity = ({ ac, chat = false }) => {
     if (activity?.offer) {
       axios
         .get(
-          `https://api.exchangeratesapi.io/${
+          `https://api.exchangerate.host/${
             offer.rate_date ? offer.rate_date : "latest"
           }?base=USD`
         )

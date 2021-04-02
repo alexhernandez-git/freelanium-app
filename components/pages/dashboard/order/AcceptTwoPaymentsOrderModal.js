@@ -53,7 +53,7 @@ const AcceptTwoPaymentsOrderModal = ({
     if (openAcceptTwoPaymentsOrder && order) {
       axios
         .get(
-          `https://api.exchangeratesapi.io/${
+          `https://api.exchangerate.host/${
             order?.rate_date ? order?.rate_date : "latest"
           }?base=USD`
         )

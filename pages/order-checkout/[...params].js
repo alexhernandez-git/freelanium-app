@@ -45,7 +45,7 @@ const OrderCheckout = () => {
     if (!offersReducer.is_loading && offersReducer.offer) {
       axios
         .get(
-          `https://api.exchangeratesapi.io/${
+          `https://api.exchangerate.host/${
             offersReducer.offer.rate_date
               ? offersReducer.offer.rate_date
               : "latest"
