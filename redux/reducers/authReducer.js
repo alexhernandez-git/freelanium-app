@@ -766,6 +766,7 @@ export default function AuthReducer(state = initialState, action) {
       };
     case LEAVE_FEEDBACK_FAIL:
       return {
+        ...state,
         leaving_feedback: false,
         leave_feedback_error: action.payload,
       };
