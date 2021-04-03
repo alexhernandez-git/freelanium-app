@@ -170,7 +170,7 @@ const Layout = ({
                 </div>
                 <div className="w-0 flex-1 ml-4">
                   <p className="text-lg font-bold text-cyan-500">
-                    Leave feedback
+                    Leave Feedback
                   </p>
                   {/* <p className="mt-1 text-sm text-gray-500">
                   Anyone with a link can now view this file.

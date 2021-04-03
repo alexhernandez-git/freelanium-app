@@ -72,7 +72,7 @@ const LeaveFeedbackModal = ({
                             id="slide-over-heading"
                             className="text-lg font-medium text-white"
                           >
-                            Leave feedback
+                            Leave Feedback
                           </h2>
                           <div className="ml-3 h-7 flex items-center">
                             <button

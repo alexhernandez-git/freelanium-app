@@ -111,7 +111,7 @@ const Layout = ({
                   />
                 </div>
                 <div className="w-0 flex-1 ml-4">
-                  <p className="text-lg font-bold text-cyan-500">Open beta</p>
+                  <p className="text-lg font-bold text-cyan-500">Open BETA</p>
                   {/* <p className="mt-1 text-sm text-gray-500">
                   Anyone with a link can now view this file.
                 </p> */}
