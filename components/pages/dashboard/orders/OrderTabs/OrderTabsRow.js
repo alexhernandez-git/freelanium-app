@@ -110,7 +110,7 @@ const OrderTabsRow = ({ order }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <Link href={`/dashboard/order/${order.id}/`}>
-          <a className="text-indigo-600 hover:text-indigo-900">View</a>
+          <a className="text-cyan-600 hover:text-cyan-900">View</a>
         </Link>
       </td>
     </tr>

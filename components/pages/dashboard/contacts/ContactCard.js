@@ -49,7 +49,7 @@ const ContactCard = ({ contact, id }) => {
           <div>
             <button
               onMouseDown={handleOptionsToggle}
-              className=" rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-indigo-500"
+              className=" rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-cyan-500"
               id="options-menu"
               aria-haspopup="true"
               aria-expanded="true"
@@ -172,7 +172,7 @@ const ContactCard = ({ contact, id }) => {
               <button
                 onClick={handleModalClose}
                 type="button"
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
               >
                 Cancel
               </button>

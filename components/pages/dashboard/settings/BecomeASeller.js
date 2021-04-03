@@ -59,7 +59,7 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
                         </p>
                         <div className="mt-8">
                           <div className="flex items-center">
-                            <h4 className="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-indigo-600">
+                            <h4 className="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-cyan-600">
                               What's included
                             </h4>
                             <div className="flex-1 border-t-2 border-gray-200"></div>
@@ -170,7 +170,7 @@ const BecomeASeller = ({ handleOpenAddBilling }) => {
                           <div className="rounded-md shadow">
                             <span
                               onClick={handleBecomeASeller}
-                              className="cursor-pointer flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600  hover:bg-indigo-700"
+                              className="cursor-pointer flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600  hover:bg-cyan-700"
                             >
                               {authReducer.becoming_a_seller && (
                                 <span className="mr-3">

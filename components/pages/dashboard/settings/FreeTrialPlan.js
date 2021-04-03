@@ -235,7 +235,7 @@ const FreeTrialPlan = ({ handleOpenAddBilling }) => {
                           {/* <Link href="/settings/billing-information">
                           <a
                                 href="#"
-                                className="block w-full text-center rounded-lg border border-transparent bg-indigo-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-indigo-700"
+                                className="block w-full text-center rounded-lg border border-transparent bg-cyan-600 px-6 py-4 text-xl leading-6 font-medium text-white hover:bg-cyan-700"
                                 aria-describedby="tier-growth"
                                 >
                                 Start your trial

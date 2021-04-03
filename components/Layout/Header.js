@@ -89,7 +89,7 @@ const Header = ({ openTryItFree, handleCloseTryFree, invitedBuyer }) => {
             <div className="flex items-center justify-between w-full md:w-auto">
               <Link href="/">
                 <a href="#" className="flex items-center">
-                  <span className="sr-only">Workflow</span>
+                  <span className="sr-only">Freelanium</span>
 
                   <span className="text-2xl font-bold text-gray-700">
                     <img

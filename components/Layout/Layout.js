@@ -99,6 +99,28 @@ const Layout = ({
         </div>
       </div>
       <Footer />
+      <div className="">
+        <div className="z-50 fixed inset-0 flex items-end justify-end px-4 py-6 pointer-events-none sm:p-6">
+          <div className="max-w-sm w-48 bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div className="p-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 w-10 h-10">
+                  <img
+                    src="../../static/images/freelanium_logo.png"
+                    className="w-full"
+                  />
+                </div>
+                <div className="w-0 flex-1 ml-4">
+                  <p className="text-lg font-bold text-cyan-500">Open beta</p>
+                  {/* <p className="mt-1 text-sm text-gray-500">
+                  Anyone with a link can now view this file.
+                </p> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -268,7 +268,7 @@ const OrderBoard = () => {
                           <div>
                             <button
                               onMouseDown={handleToggleOptions}
-                              className="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                              className="bg-gray-100 rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-cyan-500"
                               id="options-menu"
                               aria-haspopup="true"
                               aria-expanded="true"

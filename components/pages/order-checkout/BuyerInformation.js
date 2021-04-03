@@ -102,7 +102,7 @@ const BuyerInformation = () => {
                       className={
                         formik.touched.first_name && formik.errors.first_name
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -154,7 +154,7 @@ const BuyerInformation = () => {
                       className={
                         formik.touched.last_name && formik.errors.last_name
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -207,7 +207,7 @@ const BuyerInformation = () => {
                         (formik.touched.email && formik.errors.email) ||
                         email_available_error
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -270,7 +270,7 @@ const BuyerInformation = () => {
                         (formik.touched.username && formik.errors.username) ||
                         username_available_error
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -333,7 +333,7 @@ const BuyerInformation = () => {
                       className={
                         formik.touched.password && formik.errors.password
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -385,7 +385,7 @@ const BuyerInformation = () => {
                         formik.touched.password_confirmation &&
                         formik.errors.password_confirmation
                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                          : "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          : "shadow-sm focus:ring-cyan-500 focus:border-cyan-500 block w-full sm:text-sm border-gray-300 rounded-md"
                       }
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -446,7 +446,7 @@ const BuyerInformation = () => {
               </p>
               <button
                 type="submit"
-                className="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white  bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
               >
                 Continue
               </button>

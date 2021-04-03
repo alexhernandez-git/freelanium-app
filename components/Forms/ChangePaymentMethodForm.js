@@ -230,7 +230,7 @@ const ChangePaymentMethodForm = ({
                                         formik.touched.card_name &&
                                         formik.errors.card_name
                                           ? "block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md"
-                                          : "block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-cyan-500 sm:text-sm"
+                                          : "block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                                       }
                                       value={formik.values.card_name}
                                       onChange={formik.handleChange}
@@ -282,7 +282,7 @@ const ChangePaymentMethodForm = ({
                                       name="card_number"
                                       id="card_number"
                                       autoComplete="given-name"
-                                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
                                     />
                                   </div>
                                   {stripeError && (
@@ -309,7 +309,7 @@ const ChangePaymentMethodForm = ({
                               <button
                                 type="button"
                                 onClick={handleCloseAddPaymentMethod}
-                                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                               >
                                 Cancel
                               </button>
