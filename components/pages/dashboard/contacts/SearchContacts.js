@@ -13,7 +13,7 @@ const SearchContacts = ({ handleShowInviteContact }) => {
         className="relative h-full overflow-y-auto w-full"
         aria-label="Directory"
       >
-        <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+        <div className="sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
           <h3>Your contacts</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
@@ -38,7 +38,7 @@ const SearchContacts = ({ handleShowInviteContact }) => {
           )}
         </ul>
 
-        <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+        <div className="sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
           <h3>Contacts available</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
@@ -62,7 +62,7 @@ const SearchContacts = ({ handleShowInviteContact }) => {
             </span>
           )}
         </ul>
-        <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+        <div className="sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
           <h3>Can't find your contact?</h3>
         </div>
         <ul className="relative z-0 divide-y divide-gray-200">
