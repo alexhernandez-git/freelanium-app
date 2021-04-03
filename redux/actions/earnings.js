@@ -78,6 +78,7 @@ export const withdrawFounds = (
       await handleCloseWithdrawFunds();
     })
     .catch(async (err) => {
+      dispatch(createAlert("ERROR", "Withrawn error, please contact us"));
       await dispatch({
         type: WITHDRAW_FUNDS_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
