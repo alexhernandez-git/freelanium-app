@@ -86,9 +86,10 @@ import {
   REMOVE_ACCOUNT,
   REMOVE_ACCOUNT_SUCCESS,
   REMOVE_ACCOUNT_FAIL,
+  LEAVE_FEEDBACK,
+  LEAVE_FEEDBACK_SUCCESS,
+  LEAVE_FEEDBACK_FAIL,
 } from "../types";
-
-import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   currency: process.browser && localStorage.getItem("currency"),
@@ -148,6 +149,8 @@ const initialState = {
   paypal_connect_error: null,
   removing_account: false,
   remove_account_error: null,
+  leaving_feedback: false,
+  leave_feedback_error: null,
 };
 export default function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -749,6 +752,24 @@ export default function AuthReducer(state = initialState, action) {
         ...state,
         removing_account: false,
         remove_account_error: action.payload,
+      };
+    case LEAVE_FEEDBACK:
+      return {
+        ...state,
+        leaving_feedback: true,
+      };
+    case LEAVE_FEEDBACK_SUCCESS:
+      return {
+        ...state,
+        user: null,
+        leaving_feedback: false,
+        leave_feedback_error: null,
+      };
+    case LEAVE_FEEDBACK_FAIL:
+      return {
+        ...state,
+        leaving_feedback: false,
+        leave_feedback_error: action.payload,
       };
     default:
       return state;

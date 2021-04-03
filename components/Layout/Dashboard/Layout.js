@@ -1,11 +1,13 @@
 import { useAlert } from "hooks/useAlert";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendVerificationEmail } from "redux/actions/auth";
 import { createAlert } from "redux/actions/alerts";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
+import LeaveFeedbackModal from "./LeaveFeedbackModal";
+import useOutsideClick from "hooks/useOutsideClick";
 
 const Layout = ({
   children,
@@ -26,6 +28,18 @@ const Layout = ({
   };
   const authReducer = useSelector((state) => state.authReducer);
   const { user } = authReducer;
+  const [leaveFeedback, setLeaveFeedback] = useState(false);
+  const handleOpenLeaveFeedback = () => {
+    setLeaveFeedback(true);
+  };
+  const handleCloseLeaveFeedback = () => {
+    if (leaveFeedback) {
+      setLeaveFeedback(false);
+    }
+  };
+  const leaveFeedbackRef = useRef();
+
+  useOutsideClick(leaveFeedbackRef, () => handleCloseLeaveFeedback());
   return (
     <>
       {alert}
@@ -140,6 +154,38 @@ const Layout = ({
         </div>
       </div>
       {/* <Footer /> */}
+      <div className="">
+        <div
+          className="z-30 fixed inset-0 flex items-end justify-end px-4 py-6 pointer-events-none sm:p-6 cursor-pointer"
+          onClick={handleOpenLeaveFeedback}
+        >
+          <div className="max-w-sm w-56 bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div className="p-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 w-10 h-10">
+                  <img
+                    src="../../static/images/freelanium_logo.png"
+                    className="w-full"
+                  />
+                </div>
+                <div className="w-0 flex-1 ml-4">
+                  <p className="text-lg font-bold text-cyan-500">
+                    Leave feedback
+                  </p>
+                  {/* <p className="mt-1 text-sm text-gray-500">
+                  Anyone with a link can now view this file.
+                </p> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <LeaveFeedbackModal
+        leaveFeedback={leaveFeedback}
+        leaveFeedbackRef={leaveFeedbackRef}
+        handleCloseLeaveFeedback={handleCloseLeaveFeedback}
+      />
     </>
   );
 };

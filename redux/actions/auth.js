@@ -85,6 +85,9 @@ import {
   REMOVE_ACCOUNT,
   REMOVE_ACCOUNT_SUCCESS,
   REMOVE_ACCOUNT_FAIL,
+  LEAVE_FEEDBACK,
+  LEAVE_FEEDBACK_SUCCESS,
+  LEAVE_FEEDBACK_FAIL,
 } from "../types";
 import { createAlert } from "./alerts";
 
@@ -887,6 +890,41 @@ export const removeAccount = (router) => async (dispatch, getState) => {
     .catch(async (err) => {
       await dispatch({
         type: REMOVE_ACCOUNT_FAIL,
+        payload: { data: err.response?.data, status: err.response?.status },
+      });
+    });
+};
+
+export const sendFeedback = (
+  data,
+  resetForm,
+  handleCloseLeaveFeedback
+) => async (dispatch, getState) => {
+  dispatch({
+    type: LEAVE_FEEDBACK,
+  });
+  await axios
+    .post(
+      `${process.env.HOST}/api/users/leave_feedback/`,
+      data,
+      tokenConfig(getState)
+    )
+    .then(async (res) => {
+      await dispatch({
+        type: LEAVE_FEEDBACK_SUCCESS,
+        payload: res.data,
+      });
+      resetForm({});
+      handleCloseLeaveFeedback();
+      await dispatch(createAlert("SUCCESS", "Feedback succesfully sent!"));
+    })
+    .catch(async (err) => {
+      await dispatch(
+        createAlert("ERROR", "Error sending email, try again later")
+      );
+
+      await dispatch({
+        type: LEAVE_FEEDBACK_FAIL,
         payload: { data: err.response?.data, status: err.response?.status },
       });
     });
