@@ -100,7 +100,7 @@ const OrderTabsRow = ({ order }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <span
-          class={
+          className={
             "px-2 inline-flex text-xs leading-5 font-semibold rounded-full " +
             getStatusColor()
           }
