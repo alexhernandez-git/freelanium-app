@@ -252,7 +252,7 @@ const features = () => {
           <div class="relative mt-12 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
             <div class="relative">
               <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
-                Charge optons
+                Charge options
               </h3>
               <p class="mt-3 text-lg text-gray-500">
                 Freelanium provides 4 charging options to suit any scenario:
