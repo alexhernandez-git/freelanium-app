@@ -215,8 +215,9 @@ const index = () => {
                       Charge options
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      3 options for charge your customers, the normal, the two
-                      payments, and the recurrent.
+                      4 options for charge your customers, the one payment, the
+                      holding payment, the two payments, and the recurrent
+                      order.
                     </dd>
                   </div>
                 </div>

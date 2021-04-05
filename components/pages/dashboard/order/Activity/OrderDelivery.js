@@ -105,7 +105,10 @@ const OrderDelivery = ({ ac, chat = false }) => {
     handleCloseAcceptTwoPaymentsOrder()
   );
   const handleAcceptDelivery = () => {
-    if (activity?.delivery?.order?.type === "NO") {
+    if (
+      activity?.delivery?.order?.type === "OP" ||
+      activity?.delivery?.order?.type === "HO"
+    ) {
       dispatch(
         acceptDelviery(activity?.delivery?.order?.id, activity?.delivery?.id)
       );

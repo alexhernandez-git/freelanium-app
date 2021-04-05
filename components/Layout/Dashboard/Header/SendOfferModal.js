@@ -24,7 +24,7 @@ const SendOfferModal = ({
       unit_amount: "",
       delivery_time: null,
       first_payment: null,
-      type: "NO",
+      type: "OP",
       interval_subscription: "MO",
     },
     validationSchema: Yup.object({
@@ -46,7 +46,15 @@ const SendOfferModal = ({
       delivery_time: Yup.number()
         .nullable()
         .when("type", {
-          is: "NO",
+          is: "OP",
+          then: Yup.number()
+            .typeError("Delivery time must be a number")
+            .positive("Delivery time must be greater than zero")
+
+            .required("Delivery time is required"),
+        })
+        .when("type", {
+          is: "HO",
           then: Yup.number()
             .typeError("Delivery time must be a number")
             .positive("Delivery time must be greater than zero")
@@ -400,7 +408,8 @@ const SendOfferModal = ({
                       onBlur={formik.handleBlur}
                       value={formik.values.type}
                     >
-                      <option value="NO">Normal order</option>
+                      <option value="OP">One payment order</option>
+                      <option value="HO">Holding payment order</option>
                       <option value="TP">Two payments order</option>
                       <option value="RO">Recurrent subscription order</option>
                     </select>
@@ -471,7 +480,8 @@ const SendOfferModal = ({
                     )}
                   </div>
                 </div>
-                {(formik.values.type === "NO" ||
+                {(formik.values.type === "HO" ||
+                  formik.values.type === "OP" ||
                   formik.values.type === "TP") && (
                   <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-gray-200">
                     <label

@@ -66,14 +66,22 @@ const OfferActivity = ({ ac, chat = false }) => {
   useEffect(() => {
     if (activity?.offer?.type) {
       switch (activity?.offer?.type) {
-        case "NO":
-          setOfferType("Normal order");
+        case "OP":
+          setOfferType("One payment order");
+          break;
+        case "HO":
+          setOfferType("Holding payment order");
+          break;
+
           break;
         case "TP":
           setOfferType("Two payments order");
           break;
+
+          break;
         case "RO":
           setOfferType("Recurrent order");
+          break;
 
           break;
       }

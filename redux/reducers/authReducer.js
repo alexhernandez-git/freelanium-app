@@ -236,7 +236,6 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         coupon_available_loading: false,
-
         coupon_available: action.payload.coupon,
         coupon_available_error: null,
       };

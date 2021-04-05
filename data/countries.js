@@ -653,7 +653,7 @@ export default [
   },
   {
     country: "Norway",
-    abbreviation: "NO",
+    abbreviation: "HO",
   },
   {
     country: "Oman",
