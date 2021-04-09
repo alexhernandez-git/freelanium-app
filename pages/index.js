@@ -153,8 +153,7 @@ const index = () => {
                       No hidden fees
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      0% commissions on all your orders, only 5% + $0.3 USD
-                      transaction costs.
+                      0% commissions on all your orders.
                     </dd>
                   </div>
                 </div>
