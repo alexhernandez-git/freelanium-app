@@ -55,13 +55,9 @@ const RegisterLayout = ({ isSeller, token }) => {
                 </p>
               ) : (
                 <>
-                  <p className="mt-8 text-sm text-white uppercase tracking-wide font-normal sm:mt-10">
-                    <span className="font-bold">Only 5% + $0.3 USD</span>{" "}
-                    TRANSACTION COSTS
-                  </p>
                   <p className="mt-2 text-sm text-white uppercase tracking-wide font-normal">
-                    And <span className="font-bold">free dashboard</span> to
-                    manage your orders
+                    <span className="font-bold">Free dashboard</span> to manage
+                    your orders
                   </p>
                 </>
               )}
