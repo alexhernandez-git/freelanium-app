@@ -120,10 +120,11 @@ const index = () => {
                   </div>
                   <div className="ml-4">
                     <dt className="text-lg leading-6 font-medium text-gray-900">
-                      World wide
+                      Messages
                     </dt>
                     <dd className="mt-2 text-base text-gray-500">
-                      Charge your clients from all over the world.
+                      Chat glues dealmaking tools together and enables an
+                      unprecedented level of commercial collaboration.
                     </dd>
                   </div>
                 </div>
